@@ -1,5 +1,18 @@
+<template>
+  <ul ref="ul" class="vue-select-dropdown" style="outline: none;">
+    <template v-for="option of options">
+      <li class="vue-select-dropdown-item" @click="handleClick(option)" :selected="hasSelected(option)">
+        {{ option }}
+      </li>
+    </template>
+  </ul>
+</template>
+
+<script>
+import { ref } from 'vue'
+
 export default {
-  name: 'v-multiple-select',
+  name: 'vue-select-dropdown',
   props: {
     modelValue: {
       required: true,
@@ -27,6 +40,7 @@ export default {
     },
   },
   setup(props, context) {
+    const ul = ref(null)
     const handleClick = option => {
       if (props.isMultiple) {
         if (hasSelected(option)) {
@@ -64,11 +78,7 @@ export default {
     }
 
     const hasSelected = option => {
-      if (props.isMultiple) {
-        return props.modelValue.some(_option => isSame(option, _option))
-      } else {
-        return isSame(props.modelValue, option)
-      }
+      return props.modelValue.some(_option => isSame(option, _option))
     }
 
     const isSame = (option1, option2) => {
@@ -77,15 +87,8 @@ export default {
 
     return {
       handleClick,
+      hasSelected,
     }
   },
-  template: `
-    <ul>
-      <template v-for="option of options">
-        <li
-          @click="handleClick(option)"
-        >{{ option }}</li>
-      </template>
-    </ul>
-  `,
 }
+</script>

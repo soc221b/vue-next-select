@@ -13,3 +13,7 @@ export function createDocument() {
     document: window.document,
   }
 }
+
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}

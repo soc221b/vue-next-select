@@ -1,7 +1,7 @@
 {
   "name": "vue-next-select",
   "version": "0.0.1",
-  "description": "",
+  "description": "The complete selecting solution for Vue.js 3.x",
   "main": "dist/vue-select.cjs.prod.js",
   "umd:main": "dist/vue-select.umd.prod.js",
   "unpkg": "dist/vue-select.umd.prod.js",
@@ -10,41 +10,54 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iendeavor/vue-select.git"
+    "url": "git+https://github.com/iendeavor/vue-next-select.git"
   },
   "bugs": {
-    "url": "https://github.com/iendeavor/vue-select/issues"
+    "url": "https://github.com/iendeavor/vue-next-select/issues"
   },
-  "homepage": "https://github.com/iendeavor/vue-select#readme",
+  "homepage": "https://github.com/iendeavor/vue-next-select#readme",
   "author": "Ernest <iattempt.net@gmail.com>",
   "license": "MIT",
   "keywords": [
-    "clone",
-    "easy-to-use",
-    "proxy"
+    "select",
+    "multipleselect",
+    "async",
+    "dropdown",
+    "vue",
+    "vue3",
+    "vue-next"
   ],
   "scripts": {
     "build": "rollup --config",
     "dev": "rollup --config --watch",
-    "test": "jest --clearCache && jest --all",
-    "lint": "prettier *.js *.md src/**/*.ts test/**/*.ts"
+    "test": "jest --clearCache && jest test/**/*",
+    "lint": "prettier *.js *.md *.html src/**/*.vue test/**/*.ts"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.10.4",
+    "@popperjs/core": "^2.4.4",
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@types/jest": "^25.2.1",
+    "@vue/compiler-sfc": "^3.0.0-rc.4",
     "@vue/test-utils": "^2.0.0-beta.0",
+    "babel-jest": "^26.1.0",
+    "csso": "^4.0.3",
     "husky": "^4.2.5",
     "jest": "^25.5.4",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.7.6",
+    "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-pug": "^1.1.1",
     "rollup-plugin-terser": "^5.3.0",
-    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-vue": "^6.0.0-beta.9",
     "ts-jest": "^25.4.0",
     "tslib": "^2.0.0",
-    "typescript": "^3.8.3",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
     "vue": "^3.0.0-rc.4"
   },
   "husky": {
@@ -53,6 +66,7 @@
     }
   },
   "dependencies": {
-    "@popperjs/core": "^2.4.4"
+    "global": "^4.4.0",
+    "vue": "^3.0.0-rc.4"
   }
 }

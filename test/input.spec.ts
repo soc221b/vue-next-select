@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
-import VueSelect from '../src/index'
+import VueSelect from '../dist/vue-select.es'
 
 it('has default placeholder', async () => {
   const state = reactive({
@@ -25,7 +25,8 @@ it('has default placeholder', async () => {
   }
   const wrapper = mount(app)
 
-  expect(wrapper.find('input').attributes('placeholder')).not.toBe(undefined)
+  expect(wrapper.find('.vue-select-input')).toBeDefined()
+  expect(wrapper.find('.vue-select-input').attributes('placeholder')).not.toBe(undefined)
 })
 
 it('should use custom placeholder', async () => {
@@ -52,5 +53,5 @@ it('should use custom placeholder', async () => {
   }
   const wrapper = mount(app)
 
-  expect(wrapper.find('input').attributes('placeholder')).toBe('Click me to show all options')
+  expect(wrapper.find('.vue-select-input').attributes('placeholder')).toBe('Click me to show all options')
 })
