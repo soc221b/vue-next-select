@@ -3,7 +3,7 @@ const { reactive, ref, watch, createApp } = Vue
 const app = createApp({
   name: 'app',
   setup() {
-    const selectedOptions = ref(['I'])
+    const selectedOptions = ref('')
     const originalOptions = ['I', 'Love', 'Vue']
     const options = ref([...originalOptions])
     const isLoading = ref(false)
@@ -14,14 +14,17 @@ const app = createApp({
       options.value = originalOptions.filter(option => inputRe.test(option))
       isLoading.value = false
     }
+    const allowEmpty = ref(false)
     return {
       selectedOptions,
       options,
       isLoading,
       filter,
+      allowEmpty,
     }
   },
   template: `
+  <button style="margin:50px 0; display:block;" @click="options.push('test')">addOption test</button>
   <vue-select
     v-model="selectedOptions"
     :options="options"
@@ -30,8 +33,10 @@ const app = createApp({
     :min-length="1"
     :max-length="2"
     close-on-select
+    :allowEmpty="allowEmpty"
     @search-input="filter"
   ></vue-select>
+ 
   `,
 })
 

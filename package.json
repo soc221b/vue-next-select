@@ -31,7 +31,7 @@
     "build": "rollup --config",
     "dev": "rollup --config --watch",
     "test": "jest --clearCache && jest test/**/*",
-    "lint": "prettier *.js *.md *.html src/**/*.vue test/**/*.ts"
+    "lint": "prettier *.js src/**/*.vue test/**/*.ts"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
@@ -62,7 +62,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "git diff --exit-code && git diff --staged --exit-code && yarn lint && yarn test"
+      "pre-push": "git diff --exit-code && git diff --staged --exit-code && yarn lint --no-verify"
     }
   },
   "dependencies": {

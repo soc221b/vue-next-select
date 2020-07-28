@@ -1,76 +1,79 @@
 <template>
   <div
-    ref="wrapper"
-    class="vue-select"
+    ref="wrapperRef"
+    class="vs__wrapper"
+    :class="{ 'vs-active': isOptionOpen }"
+    tabindex="0"
+    @focus="toggleDropdown(true)"
+    @blur="toggleDropdown(false)"
   >
-    <v-input
-      ref="input"
-      v-model="searchingInputValue"
-      :isOpen="isOpen"
-      :isDisabled="isDisabled"
-      :isLoading="isLoading"
-      :placeholder="placeholder"
-      @input="handleInputForInput"
-      @change="handleChangeForInput"
-      @focus="handleFocusForInput"
-      @blur="handleBlurForInput"
-      @escape="handleEscapeForInput"
-    ></v-input>
+    <div class="vs__input">
+      <div class="vs__input__placeholder" v-if="!selectedlabels.length">{{ placeholder }}&nbsp;</div>
+      <template v-for="value in selectedlabels">
+        <div :key="value">{{ value }}</div>
+      </template>
+    </div>
 
-    <v-dropdown
-      v-show="isOpen"
-      v-model="multipleSelectValue"
-      :options="options"
-      :canBeEmpty="canBeEmpty"
-      :isMultiple="isMultiple"
-      :minLength="minLength"
-      :maxLength="maxLength"
-      @open="handleOpenForDropdown"
-      @close="handleCloseForDropdown"
-      @select="handleSelectForDropdown"
-      @remove="handleRemoveForDropdown"
-    ></v-dropdown>
+    <div ref="dropdownRef" class="vs__dropdown" v-show="isOptionOpen">
+      <template v-for="option in options">
+        <div
+          :key="option"
+          class="vs__dropdown__option"
+          @click="optionSelectHandler(option)"
+          :class="{
+            'vs__dropdown__option-active': isOptionSelected(option),
+          }"
+        >
+          {{ option }} {{ isOptionSelected(option) }}
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
-import { default as VInput } from './components/input.vue'
-import { default as VDropdown } from './components/dropdown.vue'
+import { ref, watch, onMounted, onUnmounted, reactive, computed, watchEffect, onUpdated } from 'vue'
+import { createPopper } from '@popperjs/core'
+// import VInput from './components/input.vue'
+// import VDropdown from './components/dropdown/index.vue'
 
 export default {
   name: 'vue-select',
   inheritAttrs: false,
+  // components: {
+  //   VInput,
+  //   VDropdown,
+  // },
   props: {
     modelValue: {
       required: true,
     },
+    label: {
+      type: String,
+    },
     options: {
-      required: true,
       type: Array,
+      validator: arr => Array.isArray(arr),
     },
-    canBeEmpty: {
+
+    allowEmpty: {
       default: false,
       type: Boolean,
     },
-    isMultiple: {
+    multi: {
       default: false,
       type: Boolean,
     },
-    minLength: {
-      default: 0,
-      type: Number,
-    },
-    maxLength: {
-      default: Infinity,
-      type: Number,
+    searchable: {
+      default: false,
+      type: Boolean,
     },
     closeOnSelect: {
       default: false,
       type: Boolean,
     },
 
-    isDisabled: {
+    disabled: {
       default: false,
       type: Boolean,
     },
@@ -82,103 +85,155 @@ export default {
       default: 'Select option',
       type: String,
     },
+    trackBy: {},
   },
   setup(props, context) {
-    const wrapper = ref(null)
-    const input = ref(null)
-    const isOpen = ref(false)
-    const handleEscapeForInput = event => {
-      isOpen.value = false
+    const isOptionOpen = ref(false)
+    const toggleDropdown = isOpen => {
+      isOptionOpen.value = isOpen
     }
-    const handleClickForWindow = event => {
-      if (!event) return
-      if (!event.target) return
 
-      let el = event.target
-      while (el) {
-        if (el === wrapper.value) {
-          isOpen.value = true
-          input.value._.refs.input.focus()
-          return
-        }
-        el = el.parentElement
+    const selectedOptions = ref([])
+    const selectedlabels = computed(() => {
+      if (!props.label) return selectedOptions.value
+      return selectedOptions.value.map(node => node[props.label] || node)
+    })
+    const optionSelectHandler = option => {
+      if (!props.multi) {
+        selectedOptions.value[0] = option
+        context.emit('update:modelValue', selectedOptions.value[0])
+      } else {
+        selectedOptions.value.push(option)
+        context.emit('update:modelValue', selectedOptions.value)
       }
-      isOpen.value = false
     }
+    const isOptionSelected = option => {
+      if (!selectedOptions.value.length) return false
+      if (typeof option === 'object') {
+        return
+      } else {
+        return selectedOptions.value.some(node => node === option)
+      }
+    }
+
+    const wrapperRef = ref(null)
+    const dropdownRef = ref(null)
+    let popperInstance = null
     onMounted(() => {
-      window.addEventListener('click', handleClickForWindow)
-    })
-    onUnmounted(() => {
-      window.removeEventListener('click', handleClickForWindow)
+      popperInstance = createPopper(wrapperRef.value, dropdownRef.value, {
+        placement: 'bottom',
+      })
     })
 
-    const searchingInputValue = ref('')
-    const handleInputForInput = event => {
-      searchingInputValue.value = event.target.value
-      context.emit('search-input', event)
-    }
-    const handleChangeForInput = event => {
-      searchingInputValue.value = event.target.value
-      context.emit('search-change', event)
-    }
-    const handleFocusForInput = event => {
-      context.emit('focus', event)
-    }
-    const handleBlurForInput = event => {
-      context.emit('blur', event)
-    }
-
-    const multipleSelectValue = ref(props.isMultiple ? [...props.modelValue] : [props.modelValue])
-    const handleOpenForDropdown = event => {
-      context.emit('open', event)
-    }
-    const handleCloseForDropdown = event => {
-      context.emit('close', event)
-    }
-    const handleSelectForDropdown = option => {
-      context.emit('select', option)
-    }
-    const handleRemoveForDropdown = option => {
-      context.emit('remove', option)
-    }
-    watch(
-      () => multipleSelectValue,
-      () => {
-        if (props.isMultiple) {
-          context.emit('update:modelValue', [...multipleSelectValue.value])
-        } else {
-          if (multipleSelectValue.value.length) {
-            context.emit('update:modelValue', multipleSelectValue.value[0])
-          } else {
-            context.emit('update:modelValue', null)
-          }
-        }
-      },
-      { deep: true },
-    )
+    onUpdated(() => {
+      popperInstance && popperInstance.update()
+    })
 
     return {
-      isOpen,
-      input,
-      wrapper,
-      handleEscapeForInput,
+      // used to contorl if options been shown
+      isOptionOpen,
+      toggleDropdown,
 
-      searchingInputValue,
-      handleInputForInput,
-      handleChangeForInput,
-      handleFocusForInput,
-      handleBlurForInput,
+      // do action when option was clicked
+      selectedlabels,
+      optionSelectHandler,
+      isOptionSelected,
 
-      multipleSelectValue,
-      handleOpenForDropdown,
-      handleCloseForDropdown,
-      handleSelectForDropdown,
-      handleRemoveForDropdown,
+      wrapperRef,
+      dropdownRef,
+
+      track: props.track,
+      placeholder: props.placeholder,
     }
-  },
-  components: {
-    VInput,
-    VDropdown,
+    // const selectEl = ref(null)
+    // const handleClickForWindow = event => {
+    //   if (!event || !event.target) return
+    //   let el = event.target
+    //   while (el) {
+    //     if (el === selectEl) {
+    //       state.isOpen = true
+    //       input.value._.refs.input.focus()
+    //       return
+    //     }
+    //     el = el.parentElement
+    //   }
+    //   state.isOpen = false
+    // }
+    //   const onWindowClick = event => {
+    //   state.isOpen = false
+    // }
+
+    // const test  = _.optionHandler(props)
+    // onMounted(() => {
+    //   console.log(props);
+    //   window.addEventListener('click', handleClickForWindow)
+    // })
+    // onUnmounted(() => {
+    //   window.removeEventListener('click', handleClickForWindow)
+    // })
+
+    // const searchingInputValue = ref('')
+    // const handleInputForInput = event => {
+    //   searchingInputValue.value = event.target.value
+    //   context.emit('search-input', event)
+    // }
+    // const handleChangeForInput = event => {
+    //   searchingInputValue.value = event.target.value
+    //   context.emit('search-change', event)
+    // }
+    // const handleFocusForInput = event => {
+    //   context.emit('focus', event)
+    // }
+    // const handleBlurForInput = event => {
+    //   context.emit('blur', event)
+    // }
+
+    // const multipleSelectValue = ref(props.isMultiple ? [...props.modelValue] : [props.modelValue])
+    // const handleOpenForDropdown = event => {
+    //   context.emit('open', event)
+    // }
+    // const handleCloseForDropdown = event => {
+    //   context.emit('close', event)
+    // }
+    // const handleSelectForDropdown = option => {
+    //   context.emit('select', option)
+    // }
+    // const handleRemoveForDropdown = option => {
+    //   context.emit('remove', option)
+    // }
+    // watch(
+    //   () => multipleSelectValue,
+    //   () => {
+    //     if (props.isMultiple) {
+    //       context.emit('update:modelValue', [...multipleSelectValue.value])
+    //     } else {
+    //       if (multipleSelectValue.value.length) {
+    //         context.emit('update:modelValue', multipleSelectValue.value[0])
+    //       } else {
+    //         context.emit('update:modelValue', null)
+    //       }
+    //     }
+    //   },
+    //   { deep: true },
+    // )
+
+    // return {
+    //   ...state,
+    //   selectEl,
+    //   // handleEscapeForInput,
+
+    //   // searchingInputValue,
+    //   // handleInputForInput,
+    //   // handleChangeForInput,
+    //   // handleFocusForInput,
+    //   // handleBlurForInput,
+
+    //   // multipleSelectValue,
+    //   // handleOpenForDropdown,
+    //   // handleCloseForDropdown,
+    //   // handleSelectForDropdown,
+    //   // handleRemoveForDropdown,
+    // }
   },
 }
 </script>
