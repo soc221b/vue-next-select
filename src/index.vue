@@ -25,12 +25,19 @@
         {{ placeholder }}
       </div>
 
-      <span v-if="isLoading" class="vue-select-dropdown-loading">
-        <div></div>
-        <div></div>
-        <div></div>
-      </span>
-      <span v-else class="vue-select-dropdown-icon" :class="{ active: isOpen }"></span>
+      <slot name="append" :scope="{ isOpen, isLoading }">
+        <span v-if="isLoading" class="vue-select-dropdown-loading">
+          <div></div>
+          <div></div>
+          <div></div>
+        </span>
+        <span
+          v-else
+          class="vue-select-dropdown-icon"
+          :class="{ active: isOpen }"
+          @click="close"
+        ></span>
+      </slot>
     </div>
 
     <v-dropdown
@@ -59,7 +66,7 @@
 </template>
 
 <script>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { default as VInput } from './components/input.vue'
 import { default as VDropdown } from './components/dropdown.vue'
 
@@ -157,6 +164,13 @@ export default {
     onUnmounted(() => {
       window.removeEventListener('click', handleClickForWindow)
     })
+    const close = () => {
+      if (isOpen.value) {
+        setTimeout(() => {
+          isOpen.value = false
+        })
+      }
+    }
 
     const searchingInputValue = ref('')
     const handleInputForInput = event => {
@@ -231,6 +245,7 @@ export default {
       input,
       wrapper,
       handleEscapeForInput,
+      close,
 
       searchingInputValue,
       handleInputForInput,
