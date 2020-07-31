@@ -49,6 +49,7 @@
       @close="handleCloseForDropdown"
       @select="handleSelectForDropdown"
       @remove="handleRemoveForDropdown"
+      class="vue-select-dropdown"
     >
       <template #label="{ scope }">
         <slot name="label" :scope="scope"></slot>

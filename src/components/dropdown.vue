@@ -1,5 +1,5 @@
 <template>
-  <ul ref="ul" class="vue-select-dropdown" style="outline: none;">
+  <ul ref="ul">
     <template v-for="(option, index) of visibleOptions">
       <li
         :key="trackBy(option)"
