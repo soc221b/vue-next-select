@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { default as VInput } from './components/input.vue'
 import { default as VDropdown } from './components/dropdown.vue'
 
