@@ -1,7 +1,7 @@
 <template>
   <ul ref="ul" class="vue-select-dropdown" style="outline: none;">
     <template v-for="option of options">
-      <li class="vue-select-dropdown-item" @click="handleClick(option)" :selected="hasSelected(option)">
+      <li :key="trackBy(option)" class="vue-select-dropdown-item" @click="handleClick(option)" :selected="hasSelected(option)">
         {{ option }}
       </li>
     </template>
@@ -38,6 +38,10 @@ export default {
       required: true,
       type: Number,
     },
+    trackBy: {
+      required: true,
+      type: Function,
+    }
   },
   setup(props, context) {
     const ul = ref(null)

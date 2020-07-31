@@ -25,6 +25,7 @@
       :isMultiple="isMultiple"
       :minLength="minLength"
       :maxLength="maxLength"
+      :track-by="trackBy"
       @open="handleOpenForDropdown"
       @close="handleCloseForDropdown"
       @select="handleSelectForDropdown"
@@ -68,6 +69,9 @@ export default {
     closeOnSelect: {
       default: false,
       type: Boolean,
+    },
+    trackBy: {
+      type: [String, Function],
     },
 
     isDisabled: {
@@ -156,6 +160,11 @@ export default {
       },
       { deep: true },
     )
+    const trackBy = typeof props.trackBy === 'function'
+      ? props.trackBy
+      : typeof props.trackBy === 'string'
+        ? (option) => trackBy.split('.').reduce((value, key) => value[key], option)
+        : (option) => option
 
     return {
       isOpen,
@@ -174,6 +183,7 @@ export default {
       handleCloseForDropdown,
       handleSelectForDropdown,
       handleRemoveForDropdown,
+      trackBy,
     }
   },
   components: {
