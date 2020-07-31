@@ -6,6 +6,9 @@
     <div
       class="vue-select"
     >
+      <slot name="prepend" :scope="{ isOpen, isLoading }">
+      </slot>
+
       <v-input
         v-if="searchable"
         ref="input"
