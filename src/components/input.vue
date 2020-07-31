@@ -12,12 +12,6 @@
       @blur="handleBlur"
       @keyup.esc.exact="handleEscape"
     />
-    <span v-if="isLoading" class="vue-select-dropdown-loading">
-      <div></div>
-      <div></div>
-      <div></div>
-    </span>
-    <span v-else class="vue-select-dropdown-icon" :class="{ active: isOpen }"></span>
   </div>
 </template>
 
@@ -37,14 +31,6 @@ export default {
       type: String,
     },
     isDisabled: {
-      required: true,
-      type: Boolean,
-    },
-    isLoading: {
-      required: true,
-      type: Boolean,
-    },
-    isOpen: {
       required: true,
       type: Boolean,
     },

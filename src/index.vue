@@ -1,36 +1,59 @@
 <template>
   <div
     ref="wrapper"
-    class="vue-select"
+    class="vue-select-wrapper"
   >
-    <v-input
-      ref="input"
-      v-model="searchingInputValue"
-      :isOpen="isOpen"
-      :isDisabled="isDisabled"
-      :isLoading="isLoading"
-      :placeholder="placeholder"
-      @input="handleInputForInput"
-      @change="handleChangeForInput"
-      @focus="handleFocusForInput"
-      @blur="handleBlurForInput"
-      @escape="handleEscapeForInput"
-    ></v-input>
+    <div
+      class="vue-select"
+    >
+      <v-input
+        v-if="searchable"
+        ref="input"
+        v-model="searchingInputValue"
+        :isDisabled="isDisabled"
+        :placeholder="placeholder"
+        @input="handleInputForInput"
+        @change="handleChangeForInput"
+        @focus="handleFocusForInput"
+        @blur="handleBlurForInput"
+        @escape="handleEscapeForInput"
+      ></v-input>
+      <div
+        v-else
+        ref="input"
+      >
+        {{ placeholder }}
+      </div>
+
+      <span v-if="isLoading" class="vue-select-dropdown-loading">
+        <div></div>
+        <div></div>
+        <div></div>
+      </span>
+      <span v-else class="vue-select-dropdown-icon" :class="{ active: isOpen }"></span>
+    </div>
 
     <v-dropdown
       v-show="isOpen"
       v-model="multipleSelectValue"
       :options="options"
-      :canBeEmpty="canBeEmpty"
-      :isMultiple="isMultiple"
-      :minLength="minLength"
-      :maxLength="maxLength"
+      :allow-empty="allowEmpty"
+      :multiple="multiple"
+      :min="min"
+      :max="max"
       :track-by="trackBy"
+      :label-by="labelBy"
+      :value-by="valueBy"
+      :hide-selected="hideSelected"
       @open="handleOpenForDropdown"
       @close="handleCloseForDropdown"
       @select="handleSelectForDropdown"
       @remove="handleRemoveForDropdown"
-    ></v-dropdown>
+    >
+      <template #label="{ scope }">
+        <slot name="label" :scope="scope"></slot>
+      </template>
+    </v-dropdown>
   </div>
 </template>
 
@@ -50,19 +73,19 @@ export default {
       required: true,
       type: Array,
     },
-    canBeEmpty: {
+    allowEmpty: {
       default: false,
       type: Boolean,
     },
-    isMultiple: {
+    multiple: {
       default: false,
       type: Boolean,
     },
-    minLength: {
+    min: {
       default: 0,
       type: Number,
     },
-    maxLength: {
+    max: {
       default: Infinity,
       type: Number,
     },
@@ -71,6 +94,16 @@ export default {
       type: Boolean,
     },
     trackBy: {
+      type: [String, Function],
+    },
+    hideSelected: {
+      default: false,
+      type: Boolean,
+    },
+    labelBy: {
+      type: [String, Function],
+    },
+    valueBy: {
       type: [String, Function],
     },
 
@@ -85,6 +118,14 @@ export default {
     placeholder: {
       default: 'Select option',
       type: String,
+    },
+    searchable: {
+      default: false,
+      type: Boolean,
+    },
+    clearOnSelect: {
+      default: false,
+      type: Boolean,
     },
   },
   setup(props, context) {
@@ -102,7 +143,7 @@ export default {
       while (el) {
         if (el === wrapper.value) {
           isOpen.value = true
-          input.value._.refs.input.focus()
+          if (input.value._) input.value._.refs.input.focus()
           return
         }
         el = el.parentElement
@@ -132,7 +173,7 @@ export default {
       context.emit('blur', event)
     }
 
-    const multipleSelectValue = ref(props.isMultiple ? [...props.modelValue] : [props.modelValue])
+    const multipleSelectValue = ref(props.multiple ? [...props.modelValue] : [props.modelValue])
     const handleOpenForDropdown = event => {
       context.emit('open', event)
     }
@@ -141,6 +182,12 @@ export default {
     }
     const handleSelectForDropdown = option => {
       context.emit('select', option)
+      if (props.clearOnSelect) {
+        searchingInputValue.value = ''
+      }
+      if (props.closeOnSelect) {
+        isOpen.value = false
+      }
     }
     const handleRemoveForDropdown = option => {
       context.emit('remove', option)
@@ -148,7 +195,7 @@ export default {
     watch(
       () => multipleSelectValue,
       () => {
-        if (props.isMultiple) {
+        if (props.multiple) {
           context.emit('update:modelValue', [...multipleSelectValue.value])
         } else {
           if (multipleSelectValue.value.length) {
@@ -163,7 +210,19 @@ export default {
     const trackBy = typeof props.trackBy === 'function'
       ? props.trackBy
       : typeof props.trackBy === 'string'
-        ? (option) => trackBy.split('.').reduce((value, key) => value[key], option)
+        ? (option) => props.trackBy.split('.').reduce((value, key) => value[key], option)
+        : (option) => option
+
+    const labelBy = typeof props.labelBy === 'function'
+      ? props.labelBy
+      : typeof props.labelBy === 'string'
+        ? (option) => props.labelBy.split('.').reduce((value, key) => value[key], option)
+        : (option) => option
+
+    const valueBy = typeof props.valueBy === 'function'
+      ? props.valueBy
+      : typeof props.valueBy === 'string'
+        ? (option) => props.valueBy.split('.').reduce((value, key) => value[key], option)
         : (option) => option
 
     return {
@@ -184,6 +243,8 @@ export default {
       handleSelectForDropdown,
       handleRemoveForDropdown,
       trackBy,
+      labelBy,
+      valueBy,
     }
   },
   components: {

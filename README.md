@@ -59,7 +59,7 @@ app.mount(document.querySelector('#app'))
 ### Single Select
 
 ```html
-<vue-select v-model="selectedOptions" :options="options" can-be-empty close-on-select></vue-select>
+<vue-select v-model="selectedOptions" :options="options" allow-empty close-on-select></vue-select>
 ```
 
 ```javascript
@@ -79,14 +79,7 @@ createApp({
 ### Multiple Select
 
 ```html
-<vue-select
-  v-model="selectedOptions"
-  :options="options"
-  is-multiple
-  :min-length="1"
-  :max-length="2"
-  close-on-select
-></vue-select>
+<vue-select v-model="selectedOptions" :options="options" multiple :min="1" :max="2" close-on-select></vue-select>
 ```
 
 ```javascript
@@ -105,27 +98,27 @@ createApp({
 
 ## Props
 
-| Name                  | Type     | Default        | Description |
+| Prop                  | Type     | Default        | Description |
 | --------------------- | -------- | -------------- | ----------- |
 | v\-model / modelValue | any      | required       |             |
 | options               | Array    | required       |             |
-| canBeEmpty            | Boolean  | false          |             |
-| isMultiple            | Boolean  | false          |             |
-| minLength             | Number   | 0              |             |
-| maxLength             | Number   | Infinity       |             |
+| allowEmpty            | Boolean  | false          |             |
+| multiple              | Boolean  | false          |             |
+| min                   | Number   | 0              |             |
+| max                   | Number   | Infinity       |             |
 | isDisabled            | false    | false          |             |
 | placeholder           | String   | "Pick a value" |             |
 | search                | Function | \-             |             |
 
 ## Events
 
-| Name   | Arguments | Listener        |     |
-| ------ | --------- | --------------- | --- |
-| Select | option    | @select         |     |
-| Remove | option    | @remove         |     |
-| Open   | \-        | @open           |     |
-| Close  | \-        | @close          |     |
-| Input  | event     | @search\-input  |     |
-| Change | event     | @search\-change |     |
-| Focus  | event     | @focus          |     |
-| Blur   | event     | @blur           |     |
+| Listener        | Arguments |     |
+| --------------- | --------- | --- |
+| @select         | option    |     |
+| @remove         | option    |     |
+| @open           | \-        |     |
+| @close          | \-        |     |
+| @search\-input  | event     |     |
+| @search\-change | event     |     |
+| @focus          | event     |     |
+| @blur           | event     |     |

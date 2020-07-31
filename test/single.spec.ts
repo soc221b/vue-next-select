@@ -110,7 +110,7 @@ it('can be empty', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        can-be-empty
+        allow-empty
       ></vue-select>
     `,
   }

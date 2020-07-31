@@ -20,7 +20,7 @@ it('should select', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        is-multiple
+        multiple
       ></vue-select>
     `,
   }
@@ -54,7 +54,7 @@ it('should deselect', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        is-multiple
+        multiple
       ></vue-select>
     `,
   }
@@ -91,7 +91,7 @@ it('should not limit min length by default', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        is-multiple
+        multiple
       ></vue-select>
     `,
   }
@@ -126,8 +126,8 @@ it('should limit length by given min length', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        is-multiple
-        :min-length="1"
+        multiple
+        :min="1"
       ></vue-select>
     `,
   }
@@ -162,7 +162,7 @@ it('should not limit max length by default', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        is-multiple
+        multiple
       ></vue-select>
     `,
   }
@@ -197,8 +197,8 @@ it('should limit length by given max length', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        is-multiple
-        :max-length="2"
+        multiple
+        :max="2"
       ></vue-select>
     `,
   }

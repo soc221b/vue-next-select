@@ -1,15 +1,22 @@
 <template>
   <ul ref="ul" class="vue-select-dropdown" style="outline: none;">
-    <template v-for="option of options">
-      <li :key="trackBy(option)" class="vue-select-dropdown-item" @click="handleClick(option)" :selected="hasSelected(option)">
-        {{ option }}
+    <template v-for="(option, index) of visibleOptions">
+      <li
+        :key="trackBy(option)"
+        class="vue-select-dropdown-item"
+        @click="handleClick(option)"
+        :selected="hasSelected(option)"
+      >
+        <slot name="label" :scope="{ option, index, selected: hasSelected(option) }">
+          {{ labelBy(option, index) }}
+        </slot>
       </li>
     </template>
   </ul>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export default {
   name: 'vue-select-dropdown',
@@ -22,74 +29,99 @@ export default {
       required: true,
       type: Array,
     },
-    canBeEmpty: {
+    allowEmpty: {
       required: true,
       type: Boolean,
     },
-    isMultiple: {
+    multiple: {
       required: true,
       type: Boolean,
     },
-    minLength: {
+    min: {
       required: true,
       type: Number,
     },
-    maxLength: {
+    max: {
       required: true,
       type: Number,
     },
     trackBy: {
       required: true,
       type: Function,
-    }
+    },
+    labelBy: {
+      required: true,
+      type: Function,
+    },
+    valueBy: {
+      required: true,
+      type: Function,
+    },
+    hideSelected: {
+      required: true,
+      type: Boolean,
+    },
   },
   setup(props, context) {
     const ul = ref(null)
     const handleClick = option => {
-      if (props.isMultiple) {
+      if (props.multiple) {
         if (hasSelected(option)) {
-          if (props.modelValue.length > props.minLength) {
+          if (props.modelValue.length > props.min) {
             context.emit('remove', option)
             context.emit(
               'update:modelValue',
-              props.modelValue.filter(op => isSame(op, option) === false),
+              props.modelValue.filter(modelValue => isSame(modelValue, option) === false),
             )
           }
         } else {
-          if (props.modelValue.length < props.maxLength) {
+          if (props.modelValue.length < props.max) {
             context.emit('select', option)
-            context.emit('update:modelValue', props.modelValue.concat(option))
+            context.emit('update:modelValue', props.modelValue.concat(props.valueBy(option)))
           }
         }
       } else {
         if (props.modelValue.length === 1) {
           if (isSame(props.modelValue[0], option)) {
-            if (props.canBeEmpty) {
-              context.emit('remove', props.modelValue[0])
+            if (props.allowEmpty) {
+              context.emit(
+                'remove',
+                props.options.find(option => isSame(props.modelValue[0], option)),
+              )
               context.emit('update:modelValue', [])
             }
           } else {
-            context.emit('remove', props.modelValue[0])
+            context.emit(
+              'remove',
+              props.options.find(option => isSame(props.modelValue[0], option)),
+            )
             context.emit('update:modelValue', [])
             context.emit('select', option)
-            context.emit('update:modelValue', [option])
+            context.emit('update:modelValue', [props.valueBy(option)])
           }
         } else {
           context.emit('select', option)
-          context.emit('update:modelValue', [option])
+          context.emit('update:modelValue', [props.valueBy(option)])
         }
       }
     }
 
+    const visibleOptions = computed(() => {
+      return props.hideSelected
+        ? props.options.filter(option => props.hideSelected === false || hasSelected(option) === false)
+        : props.options
+    })
+
     const hasSelected = option => {
-      return props.modelValue.some(_option => isSame(option, _option))
+      return props.modelValue.some(modelValue => isSame(modelValue, option))
     }
 
-    const isSame = (option1, option2) => {
-      return option1 === option2
+    const isSame = (modelValue, option) => {
+      return modelValue === props.valueBy(option)
     }
 
     return {
+      visibleOptions,
       handleClick,
       hasSelected,
     }
