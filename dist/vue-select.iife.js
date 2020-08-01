@@ -212,11 +212,22 @@ this.VueSelect = (function (vue) {
 
       isFocusing.value = false;
     };
+
     vue.onMounted(() => window.addEventListener('click', handleClickForWindow));
     vue.onUnmounted(() => window.removeEventListener('click', handleClickForWindow));
+    const disableFocus = () => {
+      isFocusing.value = false;
+      window.removeEventListener('click', handleClickForWindow);
+    };
+    const enableFocus = () => {
+      disableFocus();
+      window.addEventListener('click', handleClickForWindow);
+    };
 
     return {
       isFocusing,
+      enableFocus,
+      disableFocus,
     }
   };
 
@@ -242,10 +253,15 @@ this.VueSelect = (function (vue) {
         ? option => props.valueBy.split('.').reduce((value, key) => value[key], option)
         : option => option;
 
+    const min = props.multiple ? props.min : props.allowEmpty ? 0 : 1;
+    const max = props.multiple ? props.max : 1;
+
     return {
       trackBy,
       labelBy,
       valueBy,
+      min,
+      max,
     }
   };
 
@@ -313,10 +329,6 @@ this.VueSelect = (function (vue) {
         default: false,
         type: Boolean,
       },
-      clearOnSelect: {
-        default: false,
-        type: Boolean,
-      },
 
       taggable: {
         default: false,
@@ -328,12 +340,20 @@ this.VueSelect = (function (vue) {
       },
     },
     setup(props, context) {
-      const { trackBy, labelBy, valueBy } = normalize(props);
+      const { trackBy, labelBy, valueBy, min, max } = normalize(props);
 
       // focus
       const wrapper = vue.ref(null);
-      const ignoreClasses = ['vue-select-tag', 'icon-delete'];
-      const { isFocusing } = useFocus({ wrapperRef: wrapper, ignoreClasses });
+      const ignoreClasses = ['icon-delete'];
+      const { isFocusing, disableFocus, enableFocus } = useFocus({ wrapperRef: wrapper, ignoreClasses });
+      vue.watch(
+        () => props.disabled,
+        () => {
+          if (props.disabled) disableFocus();
+          else enableFocus();
+        },
+        { immediate: true },
+      );
       const input = vue.ref(null);
       vue.watch(
         () => isFocusing.value,
@@ -374,20 +394,26 @@ this.VueSelect = (function (vue) {
       if (props.multiple) {
         props.modelValue.forEach(value => {
           const option = getOptionByValue(props.options, value, { valueBy });
-          selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy });
+          selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy });
         });
       } else {
-        const option = getOptionByValue(props.options, modelValue, { valueBy });
-        selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy });
+        const option = getOptionByValue(props.options, props.modelValue, { valueBy });
+        selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy });
       }
       const addOrRemoveOption = (event, option) => {
+        if (props.disabled) return
+
         option = getOptionByValue(props.options, option.id, { valueBy });
         if (hasOption(selectedOptions.value, option, { valueBy })) {
-          selectedOptions.value = removeOption(selectedOptions.value, option, { min: props.min, valueBy });
+          selectedOptions.value = removeOption(selectedOptions.value, option, { min, valueBy });
           context.emit('remove', option);
         } else {
-          selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy });
+          if (!props.multiple) {
+            selectedOptions.value = removeOption(selectedOptions.value, selectedOptions.value[0], { min: 0, valueBy });
+          }
+          selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy });
           context.emit('select', option);
+          if (props.closeOnSelect === true) close();
         }
       };
       vue.watch(
@@ -409,12 +435,18 @@ this.VueSelect = (function (vue) {
       const handleClickForTag = (event, option) => addOrRemoveOption(event, option);
       const dropdownSelectedOptions = vue.computed(() => {
         const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)));
-        return (props.visibleOptions || props.options).map(option => ({
-          id: trackBy(option),
-          label: labelBy(option),
-          active: selectedValueSet.has(option.value),
-          originalOption: option,
-        }))
+        if (props.hideSelected && isFocusing.value) {
+          // effect
+          setTimeout(() => (isFocusing.value = true));
+        }
+        return (props.visibleOptions || props.options)
+          .filter(option => (props.hideSelected ? selectedValueSet.has(option.value) === false : true))
+          .map(option => ({
+            id: trackBy(option),
+            label: labelBy(option),
+            active: selectedValueSet.has(option.value),
+            originalOption: option,
+          }))
       });
       const tagSelectedOptions = vue.computed(() => {
         const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)));
@@ -487,7 +519,7 @@ this.VueSelect = (function (vue) {
 
     return (vue.openBlock(), vue.createBlock("div", {
       ref: "wrapper",
-      class: "vue-select",
+      class: ["vue-select", { disabled: _ctx.disabled }],
       onClick: _cache[6] || (_cache[6] = (...args) => (_ctx.focus(...args)))
     }, [
       vue.createVNode("div", _hoisted_1$3, [
@@ -596,7 +628,7 @@ this.VueSelect = (function (vue) {
             }, 8 /* PROPS */, ["modelValue", "onClick"])
           ], 64 /* STABLE_FRAGMENT */))
         : vue.createCommentVNode("v-if", true)
-    ], 512 /* NEED_PATCH */))
+    ], 2 /* CLASS */))
   }
 
   script$3.render = render$3;

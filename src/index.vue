@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapper" class="vue-select" @click="focus">
+  <div ref="wrapper" class="vue-select" @click="focus" :class="{ disabled }">
     <div class="vue-select-header">
       <template v-if="taggable">
         <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ ellipsis }">
@@ -153,10 +153,6 @@ export default {
       default: false,
       type: Boolean,
     },
-    clearOnSelect: {
-      default: false,
-      type: Boolean,
-    },
 
     taggable: {
       default: false,
@@ -168,12 +164,20 @@ export default {
     },
   },
   setup(props, context) {
-    const { trackBy, labelBy, valueBy } = normalize(props)
+    const { trackBy, labelBy, valueBy, min, max } = normalize(props)
 
     // focus
     const wrapper = ref(null)
-    const ignoreClasses = ['vue-select-tag', 'icon-delete']
-    const { isFocusing } = useFocus({ wrapperRef: wrapper, ignoreClasses })
+    const ignoreClasses = ['icon-delete']
+    const { isFocusing, disableFocus, enableFocus } = useFocus({ wrapperRef: wrapper, ignoreClasses })
+    watch(
+      () => props.disabled,
+      () => {
+        if (props.disabled) disableFocus()
+        else enableFocus()
+      },
+      { immediate: true },
+    )
     const input = ref(null)
     watch(
       () => isFocusing.value,
@@ -214,20 +218,26 @@ export default {
     if (props.multiple) {
       props.modelValue.forEach(value => {
         const option = getOptionByValue(props.options, value, { valueBy })
-        selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy })
+        selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy })
       })
     } else {
-      const option = getOptionByValue(props.options, modelValue, { valueBy })
-      selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy })
+      const option = getOptionByValue(props.options, props.modelValue, { valueBy })
+      selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy })
     }
     const addOrRemoveOption = (event, option) => {
+      if (props.disabled) return
+
       option = getOptionByValue(props.options, option.id, { valueBy })
       if (hasOption(selectedOptions.value, option, { valueBy })) {
-        selectedOptions.value = removeOption(selectedOptions.value, option, { min: props.min, valueBy })
+        selectedOptions.value = removeOption(selectedOptions.value, option, { min, valueBy })
         context.emit('remove', option)
       } else {
-        selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy })
+        if (!props.multiple) {
+          selectedOptions.value = removeOption(selectedOptions.value, selectedOptions.value[0], { min: 0, valueBy })
+        }
+        selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy })
         context.emit('select', option)
+        if (props.closeOnSelect === true) close()
       }
     }
     watch(
@@ -249,12 +259,18 @@ export default {
     const handleClickForTag = (event, option) => addOrRemoveOption(event, option)
     const dropdownSelectedOptions = computed(() => {
       const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
-      return (props.visibleOptions || props.options).map(option => ({
-        id: trackBy(option),
-        label: labelBy(option),
-        active: selectedValueSet.has(option.value),
-        originalOption: option,
-      }))
+      if (props.hideSelected && isFocusing.value) {
+        // effect
+        setTimeout(() => (isFocusing.value = true))
+      }
+      return (props.visibleOptions || props.options)
+        .filter(option => (props.hideSelected ? selectedValueSet.has(option.value) === false : true))
+        .map(option => ({
+          id: trackBy(option),
+          label: labelBy(option),
+          active: selectedValueSet.has(option.value),
+          originalOption: option,
+        }))
     })
     const tagSelectedOptions = computed(() => {
       const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))

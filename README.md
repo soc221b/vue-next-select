@@ -128,7 +128,6 @@ createApp({
 | loading               | Boolean          | false          |             |
 | placeholder           | String           | "Pick a value" |             |
 | searchable            | Boolean          | false          |             |
-| clearOnSelect         | Boolean          | false          |             |
 | taggable              | Boolean          | false          |             |
 | ellipsis              | Boolean          | false          |             |
 

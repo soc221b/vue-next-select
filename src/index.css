@@ -40,6 +40,10 @@
   box-sizing: border-box;
 }
 
+.vue-select.disabled {
+  background-color: rgba(239, 239, 239);
+}
+
 .vue-select-header {
   display: flex;
   width: 100%;
@@ -192,4 +196,12 @@
 
 .vue-dropdown-item.active {
   background-color: #f3f3f3;
+}
+
+.vue-input > input[disabled] {
+  background-color: rgba(239, 239, 239);
+}
+
+.vue-select.disabled * {
+  cursor: not-allowed;
 }

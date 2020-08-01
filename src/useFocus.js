@@ -20,10 +20,21 @@ export default ({ wrapperRef, ignoreClasses = [] }) => {
 
     isFocusing.value = false
   }
+
   onMounted(() => window.addEventListener('click', handleClickForWindow))
   onUnmounted(() => window.removeEventListener('click', handleClickForWindow))
+  const disableFocus = () => {
+    isFocusing.value = false
+    window.removeEventListener('click', handleClickForWindow)
+  }
+  const enableFocus = () => {
+    disableFocus()
+    window.addEventListener('click', handleClickForWindow)
+  }
 
   return {
     isFocusing,
+    enableFocus,
+    disableFocus,
   }
 }

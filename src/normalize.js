@@ -20,9 +20,14 @@ export default props => {
       ? option => props.valueBy.split('.').reduce((value, key) => value[key], option)
       : option => option
 
+  const min = props.multiple ? props.min : props.allowEmpty ? 0 : 1
+  const max = props.multiple ? props.max : 1
+
   return {
     trackBy,
     labelBy,
     valueBy,
+    min,
+    max,
   }
 }
