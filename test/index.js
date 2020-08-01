@@ -1,53 +1,80 @@
 const { reactive, ref, watchEffect, createApp } = Vue
-const deepCopy = (value) => JSON.parse(JSON.stringify(value))
+const deepCopy = value => JSON.parse(JSON.stringify(value))
 const app = createApp({
   name: 'app',
   setup() {
-    const selectedOptions = ref(['I'])
-    const originalOptions = [{ value: 'I' },{ value: 'Love'},{ value: 'Vue' }]
-    const options = ref([...originalOptions])
+    const selectedOptions = ref(['a'])
+    const options = ref([
+      {
+        label: 'I',
+        value: 'a',
+      },
+      {
+        label: 'Love',
+        value: 'b',
+      },
+      {
+        label: 'Vue',
+        value: 'c',
+      },
+      {
+        label: 'D',
+        value: 'd',
+      },
+      {
+        label: 'E',
+        value: 'e',
+      },
+      {
+        label: 'F',
+        value: 'f',
+      },
+      {
+        label: 'G',
+        value: 'g',
+      },
+    ])
+    const visibleOptions = ref([...options.value])
     const isLoading = ref(false)
     const filter = async event => {
       isLoading.value = true
       await new Promise(resolve => setTimeout(resolve, 2000))
       const inputRe = new RegExp(event.target.value)
-      options.value = deepCopy(originalOptions.filter(option => inputRe.test(option.value)))
+      visibleOptions.value = deepCopy(options.value.filter(option => inputRe.test(option.label)))
       isLoading.value = false
     }
-    watchEffect(() => {
-      console.log(selectedOptions.value)
-    }, {
-      deep:true,
-    })
-    const valueBy = (option) => {
+    const valueBy = option => {
       return option.value
+    }
+    const labelBy = option => {
+      return option.label
     }
     return {
       selectedOptions,
       options,
+      visibleOptions,
       isLoading,
       filter,
-      valueBy
+      valueBy,
+      labelBy,
     }
   },
   template: `
   <vue-select
     v-model="selectedOptions"
     :options="options"
+    :visible-options="visibleOptions"
+    searchable
     multiple
-    :is-loading="isLoading"
-    :min="1"
-    :max="2"
+    ellipsis
+    tag-label-by="value"
+    :loading="isLoading"
     close-on-select
+    :label-by="labelBy"
     :value-by="valueBy"
-    hide-selected
+    :track-by="valueBy"
     @search-input="filter"
   >
-    <template #label="{ scope }">
-      <div>Value: {{ scope.option.value }}</div>
-      <div>Index: {{ scope.index }}</div>
-      <div>Selected: {{ scope.selected }}</div>
-    </template>
   </vue-select>
   `,
 })

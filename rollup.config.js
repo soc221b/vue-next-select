@@ -7,6 +7,7 @@ import globals from 'rollup-plugin-node-globals'
 import vue from 'rollup-plugin-vue'
 import copy from 'rollup-plugin-copy'
 import csso from 'csso'
+import svg from 'rollup-plugin-svg'
 
 rm.sync(path.resolve('dist/**/*'))
 
@@ -41,6 +42,7 @@ formats.forEach(format => {
         experimentalDecorators: true,
         module: 'es2015',
       }),
+      svg({ base64: true }),
       resolve(),
       globals(),
       copy({
@@ -70,6 +72,7 @@ formats.forEach(format => {
         experimentalDecorators: true,
         module: 'es2015',
       }),
+      svg({ base64: true }),
       resolve(),
       globals(),
       terser(),

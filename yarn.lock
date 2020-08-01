@@ -2280,6 +2280,11 @@ estraverse@^4.2.0:
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.3.0.tgz#398ad3f3c5a24948be7725e83d11a7de28cdbd1d"
   integrity sha512-39nnKffWz8xN1BU/2c79n9nB9HDzo0niYUqx6xyqUnyoAnQyyWpOTdZEeiCch8BBu515t4wp9ZmgVfVhn9EBpw==
 
+estree-walker@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.2.1.tgz#bdafe8095383d8414d5dc2ecf4c9173b6db9412e"
+  integrity sha1-va/oCVOD2EFNXcLs9MkXO225QS4=
+
 estree-walker@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.5.2.tgz#d3850be7529c9580d815600b53126515e146dd39"
@@ -3865,7 +3870,7 @@ min-document@^2.19.0:
   dependencies:
     dom-walk "^0.1.0"
 
-minimatch@^3.0.4:
+minimatch@^3.0.2, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
@@ -4699,6 +4704,13 @@ rollup-plugin-pug@^1.1.1:
     pug-runtime "^2.0.4"
     rollup-pluginutils "^2.3.3"
 
+rollup-plugin-svg@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-svg/-/rollup-plugin-svg-2.0.0.tgz#ce11b55e915d5b2190328c4e6632bd6b4fe12ee9"
+  integrity sha512-DmE7dSQHo1SC5L2uH2qul3Mjyd5oV6U1aVVkyvTLX/mUsRink7f1b1zaIm+32GEBA6EHu8H/JJi3DdWqM53ySQ==
+  dependencies:
+    rollup-pluginutils "^1.3.1"
+
 rollup-plugin-terser@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-5.3.0.tgz#9c0dd33d5771df9630cd027d6a2559187f65885e"
@@ -4726,6 +4738,14 @@ rollup-plugin-vue@^6.0.0-beta.9:
     debug "^4.1.1"
     hash-sum "^2.0.0"
     rollup-pluginutils "^2.8.2"
+
+rollup-pluginutils@^1.3.1:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-1.5.2.tgz#1e156e778f94b7255bfa1b3d0178be8f5c552408"
+  integrity sha1-HhVud4+UtyVb+hs9AXi+j1xVJAg=
+  dependencies:
+    estree-walker "^0.2.1"
+    minimatch "^3.0.2"
 
 rollup-pluginutils@^2.3.1, rollup-pluginutils@^2.3.3, rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.8.2:
   version "2.8.2"

@@ -1,17 +1,18 @@
 <template>
-  <div class="vue-select-input-wrapper">
+  <div class="vue-input">
+    <slot name="prepend"></slot>
     <input
       ref="input"
-      class="vue-select-input"
       :modelValue="modelValue"
       :placeholder="placeholder"
-      :disabled="isDisabled"
+      :disabled="disabled"
       @input="handleInput"
       @change="handleChange"
       @focus="handleFocus"
       @blur="handleBlur"
       @keyup.esc.exact="handleEscape"
     />
+    <slot name="append"></slot>
   </div>
 </template>
 
@@ -20,7 +21,7 @@ import { ref } from 'vue'
 
 export default {
   inheritAttrs: false,
-  name: 'vue-select-input',
+  name: 'vue-input',
   props: {
     modelValue: {
       required: true,
@@ -30,7 +31,7 @@ export default {
       required: true,
       type: String,
     },
-    isDisabled: {
+    disabled: {
       required: true,
       type: Boolean,
     },

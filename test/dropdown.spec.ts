@@ -62,7 +62,7 @@ it('should deselect', async () => {
 
   expect(state.model).toStrictEqual([0])
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.findAll('.vue-select-dropdown-item')[0].trigger('click')
   expect(state.model).toStrictEqual([])
 
@@ -99,7 +99,7 @@ it('should not limit min length by default', async () => {
 
   expect(state.model).toStrictEqual([0, 1, 2])
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.findAll('.vue-select-dropdown-item')[0].trigger('click')
   expect(state.model).toStrictEqual([1, 2])
   await wrapper.findAll('.vue-select-dropdown-item')[1].trigger('click')
@@ -135,7 +135,7 @@ it('should limit length by given min length', async () => {
 
   expect(state.model).toStrictEqual([0, 1, 2])
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.findAll('.vue-select-dropdown-item')[0].trigger('click')
   expect(state.model).toStrictEqual([1, 2])
   await wrapper.findAll('.vue-select-dropdown-item')[1].trigger('click')
@@ -170,7 +170,7 @@ it('should not limit max length by default', async () => {
 
   expect(state.model).toStrictEqual([])
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.findAll('.vue-select-dropdown-item')[0].trigger('click')
   expect(state.model).toStrictEqual([0])
   await wrapper.findAll('.vue-select-dropdown-item')[1].trigger('click')
@@ -206,7 +206,7 @@ it('should limit length by given max length', async () => {
 
   expect(state.model).toStrictEqual([])
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.findAll('.vue-select-dropdown-item')[0].trigger('click')
   expect(state.model).toStrictEqual([0])
   await wrapper.findAll('.vue-select-dropdown-item')[1].trigger('click')

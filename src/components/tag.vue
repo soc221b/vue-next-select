@@ -1,10 +1,10 @@
 <template>
-  <ul class="vue-dropdown">
+  <ul class="vue-tag">
     <template v-for="option of modelValue">
       <li
         :key="option.id"
         @click="handleClick($event, option)"
-        class="vue-dropdown-item"
+        class="vue-tag-item"
         :class="{ active: option.active, inactive: !option.active }"
       >
         <slot :option="option">
@@ -16,11 +16,8 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-
 export default {
-  inheritAttrs: false,
-  name: 'vue-dropdown',
+  name: 'vue-tag',
   props: {
     modelValue: {
       required: true,

@@ -27,7 +27,7 @@ it('should open the dropdown after focus and close it after blur', async () => {
 
   expect(wrapper.find('.vue-select-dropdown').attributes('style')).toContain('display: none;')
 
-  await wrapper.find('.vue-select-input').trigger('click')
+  await wrapper.find('.vue-input').trigger('click')
   expect(wrapper.find('.vue-select-dropdown').attributes('style')).not.toContain('display: none;')
 
   await wrapper.find('.vue-select-dropdown').trigger('click')

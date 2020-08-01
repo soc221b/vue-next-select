@@ -36,10 +36,10 @@ it('should update options', async () => {
   }
   const wrapper = mount(app)
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   expect((await wrapper.findAll('.vue-select-dropdown-item')).length).toBe(3)
 
-  await wrapper.find('.vue-select-input').setValue('1')
+  await wrapper.find('.vue-input').setValue('1')
   expect((await wrapper.findAll('.vue-select-dropdown-item')).length).toBe(1)
 })
 
@@ -79,7 +79,7 @@ it('should loading', async () => {
 
   expect(wrapper.findAll('.vue-select-dropdown-loading').length).toBe(0)
 
-  await wrapper.find('.vue-select-input').trigger('input')
+  await wrapper.find('.vue-input').trigger('input')
   expect(wrapper.findAll('.vue-select-dropdown-loading').length).toBe(1)
 
   await sleep(100)

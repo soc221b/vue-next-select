@@ -31,7 +31,7 @@
     "build": "rollup --config",
     "dev": "rollup --config --watch",
     "test": "jest --clearCache && jest test/**/*",
-    "lint": "prettier --check *.js *.md src/**/*.vue test/**/*.ts test/**/*.html"
+    "lint": "prettier --check *"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
@@ -50,6 +50,7 @@
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-pug": "^1.1.1",
+    "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-vue": "^6.0.0-beta.9",

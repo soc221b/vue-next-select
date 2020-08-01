@@ -1,77 +1,93 @@
 <template>
-  <div
-    ref="wrapper"
-    class="vue-select-wrapper"
-  >
-    <div
-      class="vue-select"
-    >
-      <slot name="prepend" :scope="{ isOpen, isLoading }">
-      </slot>
+  <div ref="wrapper" class="vue-select" @click="focus">
+    <div class="vue-select-header">
+      <template v-if="taggable">
+        <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ ellipsis }">
+          <template #default="{ option }">
+            <slot name="tag-item" :option="option.originalOption">
+              <span>{{ option.label }}</span>
+              <img
+                src="./images/delete.svg"
+                alt="delete tag"
+                class="icon-delete"
+                @click="() => addOrRemoveOption($event, option)"
+              />
+            </slot>
+          </template>
+        </v-tag>
+        <span class="icon-arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
+      </template>
 
-      <v-input
-        v-if="searchable"
-        ref="input"
-        v-model="searchingInputValue"
-        :isDisabled="isDisabled"
-        :placeholder="placeholder"
-        @input="handleInputForInput"
-        @change="handleChangeForInput"
-        @focus="handleFocusForInput"
-        @blur="handleBlurForInput"
-        @escape="handleEscapeForInput"
-      ></v-input>
-      <div
-        v-else
-        ref="input"
-      >
-        {{ placeholder }}
-      </div>
+      <template v-else>
+        <v-input
+          v-if="searchable"
+          ref="input"
+          v-model="searchingInputValue"
+          :disabled="disabled"
+          :placeholder="placeholder"
+          @input="handleInputForInput"
+          @change="handleChangeForInput"
+          @focus="handleFocusForInput"
+          @blur="handleBlurForInput"
+          @escape="close"
+          class="vue-select-input"
+        ></v-input>
+        <div v-else ref="input">
+          {{ placeholder }}
+        </div>
 
-      <slot name="append" :scope="{ isOpen, isLoading }">
-        <span v-if="isLoading" class="vue-select-dropdown-loading">
+        <span v-if="loading" class="icon-loading">
           <div></div>
           <div></div>
           <div></div>
         </span>
-        <span
-          v-else
-          class="vue-select-dropdown-icon"
-          :class="{ active: isOpen }"
-          @click="close"
-        ></span>
-      </slot>
+        <span v-else class="icon-arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
+      </template>
     </div>
 
-    <v-dropdown
-      v-show="isOpen"
-      v-model="multipleSelectValue"
-      :options="options"
-      :allow-empty="allowEmpty"
-      :multiple="multiple"
-      :min="min"
-      :max="max"
-      :track-by="trackBy"
-      :label-by="labelBy"
-      :value-by="valueBy"
-      :hide-selected="hideSelected"
-      @open="handleOpenForDropdown"
-      @close="handleCloseForDropdown"
-      @select="handleSelectForDropdown"
-      @remove="handleRemoveForDropdown"
-      class="vue-select-dropdown"
-    >
-      <template #label="{ scope }">
-        <slot name="label" :scope="scope"></slot>
+    <template v-if="isFocusing">
+      <template v-if="taggable && searchable">
+        <v-input
+          ref="input"
+          v-model="searchingInputValue"
+          :disabled="disabled"
+          :placeholder="placeholder"
+          @input="handleInputForInput"
+          @change="handleChangeForInput"
+          @focus="handleFocusForInput"
+          @blur="handleBlurForInput"
+          @escape="close"
+          class="vue-select-input"
+        >
+          <template #append>
+            <span v-if="loading" class="icon-loading">
+              <div></div>
+              <div></div>
+              <div></div>
+            </span>
+          </template>
+        </v-input>
       </template>
-    </v-dropdown>
+
+      <v-dropdown v-model="dropdownSelectedOptions" @click="handleClickForDropdown" class="vue-select-dropdown">
+        <template #default="{ option }">
+          <slot name="dropdown-item" :option="option.originalOption">
+            <span>{{ option.label }}</span>
+          </slot>
+        </template>
+      </v-dropdown>
+    </template>
   </div>
 </template>
 
 <script>
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { default as VInput } from './components/input.vue'
+import { default as VTag } from './components/tag.vue'
 import { default as VDropdown } from './components/dropdown.vue'
+import { addOption, removeOption, getOptionByValue, hasOption, isSameOption } from './crud'
+import useFocus from './useFocus'
+import normalize from './normalize'
 
 export default {
   name: 'vue-select',
@@ -82,6 +98,9 @@ export default {
     },
     options: {
       required: true,
+      type: Array,
+    },
+    visibleOptions: {
       type: Array,
     },
     allowEmpty: {
@@ -118,11 +137,11 @@ export default {
       type: [String, Function],
     },
 
-    isDisabled: {
+    disabled: {
       default: false,
       type: Boolean,
     },
-    isLoading: {
+    loading: {
       default: false,
       type: Boolean,
     },
@@ -138,43 +157,43 @@ export default {
       default: false,
       type: Boolean,
     },
+
+    taggable: {
+      default: false,
+      type: Boolean,
+    },
+    ellipsis: {
+      default: false,
+      type: Boolean,
+    },
   },
   setup(props, context) {
+    const { trackBy, labelBy, valueBy } = normalize(props)
+
+    // focus
     const wrapper = ref(null)
+    const ignoreClasses = ['vue-select-tag', 'icon-delete']
+    const { isFocusing } = useFocus({ wrapperRef: wrapper, ignoreClasses })
     const input = ref(null)
-    const isOpen = ref(false)
-    const handleEscapeForInput = event => {
-      isOpen.value = false
+    watch(
+      () => isFocusing.value,
+      () => {
+        if (isFocusing.value) context.emit('open')
+        else context.emit('close')
+        setTimeout(() => focus())
+      },
+    )
+    const focus = () => {
+      if (isFocusing.value && input.value && input.value._) input.value._.refs.input.focus()
     }
-    const handleClickForWindow = event => {
-      if (!event) return
-      if (!event.target) return
-
-      let el = event.target
-      while (el) {
-        if (el === wrapper.value) {
-          isOpen.value = true
-          if (input.value._) input.value._.refs.input.focus()
-          return
-        }
-        el = el.parentElement
-      }
-      isOpen.value = false
-    }
-    onMounted(() => {
-      window.addEventListener('click', handleClickForWindow)
-    })
-    onUnmounted(() => {
-      window.removeEventListener('click', handleClickForWindow)
-    })
     const close = () => {
-      if (isOpen.value) {
-        setTimeout(() => {
-          isOpen.value = false
-        })
-      }
+      const oldIsFocusing = isFocusing.value
+      setTimeout(() => {
+        if (oldIsFocusing === true) isFocusing.value = false
+      })
     }
 
+    // input
     const searchingInputValue = ref('')
     const handleInputForInput = event => {
       searchingInputValue.value = event.target.value
@@ -191,63 +210,74 @@ export default {
       context.emit('blur', event)
     }
 
-    const multipleSelectValue = ref(props.multiple ? [...props.modelValue] : [props.modelValue])
-    const handleOpenForDropdown = event => {
-      context.emit('open', event)
+    const selectedOptions = ref([])
+    if (props.multiple) {
+      props.modelValue.forEach(value => {
+        const option = getOptionByValue(props.options, value, { valueBy })
+        selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy })
+      })
+    } else {
+      const option = getOptionByValue(props.options, modelValue, { valueBy })
+      selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy })
     }
-    const handleCloseForDropdown = event => {
-      context.emit('close', event)
-    }
-    const handleSelectForDropdown = option => {
-      context.emit('select', option)
-      if (props.clearOnSelect) {
-        searchingInputValue.value = ''
+    const addOrRemoveOption = (event, option) => {
+      option = getOptionByValue(props.options, option.id, { valueBy })
+      if (hasOption(selectedOptions.value, option, { valueBy })) {
+        selectedOptions.value = removeOption(selectedOptions.value, option, { min: props.min, valueBy })
+        context.emit('remove', option)
+      } else {
+        selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy })
+        context.emit('select', option)
       }
-      if (props.closeOnSelect) {
-        isOpen.value = false
-      }
-    }
-    const handleRemoveForDropdown = option => {
-      context.emit('remove', option)
     }
     watch(
-      () => multipleSelectValue,
+      () => selectedOptions,
       () => {
+        const selectedValues = selectedOptions.value.map(option => valueBy(option))
         if (props.multiple) {
-          context.emit('update:modelValue', [...multipleSelectValue.value])
+          context.emit('update:modelValue', selectedValues)
         } else {
-          if (multipleSelectValue.value.length) {
-            context.emit('update:modelValue', multipleSelectValue.value[0])
-          } else {
-            context.emit('update:modelValue', null)
-          }
+          if (selectedValues.length) context.emit('update:modelValue', selectedValues[0])
+          else context.emit('update:modelValue', null)
         }
+        focus()
       },
       { deep: true },
     )
-    const trackBy = typeof props.trackBy === 'function'
-      ? props.trackBy
-      : typeof props.trackBy === 'string'
-        ? (option) => props.trackBy.split('.').reduce((value, key) => value[key], option)
-        : (option) => option
 
-    const labelBy = typeof props.labelBy === 'function'
-      ? props.labelBy
-      : typeof props.labelBy === 'string'
-        ? (option) => props.labelBy.split('.').reduce((value, key) => value[key], option)
-        : (option) => option
-
-    const valueBy = typeof props.valueBy === 'function'
-      ? props.valueBy
-      : typeof props.valueBy === 'string'
-        ? (option) => props.valueBy.split('.').reduce((value, key) => value[key], option)
-        : (option) => option
+    const handleClickForDropdown = (event, option) => addOrRemoveOption(event, option)
+    const handleClickForTag = (event, option) => addOrRemoveOption(event, option)
+    const dropdownSelectedOptions = computed(() => {
+      const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
+      return (props.visibleOptions || props.options).map(option => ({
+        id: trackBy(option),
+        label: labelBy(option),
+        active: selectedValueSet.has(option.value),
+        originalOption: option,
+      }))
+    })
+    const tagSelectedOptions = computed(() => {
+      const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
+      return props.options.map(option => ({
+        id: trackBy(option),
+        label: labelBy(option),
+        active: selectedValueSet.has(option.value),
+        originalOption: option,
+      }))
+    })
+    watch(
+      () => props.options,
+      () => {
+        const selectedValueSet = new Set(selectedOptions.value.map(option => option.value))
+        selectedOptions.value = props.options.filter(option => selectedValueSet.has(valueBy(option)))
+      },
+      { deep: true },
+    )
 
     return {
-      isOpen,
+      isFocusing,
       input,
       wrapper,
-      handleEscapeForInput,
       close,
 
       searchingInputValue,
@@ -256,18 +286,18 @@ export default {
       handleFocusForInput,
       handleBlurForInput,
 
-      multipleSelectValue,
-      handleOpenForDropdown,
-      handleCloseForDropdown,
-      handleSelectForDropdown,
-      handleRemoveForDropdown,
-      trackBy,
-      labelBy,
-      valueBy,
+      handleClickForDropdown,
+      handleClickForTag,
+      dropdownSelectedOptions,
+      tagSelectedOptions,
+
+      addOrRemoveOption,
+      focus,
     }
   },
   components: {
     VInput,
+    VTag,
     VDropdown,
   },
 }

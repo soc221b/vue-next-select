@@ -59,7 +59,12 @@ app.mount(document.querySelector('#app'))
 ### Single Select
 
 ```html
-<vue-select v-model="selectedOptions" :options="options" allow-empty close-on-select></vue-select>
+<vue-select
+  v-model="selectedOptions"
+  :options="options"
+  allow-empty
+  close-on-select
+></vue-select>
 ```
 
 ```javascript
@@ -79,7 +84,14 @@ createApp({
 ### Multiple Select
 
 ```html
-<vue-select v-model="selectedOptions" :options="options" multiple :min="1" :max="2" close-on-select></vue-select>
+<vue-select
+  v-model="selectedOptions"
+  :options="options"
+  multiple
+  :min="1"
+  :max="2"
+  close-on-select
+></vue-select>
 ```
 
 ```javascript
@@ -98,27 +110,44 @@ createApp({
 
 ## Props
 
-| Prop                  | Type     | Default        | Description |
-| --------------------- | -------- | -------------- | ----------- |
-| v\-model / modelValue | any      | required       |             |
-| options               | Array    | required       |             |
-| allowEmpty            | Boolean  | false          |             |
-| multiple              | Boolean  | false          |             |
-| min                   | Number   | 0              |             |
-| max                   | Number   | Infinity       |             |
-| isDisabled            | false    | false          |             |
-| placeholder           | String   | "Pick a value" |             |
-| search                | Function | \-             |             |
+| Prop                  | Type             | Default        |
+| --------------------- | ---------------- | -------------- |
+| v\-model / modelValue | any              | required       |
+| options               | Array            | required       |
+| visibleOptions        | Array            | props.option   |
+| allowEmpty            | Boolean          | false          |
+| multiple              | Boolean          | false          |
+| min                   | Number           | 0              |
+| max                   | Number           | Infinity       |
+| closeOnSelect         | Boolean          | false          |
+| labelBy               | Function, String | \-             |
+| valueBy               | Function, String | \-             |
+| trackBy               | Function, String | \-             |
+| hideSelected          | Boolean          | false          |
+| disabled              | Boolean          | false          |
+| loading               | Boolean          | false          |
+| placeholder           | String           | "Pick a value" |
+| searchable            | Boolean          | false          |
+| clearOnSelect         | Boolean          | false          |
+| taggable              | Boolean          | false          |
+| ellipsis              | Boolean          | false          |
 
 ## Events
 
-| Listener        | Arguments |     |
-| --------------- | --------- | --- |
-| @select         | option    |     |
-| @remove         | option    |     |
-| @open           | \-        |     |
-| @close          | \-        |     |
-| @search\-input  | event     |     |
-| @search\-change | event     |     |
-| @focus          | event     |     |
-| @blur           | event     |     |
+| Listener        | Arguments |
+| --------------- | --------- |
+| @select         | option    |
+| @remove         | option    |
+| @open           | \-        |
+| @close          | \-        |
+| @search\-input  | event     |
+| @search\-change | event     |
+| @focus          | event     |
+| @blur           | event     |
+
+## Slots
+
+| Name           | Arguments |
+| -------------- | --------- |
+| #tag-item      | option    |
+| #dropdown-item | option    |

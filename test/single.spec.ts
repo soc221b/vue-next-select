@@ -27,7 +27,7 @@ it('it should select', async () => {
 
   expect(state.model).toBe(null)
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.find('.vue-select-dropdown-item').trigger('click')
   expect(state.model).toBe(0)
 })
@@ -57,7 +57,7 @@ it('it should change', async () => {
 
   expect(state.model).toBe(0)
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.findAll('.vue-select-dropdown-item')[1].trigger('click')
   expect(state.model).toBe(1)
 })
@@ -87,7 +87,7 @@ it('can not empty by default', async () => {
 
   expect(state.model).toBe(0)
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.find('.vue-select-dropdown-item').trigger('click')
   expect(state.model).toBe(0)
 })
@@ -118,7 +118,7 @@ it('can be empty', async () => {
 
   expect(state.model).toBe(0)
 
-  await wrapper.find('.vue-select-input').trigger('focus')
+  await wrapper.find('.vue-input').trigger('focus')
   await wrapper.find('.vue-select-dropdown-item').trigger('click')
   expect(state.model).toBe(null)
 })

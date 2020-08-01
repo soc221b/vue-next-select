@@ -1,11 +1,12 @@
 System.register('VueSelect', ['vue'], function (exports) {
   'use strict';
-  var ref, openBlock, createBlock, createVNode, withKeys, withModifiers, Fragment, renderList, toDisplayString, onMounted, onUnmounted, watch, resolveComponent, withDirectives, vShow;
+  var ref$1, openBlock, createBlock, renderSlot, createVNode, withKeys, withModifiers, Fragment, renderList, toDisplayString, onMounted, onUnmounted, watch, computed, resolveComponent, withCtx, createCommentVNode;
   return {
     setters: [function (module) {
-      ref = module.ref;
+      ref$1 = module.ref;
       openBlock = module.openBlock;
       createBlock = module.createBlock;
+      renderSlot = module.renderSlot;
       createVNode = module.createVNode;
       withKeys = module.withKeys;
       withModifiers = module.withModifiers;
@@ -15,15 +16,16 @@ System.register('VueSelect', ['vue'], function (exports) {
       onMounted = module.onMounted;
       onUnmounted = module.onUnmounted;
       watch = module.watch;
+      computed = module.computed;
       resolveComponent = module.resolveComponent;
-      withDirectives = module.withDirectives;
-      vShow = module.vShow;
+      withCtx = module.withCtx;
+      createCommentVNode = module.createCommentVNode;
     }],
     execute: function () {
 
       var script = {
         inheritAttrs: false,
-        name: 'vue-select-input',
+        name: 'vue-input',
         props: {
           modelValue: {
             required: true,
@@ -33,15 +35,7 @@ System.register('VueSelect', ['vue'], function (exports) {
             required: true,
             type: String,
           },
-          isDisabled: {
-            required: true,
-            type: Boolean,
-          },
-          isLoading: {
-            required: true,
-            type: Boolean,
-          },
-          isOpen: {
+          disabled: {
             required: true,
             type: Boolean,
           },
@@ -62,7 +56,7 @@ System.register('VueSelect', ['vue'], function (exports) {
             context.emit('blur', event);
           };
 
-          const input = ref(null);
+          const input = ref$1(null);
           const handleEscape = event => {
             context.emit('escape', event);
             input.value.blur();
@@ -80,39 +74,23 @@ System.register('VueSelect', ['vue'], function (exports) {
         },
       };
 
-      const _hoisted_1 = { class: "vue-select-input-wrapper" };
-      const _hoisted_2 = {
-        key: 0,
-        class: "vue-select-dropdown-loading"
-      };
-      const _hoisted_3 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
-      const _hoisted_4 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
-      const _hoisted_5 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
+      const _hoisted_1 = { class: "vue-input" };
 
       function render(_ctx, _cache, $props, $setup, $data, $options) {
         return (openBlock(), createBlock("div", _hoisted_1, [
+          renderSlot(_ctx.$slots, "prepend"),
           createVNode("input", {
             ref: "input",
-            class: "vue-select-input",
             modelValue: _ctx.modelValue,
             placeholder: _ctx.placeholder,
-            disabled: _ctx.isDisabled,
+            disabled: _ctx.disabled,
             onInput: _cache[1] || (_cache[1] = (...args) => (_ctx.handleInput(...args))),
             onChange: _cache[2] || (_cache[2] = (...args) => (_ctx.handleChange(...args))),
             onFocus: _cache[3] || (_cache[3] = (...args) => (_ctx.handleFocus(...args))),
             onBlur: _cache[4] || (_cache[4] = (...args) => (_ctx.handleBlur(...args))),
             onKeyup: _cache[5] || (_cache[5] = withKeys(withModifiers((...args) => (_ctx.handleEscape(...args)), ["exact"]), ["esc"]))
           }, null, 40 /* PROPS, HYDRATE_EVENTS */, ["modelValue", "placeholder", "disabled"]),
-          (_ctx.isLoading)
-            ? (openBlock(), createBlock("span", _hoisted_2, [
-                _hoisted_3,
-                _hoisted_4,
-                _hoisted_5
-              ]))
-            : (openBlock(), createBlock("span", {
-                key: 1,
-                class: ["vue-select-dropdown-icon", { active: _ctx.isOpen }]
-              }, null, 2 /* CLASS */))
+          renderSlot(_ctx.$slots, "append")
         ]))
       }
 
@@ -120,108 +98,180 @@ System.register('VueSelect', ['vue'], function (exports) {
       script.__file = "src/components/input.vue";
 
       var script$1 = {
-        name: 'vue-select-dropdown',
+        name: 'vue-tag',
         props: {
           modelValue: {
             required: true,
             type: Array,
-          },
-          options: {
-            required: true,
-            type: Array,
-          },
-          canBeEmpty: {
-            required: true,
-            type: Boolean,
-          },
-          isMultiple: {
-            required: true,
-            type: Boolean,
-          },
-          minLength: {
-            required: true,
-            type: Number,
-          },
-          maxLength: {
-            required: true,
-            type: Number,
+            validator(modelValue) {
+              return modelValue.every(option => {
+                return typeof option.id === 'string' && typeof option.label === 'string' && typeof option.active === 'boolean'
+              })
+            },
           },
         },
         setup(props, context) {
-          const ul = ref(null);
-          const handleClick = option => {
-            if (props.isMultiple) {
-              if (hasSelected(option)) {
-                if (props.modelValue.length > props.minLength) {
-                  context.emit('remove', option);
-                  context.emit(
-                    'update:modelValue',
-                    props.modelValue.filter(op => isSame(op, option) === false),
-                  );
-                }
-              } else {
-                if (props.modelValue.length < props.maxLength) {
-                  context.emit('select', option);
-                  context.emit('update:modelValue', props.modelValue.concat(option));
-                }
-              }
-            } else {
-              if (props.modelValue.length === 1) {
-                if (isSame(props.modelValue[0], option)) {
-                  if (props.canBeEmpty) {
-                    context.emit('remove', props.modelValue[0]);
-                    context.emit('update:modelValue', []);
-                  }
-                } else {
-                  context.emit('remove', props.modelValue[0]);
-                  context.emit('update:modelValue', []);
-                  context.emit('select', option);
-                  context.emit('update:modelValue', [option]);
-                }
-              } else {
-                context.emit('select', option);
-                context.emit('update:modelValue', [option]);
-              }
-            }
-          };
-
-          const hasSelected = option => {
-            return props.modelValue.some(_option => isSame(option, _option))
-          };
-
-          const isSame = (option1, option2) => {
-            return option1 === option2
+          const handleClick = (event, option) => {
+            context.emit('click', event, option);
           };
 
           return {
             handleClick,
-            hasSelected,
           }
         },
       };
 
-      const _hoisted_1$1 = {
-        ref: "ul",
-        class: "vue-select-dropdown",
-        style: {"outline":"none"}
-      };
+      const _hoisted_1$1 = { class: "vue-tag" };
 
       function render$1(_ctx, _cache, $props, $setup, $data, $options) {
         return (openBlock(), createBlock("ul", _hoisted_1$1, [
-          (openBlock(true), createBlock(Fragment, null, renderList(_ctx.options, (option) => {
+          (openBlock(true), createBlock(Fragment, null, renderList(_ctx.modelValue, (option) => {
             return (openBlock(), createBlock("li", {
-              class: "vue-select-dropdown-item",
-              onClick: $event => (_ctx.handleClick(option)),
-              selected: _ctx.hasSelected(option)
-            }, toDisplayString(option), 9 /* TEXT, PROPS */, ["onClick", "selected"]))
+              key: option.id,
+              onClick: $event => (_ctx.handleClick($event, option)),
+              class: ["vue-tag-item", { active: option.active, inactive: !option.active }]
+            }, [
+              renderSlot(_ctx.$slots, "default", { option: option }, () => [
+                createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
+              ])
+            ], 10 /* CLASS, PROPS */, ["onClick"]))
           }), 256 /* UNKEYED_FRAGMENT */))
-        ], 512 /* NEED_PATCH */))
+        ]))
       }
 
       script$1.render = render$1;
-      script$1.__file = "src/components/dropdown.vue";
+      script$1.__file = "src/components/tag.vue";
 
-      var script$2 = exports('default', {
+      var script$2 = {
+        inheritAttrs: false,
+        name: 'vue-dropdown',
+        props: {
+          modelValue: {
+            required: true,
+            type: Array,
+            validator(modelValue) {
+              return modelValue.every(option => {
+                return typeof option.id === 'string' && typeof option.label === 'string' && typeof option.active === 'boolean'
+              })
+            },
+          },
+        },
+        setup(props, context) {
+          const handleClick = (event, option) => {
+            context.emit('click', event, option);
+          };
+
+          return {
+            handleClick,
+          }
+        },
+      };
+
+      const _hoisted_1$2 = { class: "vue-dropdown" };
+
+      function render$2(_ctx, _cache, $props, $setup, $data, $options) {
+        return (openBlock(), createBlock("ul", _hoisted_1$2, [
+          (openBlock(true), createBlock(Fragment, null, renderList(_ctx.modelValue, (option) => {
+            return (openBlock(), createBlock("li", {
+              key: option.id,
+              onClick: $event => (_ctx.handleClick($event, option)),
+              class: ["vue-dropdown-item", { active: option.active, inactive: !option.active }]
+            }, [
+              renderSlot(_ctx.$slots, "default", { option: option }, () => [
+                createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
+              ])
+            ], 10 /* CLASS, PROPS */, ["onClick"]))
+          }), 256 /* UNKEYED_FRAGMENT */))
+        ]))
+      }
+
+      script$2.render = render$2;
+      script$2.__file = "src/components/dropdown.vue";
+
+      const isSameOption = (option1, option2, { valueBy }) => {
+        return valueBy(option1) === valueBy(option2)
+      };
+
+      const hasOption = (selectedOptions, option, { valueBy }) => {
+        return selectedOptions.find(_option => isSameOption(_option, option, { valueBy })) !== undefined
+      };
+
+      const getOptionByValue = (options, value, { valueBy }) => {
+        return options.find(option => valueBy(option) === value)
+      };
+
+      const addOption = (selectedOptions, option, { max, valueBy }) => {
+        if (hasOption(selectedOptions, option, { valueBy })) return selectedOptions
+        if (selectedOptions.length + 1 > max) return selectedOptions
+
+        return selectedOptions.concat(option)
+      };
+
+      const removeOption = (selectedOptions, option, { min, valueBy }) => {
+        if (hasOption(selectedOptions, option, { valueBy }) === false) return selectedOptions
+        if (selectedOptions.length - 1 < min) return selectedOptions
+
+        return selectedOptions.filter(_option => isSameOption(_option, option, { valueBy }) === false)
+      };
+
+      var useFocus = ({ wrapperRef, ignoreClasses = [] }) => {
+        const isIgnoreEl = el => ignoreClasses.some(cls => el.classList.contains(cls));
+
+        const isFocusing = ref(false);
+        const handleClickForWindow = event => {
+          if (!event) return
+          if (!event.target) return
+
+          let el = event.target;
+          while (el) {
+            if (isIgnoreEl(el)) return
+            if (el === wrapperRef.value) {
+              isFocusing.value = true;
+              return
+            }
+            el = el.parentElement;
+          }
+
+          isFocusing.value = false;
+        };
+        onMounted(() => window.addEventListener('click', handleClickForWindow));
+        onUnmounted(() => window.removeEventListener('click', handleClickForWindow));
+
+        return {
+          isFocusing,
+        }
+      };
+
+      var normalize = props => {
+        const trackBy =
+          typeof props.trackBy === 'function'
+            ? props.trackBy
+            : typeof props.trackBy === 'string'
+            ? option => props.trackBy.split('.').reduce((value, key) => value[key], option)
+            : option => option;
+
+        const labelBy =
+          typeof props.labelBy === 'function'
+            ? props.labelBy
+            : typeof props.labelBy === 'string'
+            ? option => props.labelBy.split('.').reduce((value, key) => value[key], option)
+            : option => option;
+
+        const valueBy =
+          typeof props.valueBy === 'function'
+            ? props.valueBy
+            : typeof props.valueBy === 'string'
+            ? option => props.valueBy.split('.').reduce((value, key) => value[key], option)
+            : option => option;
+
+        return {
+          trackBy,
+          labelBy,
+          valueBy,
+        }
+      };
+
+      var script$3 = exports('default', {
         name: 'vue-select',
         inheritAttrs: false,
         props: {
@@ -232,19 +282,22 @@ System.register('VueSelect', ['vue'], function (exports) {
             required: true,
             type: Array,
           },
-          canBeEmpty: {
+          visibleOptions: {
+            type: Array,
+          },
+          allowEmpty: {
             default: false,
             type: Boolean,
           },
-          isMultiple: {
+          multiple: {
             default: false,
             type: Boolean,
           },
-          minLength: {
+          min: {
             default: 0,
             type: Number,
           },
-          maxLength: {
+          max: {
             default: Infinity,
             type: Number,
           },
@@ -252,12 +305,25 @@ System.register('VueSelect', ['vue'], function (exports) {
             default: false,
             type: Boolean,
           },
-
-          isDisabled: {
+          trackBy: {
+            type: [String, Function],
+          },
+          hideSelected: {
             default: false,
             type: Boolean,
           },
-          isLoading: {
+          labelBy: {
+            type: [String, Function],
+          },
+          valueBy: {
+            type: [String, Function],
+          },
+
+          disabled: {
+            default: false,
+            type: Boolean,
+          },
+          loading: {
             default: false,
             type: Boolean,
           },
@@ -265,37 +331,52 @@ System.register('VueSelect', ['vue'], function (exports) {
             default: 'Select option',
             type: String,
           },
+          searchable: {
+            default: false,
+            type: Boolean,
+          },
+          clearOnSelect: {
+            default: false,
+            type: Boolean,
+          },
+
+          taggable: {
+            default: false,
+            type: Boolean,
+          },
+          ellipsis: {
+            default: false,
+            type: Boolean,
+          },
         },
         setup(props, context) {
-          const wrapper = ref(null);
-          const input = ref(null);
-          const isOpen = ref(false);
-          const handleEscapeForInput = event => {
-            isOpen.value = false;
-          };
-          const handleClickForWindow = event => {
-            if (!event) return
-            if (!event.target) return
+          const { trackBy, labelBy, valueBy } = normalize(props);
 
-            let el = event.target;
-            while (el) {
-              if (el === wrapper.value) {
-                isOpen.value = true;
-                input.value._.refs.input.focus();
-                return
-              }
-              el = el.parentElement;
-            }
-            isOpen.value = false;
+          // focus
+          const wrapper = ref$1(null);
+          const ignoreClasses = ['vue-select-tag', 'icon-delete'];
+          const { isFocusing } = useFocus({ wrapperRef: wrapper, ignoreClasses });
+          const input = ref$1(null);
+          watch(
+            () => isFocusing.value,
+            () => {
+              if (isFocusing.value) context.emit('open');
+              else context.emit('close');
+              setTimeout(() => focus());
+            },
+          );
+          const focus = () => {
+            if (isFocusing.value && input.value && input.value._) input.value._.refs.input.focus();
           };
-          onMounted(() => {
-            window.addEventListener('click', handleClickForWindow);
-          });
-          onUnmounted(() => {
-            window.removeEventListener('click', handleClickForWindow);
-          });
+          const close = () => {
+            const oldIsFocusing = isFocusing.value;
+            setTimeout(() => {
+              if (oldIsFocusing === true) isFocusing.value = false;
+            });
+          };
 
-          const searchingInputValue = ref('');
+          // input
+          const searchingInputValue = ref$1('');
           const handleInputForInput = event => {
             searchingInputValue.value = event.target.value;
             context.emit('search-input', event);
@@ -311,40 +392,75 @@ System.register('VueSelect', ['vue'], function (exports) {
             context.emit('blur', event);
           };
 
-          const multipleSelectValue = ref(props.isMultiple ? [...props.modelValue] : [props.modelValue]);
-          const handleOpenForDropdown = event => {
-            context.emit('open', event);
-          };
-          const handleCloseForDropdown = event => {
-            context.emit('close', event);
-          };
-          const handleSelectForDropdown = option => {
-            context.emit('select', option);
-          };
-          const handleRemoveForDropdown = option => {
-            context.emit('remove', option);
+          const selectedOptions = ref$1([]);
+          if (props.multiple) {
+            props.modelValue.forEach(value => {
+              const option = getOptionByValue(props.options, value, { valueBy });
+              selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy });
+            });
+          } else {
+            const option = getOptionByValue(props.options, modelValue, { valueBy });
+            selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy });
+          }
+          const addOrRemoveOption = (event, option) => {
+            option = getOptionByValue(props.options, option.id, { valueBy });
+            if (hasOption(selectedOptions.value, option, { valueBy })) {
+              selectedOptions.value = removeOption(selectedOptions.value, option, { min: props.min, valueBy });
+              context.emit('remove', option);
+            } else {
+              selectedOptions.value = addOption(selectedOptions.value, option, { max: props.max, valueBy });
+              context.emit('select', option);
+            }
           };
           watch(
-            () => multipleSelectValue,
+            () => selectedOptions,
             () => {
-              if (props.isMultiple) {
-                context.emit('update:modelValue', [...multipleSelectValue.value]);
+              const selectedValues = selectedOptions.value.map(option => valueBy(option));
+              if (props.multiple) {
+                context.emit('update:modelValue', selectedValues);
               } else {
-                if (multipleSelectValue.value.length) {
-                  context.emit('update:modelValue', multipleSelectValue.value[0]);
-                } else {
-                  context.emit('update:modelValue', null);
-                }
+                if (selectedValues.length) context.emit('update:modelValue', selectedValues[0]);
+                else context.emit('update:modelValue', null);
               }
+              focus();
+            },
+            { deep: true },
+          );
+
+          const handleClickForDropdown = (event, option) => addOrRemoveOption(event, option);
+          const handleClickForTag = (event, option) => addOrRemoveOption(event, option);
+          const dropdownSelectedOptions = computed(() => {
+            const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)));
+            return (props.visibleOptions || props.options).map(option => ({
+              id: trackBy(option),
+              label: labelBy(option),
+              active: selectedValueSet.has(option.value),
+              originalOption: option,
+            }))
+          });
+          const tagSelectedOptions = computed(() => {
+            const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)));
+            return props.options.map(option => ({
+              id: trackBy(option),
+              label: labelBy(option),
+              active: selectedValueSet.has(option.value),
+              originalOption: option,
+            }))
+          });
+          watch(
+            () => props.options,
+            () => {
+              const selectedValueSet = new Set(selectedOptions.value.map(option => option.value));
+              selectedOptions.value = props.options.filter(option => selectedValueSet.has(valueBy(option)));
             },
             { deep: true },
           );
 
           return {
-            isOpen,
+            isFocusing,
             input,
             wrapper,
-            handleEscapeForInput,
+            close,
 
             searchingInputValue,
             handleInputForInput,
@@ -352,63 +468,161 @@ System.register('VueSelect', ['vue'], function (exports) {
             handleFocusForInput,
             handleBlurForInput,
 
-            multipleSelectValue,
-            handleOpenForDropdown,
-            handleCloseForDropdown,
-            handleSelectForDropdown,
-            handleRemoveForDropdown,
+            handleClickForDropdown,
+            handleClickForTag,
+            dropdownSelectedOptions,
+            tagSelectedOptions,
+
+            addOrRemoveOption,
+            focus,
           }
         },
         components: {
           VInput: script,
-          VDropdown: script$1,
+          VTag: script$1,
+          VDropdown: script$2,
         },
       });
 
-      const _hoisted_1$2 = {
-        ref: "wrapper",
-        class: "vue-select"
-      };
+      var _imports_0 = 'data:image/svg+xml;base64,PHN2ZyBpZD0iZGVsZXRlIiBkYXRhLW5hbWU9ImRlbGV0ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHRpdGxlPmRlbGV0ZTwvdGl0bGU+PHBhdGggZD0iTTI1NiwyNEMzODMuOSwyNCw0ODgsMTI4LjEsNDg4LDI1NlMzODMuOSw0ODgsMjU2LDQ4OCwyNC4wNiwzODMuOSwyNC4wNiwyNTYsMTI4LjEsMjQsMjU2LDI0Wk0wLDI1NkMwLDM5Ny4xNiwxMTQuODQsNTEyLDI1Niw1MTJTNTEyLDM5Ny4xNiw1MTIsMjU2LDM5Ny4xNiwwLDI1NiwwLDAsMTE0Ljg0LDAsMjU2WiIgZmlsbD0iIzViNWI1ZiIvPjxwb2x5Z29uIHBvaW50cz0iMzgyIDE3Mi43MiAzMzkuMjkgMTMwLjAxIDI1NiAyMTMuMjkgMTcyLjcyIDEzMC4wMSAxMzAuMDEgMTcyLjcyIDIxMy4yOSAyNTYgMTMwLjAxIDMzOS4yOCAxNzIuNzIgMzgyIDI1NiAyOTguNzEgMzM5LjI5IDM4MS45OSAzODIgMzM5LjI4IDI5OC43MSAyNTYgMzgyIDE3Mi43MiIgZmlsbD0iIzViNWI1ZiIvPjwvc3ZnPg==';
 
-      function render$2(_ctx, _cache, $props, $setup, $data, $options) {
+      const _hoisted_1$3 = { class: "vue-select-header" };
+      const _hoisted_2 = {
+        key: 2,
+        class: "icon-loading"
+      };
+      const _hoisted_3 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
+      const _hoisted_4 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
+      const _hoisted_5 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
+      const _hoisted_6 = {
+        key: 0,
+        class: "icon-loading"
+      };
+      const _hoisted_7 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
+      const _hoisted_8 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
+      const _hoisted_9 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
+
+      function render$3(_ctx, _cache, $props, $setup, $data, $options) {
+        const _component_v_tag = resolveComponent("v-tag");
         const _component_v_input = resolveComponent("v-input");
         const _component_v_dropdown = resolveComponent("v-dropdown");
 
-        return (openBlock(), createBlock("div", _hoisted_1$2, [
-          createVNode(_component_v_input, {
-            ref: "input",
-            modelValue: _ctx.searchingInputValue,
-            "onUpdate:modelValue": _cache[1] || (_cache[1] = $event => (_ctx.searchingInputValue = $event)),
-            isOpen: _ctx.isOpen,
-            isDisabled: _ctx.isDisabled,
-            isLoading: _ctx.isLoading,
-            placeholder: _ctx.placeholder,
-            onInput: _ctx.handleInputForInput,
-            onChange: _ctx.handleChangeForInput,
-            onFocus: _ctx.handleFocusForInput,
-            onBlur: _ctx.handleBlurForInput,
-            onEscape: _ctx.handleEscapeForInput
-          }, null, 8 /* PROPS */, ["modelValue", "isOpen", "isDisabled", "isLoading", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape"]),
-          withDirectives(createVNode(_component_v_dropdown, {
-            modelValue: _ctx.multipleSelectValue,
-            "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => (_ctx.multipleSelectValue = $event)),
-            options: _ctx.options,
-            canBeEmpty: _ctx.canBeEmpty,
-            isMultiple: _ctx.isMultiple,
-            minLength: _ctx.minLength,
-            maxLength: _ctx.maxLength,
-            onOpen: _ctx.handleOpenForDropdown,
-            onClose: _ctx.handleCloseForDropdown,
-            onSelect: _ctx.handleSelectForDropdown,
-            onRemove: _ctx.handleRemoveForDropdown
-          }, null, 8 /* PROPS */, ["modelValue", "options", "canBeEmpty", "isMultiple", "minLength", "maxLength", "onOpen", "onClose", "onSelect", "onRemove"]), [
-            [vShow, _ctx.isOpen]
-          ])
+        return (openBlock(), createBlock("div", {
+          ref: "wrapper",
+          class: "vue-select",
+          onClick: _cache[6] || (_cache[6] = (...args) => (_ctx.focus(...args)))
+        }, [
+          createVNode("div", _hoisted_1$3, [
+            (_ctx.taggable)
+              ? (openBlock(), createBlock(Fragment, { key: 0 }, [
+                  createVNode(_component_v_tag, {
+                    modelValue: _ctx.tagSelectedOptions,
+                    class: ["vue-select-tag", { ellipsis: _ctx.ellipsis }]
+                  }, {
+                    default: withCtx(({ option }) => [
+                      renderSlot(_ctx.$slots, "tag-item", {
+                        option: option.originalOption
+                      }, () => [
+                        createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */),
+                        createVNode("img", {
+                          src: _imports_0,
+                          alt: "delete tag",
+                          class: "icon-delete",
+                          onClick: () => _ctx.addOrRemoveOption(_ctx.$event, option)
+                        }, null, 8 /* PROPS */, ["onClick"])
+                      ])
+                    ]),
+                    _: 1
+                  }, 8 /* PROPS */, ["modelValue", "class"]),
+                  createVNode("span", {
+                    class: ["icon-arrow-downward", { active: _ctx.isFocusing }],
+                    onClick: _cache[1] || (_cache[1] = (...args) => (_ctx.close(...args)))
+                  }, null, 2 /* CLASS */)
+                ], 64 /* STABLE_FRAGMENT */))
+              : (openBlock(), createBlock(Fragment, { key: 1 }, [
+                  (_ctx.searchable)
+                    ? createVNode(_component_v_input, {
+                        key: 0,
+                        ref: "input",
+                        modelValue: _ctx.searchingInputValue,
+                        "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => (_ctx.searchingInputValue = $event)),
+                        disabled: _ctx.disabled,
+                        placeholder: _ctx.placeholder,
+                        onInput: _ctx.handleInputForInput,
+                        onChange: _ctx.handleChangeForInput,
+                        onFocus: _ctx.handleFocusForInput,
+                        onBlur: _ctx.handleBlurForInput,
+                        onEscape: _ctx.close,
+                        class: "vue-select-input"
+                      }, null, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape"])
+                    : (openBlock(), createBlock("div", {
+                        key: 1,
+                        ref: "input"
+                      }, toDisplayString(_ctx.placeholder), 513 /* TEXT, NEED_PATCH */)),
+                  (_ctx.loading)
+                    ? (openBlock(), createBlock("span", _hoisted_2, [
+                        _hoisted_3,
+                        _hoisted_4,
+                        _hoisted_5
+                      ]))
+                    : (openBlock(), createBlock("span", {
+                        key: 3,
+                        class: ["icon-arrow-downward", { active: _ctx.isFocusing }],
+                        onClick: _cache[3] || (_cache[3] = (...args) => (_ctx.close(...args)))
+                      }, null, 2 /* CLASS */))
+                ], 64 /* STABLE_FRAGMENT */))
+          ]),
+          (_ctx.isFocusing)
+            ? (openBlock(), createBlock(Fragment, { key: 0 }, [
+                (_ctx.taggable && _ctx.searchable)
+                  ? createVNode(_component_v_input, {
+                      key: 0,
+                      ref: "input",
+                      modelValue: _ctx.searchingInputValue,
+                      "onUpdate:modelValue": _cache[4] || (_cache[4] = $event => (_ctx.searchingInputValue = $event)),
+                      disabled: _ctx.disabled,
+                      placeholder: _ctx.placeholder,
+                      onInput: _ctx.handleInputForInput,
+                      onChange: _ctx.handleChangeForInput,
+                      onFocus: _ctx.handleFocusForInput,
+                      onBlur: _ctx.handleBlurForInput,
+                      onEscape: _ctx.close,
+                      class: "vue-select-input"
+                    }, {
+                      append: withCtx(() => [
+                        (_ctx.loading)
+                          ? (openBlock(), createBlock("span", _hoisted_6, [
+                              _hoisted_7,
+                              _hoisted_8,
+                              _hoisted_9
+                            ]))
+                          : createCommentVNode("v-if", true)
+                      ]),
+                      _: 1
+                    }, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape"])
+                  : createCommentVNode("v-if", true),
+                createVNode(_component_v_dropdown, {
+                  modelValue: _ctx.dropdownSelectedOptions,
+                  "onUpdate:modelValue": _cache[5] || (_cache[5] = $event => (_ctx.dropdownSelectedOptions = $event)),
+                  onClick: _ctx.handleClickForDropdown,
+                  class: "vue-select-dropdown"
+                }, {
+                  default: withCtx(({ option }) => [
+                    renderSlot(_ctx.$slots, "dropdown-item", {
+                      option: option.originalOption
+                    }, () => [
+                      createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
+                    ])
+                  ]),
+                  _: 1
+                }, 8 /* PROPS */, ["modelValue", "onClick"])
+              ], 64 /* STABLE_FRAGMENT */))
+            : createCommentVNode("v-if", true)
         ], 512 /* NEED_PATCH */))
       }
 
-      script$2.render = render$2;
-      script$2.__file = "src/index.vue";
+      script$3.render = render$3;
+      script$3.__file = "src/index.vue";
 
     }
   };

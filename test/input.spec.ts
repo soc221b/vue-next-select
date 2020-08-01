@@ -25,8 +25,8 @@ it('has default placeholder', async () => {
   }
   const wrapper = mount(app)
 
-  expect(wrapper.find('.vue-select-input')).toBeDefined()
-  expect(wrapper.find('.vue-select-input').attributes('placeholder')).not.toBe(undefined)
+  expect(wrapper.find('.vue-input')).toBeDefined()
+  expect(wrapper.find('.vue-input').attributes('placeholder')).not.toBe(undefined)
 })
 
 it('should use custom placeholder', async () => {
@@ -53,5 +53,5 @@ it('should use custom placeholder', async () => {
   }
   const wrapper = mount(app)
 
-  expect(wrapper.find('.vue-select-input').attributes('placeholder')).toBe('Click me to show all options')
+  expect(wrapper.find('.vue-input').attributes('placeholder')).toBe('Click me to show all options')
 })
