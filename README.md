@@ -110,27 +110,27 @@ createApp({
 
 ## Props
 
-| Prop                  | Type             | Default        |
-| --------------------- | ---------------- | -------------- |
-| v\-model / modelValue | any              | required       |
-| options               | Array            | required       |
-| visibleOptions        | Array            | props.option   |
-| allowEmpty            | Boolean          | false          |
-| multiple              | Boolean          | false          |
-| min                   | Number           | 0              |
-| max                   | Number           | Infinity       |
-| closeOnSelect         | Boolean          | false          |
-| labelBy               | Function, String | \-             |
-| valueBy               | Function, String | \-             |
-| trackBy               | Function, String | \-             |
-| hideSelected          | Boolean          | false          |
-| disabled              | Boolean          | false          |
-| loading               | Boolean          | false          |
-| placeholder           | String           | "Pick a value" |
-| searchable            | Boolean          | false          |
-| clearOnSelect         | Boolean          | false          |
-| taggable              | Boolean          | false          |
-| ellipsis              | Boolean          | false          |
+| Prop                  | Type             | Default        | Arguments   |
+| --------------------- | ---------------- | -------------- | ----------- |
+| v\-model / modelValue | any              | required       |             |
+| options               | Array            | required       |             |
+| visibleOptions        | Array            | props.option   |             |
+| allowEmpty            | Boolean          | false          |             |
+| multiple              | Boolean          | false          |             |
+| min                   | Number           | 0              |             |
+| max                   | Number           | Infinity       |             |
+| closeOnSelect         | Boolean          | false          |             |
+| labelBy               | Function, String |                | option      |
+| valueBy               | Function, String |                | option      |
+| trackBy               | Function, String |                | option      |
+| hideSelected          | Boolean          | false          |             |
+| disabled              | Boolean          | false          |             |
+| loading               | Boolean          | false          |             |
+| placeholder           | String           | "Pick a value" |             |
+| searchable            | Boolean          | false          |             |
+| clearOnSelect         | Boolean          | false          |             |
+| taggable              | Boolean          | false          |             |
+| ellipsis              | Boolean          | false          |             |
 
 ## Events
 
@@ -138,8 +138,8 @@ createApp({
 | --------------- | --------- |
 | @select         | option    |
 | @remove         | option    |
-| @open           | \-        |
-| @close          | \-        |
+| @open           |           |
+| @close          |           |
 | @search\-input  | event     |
 | @search\-change | event     |
 | @focus          | event     |
