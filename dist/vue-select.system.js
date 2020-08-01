@@ -1,9 +1,9 @@
 System.register('VueSelect', ['vue'], function (exports) {
   'use strict';
-  var ref$1, openBlock, createBlock, renderSlot, createVNode, withKeys, withModifiers, Fragment, renderList, toDisplayString, onMounted, onUnmounted, watch, computed, resolveComponent, withCtx, createCommentVNode;
+  var ref, openBlock, createBlock, renderSlot, createVNode, withKeys, withModifiers, Fragment, renderList, toDisplayString, onMounted, onUnmounted, watch, computed, resolveComponent, withCtx, createCommentVNode;
   return {
     setters: [function (module) {
-      ref$1 = module.ref;
+      ref = module.ref;
       openBlock = module.openBlock;
       createBlock = module.createBlock;
       renderSlot = module.renderSlot;
@@ -56,7 +56,7 @@ System.register('VueSelect', ['vue'], function (exports) {
             context.emit('blur', event);
           };
 
-          const input = ref$1(null);
+          const input = ref(null);
           const handleEscape = event => {
             context.emit('escape', event);
             input.value.blur();
@@ -353,10 +353,10 @@ System.register('VueSelect', ['vue'], function (exports) {
           const { trackBy, labelBy, valueBy } = normalize(props);
 
           // focus
-          const wrapper = ref$1(null);
+          const wrapper = ref(null);
           const ignoreClasses = ['vue-select-tag', 'icon-delete'];
           const { isFocusing } = useFocus({ wrapperRef: wrapper, ignoreClasses });
-          const input = ref$1(null);
+          const input = ref(null);
           watch(
             () => isFocusing.value,
             () => {
@@ -376,7 +376,7 @@ System.register('VueSelect', ['vue'], function (exports) {
           };
 
           // input
-          const searchingInputValue = ref$1('');
+          const searchingInputValue = ref('');
           const handleInputForInput = event => {
             searchingInputValue.value = event.target.value;
             context.emit('search-input', event);
@@ -392,7 +392,7 @@ System.register('VueSelect', ['vue'], function (exports) {
             context.emit('blur', event);
           };
 
-          const selectedOptions = ref$1([]);
+          const selectedOptions = ref([]);
           if (props.multiple) {
             props.modelValue.forEach(value => {
               const option = getOptionByValue(props.options, value, { valueBy });

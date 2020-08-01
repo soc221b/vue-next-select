@@ -196,7 +196,7 @@ const removeOption = (selectedOptions, option, { min, valueBy }) => {
 var useFocus = ({ wrapperRef, ignoreClasses = [] }) => {
   const isIgnoreEl = el => ignoreClasses.some(cls => el.classList.contains(cls));
 
-  const isFocusing = ref(false);
+  const isFocusing = vue.ref(false);
   const handleClickForWindow = event => {
     if (!event) return
     if (!event.target) return

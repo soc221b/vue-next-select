@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 export default ({ wrapperRef, ignoreClasses = [] }) => {
   const isIgnoreEl = el => ignoreClasses.some(cls => el.classList.contains(cls))
