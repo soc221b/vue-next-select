@@ -15,7 +15,9 @@ const packageName = 'vue-select'
 const pascalCasePackageName = 'VueSelect'
 
 const input = 'src/index.vue'
-const formats = ['es', 'umd', 'amd', 'cjs', 'iife', 'system']
+const formats = ['es', 'iife', 'umd', 'amd', 'cjs', 'system']
+
+if (process.env.DEVELOPMENT) formats.splice(2)
 
 const configs = []
 formats.forEach(format => {

@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "build": "rollup --config",
-    "dev": "rollup --config --watch",
+    "dev": "rollup --config --watch --environment DEVELOPMENT",
     "test": "jest --clearCache && jest",
     "lint": "prettier --check *"
   },
