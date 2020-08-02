@@ -1,4 +1,4 @@
-const {  ref, createApp } = Vue
+const { ref, createApp } = Vue
 const deepCopy = value => JSON.parse(JSON.stringify(value))
 const app = createApp({
   name: 'app',
