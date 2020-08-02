@@ -1,8 +1,9 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
-import VueSelect from '../dist/vue-select.es'
+import VueSelect from '../../dist/vue-select.es'
+import { clickFirstDropdownItemElement } from '../dom-utils'
 
-it('has default placeholder', async () => {
+it('should not allow empty by default', async () => {
   const state = reactive({
     model: null,
     options: [0, 1, 2],
@@ -24,12 +25,16 @@ it('has default placeholder', async () => {
     `,
   }
   const wrapper = mount(app)
+  await wrapper.trigger('click')
 
-  expect(wrapper.find('.vue-input')).toBeDefined()
-  expect(wrapper.find('.vue-input').attributes('placeholder')).not.toBe(undefined)
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(0)
+
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(0)
 })
 
-it('should use custom placeholder', async () => {
+it('should works with allow empty', async () => {
   const state = reactive({
     model: null,
     options: [0, 1, 2],
@@ -47,11 +52,16 @@ it('should use custom placeholder', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        placeholder="Click me to show all options"
+        allow-empty
       ></vue-select>
     `,
   }
   const wrapper = mount(app)
+  await wrapper.trigger('click')
 
-  expect(wrapper.find('.vue-input').attributes('placeholder')).toBe('Click me to show all options')
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(0)
+
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(null)
 })

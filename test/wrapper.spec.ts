@@ -1,8 +1,9 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
 import VueSelect from '../dist/vue-select.es'
+import { getDropdownElement, clickFirstTagItemElement, clickFirstDeleteIconElement } from './dom-utils'
 
-it('should open the dropdown after focus and close it after blur', async () => {
+it('should open dropdown after click wrapper', async () => {
   const state = reactive({
     model: null,
     options: [0, 1, 2],
@@ -25,14 +26,103 @@ it('should open the dropdown after focus and close it after blur', async () => {
   }
   const wrapper = mount(app)
 
-  expect(wrapper.find('.vue-select-dropdown').attributes('style')).toContain('display: none;')
+  expect(getDropdownElement(wrapper)).toBe(null)
 
-  await wrapper.find('.vue-input').trigger('click')
-  expect(wrapper.find('.vue-select-dropdown').attributes('style')).not.toContain('display: none;')
+  await wrapper.trigger('click')
+  expect(getDropdownElement(wrapper)).not.toBe(null)
 
-  await wrapper.find('.vue-select-dropdown').trigger('click')
-  expect(wrapper.find('.vue-select-dropdown').attributes('style')).not.toContain('display: none;')
+  await wrapper.element.parentElement.dispatchEvent(new Event('click'))
+  expect(getDropdownElement(wrapper)).toBe(null)
+})
 
-  await wrapper.find('body').trigger('click')
-  expect(wrapper.find('.vue-select-dropdown').attributes('style')).toContain('display: none;')
+it('should not open dropdown after delete tag', async () => {
+  const state = reactive({
+    model: [0],
+    options: [0, 1, 2],
+  })
+  const app = {
+    setup() {
+      return {
+        state,
+      }
+    },
+    components: {
+      VueSelect,
+    },
+    template: `
+      <vue-select
+        v-model="state.model"
+        :options="state.options"
+        multiple
+        taggable
+      ></vue-select>
+    `,
+  }
+  const wrapper = mount(app)
+
+  expect(getDropdownElement(wrapper)).toBe(null)
+
+  await clickFirstDeleteIconElement(wrapper)
+  expect(getDropdownElement(wrapper)).toBe(null)
+})
+
+it('should open dropdown after downward arrow icon', async () => {
+  const state = reactive({
+    model: [0],
+    options: [0, 1, 2],
+  })
+  const app = {
+    setup() {
+      return {
+        state,
+      }
+    },
+    components: {
+      VueSelect,
+    },
+    template: `
+      <vue-select
+        v-model="state.model"
+        :options="state.options"
+        multiple
+        taggable
+      ></vue-select>
+    `,
+  }
+  const wrapper = mount(app)
+
+  await wrapper.find('.icon-arrow-downward').trigger('click')
+  expect(getDropdownElement(wrapper)).not.toBe(null)
+})
+
+it('should close dropdown after downward arrow icon', async () => {
+  const state = reactive({
+    model: [0],
+    options: [0, 1, 2],
+  })
+  const app = {
+    setup() {
+      return {
+        state,
+      }
+    },
+    components: {
+      VueSelect,
+    },
+    template: `
+      <vue-select
+        v-model="state.model"
+        :options="state.options"
+        multiple
+        taggable
+      ></vue-select>
+    `,
+  }
+  const wrapper = mount(app)
+
+  await wrapper.find('.icon-arrow-downward').trigger('click')
+  expect(getDropdownElement(wrapper)).not.toBe(null)
+  await wrapper.find('.icon-arrow-downward').trigger('click')
+  await new Promise(resolve => setTimeout(resolve))
+  expect(getDropdownElement(wrapper)).toBe(null)
 })

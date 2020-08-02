@@ -30,7 +30,7 @@
   "scripts": {
     "build": "rollup --config",
     "dev": "rollup --config --watch",
-    "test": "jest --clearCache && jest test/**/*",
+    "test": "jest --clearCache && jest",
     "lint": "prettier --check *"
   },
   "devDependencies": {

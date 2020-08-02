@@ -1,10 +1,11 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
-import VueSelect from '../dist/vue-select.es'
+import VueSelect from '../../dist/vue-select.es'
+import { getAllDropdownItemElements, clickAllDropdownItemElements, clickFirstDropdownItemElement } from '../dom-utils'
 
-it('it should select', async () => {
+it('should not hide by default', async () => {
   const state = reactive({
-    model: null,
+    model: [],
     options: [0, 1, 2],
   })
   const app = {
@@ -20,21 +21,20 @@ it('it should select', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
+        multiple
       ></vue-select>
     `,
   }
   const wrapper = mount(app)
+  await wrapper.trigger('click')
 
-  expect(state.model).toBe(null)
-
-  await wrapper.find('.vue-input').trigger('focus')
-  await wrapper.find('.vue-select-dropdown-item').trigger('click')
-  expect(state.model).toBe(0)
+  await clickAllDropdownItemElements(wrapper)
+  expect(getAllDropdownItemElements(wrapper).length).toBe(3)
 })
 
-it('it should change', async () => {
+it('should hide selected after select', async () => {
   const state = reactive({
-    model: 0,
+    model: [],
     options: [0, 1, 2],
   })
   const app = {
@@ -50,21 +50,25 @@ it('it should change', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
+        multiple
+        hide-selected
       ></vue-select>
     `,
   }
   const wrapper = mount(app)
+  await wrapper.trigger('click')
 
-  expect(state.model).toBe(0)
-
-  await wrapper.find('.vue-input').trigger('focus')
-  await wrapper.findAll('.vue-select-dropdown-item')[1].trigger('click')
-  expect(state.model).toBe(1)
+  await clickFirstDropdownItemElement(wrapper)
+  expect(getAllDropdownItemElements(wrapper).length).toBe(2)
+  await clickFirstDropdownItemElement(wrapper)
+  expect(getAllDropdownItemElements(wrapper).length).toBe(1)
+  await clickFirstDropdownItemElement(wrapper)
+  expect(getAllDropdownItemElements(wrapper).length).toBe(0)
 })
 
-it('can not empty by default', async () => {
+it('should not hide options when init with empty array', async () => {
   const state = reactive({
-    model: 0,
+    model: [],
     options: [0, 1, 2],
   })
   const app = {
@@ -80,21 +84,20 @@ it('can not empty by default', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
+        multiple
+        hide-selected
       ></vue-select>
     `,
   }
   const wrapper = mount(app)
+  await wrapper.trigger('click')
 
-  expect(state.model).toBe(0)
-
-  await wrapper.find('.vue-input').trigger('focus')
-  await wrapper.find('.vue-select-dropdown-item').trigger('click')
-  expect(state.model).toBe(0)
+  expect(getAllDropdownItemElements(wrapper).length).toBe(3)
 })
 
-it('can be empty', async () => {
+it('should hide selected when init with one option', async () => {
   const state = reactive({
-    model: 0,
+    model: [0],
     options: [0, 1, 2],
   })
   const app = {
@@ -110,15 +113,13 @@ it('can be empty', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        allow-empty
+        multiple
+        hide-selected
       ></vue-select>
     `,
   }
   const wrapper = mount(app)
+  await wrapper.trigger('click')
 
-  expect(state.model).toBe(0)
-
-  await wrapper.find('.vue-input').trigger('focus')
-  await wrapper.find('.vue-select-dropdown-item').trigger('click')
-  expect(state.model).toBe(null)
+  expect(getAllDropdownItemElements(wrapper).length).toBe(2)
 })

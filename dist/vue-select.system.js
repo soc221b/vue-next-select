@@ -1,6 +1,6 @@
 System.register('VueSelect', ['vue'], function (exports) {
   'use strict';
-  var ref, openBlock, createBlock, renderSlot, createVNode, withKeys, withModifiers, Fragment, renderList, toDisplayString, onMounted, onUnmounted, watch, computed, resolveComponent, withCtx, createCommentVNode;
+  var ref, openBlock, createBlock, renderSlot, createVNode, withKeys, withModifiers, Fragment, renderList, toDisplayString, computed, onMounted, onUnmounted, watch, resolveComponent, withCtx, createCommentVNode;
   return {
     setters: [function (module) {
       ref = module.ref;
@@ -13,10 +13,10 @@ System.register('VueSelect', ['vue'], function (exports) {
       Fragment = module.Fragment;
       renderList = module.renderList;
       toDisplayString = module.toDisplayString;
+      computed = module.computed;
       onMounted = module.onMounted;
       onUnmounted = module.onUnmounted;
       watch = module.watch;
-      computed = module.computed;
       resolveComponent = module.resolveComponent;
       withCtx = module.withCtx;
       createCommentVNode = module.createCommentVNode;
@@ -105,7 +105,7 @@ System.register('VueSelect', ['vue'], function (exports) {
             type: Array,
             validator(modelValue) {
               return modelValue.every(option => {
-                return typeof option.id === 'string' && typeof option.label === 'string' && typeof option.active === 'boolean'
+                return typeof option.id !== undefined && option.label !== undefined && typeof option.active === 'boolean'
               })
             },
           },
@@ -151,7 +151,7 @@ System.register('VueSelect', ['vue'], function (exports) {
             type: Array,
             validator(modelValue) {
               return modelValue.every(option => {
-                return typeof option.id === 'string' && typeof option.label === 'string' && typeof option.active === 'boolean'
+                return typeof option.id !== undefined && option.label !== undefined && typeof option.active === 'boolean'
               })
             },
           },
@@ -235,16 +235,36 @@ System.register('VueSelect', ['vue'], function (exports) {
           isFocusing.value = false;
         };
 
-        onMounted(() => window.addEventListener('click', handleClickForWindow));
-        onUnmounted(() => window.removeEventListener('click', handleClickForWindow));
+        // rootElement is documentElement in browser or VTU_ROOT in vue-test-utils
+        const rootElement = computed(() => {
+          if (!wrapperRef.value) return
+          let rootElement = wrapperRef.value;
+          while (rootElement.parentElement) {
+            rootElement = rootElement.parentElement;
+          }
+          return rootElement
+        });
+
+        const addEventListener = () => {
+          if (!rootElement.value) return
+          rootElement.value.addEventListener('click', handleClickForWindow);
+        };
+        const removeEventListener = () => {
+          if (!rootElement.value) return
+          rootElement.value.removeEventListener('click', handleClickForWindow);
+        };
+
         const disableFocus = () => {
+          removeEventListener();
           isFocusing.value = false;
-          window.removeEventListener('click', handleClickForWindow);
         };
         const enableFocus = () => {
           disableFocus();
-          window.addEventListener('click', handleClickForWindow);
+          addEventListener();
         };
+
+        onMounted(enableFocus);
+        onUnmounted(disableFocus);
 
         return {
           isFocusing,
@@ -380,7 +400,8 @@ System.register('VueSelect', ['vue'], function (exports) {
           watch(
             () => isFocusing.value,
             () => {
-              if (isFocusing.value) context.emit('open');
+              if (props.disabled) isFocusing.value = false;
+              else if (isFocusing.value) context.emit('open');
               else context.emit('close');
               setTimeout(() => focus());
             },
@@ -389,9 +410,8 @@ System.register('VueSelect', ['vue'], function (exports) {
             if (isFocusing.value && input.value && input.value._) input.value._.refs.input.focus();
           };
           const close = () => {
-            const oldIsFocusing = isFocusing.value;
             setTimeout(() => {
-              if (oldIsFocusing === true) isFocusing.value = false;
+              isFocusing.value = false;
             });
           };
 
@@ -416,26 +436,27 @@ System.register('VueSelect', ['vue'], function (exports) {
           if (props.multiple) {
             props.modelValue.forEach(value => {
               const option = getOptionByValue(props.options, value, { valueBy });
-              selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy });
+              selectedOptions.value = addOption(selectedOptions.value, option, { max: Infinity, valueBy });
             });
           } else {
-            const option = getOptionByValue(props.options, props.modelValue, { valueBy });
-            selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy });
+            if (props.modelValue !== null) {
+              const option = getOptionByValue(props.options, props.modelValue, { valueBy });
+              selectedOptions.value = addOption(selectedOptions.value, option, { max: Infinity, valueBy });
+            }
           }
           const addOrRemoveOption = (event, option) => {
             if (props.disabled) return
 
-            option = getOptionByValue(props.options, option.id, { valueBy });
+            option = option.originalOption;
             if (hasOption(selectedOptions.value, option, { valueBy })) {
               selectedOptions.value = removeOption(selectedOptions.value, option, { min, valueBy });
-              context.emit('remove', option);
             } else {
               if (!props.multiple) {
                 selectedOptions.value = removeOption(selectedOptions.value, selectedOptions.value[0], { min: 0, valueBy });
               }
               selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy });
               context.emit('select', option);
-              if (props.closeOnSelect === true) close();
+              if (props.closeOnSelect === true) isFocusing.value = false;
             }
           };
           watch(
@@ -462,11 +483,11 @@ System.register('VueSelect', ['vue'], function (exports) {
               setTimeout(() => (isFocusing.value = true));
             }
             return (props.visibleOptions || props.options)
-              .filter(option => (props.hideSelected ? selectedValueSet.has(option.value) === false : true))
+              .filter(option => (props.hideSelected ? selectedValueSet.has(valueBy(option)) === false : true))
               .map(option => ({
                 id: trackBy(option),
                 label: labelBy(option),
-                active: selectedValueSet.has(option.value),
+                active: selectedValueSet.has(valueBy(option)),
                 originalOption: option,
               }))
           });
@@ -475,7 +496,7 @@ System.register('VueSelect', ['vue'], function (exports) {
             return props.options.map(option => ({
               id: trackBy(option),
               label: labelBy(option),
-              active: selectedValueSet.has(option.value),
+              active: selectedValueSet.has(valueBy(option)),
               originalOption: option,
             }))
           });

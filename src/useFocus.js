@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, computed } from 'vue'
 
 export default ({ wrapperRef, ignoreClasses = [] }) => {
   const isIgnoreEl = el => ignoreClasses.some(cls => el.classList.contains(cls))
@@ -21,16 +21,36 @@ export default ({ wrapperRef, ignoreClasses = [] }) => {
     isFocusing.value = false
   }
 
-  onMounted(() => window.addEventListener('click', handleClickForWindow))
-  onUnmounted(() => window.removeEventListener('click', handleClickForWindow))
+  // rootElement is documentElement in browser or VTU_ROOT in vue-test-utils
+  const rootElement = computed(() => {
+    if (!wrapperRef.value) return
+    let rootElement = wrapperRef.value
+    while (rootElement.parentElement) {
+      rootElement = rootElement.parentElement
+    }
+    return rootElement
+  })
+
+  const addEventListener = () => {
+    if (!rootElement.value) return
+    rootElement.value.addEventListener('click', handleClickForWindow)
+  }
+  const removeEventListener = () => {
+    if (!rootElement.value) return
+    rootElement.value.removeEventListener('click', handleClickForWindow)
+  }
+
   const disableFocus = () => {
+    removeEventListener()
     isFocusing.value = false
-    window.removeEventListener('click', handleClickForWindow)
   }
   const enableFocus = () => {
     disableFocus()
-    window.addEventListener('click', handleClickForWindow)
+    addEventListener()
   }
+
+  onMounted(enableFocus)
+  onUnmounted(disableFocus)
 
   return {
     isFocusing,

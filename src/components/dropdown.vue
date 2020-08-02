@@ -27,7 +27,7 @@ export default {
       type: Array,
       validator(modelValue) {
         return modelValue.every(option => {
-          return typeof option.id === 'string' && typeof option.label === 'string' && typeof option.active === 'boolean'
+          return typeof option.id !== undefined && option.label !== undefined && typeof option.active === 'boolean'
         })
       },
     },

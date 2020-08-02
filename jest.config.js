@@ -3,11 +3,10 @@
 
 module.exports = {
   collectCoverage: false,
-  collectCoverageFrom: ['src/**/*'],
+  collectCoverageFrom: ['dist/vue-select.es.js'],
   coverageDirectory: 'coverage',
   coverageReporters: ['json', 'text', 'lcov', 'clover'],
   errorOnDeprecated: true,
-  notify: true,
   verbose: true,
   preset: 'ts-jest',
   transform: {

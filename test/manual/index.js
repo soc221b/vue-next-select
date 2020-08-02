@@ -66,13 +66,14 @@ const app = createApp({
     :visible-options="visibleOptions"
     searchable
     multiple
+    taggable
     ellipsis
     tag-label-by="value"
     :loading="isLoading"
-    close-on-select
     :label-by="labelBy"
     :value-by="valueBy"
     :track-by="valueBy"
+    hide-selected
     @search-input="filter"
   >
   </vue-select>
