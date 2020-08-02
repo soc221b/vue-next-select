@@ -56,18 +56,15 @@
     "rollup-plugin-vue": "^6.0.0-beta.9",
     "ts-jest": "^25.4.0",
     "tslib": "^2.0.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "vue": "^3.0.0-rc.5"
   },
   "peerDependencies": {
-    "vue": "^3.0.0-rc.4"
+    "vue": "^3.0.0-rc.5"
   },
   "husky": {
     "hooks": {
       "pre-push": "git diff --exit-code && git diff --staged --exit-code && yarn lint && yarn test"
     }
-  },
-  "dependencies": {
-    "global": "^4.4.0",
-    "vue": "^3.0.0-rc.4"
   }
 }
