@@ -18,6 +18,7 @@ this.VueSelect = (function (vue) {
         type: Boolean,
       },
     },
+    emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'escape'],
     setup(props, context) {
       const handleInput = event => {
         context.emit('input', event);
@@ -88,6 +89,7 @@ this.VueSelect = (function (vue) {
         },
       },
     },
+    emits: ['click'],
     setup(props, context) {
       const handleClick = (event, option) => {
         context.emit('click', event, option);
@@ -134,6 +136,7 @@ this.VueSelect = (function (vue) {
         },
       },
     },
+    emits: ['click'],
     setup(props, context) {
       const handleClick = (event, option) => {
         context.emit('click', event, option);
@@ -359,6 +362,7 @@ this.VueSelect = (function (vue) {
         type: Boolean,
       },
     },
+    emits: ['update:modelValue', 'select', 'remove', 'open', 'close', 'search-input', 'search-change', 'focus', 'blur'],
     setup(props, context) {
       const { trackBy, labelBy, valueBy, min, max } = normalize(props);
 
@@ -405,9 +409,11 @@ this.VueSelect = (function (vue) {
       };
       const handleFocusForInput = event => {
         context.emit('focus', event);
+        console.log('focus');
       };
       const handleBlurForInput = event => {
         context.emit('blur', event);
+        console.log('blur');
       };
 
       const selectedOptions = vue.ref([]);
@@ -428,9 +434,12 @@ this.VueSelect = (function (vue) {
         option = option.originalOption;
         if (hasOption(selectedOptions.value, option, { valueBy })) {
           selectedOptions.value = removeOption(selectedOptions.value, option, { min, valueBy });
+          context.emit('remove', option);
         } else {
           if (!props.multiple) {
+            const removingOption = selectedOptions.value[0];
             selectedOptions.value = removeOption(selectedOptions.value, selectedOptions.value[0], { min: 0, valueBy });
+            context.emit('remove', removingOption);
           }
           selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy });
           context.emit('select', option);
