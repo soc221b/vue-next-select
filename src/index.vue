@@ -163,6 +163,7 @@ export default {
       type: Boolean,
     },
   },
+  emits: ['update:modelValue', 'select', 'open', 'close', 'search-input', 'search-change', 'focus', 'blur'],
   setup(props, context) {
     const { trackBy, labelBy, valueBy, min, max } = normalize(props)
 

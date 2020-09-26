@@ -36,6 +36,7 @@ export default {
       type: Boolean,
     },
   },
+  emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'escape'],
   setup(props, context) {
     const handleInput = event => {
       context.emit('input', event)
