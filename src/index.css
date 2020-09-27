@@ -123,6 +123,10 @@
   padding: 0;
 }
 
+.vue-select-header > .vue-input > input[disabled] {
+  background-color: unset;
+}
+
 .vue-select-dropdown {
   width: 100%;
   max-width: 100%;

@@ -1,6 +1,12 @@
 <template>
   <div ref="wrapper" class="vue-select" @click="focus" :class="{ disabled }">
     <div class="vue-select-header">
+      <template v-if="(taggable && modelValue.length === 0) || (searchable === false && taggable === false)">
+        <div class="vue-input">
+          <input :placeholder="placeholder" disabled />
+        </div>
+      </template>
+
       <template v-if="taggable">
         <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ collapsed: collapseTags }">
           <template #default="{ option }">
@@ -24,7 +30,7 @@
           ref="input"
           v-model="searchingInputValue"
           :disabled="disabled"
-          :placeholder="placeholder"
+          :placeholder="searchPlaceholder"
           @input="handleInputForInput"
           @change="handleChangeForInput"
           @focus="handleFocusForInput"
@@ -32,9 +38,6 @@
           @escape="close"
           class="vue-select-input"
         ></v-input>
-        <div v-else ref="input">
-          {{ placeholder }}
-        </div>
 
         <span v-if="loading" class="icon loading">
           <div></div>
@@ -51,7 +54,7 @@
           ref="input"
           v-model="searchingInputValue"
           :disabled="disabled"
-          :placeholder="placeholder"
+          :placeholder="searchPlaceholder"
           @input="handleInputForInput"
           @change="handleChangeForInput"
           @focus="handleFocusForInput"
@@ -147,6 +150,10 @@ export default {
     },
     placeholder: {
       default: 'Select option',
+      type: String,
+    },
+    searchPlaceholder: {
+      default: 'Type to search',
       type: String,
     },
     searchable: {
