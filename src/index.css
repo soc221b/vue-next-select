@@ -150,6 +150,10 @@
   background-color: #ff6a6a;
 }
 
+.vue-dropdown-item:last-child {
+  border-radius: 4px;
+}
+
 .icon.loading {
   display: inline-block;
   position: relative;
