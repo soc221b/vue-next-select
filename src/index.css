@@ -62,6 +62,7 @@
   margin: 0;
   padding: 2px;
   min-height: calc(1rem + 4px);
+  user-select: none;
 }
 
 .vue-tags.collapsed {
