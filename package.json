@@ -30,7 +30,9 @@
   "scripts": {
     "build": "rollup --config",
     "dev": "rollup --config --watch --environment DEVELOPMENT",
-    "test": "jest --clearCache && jest",
+    "test": "yarn test:jest && yarn test:cypress",
+    "test:cypress": "yarn cypress run",
+    "test:jest": "jest --clearCache && jest test/**/*",
     "lint": "prettier --check *"
   },
   "devDependencies": {
@@ -42,6 +44,7 @@
     "@vue/test-utils": "^2.0.0-beta.5",
     "babel-jest": "^26.1.0",
     "csso": "^4.0.3",
+    "cypress": "^5.2.0",
     "husky": "^4.2.5",
     "jest": "^25.5.4",
     "prettier": "^2.0.5",
