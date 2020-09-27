@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { default as VInput } from './components/input.vue'
 import { default as VTag } from './components/tag.vue'
 import { default as VDropdown } from './components/dropdown.vue'
