@@ -1,8 +1,7 @@
 <template>
   <ul class="vue-tag">
-    <template v-for="option of modelValue">
+    <template v-for="option of modelValue" :key="option.id">
       <li
-        :key="option.id"
         @click="handleClick($event, option)"
         class="vue-tag-item"
         :class="{ active: option.active, inactive: !option.active }"
