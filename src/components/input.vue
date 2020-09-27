@@ -11,13 +11,14 @@
       @focus="handleFocus"
       @blur="handleBlur"
       @keyup.esc.exact="handleEscape"
+      :tabindex="tabindex"
     />
     <slot name="append"></slot>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export default {
   inheritAttrs: false,
@@ -34,6 +35,10 @@ export default {
     disabled: {
       required: true,
       type: Boolean,
+    },
+    tabindex: {
+      required: true,
+      type: Number,
     },
   },
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'escape'],
@@ -55,9 +60,12 @@ export default {
 
     const input = ref(null)
     const handleEscape = event => {
-      context.emit('escape', event)
       input.value.blur()
+      context.emit('escape', event)
     }
+    onMounted(() => {
+      input.value.focus()
+    })
 
     return {
       handleInput,

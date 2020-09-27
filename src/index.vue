@@ -1,5 +1,12 @@
 <template>
-  <div ref="wrapper" class="vue-select" @click="focus" :class="{ disabled }">
+  <div
+    ref="wrapper"
+    class="vue-select"
+    :class="{ disabled }"
+    :tabindex="searchable ? -1 : tabindex"
+    @focus="focus"
+    @blur="searchable ? false : blur"
+  >
     <div class="vue-select-header">
       <template v-if="(taggable && modelValue.length === 0) || (searchable === false && taggable === false)">
         <div class="vue-input">
@@ -21,13 +28,17 @@
             </slot>
           </template>
         </v-tag>
-        <span class="icon arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
+        <span
+          class="icon arrow-downward"
+          :class="{ active: isFocusing }"
+          @click="toggle"
+          @mousedown.prevent.stop
+        ></span>
       </template>
 
       <template v-else>
         <v-input
           v-if="searchable"
-          ref="input"
           v-model="searchingInputValue"
           :disabled="disabled"
           :placeholder="searchPlaceholder"
@@ -35,7 +46,8 @@
           @change="handleChangeForInput"
           @focus="handleFocusForInput"
           @blur="handleBlurForInput"
-          @escape="close"
+          @escape="blur"
+          :tabindex="tabindex"
           class="vue-select-input"
         ></v-input>
 
@@ -44,14 +56,19 @@
           <div></div>
           <div></div>
         </span>
-        <span v-else class="icon arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
+        <span
+          v-else
+          class="icon arrow-downward"
+          :class="{ active: isFocusing }"
+          @click="toggle"
+          @mousedown.prevent.stop
+        ></span>
       </template>
     </div>
 
     <template v-if="isFocusing">
       <template v-if="taggable && searchable">
         <v-input
-          ref="input"
           v-model="searchingInputValue"
           :disabled="disabled"
           :placeholder="searchPlaceholder"
@@ -59,7 +76,8 @@
           @change="handleChangeForInput"
           @focus="handleFocusForInput"
           @blur="handleBlurForInput"
-          @escape="close"
+          @escape="blur"
+          :tabindex="tabindex"
           class="vue-select-input"
         >
           <template #append>
@@ -89,7 +107,6 @@ import { default as VInput } from './components/input.vue'
 import { default as VTag } from './components/tag.vue'
 import { default as VDropdown } from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption, isSameOption } from './crud'
-import useFocus from './useFocus'
 import normalize from './normalize'
 
 export default {
@@ -169,6 +186,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    tabindex: {
+      default: 0,
+      type: Number,
+    },
   },
   emits: ['update:modelValue', 'select', 'remove', 'open', 'close', 'search-input', 'search-change', 'focus', 'blur'],
   setup(props, context) {
@@ -176,49 +197,39 @@ export default {
 
     // focus
     const wrapper = ref(null)
-    const ignoreClasses = ['icon-delete']
-    const { isFocusing, disableFocus, enableFocus } = useFocus({ wrapperRef: wrapper, ignoreClasses })
-    watch(
-      () => props.disabled,
-      () => {
-        if (props.disabled) disableFocus()
-        else enableFocus()
-      },
-      { immediate: true },
-    )
-    const input = ref(null)
+    const isFocusing = ref(false)
     watch(
       () => isFocusing.value,
       () => {
-        if (props.disabled) isFocusing.value = false
-        else if (isFocusing.value) context.emit('open')
+        if (isFocusing.value) context.emit('open')
         else context.emit('close')
-        setTimeout(() => focus())
       },
     )
     const focus = () => {
-      if (isFocusing.value && input.value && input.value._) input.value._.refs.input.focus()
+      if (props.disabled) return
+      isFocusing.value = true
     }
-    const close = () => {
-      setTimeout(() => {
-        isFocusing.value = false
-      })
+    const blur = event => {
+      isFocusing.value = false
+    }
+    const toggle = event => {
+      isFocusing.value = !isFocusing.value
     }
 
     // input
     const searchingInputValue = ref('')
     const handleInputForInput = event => {
-      searchingInputValue.value = event.target.value
       context.emit('search-input', event)
     }
     const handleChangeForInput = event => {
-      searchingInputValue.value = event.target.value
       context.emit('search-change', event)
     }
     const handleFocusForInput = event => {
+      focus()
       context.emit('focus', event)
     }
     const handleBlurForInput = event => {
+      blur()
       context.emit('blur', event)
     }
 
@@ -262,7 +273,6 @@ export default {
           if (selectedValues.length) context.emit('update:modelValue', selectedValues[0])
           else context.emit('update:modelValue', null)
         }
-        focus()
       },
       { deep: true },
     )
@@ -271,10 +281,6 @@ export default {
     const handleClickForTag = (event, option) => addOrRemoveOption(event, option)
     const dropdownSelectedOptions = computed(() => {
       const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
-      if (props.hideSelected && isFocusing.value) {
-        // effect
-        setTimeout(() => (isFocusing.value = true))
-      }
       return (props.visibleOptions || props.options)
         .filter(option => (props.hideSelected ? selectedValueSet.has(valueBy(option)) === false : true))
         .map(option => ({
@@ -304,9 +310,10 @@ export default {
 
     return {
       isFocusing,
-      input,
       wrapper,
-      close,
+      focus,
+      blur,
+      toggle,
 
       searchingInputValue,
       handleInputForInput,
@@ -320,7 +327,6 @@ export default {
       tagSelectedOptions,
 
       addOrRemoveOption,
-      focus,
     }
   },
   components: {

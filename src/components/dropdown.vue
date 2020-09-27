@@ -1,5 +1,5 @@
 <template>
-  <ul class="vue-dropdown">
+  <ul class="vue-dropdown" @mousedown.prevent>
     <template v-for="option of modelValue" :key="option.key">
       <li @click="handleClick($event, option)" class="vue-dropdown-item" :class="{ selected: option.selected }">
         <slot :option="option">
