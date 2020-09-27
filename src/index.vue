@@ -19,7 +19,7 @@
       <template v-if="multiple && taggable">
         <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ collapsed: collapseTags }">
           <template #default="{ option }">
-            <slot name="tag-item" :option="option.originalOption">
+            <slot name="tag" :option="option.originalOption">
               <span>{{ option.label }}</span>
               <img
                 src="./images/delete.svg"
