@@ -5,7 +5,7 @@
     :class="{ disabled }"
     :tabindex="searchable ? -1 : tabindex"
     @focus="focus"
-    @blur="searchable ? false : blur"
+    @blur="() => (searchable ? false : blur())"
   >
     <div class="vue-select-header">
       <template
