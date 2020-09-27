@@ -26,7 +26,7 @@ it('should not close by default', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickFirstDropdownItemElement(wrapper)
   expect(getAllDropdownItemElements(wrapper).length).toBe(3)
@@ -56,7 +56,7 @@ it('should close on select', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickFirstDropdownItemElement(wrapper)
   expect(getAllDropdownItemElements(wrapper).length).toBe(0)

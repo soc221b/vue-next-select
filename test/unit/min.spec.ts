@@ -31,7 +31,7 @@ it('should not limit by default', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickAllDropdownItemElements(wrapper)
   expect(state.model).toStrictEqual([])
@@ -61,7 +61,7 @@ it('should limit by given min length', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickAllDropdownItemElements(wrapper)
   expect(state.model).toStrictEqual([2])
@@ -94,7 +94,7 @@ it('should limit when init with smaller length', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(0)
 
@@ -132,7 +132,7 @@ it('should work with delete icon', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickFirstDeleteIconElement(wrapper)
   expect(state.model).toStrictEqual([0])

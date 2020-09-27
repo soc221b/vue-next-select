@@ -27,7 +27,7 @@ it('should works with taggable when init with empty array', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(0)
 
@@ -59,7 +59,7 @@ it('should works with taggable when init with one option', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 
@@ -91,7 +91,7 @@ it('should delete option', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 

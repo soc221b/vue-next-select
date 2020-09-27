@@ -26,7 +26,7 @@ it('should not hide by default', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickAllDropdownItemElements(wrapper)
   expect(getAllDropdownItemElements(wrapper).length).toBe(3)
@@ -56,7 +56,7 @@ it('should hide selected after select', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickFirstDropdownItemElement(wrapper)
   expect(getAllDropdownItemElements(wrapper).length).toBe(2)
@@ -90,7 +90,7 @@ it('should not hide options when init with empty array', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getAllDropdownItemElements(wrapper).length).toBe(3)
 })
@@ -119,7 +119,7 @@ it('should hide selected when init with one option', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getAllDropdownItemElements(wrapper).length).toBe(2)
 })

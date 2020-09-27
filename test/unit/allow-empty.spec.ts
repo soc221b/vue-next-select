@@ -25,7 +25,7 @@ it('should not allow empty by default', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickFirstDropdownItemElement(wrapper)
   expect(state.model).toStrictEqual(0)
@@ -57,7 +57,7 @@ it('should works with allow empty', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickFirstDropdownItemElement(wrapper)
   expect(state.model).toStrictEqual(0)

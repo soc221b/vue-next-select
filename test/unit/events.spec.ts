@@ -28,7 +28,7 @@ it('should emit select event with option', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
   await clickFirstDropdownItemElement(wrapper)
   expect(handleSelect.mock.calls[0][0]).toBe(0)
 })
@@ -58,7 +58,7 @@ it('should emit remove event with option', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
   await clickFirstDropdownItemElement(wrapper)
   expect(handleRemove.mock.calls[0][0]).toBe(0)
 })
@@ -88,7 +88,7 @@ it('should emit open event', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
   expect(handleOpen).toBeCalled()
 })
 
@@ -117,7 +117,7 @@ it('should emit close event', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
-  await wrapper.element.parentElement.dispatchEvent(new Event('click'))
+  await wrapper.trigger('focus')
+  await wrapper.trigger('blur')
   expect(handleClose).toBeCalled()
 })

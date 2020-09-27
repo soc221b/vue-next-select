@@ -27,7 +27,7 @@ it('should disabled', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getDropdownElement(wrapper)).toBe(null)
   expect(state.model).toStrictEqual([0])
@@ -58,7 +58,7 @@ it('should disable tag', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickFirstDeleteIconElement(wrapper)
   expect(state.model).toStrictEqual([0])

@@ -26,7 +26,7 @@ it('should not limit by default', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickAllDropdownItemElements(wrapper)
   expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(3)
@@ -57,7 +57,7 @@ it('should limit by given max length', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   await clickAllDropdownItemElements(wrapper)
   expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(2)
@@ -88,7 +88,7 @@ it('should limit when init with greater length', async () => {
     `,
   }
   const wrapper = mount(app)
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
 
   expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(3)
 

@@ -30,7 +30,7 @@ it('should works', async () => {
   }
   const wrapper = mount(app)
 
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
   await clickAllDropdownItemElements(wrapper)
   expect(state.model).toStrictEqual([0, 1])
 })

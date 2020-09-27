@@ -27,7 +27,7 @@ it('it should select when init with one option', async () => {
   }
   const wrapper = mount(app)
 
-  await wrapper.trigger('click')
+  await wrapper.trigger('focus')
   await clickAllDropdownItemElements(wrapper)
   expect(state.model).toStrictEqual([1, 2])
 })
