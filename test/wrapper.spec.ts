@@ -91,7 +91,7 @@ it('should open dropdown after downward arrow icon', async () => {
   }
   const wrapper = mount(app)
 
-  await wrapper.find('.icon-arrow-downward').trigger('click')
+  await wrapper.find('.icon.arrow-downward').trigger('click')
   expect(getDropdownElement(wrapper)).not.toBe(null)
 })
 
@@ -120,9 +120,9 @@ it('should close dropdown after downward arrow icon', async () => {
   }
   const wrapper = mount(app)
 
-  await wrapper.find('.icon-arrow-downward').trigger('click')
+  await wrapper.find('.icon.arrow-downward').trigger('click')
   expect(getDropdownElement(wrapper)).not.toBe(null)
-  await wrapper.find('.icon-arrow-downward').trigger('click')
+  await wrapper.find('.icon.arrow-downward').trigger('click')
   await new Promise(resolve => setTimeout(resolve))
   expect(getDropdownElement(wrapper)).toBe(null)
 })

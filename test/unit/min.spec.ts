@@ -96,15 +96,15 @@ it('should limit when init with smaller length', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('click')
 
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(0)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(0)
 
   await clickFirstDropdownItemElement(wrapper)
   expect(state.model).toStrictEqual([0])
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(1)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 
   await clickFirstDropdownItemElement(wrapper)
   expect(state.model).toStrictEqual([0])
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(1)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 })
 
 it('should work with delete icon', async () => {
@@ -136,5 +136,5 @@ it('should work with delete icon', async () => {
 
   await clickFirstDeleteIconElement(wrapper)
   expect(state.model).toStrictEqual([0])
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(1)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 })

@@ -50,7 +50,7 @@ export const clickFirstDropdownItemElement = async wrapper => {
 
 // tag
 export const getTagElement = wrapper => {
-  return getElement(wrapper, '.vue-tag')
+  return getElement(wrapper, '.vue-tags')
 }
 
 export const getAllTagItemElements = wrapper => {

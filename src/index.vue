@@ -2,20 +2,20 @@
   <div ref="wrapper" class="vue-select" @click="focus" :class="{ disabled }">
     <div class="vue-select-header">
       <template v-if="taggable">
-        <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ ellipsis }">
+        <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ collapsed: collapseTags }">
           <template #default="{ option }">
             <slot name="tag-item" :option="option.originalOption">
               <span>{{ option.label }}</span>
               <img
                 src="./images/delete.svg"
                 alt="delete tag"
-                class="icon-delete"
+                class="icon delete"
                 @click="() => addOrRemoveOption($event, option)"
               />
             </slot>
           </template>
         </v-tag>
-        <span class="icon-arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
+        <span class="icon arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
       </template>
 
       <template v-else>
@@ -36,12 +36,12 @@
           {{ placeholder }}
         </div>
 
-        <span v-if="loading" class="icon-loading">
+        <span v-if="loading" class="icon loading">
           <div></div>
           <div></div>
           <div></div>
         </span>
-        <span v-else class="icon-arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
+        <span v-else class="icon arrow-downward" :class="{ active: isFocusing }" @click="close"></span>
       </template>
     </div>
 
@@ -60,7 +60,7 @@
           class="vue-select-input"
         >
           <template #append>
-            <span v-if="loading" class="icon-loading">
+            <span v-if="loading" class="icon loading">
               <div></div>
               <div></div>
               <div></div>
@@ -158,7 +158,7 @@ export default {
       default: false,
       type: Boolean,
     },
-    ellipsis: {
+    collapseTags: {
       default: false,
       type: Boolean,
     },
@@ -271,18 +271,18 @@ export default {
       return (props.visibleOptions || props.options)
         .filter(option => (props.hideSelected ? selectedValueSet.has(valueBy(option)) === false : true))
         .map(option => ({
-          id: trackBy(option),
+          key: trackBy(option),
           label: labelBy(option),
-          active: selectedValueSet.has(valueBy(option)),
+          selected: selectedValueSet.has(valueBy(option)),
           originalOption: option,
         }))
     })
     const tagSelectedOptions = computed(() => {
       const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
       return props.options.map(option => ({
-        id: trackBy(option),
+        key: trackBy(option),
         label: labelBy(option),
-        active: selectedValueSet.has(valueBy(option)),
+        selected: selectedValueSet.has(valueBy(option)),
         originalOption: option,
       }))
     })

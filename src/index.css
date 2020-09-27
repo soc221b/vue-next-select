@@ -1,4 +1,4 @@
-.icon-delete {
+.icon.delete {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 
-.icon-arrow-downward {
+.icon.arrow-downward {
   color: #999;
   border-style: solid;
   border-width: 4px 4px 0;
@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-.icon-arrow-downward.active {
+.icon.arrow-downward.active {
   transform: rotate(180deg);
 }
 
@@ -51,12 +51,12 @@
   justify-content: space-between;
 }
 
-.vue-select-header > .icon-loading,
-.vue-select-header > .icon-arrow-downward {
+.vue-select-header > .icon.loading,
+.vue-select-header > .icon.arrow-downward {
   margin-right: 4px;
 }
 
-.vue-tag {
+.vue-tags {
   display: flex;
   flex-wrap: wrap;
   margin: 0;
@@ -64,12 +64,12 @@
   min-height: calc(1rem + 4px);
 }
 
-.vue-tag.ellipsis {
+.vue-tags.collapsed {
   flex-wrap: nowrap;
   overflow: auto;
 }
 
-.vue-tag-item {
+.vue-tag {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,11 +82,15 @@
   font-size: 0.8rem;
 }
 
-.vue-tag-item > span {
+.vue-tag > span {
   margin-right: 4px;
 }
 
-.vue-tag-item.active {
+.vue-tag {
+  display: none;
+}
+
+.vue-tag.selected {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,10 +98,6 @@
   border-radius: 4px;
   padding: 0 4px;
   font-size: 0.8rem;
-}
-
-.vue-tag-item.inactive {
-  display: none;
 }
 
 .vue-input {
@@ -145,7 +145,7 @@
   background-color: #ff6a6a;
 }
 
-.icon-loading {
+.icon.loading {
   display: inline-block;
   position: relative;
   width: 8px;
@@ -154,7 +154,7 @@
   min-height: 8px;
 }
 
-.icon-loading div {
+.icon.loading div {
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -166,10 +166,10 @@
   border-color: #999 transparent transparent transparent;
 }
 
-.icon-loading div:nth-child(1) {
+.icon.loading div:nth-child(1) {
   animation-delay: -0.08s;
 }
-.icon-loading div:nth-child(2) {
+.icon.loading div:nth-child(2) {
   animation-delay: -0.16s;
 }
 
@@ -194,7 +194,7 @@
   padding: 4px;
 }
 
-.vue-dropdown-item.active {
+.vue-dropdown-item.selected {
   background-color: #f3f3f3;
 }
 

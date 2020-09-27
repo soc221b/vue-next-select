@@ -29,12 +29,10 @@ it('should works with taggable when init with empty array', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('click')
 
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(0)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('inactive')).length).toBe(3)
+  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(0)
 
   await clickFirstDropdownItemElement(wrapper)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(1)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('inactive')).length).toBe(2)
+  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 })
 
 it('should works with taggable when init with one option', async () => {
@@ -63,12 +61,10 @@ it('should works with taggable when init with one option', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('click')
 
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(1)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('inactive')).length).toBe(2)
+  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 
   await clickFirstDropdownItemElement(wrapper)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(2)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('inactive')).length).toBe(1)
+  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(2)
 })
 
 it('should delete option', async () => {
@@ -97,10 +93,8 @@ it('should delete option', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('click')
 
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(1)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('inactive')).length).toBe(2)
+  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(1)
 
   await clickFirstDeleteIconElement(wrapper)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(0)
-  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('inactive')).length).toBe(3)
+  expect(getAllTagItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(0)
 })

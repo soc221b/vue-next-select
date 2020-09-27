@@ -1,11 +1,7 @@
 <template>
-  <ul class="vue-tag">
-    <template v-for="option of modelValue" :key="option.id">
-      <li
-        @click="handleClick($event, option)"
-        class="vue-tag-item"
-        :class="{ active: option.active, inactive: !option.active }"
-      >
+  <ul class="vue-tags">
+    <template v-for="option of modelValue" :key="option.key">
+      <li @click="handleClick($event, option)" class="vue-tag" :class="{ selected: option.selected }">
         <slot :option="option">
           <span>{{ option.label }}</span>
         </slot>
@@ -16,14 +12,14 @@
 
 <script>
 export default {
-  name: 'vue-tag',
+  name: 'vue-tags',
   props: {
     modelValue: {
       required: true,
       type: Array,
       validator(modelValue) {
         return modelValue.every(option => {
-          return typeof option.id !== undefined && option.label !== undefined && typeof option.active === 'boolean'
+          return typeof option.key !== undefined && option.label !== undefined && typeof option.selected === 'boolean'
         })
       },
     },

@@ -29,7 +29,7 @@ it('should not limit by default', async () => {
   await wrapper.trigger('click')
 
   await clickAllDropdownItemElements(wrapper)
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(3)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(3)
   expect(state.model).toStrictEqual([0, 1, 2])
 })
 
@@ -60,7 +60,7 @@ it('should limit by given max length', async () => {
   await wrapper.trigger('click')
 
   await clickAllDropdownItemElements(wrapper)
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(2)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(2)
   expect(state.model).toStrictEqual([0, 1])
 })
 
@@ -90,13 +90,13 @@ it('should limit when init with greater length', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('click')
 
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(3)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(3)
 
   await clickFirstDropdownItemElement(wrapper)
   expect(state.model).toStrictEqual([1, 2])
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(2)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(2)
 
   await clickFirstDropdownItemElement(wrapper)
   expect(state.model).toStrictEqual([1, 2])
-  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('active')).length).toBe(2)
+  expect(getAllDropdownItemElements(wrapper).filter(element => element.classList.contains('selected')).length).toBe(2)
 })

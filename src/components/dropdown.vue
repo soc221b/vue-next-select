@@ -1,11 +1,7 @@
 <template>
   <ul class="vue-dropdown">
-    <template v-for="option of modelValue" :key="option.id">
-      <li
-        @click="handleClick($event, option)"
-        class="vue-dropdown-item"
-        :class="{ active: option.active, inactive: !option.active }"
-      >
+    <template v-for="option of modelValue" :key="option.key">
+      <li @click="handleClick($event, option)" class="vue-dropdown-item" :class="{ selected: option.selected }">
         <slot :option="option">
           <span>{{ option.label }}</span>
         </slot>
@@ -26,7 +22,7 @@ export default {
       type: Array,
       validator(modelValue) {
         return modelValue.every(option => {
-          return typeof option.id !== undefined && option.label !== undefined && typeof option.active === 'boolean'
+          return typeof option.key !== undefined && option.label !== undefined && typeof option.selected === 'boolean'
         })
       },
     },
