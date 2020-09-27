@@ -20,9 +20,11 @@ jobs:
 
       - run: yarn install
 
-      - run: yarn test --coverage
+      - run: yarn test:jest --coverage
         env:
           CI: true
+
+      - run: yarn test:cypress
 
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v1.1.1
