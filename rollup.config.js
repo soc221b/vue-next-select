@@ -11,8 +11,8 @@ import svg from 'rollup-plugin-svg'
 
 rm.sync(path.resolve('dist/**/*'))
 
-const packageName = 'vue-select'
-const pascalCasePackageName = 'VueSelect'
+const packageName = 'vue-next-select'
+const pascalCasePackageName = 'VueNextSelect'
 
 const input = 'src/index.vue'
 const formats = ['es', 'iife', 'umd', 'amd', 'cjs', 'system']

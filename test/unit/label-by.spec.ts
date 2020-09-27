@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
-import VueSelect from '../../dist/vue-select.es'
+import VueSelect from '../../dist/vue-next-select.es'
 import { getFirstDropdownItemElement } from '../dom-utils'
 
 it('should works by default', async () => {
