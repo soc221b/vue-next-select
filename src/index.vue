@@ -8,13 +8,15 @@
     @blur="searchable ? false : blur"
   >
     <div class="vue-select-header">
-      <template v-if="(taggable && modelValue.length === 0) || (searchable === false && taggable === false)">
+      <template
+        v-if="(multiple && taggable && modelValue.length === 0) || (searchable === false && taggable === false)"
+      >
         <div class="vue-input">
           <input :placeholder="placeholder" disabled />
         </div>
       </template>
 
-      <template v-if="taggable">
+      <template v-if="multiple && taggable">
         <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ collapsed: collapseTags }">
           <template #default="{ option }">
             <slot name="tag-item" :option="option.originalOption">
@@ -67,7 +69,7 @@
     </div>
 
     <template v-if="isFocusing">
-      <template v-if="taggable && searchable">
+      <template v-if="multiple && taggable && searchable">
         <v-input
           v-model="searchingInputValue"
           :disabled="disabled"
