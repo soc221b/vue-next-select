@@ -3,7 +3,7 @@
 
 module.exports = {
   collectCoverage: false,
-  collectCoverageFrom: ['dist/vue-select.es.js'],
+  collectCoverageFrom: ['dist/vue-next-select.es.js'],
   coverageDirectory: 'coverage',
   coverageReporters: ['json', 'text', 'lcov', 'clover'],
   errorOnDeprecated: true,
