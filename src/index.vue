@@ -242,8 +242,8 @@ export default {
         }
         selectedOptions.value = addOption(selectedOptions.value, option, { max, valueBy })
         context.emit('select', option)
-        if (props.closeOnSelect === true) isFocusing.value = false
       }
+      if (props.closeOnSelect === true) isFocusing.value = false
     }
     watch(
       () => selectedOptions,
