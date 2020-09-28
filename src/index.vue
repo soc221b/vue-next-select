@@ -22,7 +22,7 @@
       </template>
 
       <template v-if="multiple && taggable">
-        <v-tag :modelValue="optionsWithInfo" :collapse-tags="collapseTags">
+        <v-tag :modelValue="optionsWithInfo" :collapse-tags="collapseTags" tabindex="-1" @click="focus">
           <template #default="{ option }">
             <slot name="tag" :option="option.originalOption">
               <span>{{ option.label }}</span>
@@ -30,7 +30,7 @@
                 src="./images/delete.svg"
                 alt="delete tag"
                 class="icon delete"
-                @click="() => addOrRemoveOption($event, option)"
+                @click.prevent.stop="() => addOrRemoveOption($event, option)"
               />
             </slot>
           </template>

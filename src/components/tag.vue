@@ -3,6 +3,8 @@
     class="vue-tags"
     @mousedown.prevent
     :class="{ collapsed: collapseTags }"
+    tabindex="-1"
+    @click="handleClick"
     :data-is-focusing="dataAttrs.isFocusing"
     :data-visible-length="dataAttrs.visibleLength"
     :data-not-selected-length="dataAttrs.notSelectedLength"
@@ -10,7 +12,7 @@
     :data-total-length="dataAttrs.totalLength"
   >
     <template v-for="option of modelValue" :key="option.key">
-      <li @click="handleClick($event, option)" class="vue-tag" :class="{ selected: option.selected }">
+      <li class="vue-tag" :class="{ selected: option.selected }">
         <slot :option="option">
           <span>{{ option.label }}</span>
         </slot>
@@ -43,8 +45,8 @@ export default {
   setup(props, context) {
     const dataAttrs = inject('dataAttrs')
 
-    const handleClick = (event, option) => {
-      context.emit('click', event, option)
+    const handleClick = event => {
+      context.emit('click', event)
     }
 
     return {
