@@ -3,7 +3,7 @@
     ref="wrapper"
     class="vue-select"
     :class="{ disabled }"
-    :tabindex="searchable ? -1 : tabindex"
+    :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
     @blur="() => (searchable ? false : blur())"
   >
