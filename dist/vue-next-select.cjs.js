@@ -22,6 +22,10 @@ var script = {
       required: true,
       type: Number,
     },
+    autofocus: {
+      required: true,
+      type: Boolean,
+    },
   },
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'escape'],
   setup(props, context) {
@@ -46,7 +50,7 @@ var script = {
       context.emit('escape', event);
     };
     vue.onMounted(() => {
-      input.value.focus();
+      if (props.autofocus) input.value.focus();
     });
 
     return {
@@ -76,8 +80,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onFocus: _cache[3] || (_cache[3] = (...args) => ($setup.handleFocus(...args))),
       onBlur: _cache[4] || (_cache[4] = (...args) => ($setup.handleBlur(...args))),
       onKeyup: _cache[5] || (_cache[5] = vue.withKeys(vue.withModifiers((...args) => ($setup.handleEscape(...args)), ["exact"]), ["esc"])),
-      tabindex: $props.tabindex
-    }, null, 40 /* PROPS, HYDRATE_EVENTS */, ["modelValue", "placeholder", "disabled", "tabindex"]),
+      tabindex: $props.tabindex,
+      autofocus: $props.autofocus
+    }, null, 40 /* PROPS, HYDRATE_EVENTS */, ["modelValue", "placeholder", "disabled", "tabindex", "autofocus"]),
     vue.renderSlot(_ctx.$slots, "append")
   ]))
 }
@@ -321,19 +326,36 @@ var script$3 = {
       default: 0,
       type: Number,
     },
+    autofocus: {
+      default: false,
+      type: Boolean,
+    },
   },
   emits: ['update:modelValue', 'select', 'remove', 'open', 'close', 'search-input', 'search-change', 'focus', 'blur'],
   setup(props, context) {
     const { trackBy, labelBy, valueBy, min, max } = normalize(props);
 
-    // focus
     const wrapper = vue.ref(null);
+    const input = vue.ref(null);
     const isFocusing = vue.ref(false);
     vue.watch(
       () => isFocusing.value,
       () => {
-        if (isFocusing.value) context.emit('open');
-        else context.emit('close');
+        if (isFocusing.value) {
+          context.emit('open');
+          if (props.searchable) context.emit('focus');
+          // toggle arrow downward icon
+          if (input.value && input.value._.refs.input !== document.activeElement) {
+            input.value._.refs.input.focus();
+          }
+        } else {
+          // toggle arrow downward icon
+          if (input.value && input.value._.refs.input === document.activeElement) {
+            input.value._.refs.input.blur();
+          }
+          if (props.searchable) context.emit('blur');
+          context.emit('close');
+        }
       },
     );
     const focus = () => {
@@ -357,11 +379,9 @@ var script$3 = {
     };
     const handleFocusForInput = event => {
       focus();
-      context.emit('focus', event);
     };
     const handleBlurForInput = event => {
       blur();
-      context.emit('blur', event);
     };
 
     const selectedOptions = vue.ref([]);
@@ -442,6 +462,7 @@ var script$3 = {
     return {
       isFocusing,
       wrapper,
+      input,
       focus,
       blur,
       toggle,
@@ -497,7 +518,7 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
   return (vue.openBlock(), vue.createBlock("div", {
     ref: "wrapper",
     class: ["vue-select", { disabled: $props.disabled }],
-    tabindex: $props.searchable ? -1 : $props.tabindex,
+    tabindex: $setup.isFocusing ? -1 : $props.tabindex,
     onFocus: _cache[8] || (_cache[8] = (...args) => ($setup.focus(...args))),
     onBlur: _cache[9] || (_cache[9] = () => ($props.searchable ? false : $setup.blur()))
   }, [
@@ -541,6 +562,7 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
             ($props.searchable)
               ? (vue.openBlock(), vue.createBlock(_component_v_input, {
                   key: 0,
+                  ref: "input",
                   modelValue: $setup.searchingInputValue,
                   "onUpdate:modelValue": _cache[3] || (_cache[3] = $event => ($setup.searchingInputValue = $event)),
                   disabled: $props.disabled,
@@ -550,9 +572,10 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
                   onFocus: $setup.handleFocusForInput,
                   onBlur: $setup.handleBlurForInput,
                   onEscape: $setup.blur,
+                  autofocus: $props.autofocus || ($props.taggable && $setup.isFocusing),
                   tabindex: $props.tabindex,
                   class: "vue-select-input"
-                }, null, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape", "tabindex"]))
+                }, null, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape", "autofocus", "tabindex"]))
               : vue.createCommentVNode("v-if", true),
             ($props.loading)
               ? (vue.openBlock(), vue.createBlock("span", _hoisted_3, [
@@ -573,6 +596,7 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
           ($props.multiple && $props.taggable && $props.searchable)
             ? (vue.openBlock(), vue.createBlock(_component_v_input, {
                 key: 0,
+                ref: "input",
                 modelValue: $setup.searchingInputValue,
                 "onUpdate:modelValue": _cache[6] || (_cache[6] = $event => ($setup.searchingInputValue = $event)),
                 disabled: $props.disabled,
@@ -583,6 +607,7 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
                 onBlur: $setup.handleBlurForInput,
                 onEscape: $setup.blur,
                 tabindex: $props.tabindex,
+                autofocus: $props.autofocus || ($props.taggable && $setup.isFocusing),
                 class: "vue-select-input"
               }, {
                 append: vue.withCtx(() => [
@@ -595,7 +620,7 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
                     : vue.createCommentVNode("v-if", true)
                 ]),
                 _: 1
-              }, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape", "tabindex"]))
+              }, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape", "tabindex", "autofocus"]))
             : vue.createCommentVNode("v-if", true),
           vue.createVNode(_component_v_dropdown, {
             modelValue: $setup.dropdownSelectedOptions,
