@@ -1,4 +1,4 @@
-import { ref, onMounted, openBlock, createBlock, renderSlot, createVNode, withKeys, withModifiers, Fragment, renderList, toDisplayString, watch, computed, resolveComponent, createCommentVNode, withCtx } from 'vue';
+import { ref, onMounted, onUpdated, openBlock, createBlock, renderSlot, createVNode, withKeys, withModifiers, inject, Fragment, renderList, toDisplayString, createCommentVNode, watch, computed, provide, resolveComponent, withCtx, withDirectives, vShow } from 'vue';
 
 var script = {
   inheritAttrs: false,
@@ -50,6 +50,9 @@ var script = {
     onMounted(() => {
       if (props.autofocus) input.value.focus();
     });
+    onUpdated(() => {
+      if (props.autofocus) input.value.focus();
+    });
 
     return {
       handleInput,
@@ -89,6 +92,7 @@ script.render = render;
 script.__file = "src/components/input.vue";
 
 var script$1 = {
+  inheritAttrs: false,
   name: 'vue-tags',
   props: {
     modelValue: {
@@ -100,14 +104,20 @@ var script$1 = {
         })
       },
     },
+    collapseTags: {
+      type: Boolean,
+    },
   },
   emits: ['click'],
   setup(props, context) {
-    const handleClick = (event, option) => {
-      context.emit('click', event, option);
+    const dataAttrs = inject('dataAttrs');
+
+    const handleClick = event => {
+      context.emit('click', event);
     };
 
     return {
+      dataAttrs,
       handleClick,
     }
   },
@@ -115,21 +125,27 @@ var script$1 = {
 
 function render$1(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createBlock("ul", {
-    class: "vue-tags",
-    onMousedown: _cache[1] || (_cache[1] = withModifiers(() => {}, ["prevent"]))
+    class: ["vue-tags", { collapsed: $props.collapseTags }],
+    onMousedown: _cache[1] || (_cache[1] = withModifiers(() => {}, ["prevent"])),
+    tabindex: "-1",
+    onClick: _cache[2] || (_cache[2] = (...args) => ($setup.handleClick(...args))),
+    "data-is-focusing": $setup.dataAttrs.isFocusing,
+    "data-visible-length": $setup.dataAttrs.visibleLength,
+    "data-not-selected-length": $setup.dataAttrs.notSelectedLength,
+    "data-selected-length": $setup.dataAttrs.selectedLength,
+    "data-total-length": $setup.dataAttrs.totalLength
   }, [
     (openBlock(true), createBlock(Fragment, null, renderList($props.modelValue, (option) => {
       return (openBlock(), createBlock("li", {
         key: option.key,
-        onClick: $event => ($setup.handleClick($event, option)),
         class: ["vue-tag", { selected: option.selected }]
       }, [
         renderSlot(_ctx.$slots, "default", { option: option }, () => [
           createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
         ])
-      ], 10 /* CLASS, PROPS */, ["onClick"]))
+      ], 2 /* CLASS */))
     }), 128 /* KEYED_FRAGMENT */))
-  ], 32 /* HYDRATE_EVENTS */))
+  ], 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["data-is-focusing", "data-visible-length", "data-not-selected-length", "data-selected-length", "data-total-length"]))
 }
 
 script$1.render = render$1;
@@ -148,14 +164,21 @@ var script$2 = {
         })
       },
     },
+    headerHeight: {
+      required: true,
+      type: String,
+    },
   },
   emits: ['click'],
   setup(props, context) {
+    const dataAttrs = inject('dataAttrs');
+
     const handleClick = (event, option) => {
       context.emit('click', event, option);
     };
 
     return {
+      dataAttrs,
       handleClick,
     }
   },
@@ -164,20 +187,32 @@ var script$2 = {
 function render$2(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createBlock("ul", {
     class: "vue-dropdown",
-    onMousedown: _cache[1] || (_cache[1] = withModifiers(() => {}, ["prevent"]))
+    onMousedown: _cache[1] || (_cache[1] = withModifiers(() => {}, ["prevent"])),
+    style: { top: $props.headerHeight },
+    "data-is-focusing": $setup.dataAttrs.isFocusing,
+    "data-visible-length": $setup.dataAttrs.visibleLength,
+    "data-not-selected-length": $setup.dataAttrs.notSelectedLength,
+    "data-selected-length": $setup.dataAttrs.selectedLength,
+    "data-total-length": $setup.dataAttrs.totalLength
   }, [
     (openBlock(true), createBlock(Fragment, null, renderList($props.modelValue, (option) => {
-      return (openBlock(), createBlock("li", {
-        key: option.key,
-        onClick: $event => ($setup.handleClick($event, option)),
-        class: ["vue-dropdown-item", { selected: option.selected }]
+      return (openBlock(), createBlock(Fragment, {
+        key: option.key
       }, [
-        renderSlot(_ctx.$slots, "default", { option: option }, () => [
-          createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
-        ])
-      ], 10 /* CLASS, PROPS */, ["onClick"]))
+        (option.visible && option.hidden === false)
+          ? (openBlock(), createBlock("li", {
+              key: 0,
+              onClick: $event => ($setup.handleClick($event, option)),
+              class: ["vue-dropdown-item", { selected: option.selected }]
+            }, [
+              renderSlot(_ctx.$slots, "default", { option: option }, () => [
+                createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
+              ])
+            ], 10 /* CLASS, PROPS */, ["onClick"]))
+          : createCommentVNode("v-if", true)
+      ], 64 /* STABLE_FRAGMENT */))
     }), 128 /* KEYED_FRAGMENT */))
-  ], 32 /* HYDRATE_EVENTS */))
+  ], 44 /* STYLE, PROPS, HYDRATE_EVENTS */, ["data-is-focusing", "data-visible-length", "data-not-selected-length", "data-selected-length", "data-total-length"]))
 }
 
 script$2.render = render$2;
@@ -243,6 +278,18 @@ var normalize = props => {
   }
 };
 
+var useHeight = function (element, watchSource) {
+    var height = ref('0');
+    var calcHeaderHeight = function () {
+        if (!element.value)
+            return;
+        height.value = window.getComputedStyle(element.value).height;
+    };
+    watch(watchSource, calcHeaderHeight);
+    onMounted(calcHeaderHeight);
+    return height;
+};
+
 var script$3 = {
   name: 'vue-select',
   inheritAttrs: false,
@@ -255,7 +302,8 @@ var script$3 = {
       type: Array,
     },
     visibleOptions: {
-      type: Array,
+      type: [Array, null],
+      default: null,
     },
     allowEmpty: {
       default: false,
@@ -351,6 +399,9 @@ var script$3 = {
           if (input.value && input.value._.refs.input === document.activeElement) {
             input.value._.refs.input.blur();
           }
+          if (wrapper.value && wrapper.value === document.activeElement) {
+            wrapper.value.blur();
+          }
           if (props.searchable) context.emit('blur');
           context.emit('close');
         }
@@ -366,6 +417,11 @@ var script$3 = {
     const toggle = event => {
       isFocusing.value = !isFocusing.value;
     };
+
+    const header = ref(null);
+    const headerHeight = useHeight(header, () => props.modelValue);
+    const inputHeight = ref(props.searchable && props.multiple && props.taggable ? '22px' : '0px');
+    const headerAndInputHeight = computed(() => parseFloat(headerHeight.value) + parseFloat(inputHeight.value) + 'px');
 
     // input
     const searchingInputValue = ref('');
@@ -428,26 +484,24 @@ var script$3 = {
 
     const handleClickForDropdown = (event, option) => addOrRemoveOption(event, option);
     const handleClickForTag = (event, option) => addOrRemoveOption(event, option);
-    const dropdownSelectedOptions = computed(() => {
+
+    const optionsWithInfo = computed(() => {
       const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)));
-      return (props.visibleOptions || props.options)
-        .filter(option => (props.hideSelected ? selectedValueSet.has(valueBy(option)) === false : true))
-        .map(option => ({
-          key: trackBy(option),
-          label: labelBy(option),
-          selected: selectedValueSet.has(valueBy(option)),
-          originalOption: option,
-        }))
-    });
-    const tagSelectedOptions = computed(() => {
-      const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)));
+      const visibleValueSet =
+        props.visibleOptions !== null
+          ? new Set(props.visibleOptions.map(option => valueBy(option)))
+          : new Set(props.options.map(option => valueBy(option)));
+
       return props.options.map(option => ({
         key: trackBy(option),
         label: labelBy(option),
         selected: selectedValueSet.has(valueBy(option)),
+        visible: visibleValueSet.has(valueBy(option)),
+        hidden: props.hideSelected ? selectedValueSet.has(valueBy(option)) : false,
         originalOption: option,
       }))
     });
+
     watch(
       () => props.options,
       () => {
@@ -457,6 +511,15 @@ var script$3 = {
       { deep: true },
     );
 
+    const dataAttrs = computed(() => ({
+      isFocusing: isFocusing.value,
+      visibleLength: optionsWithInfo.value.filter(option => option.visible && option.hidden === false).length,
+      notSelectedLength: props.options.length - optionsWithInfo.value.filter(option => option.selected).length,
+      selectedLength: optionsWithInfo.value.filter(option => option.selected).length,
+      totalLength: props.options.length,
+    }));
+    provide('dataAttrs', dataAttrs);
+
     return {
       isFocusing,
       wrapper,
@@ -464,6 +527,9 @@ var script$3 = {
       focus,
       blur,
       toggle,
+
+      header,
+      headerAndInputHeight,
 
       searchingInputValue,
       handleInputForInput,
@@ -473,10 +539,11 @@ var script$3 = {
 
       handleClickForDropdown,
       handleClickForTag,
-      dropdownSelectedOptions,
-      tagSelectedOptions,
 
+      optionsWithInfo,
       addOrRemoveOption,
+
+      dataAttrs,
     }
   },
   components: {
@@ -488,22 +555,19 @@ var script$3 = {
 
 var _imports_0 = 'data:image/svg+xml;base64,PHN2ZyBpZD0iZGVsZXRlIiBkYXRhLW5hbWU9ImRlbGV0ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHRpdGxlPmRlbGV0ZTwvdGl0bGU+PHBhdGggZD0iTTI1NiwyNEMzODMuOSwyNCw0ODgsMTI4LjEsNDg4LDI1NlMzODMuOSw0ODgsMjU2LDQ4OCwyNC4wNiwzODMuOSwyNC4wNiwyNTYsMTI4LjEsMjQsMjU2LDI0Wk0wLDI1NkMwLDM5Ny4xNiwxMTQuODQsNTEyLDI1Niw1MTJTNTEyLDM5Ny4xNiw1MTIsMjU2LDM5Ny4xNiwwLDI1NiwwLDAsMTE0Ljg0LDAsMjU2WiIgZmlsbD0iIzViNWI1ZiIvPjxwb2x5Z29uIHBvaW50cz0iMzgyIDE3Mi43MiAzMzkuMjkgMTMwLjAxIDI1NiAyMTMuMjkgMTcyLjcyIDEzMC4wMSAxMzAuMDEgMTcyLjcyIDIxMy4yOSAyNTYgMTMwLjAxIDMzOS4yOCAxNzIuNzIgMzgyIDI1NiAyOTguNzEgMzM5LjI5IDM4MS45OSAzODIgMzM5LjI4IDI5OC43MSAyNTYgMzgyIDE3Mi43MiIgZmlsbD0iIzViNWI1ZiIvPjwvc3ZnPg==';
 
-const _hoisted_1$1 = { class: "vue-select-header" };
+const _hoisted_1$1 = {
+  ref: "header",
+  class: "vue-select-header"
+};
 const _hoisted_2 = {
   key: 0,
   class: "vue-input"
 };
-const _hoisted_3 = {
-  key: 1,
-  class: "icon loading"
-};
+const _hoisted_3 = { class: "icon loading" };
 const _hoisted_4 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
 const _hoisted_5 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
 const _hoisted_6 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
-const _hoisted_7 = {
-  key: 0,
-  class: "icon loading"
-};
+const _hoisted_7 = { class: "icon loading" };
 const _hoisted_8 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
 const _hoisted_9 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
 const _hoisted_10 = /*#__PURE__*/createVNode("div", null, null, -1 /* HOISTED */);
@@ -518,7 +582,12 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
     class: ["vue-select", { disabled: $props.disabled }],
     tabindex: $setup.isFocusing ? -1 : $props.tabindex,
     onFocus: _cache[8] || (_cache[8] = (...args) => ($setup.focus(...args))),
-    onBlur: _cache[9] || (_cache[9] = () => ($props.searchable ? false : $setup.blur()))
+    onBlur: _cache[9] || (_cache[9] = () => ($props.searchable ? false : $setup.blur())),
+    "data-is-focusing": $setup.dataAttrs.isFocusing,
+    "data-visible-length": $setup.dataAttrs.visibleLength,
+    "data-not-selected-length": $setup.dataAttrs.notSelectedLength,
+    "data-selected-length": $setup.dataAttrs.selectedLength,
+    "data-total-length": $setup.dataAttrs.totalLength
   }, [
     createVNode("div", _hoisted_1$1, [
       (($props.multiple && $props.taggable && $props.modelValue.length === 0) || ($props.searchable === false && $props.taggable === false))
@@ -532,8 +601,10 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
       ($props.multiple && $props.taggable)
         ? (openBlock(), createBlock(Fragment, { key: 1 }, [
             createVNode(_component_v_tag, {
-              modelValue: $setup.tagSelectedOptions,
-              class: ["vue-select-tag", { collapsed: $props.collapseTags }]
+              modelValue: $setup.optionsWithInfo,
+              "collapse-tags": $props.collapseTags,
+              tabindex: "-1",
+              onClick: $setup.focus
             }, {
               default: withCtx(({ option }) => [
                 renderSlot(_ctx.$slots, "tag", {
@@ -544,12 +615,12 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
                     src: _imports_0,
                     alt: "delete tag",
                     class: "icon delete",
-                    onClick: () => $setup.addOrRemoveOption(_ctx.$event, option)
+                    onClick: withModifiers(() => $setup.addOrRemoveOption(_ctx.$event, option), ["prevent","stop"])
                   }, null, 8 /* PROPS */, ["onClick"])
                 ])
               ]),
               _: 1
-            }, 8 /* PROPS */, ["modelValue", "class"]),
+            }, 8 /* PROPS */, ["modelValue", "collapse-tags", "onClick"]),
             createVNode("span", {
               class: ["icon arrow-downward", { active: $setup.isFocusing }],
               onClick: _cache[1] || (_cache[1] = (...args) => ($setup.toggle(...args))),
@@ -570,74 +641,74 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
                   onFocus: $setup.handleFocusForInput,
                   onBlur: $setup.handleBlurForInput,
                   onEscape: $setup.blur,
-                  autofocus: $props.autofocus || ($props.taggable && $setup.isFocusing),
-                  tabindex: $props.tabindex,
-                  class: "vue-select-input"
+                  autofocus: $props.autofocus || ($props.taggable && $props.searchable),
+                  tabindex: $props.tabindex
                 }, null, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape", "autofocus", "tabindex"]))
               : createCommentVNode("v-if", true),
-            ($props.loading)
-              ? (openBlock(), createBlock("span", _hoisted_3, [
-                  _hoisted_4,
-                  _hoisted_5,
-                  _hoisted_6
-                ]))
-              : (openBlock(), createBlock("span", {
-                  key: 2,
-                  class: ["icon arrow-downward", { active: $setup.isFocusing }],
-                  onClick: _cache[4] || (_cache[4] = (...args) => ($setup.toggle(...args))),
-                  onMousedown: _cache[5] || (_cache[5] = withModifiers(() => {}, ["prevent","stop"]))
-                }, null, 34 /* CLASS, HYDRATE_EVENTS */))
-          ], 64 /* STABLE_FRAGMENT */))
-    ]),
-    ($setup.isFocusing)
-      ? (openBlock(), createBlock(Fragment, { key: 0 }, [
-          ($props.multiple && $props.taggable && $props.searchable)
-            ? (openBlock(), createBlock(_component_v_input, {
-                key: 0,
-                ref: "input",
-                modelValue: $setup.searchingInputValue,
-                "onUpdate:modelValue": _cache[6] || (_cache[6] = $event => ($setup.searchingInputValue = $event)),
-                disabled: $props.disabled,
-                placeholder: $props.searchPlaceholder,
-                onInput: $setup.handleInputForInput,
-                onChange: $setup.handleChangeForInput,
-                onFocus: $setup.handleFocusForInput,
-                onBlur: $setup.handleBlurForInput,
-                onEscape: $setup.blur,
-                tabindex: $props.tabindex,
-                autofocus: $props.autofocus || ($props.taggable && $setup.isFocusing),
-                class: "vue-select-input"
-              }, {
-                append: withCtx(() => [
-                  ($props.loading)
-                    ? (openBlock(), createBlock("span", _hoisted_7, [
-                        _hoisted_8,
-                        _hoisted_9,
-                        _hoisted_10
-                      ]))
-                    : createCommentVNode("v-if", true)
-                ]),
-                _: 1
-              }, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape", "tabindex", "autofocus"]))
-            : createCommentVNode("v-if", true),
-          createVNode(_component_v_dropdown, {
-            modelValue: $setup.dropdownSelectedOptions,
-            "onUpdate:modelValue": _cache[7] || (_cache[7] = $event => ($setup.dropdownSelectedOptions = $event)),
-            onClick: $setup.handleClickForDropdown,
-            class: "vue-select-dropdown"
-          }, {
-            default: withCtx(({ option }) => [
-              renderSlot(_ctx.$slots, "dropdown-item", {
-                option: option.originalOption
-              }, () => [
-                createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
-              ])
+            withDirectives(createVNode("span", _hoisted_3, [
+              _hoisted_4,
+              _hoisted_5,
+              _hoisted_6
+            ], 512 /* NEED_PATCH */), [
+              [vShow, $props.loading]
             ]),
-            _: 1
-          }, 8 /* PROPS */, ["modelValue", "onClick"])
-        ], 64 /* STABLE_FRAGMENT */))
-      : createCommentVNode("v-if", true)
-  ], 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["tabindex"]))
+            withDirectives(createVNode("span", {
+              class: ["icon arrow-downward", { active: $setup.isFocusing }],
+              onClick: _cache[4] || (_cache[4] = (...args) => ($setup.toggle(...args))),
+              onMousedown: _cache[5] || (_cache[5] = withModifiers(() => {}, ["prevent","stop"]))
+            }, null, 34 /* CLASS, HYDRATE_EVENTS */), [
+              [vShow, $props.loading === false]
+            ])
+          ], 64 /* STABLE_FRAGMENT */))
+    ], 512 /* NEED_PATCH */),
+    ($props.multiple && $props.taggable && $props.searchable)
+      ? withDirectives((openBlock(), createBlock(_component_v_input, {
+          key: 0,
+          ref: "input",
+          modelValue: $setup.searchingInputValue,
+          "onUpdate:modelValue": _cache[6] || (_cache[6] = $event => ($setup.searchingInputValue = $event)),
+          disabled: $props.disabled,
+          placeholder: $props.searchPlaceholder,
+          onInput: $setup.handleInputForInput,
+          onChange: $setup.handleChangeForInput,
+          onFocus: $setup.handleFocusForInput,
+          onBlur: $setup.handleBlurForInput,
+          onEscape: $setup.blur,
+          tabindex: $props.tabindex,
+          autofocus: $props.autofocus || ($props.taggable && $props.searchable)
+        }, {
+          append: withCtx(() => [
+            withDirectives(createVNode("span", _hoisted_7, [
+              _hoisted_8,
+              _hoisted_9,
+              _hoisted_10
+            ], 512 /* NEED_PATCH */), [
+              [vShow, $props.loading]
+            ])
+          ]),
+          _: 1
+        }, 8 /* PROPS */, ["modelValue", "disabled", "placeholder", "onInput", "onChange", "onFocus", "onBlur", "onEscape", "tabindex", "autofocus"])), [
+          [vShow, $setup.isFocusing]
+        ])
+      : createCommentVNode("v-if", true),
+    withDirectives(createVNode(_component_v_dropdown, {
+      modelValue: $setup.optionsWithInfo,
+      "onUpdate:modelValue": _cache[7] || (_cache[7] = $event => ($setup.optionsWithInfo = $event)),
+      onClick: $setup.handleClickForDropdown,
+      "header-height": $setup.headerAndInputHeight
+    }, {
+      default: withCtx(({ option }) => [
+        renderSlot(_ctx.$slots, "dropdown-item", {
+          option: option.originalOption
+        }, () => [
+          createVNode("span", null, toDisplayString(option.label), 1 /* TEXT */)
+        ])
+      ]),
+      _: 1
+    }, 8 /* PROPS */, ["modelValue", "onClick", "header-height"]), [
+      [vShow, $setup.isFocusing]
+    ])
+  ], 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["tabindex", "data-is-focusing", "data-visible-length", "data-not-selected-length", "data-selected-length", "data-total-length"]))
 }
 
 script$3.render = render$3;

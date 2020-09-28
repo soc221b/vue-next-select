@@ -30,6 +30,7 @@
 }
 
 .vue-select {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -41,8 +42,17 @@
   outline: none;
 }
 
+.vue-select[data-is-focusing='true']:not([data-visible-length='0']) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .vue-select.disabled {
   background-color: rgba(239, 239, 239);
+}
+
+.vue-select.disabled * {
+  cursor: not-allowed;
 }
 
 .vue-select-header {
@@ -124,35 +134,56 @@
   padding: 0;
 }
 
+.vue-input > input[disabled] {
+  background-color: rgba(239, 239, 239);
+}
+
 .vue-select-header > .vue-input > input[disabled] {
   background-color: unset;
 }
 
-.vue-select-dropdown {
-  width: 100%;
-  max-width: 100%;
+.vue-dropdown {
+  position: absolute;
+  background-color: white;
+  max-height: 300px;
+  overflow-y: auto;
+  width: inherit;
+  left: -1px;
   min-width: 0;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border-top: 1px solid #999;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: 1px solid #999;
+  list-style-type: none;
 }
 
-.vue-select-dropdown-item {
+.vue-dropdown[data-visible-length='0'] {
+  border: none;
+}
+
+.vue-dropdown-item {
   list-style-type: none;
   padding: 4px;
-}
-
-.vue-select-dropdown-item[selected='true'] {
-  background-color: #f3f3f3;
-}
-
-.vue-select-dropdown-item:hover {
-  background-color: #ff6a6a;
+  cursor: pointer;
 }
 
 .vue-dropdown-item:last-child {
-  border-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.vue-dropdown-item:hover {
+  background-color: #41b883;
+}
+
+.vue-dropdown-item.selected {
+  background-color: #f3f3f3;
+}
+
+.vue-dropdown-item.selected:hover {
+  background-color: #ff6a6a;
 }
 
 .icon.loading {
@@ -190,28 +221,4 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-.vue-dropdown {
-  width: 100%;
-  margin: 0;
-  list-style-type: none;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.vue-dropdown-item {
-  padding: 4px;
-}
-
-.vue-dropdown-item.selected {
-  background-color: #f3f3f3;
-}
-
-.vue-input > input[disabled] {
-  background-color: rgba(239, 239, 239);
-}
-
-.vue-select.disabled * {
-  cursor: not-allowed;
 }
