@@ -1,85 +1,92 @@
 /// <reference types="cypress" />
 
+let shouldReject = false
+const setReject = () => {
+  shouldReject = true
+}
+const setResolve = () => {
+  shouldReject = false
+}
+const finish = () => {
+  if (shouldReject) throw Error()
+}
+
 context('close event', () => {
   it('should not fire close event', () => {
-    cy.visit('/cypress/fixtures/events/close.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('close-custom-event', reject)
-        document.addEventListener('close-custom-event', reject)
-        cy.get('.vue-select').click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/close.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('close-custom-event', setReject)
+        window.addEventListener('close-custom-event', setReject)
       })
+      cy.get('.vue-select').click()
+      cy.then(finish)
     })
   })
 
   it('should not fire close event after adding option', () => {
-    cy.visit('/cypress/fixtures/events/close.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('close-custom-event', reject)
-        document.addEventListener('close-custom-event', reject)
-        cy.get('.vue-dropdown').children().first().next().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/close.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('close-custom-event', setReject)
+        window.addEventListener('close-custom-event', setReject)
       })
+      cy.get('.vue-dropdown').children().first().next().click()
+      cy.then(finish)
     })
   })
 
   it('should not fire close event after removing option', () => {
-    cy.visit('/cypress/fixtures/events/close.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('close-custom-event', reject)
-        document.addEventListener('close-custom-event', reject)
-        cy.get('.vue-dropdown').children().first().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/close.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('close-custom-event', setReject)
+        window.addEventListener('close-custom-event', setReject)
       })
+      cy.get('.vue-dropdown').children().first().click()
+      cy.then(finish)
     })
   })
 
   it('should not fire close event after removing option by click tag', () => {
-    cy.visit('/cypress/fixtures/events/close.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('close-custom-event', reject)
-        document.addEventListener('close-custom-event', reject)
-        cy.get('.icon.delete').first().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/close.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('close-custom-event', setReject)
+        window.addEventListener('close-custom-event', setReject)
       })
+      cy.get('.icon.delete').first().click()
+      cy.then(finish)
     })
   })
 
   it('should fire close event', () => {
-    cy.visit('/cypress/fixtures/events/close.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('close-custom-event', resolve)
-        document.addEventListener('close-custom-event', resolve)
-        cy.get('#another-focusable-element').focus()
+    setReject()
+    cy.visit('/cypress/fixtures/events/close.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('close-custom-event', setResolve)
+        window.addEventListener('close-custom-event', setResolve)
       })
+      cy.get('#another-focusable-element').focus()
+      cy.then(finish)
     })
   })
 
   it('should fire close event after clicking arrow downward icon', () => {
-    cy.visit('/cypress/fixtures/events/close.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('close-custom-event', resolve)
-        document.addEventListener('close-custom-event', resolve)
-        cy.get('.icon.arrow-downward').click()
+    setReject()
+    cy.visit('/cypress/fixtures/events/close.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('close-custom-event', setResolve)
+        window.addEventListener('close-custom-event', setResolve)
       })
+      cy.get('.icon.arrow-downward').click()
+      cy.then(finish)
     })
   })
 })

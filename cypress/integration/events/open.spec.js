@@ -1,69 +1,77 @@
 /// <reference types="cypress" />
 
+let shouldReject = false
+const setReject = () => {
+  shouldReject = true
+}
+const setResolve = () => {
+  shouldReject = false
+}
+const finish = () => {
+  if (shouldReject) throw Error()
+}
+
 context('open event', () => {
   it('should not fire open event after removing option', () => {
-    cy.visit('/cypress/fixtures/events/open.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('open-custom-event', reject)
-        document.addEventListener('open-custom-event', reject)
-        cy.get('.vue-dropdown').children().first().next().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/open.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('open-custom-event', setReject)
+        window.addEventListener('open-custom-event', setReject)
       })
+      cy.get('.vue-dropdown').children().first().next().click()
+      cy.then(finish)
     })
   })
 
   it('should not fire open event after adding option', () => {
-    cy.visit('/cypress/fixtures/events/open.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('open-custom-event', reject)
-        document.addEventListener('open-custom-event', reject)
-        cy.get('.vue-dropdown').children().first().next().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/open.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('open-custom-event', setReject)
+        window.addEventListener('open-custom-event', setReject)
       })
+      cy.get('.vue-dropdown').children().first().next().click()
+      cy.then(finish)
     })
   })
 
   it('should not fire open event after removing option by click tag', () => {
-    cy.visit('/cypress/fixtures/events/open.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('open-custom-event', reject)
-        document.addEventListener('open-custom-event', reject)
-        cy.get('.vue-tags').children().first().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/open.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('open-custom-event', setReject)
+        window.addEventListener('open-custom-event', setReject)
       })
+      cy.get('.vue-tags').children().first().click()
+      cy.then(finish)
     })
   })
 
   it('should fire open event', () => {
-    cy.visit('/cypress/fixtures/events/open.html')
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('open-custom-event', resolve)
-        document.addEventListener('open-custom-event', resolve)
-        cy.get('.vue-select').click()
+    setReject()
+    cy.visit('/cypress/fixtures/events/open.html').then(window => {
+      cy.then(() => {
+        window.removeEventListener('open-custom-event', setResolve)
+        window.addEventListener('open-custom-event', setResolve)
       })
+      cy.get('.vue-select').click()
+      cy.then(finish)
     })
   })
 
   it('should fire open event after clicking arrow downward icon', () => {
-    cy.visit('/cypress/fixtures/events/open.html')
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('open-custom-event', resolve)
-        document.addEventListener('open-custom-event', resolve)
-        cy.get('.icon.arrow-downward').click()
+    setReject()
+    cy.visit('/cypress/fixtures/events/open.html').then(window => {
+      cy.then(() => {
+        window.removeEventListener('open-custom-event', setResolve)
+        window.addEventListener('open-custom-event', setResolve)
       })
+      cy.get('.icon.arrow-downward').click()
+      cy.then(finish)
     })
   })
 })

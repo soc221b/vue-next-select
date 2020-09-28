@@ -1,29 +1,40 @@
 /// <reference types="cypress" />
 
+let shouldReject = false
+const setReject = () => {
+  shouldReject = true
+}
+const setResolve = () => {
+  shouldReject = false
+}
+const finish = () => {
+  if (shouldReject) throw Error()
+}
+
 context('remove event', () => {
   it('should fire remove event after removing option', () => {
-    cy.visit('/cypress/fixtures/events/remove.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('remove-custom-event', resolve)
-        document.addEventListener('remove-custom-event', resolve)
-        cy.get('.vue-dropdown').children().first().click()
+    setReject()
+    cy.visit('/cypress/fixtures/events/remove.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('remove-custom-event', setResolve)
+        window.addEventListener('remove-custom-event', setResolve)
       })
+      cy.get('.vue-dropdown').children().first().click()
+      cy.then(finish)
     })
   })
 
   it('should fire remove event after removing option by clicking tag', () => {
-    cy.visit('/cypress/fixtures/events/remove.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('remove-custom-event', resolve)
-        document.addEventListener('remove-custom-event', resolve)
-        cy.get('.vue-tags').children().first().click()
+    setReject()
+    cy.visit('/cypress/fixtures/events/remove.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('remove-custom-event', setResolve)
+        window.addEventListener('remove-custom-event', setResolve)
       })
+      cy.get('.vue-tags').children().first().click()
+      cy.then(finish)
     })
   })
 })

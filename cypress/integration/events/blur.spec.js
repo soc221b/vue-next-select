@@ -1,71 +1,79 @@
 /// <reference types="cypress" />
 
+let shouldReject = false
+const setReject = () => {
+  shouldReject = true
+}
+const setResolve = () => {
+  shouldReject = false
+}
+const finish = () => {
+  if (shouldReject) throw Error()
+}
+
 context('blur event', () => {
   it('should not fire blur event after adding option', () => {
-    cy.visit('/cypress/fixtures/events/blur.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('blur-custom-event', reject)
-        document.addEventListener('blur-custom-event', reject)
-        cy.get('.vue-dropdown').children().first().next().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/blur.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
+      cy.wait(50).get('.vue-dropdown').children().first().next().click()
+      cy.then(finish)
     })
   })
 
   it('should not fire blur event after removing option', () => {
-    cy.visit('/cypress/fixtures/events/blur.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('blur-custom-event', reject)
-        document.addEventListener('blur-custom-event', reject)
-        cy.get('.vue-dropdown').children().first().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/blur.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
+      cy.wait(50).get('.vue-dropdown').children().first().click()
+      cy.then(finish)
     })
   })
 
   it('should not fire blur event after removing option by clicking tag', () => {
-    cy.visit('/cypress/fixtures/events/blur.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise((resolve, reject) => {
-      cy.document().then(document => {
-        document.removeEventListener('blur-custom-event', reject)
-        document.addEventListener('blur-custom-event', reject)
-        cy.get('.vue-tags').children().first().click()
-        resolve()
+    setResolve()
+    cy.visit('/cypress/fixtures/events/blur.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
+      cy.get('.vue-tags').children().first().click()
+      cy.then(finish)
     })
   })
 
   it('should fire blur event', () => {
-    cy.visit('/cypress/fixtures/events/blur.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('blur-custom-event', resolve)
-        document.addEventListener('blur-custom-event', resolve)
-        cy.get('#another-focusable-element').focus()
+    setReject()
+    cy.visit('/cypress/fixtures/events/blur.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('blur-custom-event', setResolve)
+        window.addEventListener('blur-custom-event', setResolve)
       })
+      cy.get('#another-focusable-element').focus()
+      cy.then(finish)
     })
   })
 
   it('should fire blur event after clicking arrow downward icon', () => {
-    cy.visit('/cypress/fixtures/events/blur.html')
-    cy.get('.vue-select').click()
-
-    return new Cypress.Promise(resolve => {
-      cy.document().then(document => {
-        document.removeEventListener('blur-custom-event', resolve)
-        document.addEventListener('blur-custom-event', resolve)
-        cy.get('.icon.arrow-downward').click()
+    setReject()
+    cy.visit('/cypress/fixtures/events/blur.html').then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('blur-custom-event', setResolve)
+        window.addEventListener('blur-custom-event', setResolve)
       })
+      cy.get('.icon.arrow-downward').click()
+      cy.then(finish)
     })
   })
 })
