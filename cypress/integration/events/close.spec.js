@@ -7,7 +7,8 @@ context('close event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('close-custom-event', reject)
+        document.documentElement.addEventListener('close-custom-event', reject)
         cy.get('.vue-select').click()
         resolve()
       })
@@ -20,7 +21,8 @@ context('close event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('close-custom-event', reject)
+        document.documentElement.addEventListener('close-custom-event', reject)
         cy.get('.vue-dropdown').children().first().next().click()
         resolve()
       })
@@ -33,7 +35,8 @@ context('close event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('close-custom-event', reject)
+        document.documentElement.addEventListener('close-custom-event', reject)
         cy.get('.vue-dropdown').children().first().click()
         resolve()
       })
@@ -46,7 +49,8 @@ context('close event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('close-custom-event', reject)
+        document.documentElement.addEventListener('close-custom-event', reject)
         cy.get('.icon.delete').first().click()
         resolve()
       })
@@ -59,7 +63,8 @@ context('close event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('close-custom-event', resolve)
+        document.documentElement.addEventListener('close-custom-event', resolve)
         cy.get('#another-focusable-element').focus()
       })
     })
@@ -71,7 +76,8 @@ context('close event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('close-custom-event', resolve)
+        document.documentElement.addEventListener('close-custom-event', resolve)
         cy.get('.icon.arrow-downward').click()
       })
     })

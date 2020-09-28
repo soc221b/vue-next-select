@@ -7,7 +7,8 @@ context('search-input event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('search-input-custom-event', resolve)
+        document.documentElement.addEventListener('search-input-custom-event', resolve)
         cy.get('.vue-input').type('i')
       })
     })

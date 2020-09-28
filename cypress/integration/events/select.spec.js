@@ -7,7 +7,8 @@ context('select event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('select-custom-event', resolve)
+        document.documentElement.addEventListener('select-custom-event', resolve)
         cy.get('.vue-dropdown').children().first().next().click()
       })
     })

@@ -7,7 +7,8 @@ context('blur event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('blur-custom-event', reject)
+        document.documentElement.addEventListener('blur-custom-event', reject)
         cy.get('.vue-dropdown').children().first().next().click()
         resolve()
       })
@@ -20,7 +21,8 @@ context('blur event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('blur-custom-event', reject)
+        document.documentElement.addEventListener('blur-custom-event', reject)
         cy.get('.vue-dropdown').children().first().click()
         resolve()
       })
@@ -33,7 +35,8 @@ context('blur event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('blur-custom-event', reject)
+        document.documentElement.addEventListener('blur-custom-event', reject)
         cy.get('.vue-tags').children().first().click()
         resolve()
       })
@@ -46,7 +49,8 @@ context('blur event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('blur-custom-event', resolve)
+        document.documentElement.addEventListener('blur-custom-event', resolve)
         cy.get('#another-focusable-element').focus()
       })
     })
@@ -58,7 +62,8 @@ context('blur event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('blur-custom-event', resolve)
+        document.documentElement.addEventListener('blur-custom-event', resolve)
         cy.get('.icon.arrow-downward').click()
       })
     })

@@ -23,7 +23,7 @@
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
           const handle = () => {
-            document.documentElement.dispatchEvent(new Event('custom-event'))
+            document.documentElement.dispatchEvent(new Event('remove-custom-event'))
           }
           return {
             selectedOptions,

@@ -7,7 +7,8 @@ context('open event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('open-custom-event', reject)
+        document.documentElement.addEventListener('open-custom-event', reject)
         cy.get('.vue-dropdown').children().first().next().click()
         resolve()
       })
@@ -20,7 +21,8 @@ context('open event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('open-custom-event', reject)
+        document.documentElement.addEventListener('open-custom-event', reject)
         cy.get('.vue-dropdown').children().first().next().click()
         resolve()
       })
@@ -33,7 +35,8 @@ context('open event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('open-custom-event', reject)
+        document.documentElement.addEventListener('open-custom-event', reject)
         cy.get('.vue-tags').children().first().click()
         resolve()
       })
@@ -45,7 +48,8 @@ context('open event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('open-custom-event', resolve)
+        document.documentElement.addEventListener('open-custom-event', resolve)
         cy.get('.vue-select').click()
       })
     })
@@ -56,7 +60,8 @@ context('open event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('open-custom-event', resolve)
+        document.documentElement.addEventListener('open-custom-event', resolve)
         cy.get('.icon.arrow-downward').click()
       })
     })

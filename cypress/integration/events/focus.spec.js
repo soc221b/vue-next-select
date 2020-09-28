@@ -7,7 +7,8 @@ context('focus event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('focus-custom-event', reject)
+        document.documentElement.addEventListener('focus-custom-event', reject)
         cy.get('.vue-dropdown').children().first().next().click()
         resolve()
       })
@@ -20,7 +21,8 @@ context('focus event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('focus-custom-event', reject)
+        document.documentElement.addEventListener('focus-custom-event', reject)
         cy.get('.vue-dropdown').children().first().click()
         resolve()
       })
@@ -33,7 +35,8 @@ context('focus event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', reject)
+        document.documentElement.removeEventListener('focus-custom-event', reject)
+        document.documentElement.addEventListener('focus-custom-event', reject)
         cy.get('.vue-tags').children().first().click()
         resolve()
       })
@@ -45,7 +48,8 @@ context('focus event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('focus-custom-event', resolve)
+        document.documentElement.addEventListener('focus-custom-event', resolve)
         cy.get('.vue-select').click()
       })
     })
@@ -56,7 +60,8 @@ context('focus event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.addEventListener('custom-event', resolve)
+        document.documentElement.removeEventListener('focus-custom-event', resolve)
+        document.documentElement.addEventListener('focus-custom-event', resolve)
         cy.get('.icon.arrow-downward').click()
       })
     })
