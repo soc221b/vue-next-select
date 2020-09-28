@@ -24,7 +24,7 @@
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
           const handleClose = () => {
-            document.documentElement.dispatchEvent(new Event('close-custom-event'))
+            window.dispatchEvent(new Event('close-custom-event'))
           }
           return {
             selectedOptions,

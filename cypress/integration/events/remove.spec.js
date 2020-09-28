@@ -7,8 +7,8 @@ context('remove event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.removeEventListener('remove-custom-event', resolve)
-        document.documentElement.addEventListener('remove-custom-event', resolve)
+        document.removeEventListener('remove-custom-event', resolve)
+        document.addEventListener('remove-custom-event', resolve)
         cy.get('.vue-dropdown').children().first().click()
       })
     })
@@ -20,8 +20,8 @@ context('remove event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.removeEventListener('remove-custom-event', resolve)
-        document.documentElement.addEventListener('remove-custom-event', resolve)
+        document.removeEventListener('remove-custom-event', resolve)
+        document.addEventListener('remove-custom-event', resolve)
         cy.get('.vue-tags').children().first().click()
       })
     })

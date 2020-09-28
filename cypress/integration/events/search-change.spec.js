@@ -7,8 +7,8 @@ context('search-change event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.removeEventListener('search-change-custom-event', reject)
-        document.documentElement.addEventListener('search-change-custom-event', reject)
+        document.removeEventListener('search-change-custom-event', reject)
+        document.addEventListener('search-change-custom-event', reject)
         cy.get('.vue-input').type('i')
         resolve()
       })
@@ -21,8 +21,8 @@ context('search-change event', () => {
 
     return new Cypress.Promise((resolve, reject) => {
       cy.document().then(document => {
-        document.documentElement.removeEventListener('search-change-custom-event', reject)
-        document.documentElement.addEventListener('search-change-custom-event', reject)
+        document.removeEventListener('search-change-custom-event', reject)
+        document.addEventListener('search-change-custom-event', reject)
         cy.get('#another-focusable-element').focus()
         resolve()
       })
@@ -35,8 +35,8 @@ context('search-change event', () => {
 
     return new Cypress.Promise(resolve => {
       cy.document().then(document => {
-        document.documentElement.removeEventListener('search-change-custom-event', resolve)
-        document.documentElement.addEventListener('search-change-custom-event', resolve)
+        document.removeEventListener('search-change-custom-event', resolve)
+        document.addEventListener('search-change-custom-event', resolve)
         cy.get('.vue-input').type('i')
         cy.get('#another-focusable-element').focus()
       })
