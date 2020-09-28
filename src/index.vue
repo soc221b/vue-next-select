@@ -17,7 +17,7 @@
       </template>
 
       <template v-if="multiple && taggable">
-        <v-tag :modelValue="tagSelectedOptions" class="vue-select-tag" :class="{ collapsed: collapseTags }">
+        <v-tag :modelValue="tagSelectedOptions" :class="{ collapsed: collapseTags }">
           <template #default="{ option }">
             <slot name="tag" :option="option.originalOption">
               <span>{{ option.label }}</span>
@@ -52,7 +52,6 @@
           @escape="blur"
           :autofocus="autofocus || (taggable && isFocusing)"
           :tabindex="tabindex"
-          class="vue-select-input"
         ></v-input>
 
         <span v-if="loading" class="icon loading">
@@ -84,7 +83,6 @@
           @escape="blur"
           :tabindex="tabindex"
           :autofocus="autofocus || (taggable && isFocusing)"
-          class="vue-select-input"
         >
           <template #append>
             <span v-if="loading" class="icon loading">
@@ -96,7 +94,7 @@
         </v-input>
       </template>
 
-      <v-dropdown v-model="dropdownSelectedOptions" @click="handleClickForDropdown" class="vue-select-dropdown">
+      <v-dropdown v-model="dropdownSelectedOptions" @click="handleClickForDropdown">
         <template #default="{ option }">
           <slot name="dropdown-item" :option="option.originalOption">
             <span>{{ option.label }}</span>
