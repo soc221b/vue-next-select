@@ -5,7 +5,7 @@ context('disabled (single)', () => {
     cy.visit('/cypress/fixtures/disabled/single/without.html')
     cy.get('.vue-select').click()
 
-    cy.get('.vue-dropdown').should('exist')
+    cy.get('.vue-dropdown').should('be.visible')
   })
 
   it('should be disabled', () => {
@@ -21,7 +21,7 @@ context('disabled (multiple)', () => {
     cy.visit('/cypress/fixtures/disabled/multiple/without.html')
     cy.get('.vue-select').click()
 
-    cy.get('.vue-dropdown').should('exist')
+    cy.get('.vue-dropdown').should('be.visible')
   })
 
   it('should be disabled', () => {

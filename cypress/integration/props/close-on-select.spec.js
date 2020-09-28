@@ -6,7 +6,7 @@ context('close-on-select (single)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().next().click()
-    cy.get('.vue-dropdown').should('exist')
+    cy.get('.vue-dropdown').should('be.visible')
   })
 
   it('should not close on remove', () => {
@@ -14,7 +14,7 @@ context('close-on-select (single)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().click()
-    cy.get('.vue-dropdown').should('exist')
+    cy.get('.vue-dropdown').should('be.visible')
   })
 
   it('should close on select', () => {
@@ -40,7 +40,7 @@ context('close-on-select (multiple)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().next().click()
-    cy.get('.vue-dropdown').should('exist')
+    cy.get('.vue-dropdown').should('be.visible')
   })
 
   it('should not close on remove', () => {
@@ -48,7 +48,7 @@ context('close-on-select (multiple)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().click()
-    cy.get('.vue-dropdown').should('exist')
+    cy.get('.vue-dropdown').should('be.visible')
   })
 
   it('should close on select', () => {
