@@ -72,7 +72,7 @@ context('close event', () => {
         window.removeEventListener('close-custom-event', setResolve)
         window.addEventListener('close-custom-event', setResolve)
       })
-      cy.get('#another-clickable-element').click()
+      cy.get('#previous-button').click()
       cy.then(finish)
     })
   })

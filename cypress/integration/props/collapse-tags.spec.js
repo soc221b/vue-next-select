@@ -5,7 +5,7 @@ context('collapse-tags', () => {
     cy.visit('/cypress/fixtures/collapse-tags/without.html')
     cy.get('.vue-select').click()
 
-    cy.get('.vue-dropdown-item').click({ multiple: true })
+    cy.get('.vue-dropdown').children().click({ multiple: true })
     cy.get('.vue-tags').should('not.have.class', 'collapsed')
   })
 
@@ -13,7 +13,7 @@ context('collapse-tags', () => {
     cy.visit('/cypress/fixtures/collapse-tags/with.html')
     cy.get('.vue-select').click()
 
-    cy.get('.vue-dropdown-item').click({ multiple: true })
+    cy.get('.vue-dropdown').children().click({ multiple: true })
     cy.get('.vue-tags').should('have.class', 'collapsed')
   })
 })

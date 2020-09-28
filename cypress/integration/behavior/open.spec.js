@@ -34,7 +34,7 @@ context('open', () => {
     cy.visit('/cypress/fixtures/open-and-close/with-taggable.html')
     cy.get('.vue-select').click()
 
-    cy.get('.vue-tag.selected').click({ multiple: true })
+    cy.get('.vue-tag.selected').children().filter('.icon.delete').click({ multiple: true })
     cy.get('.vue-dropdown').should('be.visible')
   })
 
@@ -49,7 +49,7 @@ context('open', () => {
     cy.visit('/cypress/fixtures/open-and-close/with-searchable-and-taggable.html')
     cy.get('.vue-select').click()
 
-    cy.get('.vue-tag.selected').click({ multiple: true })
+    cy.get('.vue-tag.selected').children().filter('.icon.delete').click({ multiple: true })
     cy.get('.vue-dropdown').should('be.visible')
   })
 })

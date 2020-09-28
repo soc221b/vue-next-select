@@ -59,7 +59,7 @@ context('blur event', () => {
         window.removeEventListener('blur-custom-event', setResolve)
         window.addEventListener('blur-custom-event', setResolve)
       })
-      cy.get('#another-clickable-element').click()
+      cy.get('#previous-button').click()
       cy.then(finish)
     })
   })
