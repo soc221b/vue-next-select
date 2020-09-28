@@ -22,7 +22,7 @@
       </template>
 
       <template v-if="multiple && taggable">
-        <v-tag :modelValue="optionsWithInfo" :collapse-tags="collapseTags" tabindex="-1" @click="focus">
+        <v-tags :modelValue="optionsWithInfo" :collapse-tags="collapseTags" tabindex="-1" @click="focus">
           <template #default="{ option }">
             <slot name="tag" :option="option.originalOption">
               <span>{{ option.label }}</span>
@@ -34,7 +34,7 @@
               />
             </slot>
           </template>
-        </v-tag>
+        </v-tags>
         <span
           class="icon arrow-downward"
           :class="{ active: isFocusing }"
@@ -117,7 +117,7 @@
 <script>
 import { ref, computed, watch, provide } from 'vue'
 import { default as VInput } from './components/input.vue'
-import { default as VTag } from './components/tag.vue'
+import { default as VTags } from './components/tags.vue'
 import { default as VDropdown } from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption, isSameOption } from './crud'
 import normalize from './normalize'
@@ -381,7 +381,7 @@ export default {
   },
   components: {
     VInput,
-    VTag,
+    VTags,
     VDropdown,
   },
 }
