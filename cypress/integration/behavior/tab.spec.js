@@ -1,6 +1,6 @@
-context('focus', () => {
-  it('should focus', () => {
-    cy.visit('/cypress/fixtures/focus/with-taggable.html')
+context('tab', () => {
+  it('should tab', () => {
+    cy.visit('/cypress/fixtures/tab/with-taggable.html')
 
     cy.get('.vue-select').click()
     cy.get('input').should('be.focused')
@@ -18,8 +18,8 @@ context('focus', () => {
     cy.get('input').should('be.focused')
   })
 
-  it('should focus', () => {
-    cy.visit('/cypress/fixtures/focus/without-taggable.html')
+  it('should tab', () => {
+    cy.visit('/cypress/fixtures/tab/without-taggable.html')
 
     cy.get('.vue-select').click()
     cy.get('input').should('be.focused')
