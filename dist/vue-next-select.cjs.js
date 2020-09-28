@@ -283,9 +283,11 @@ var normalize = props => {
 var useHeight = function (element, watchSource) {
     var height = vue.ref('0');
     var calcHeaderHeight = function () {
-        if (!element.value)
-            return;
-        height.value = window.getComputedStyle(element.value).height;
+        setTimeout(function () {
+            if (!element.value)
+                return;
+            height.value = window.getComputedStyle(element.value).height;
+        });
     };
     vue.watch(watchSource, calcHeaderHeight);
     vue.onMounted(calcHeaderHeight);

@@ -308,9 +308,11 @@ System.register('VueNextSelect', ['vue'], function (exports) {
       var useHeight = function (element, watchSource) {
           var height = ref('0');
           var calcHeaderHeight = function () {
-              if (!element.value)
-                  return;
-              height.value = window.getComputedStyle(element.value).height;
+              setTimeout(function () {
+                  if (!element.value)
+                      return;
+                  height.value = window.getComputedStyle(element.value).height;
+              });
           };
           watch(watchSource, calcHeaderHeight);
           onMounted(calcHeaderHeight);
