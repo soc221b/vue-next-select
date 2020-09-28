@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  inheritAttrs: false,
   name: 'vue-tags',
   props: {
     modelValue: {
