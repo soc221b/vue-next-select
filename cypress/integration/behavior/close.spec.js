@@ -4,7 +4,7 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('.icon.arrow-downward').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close on blur', () => {
@@ -12,7 +12,7 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('body').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close when using searchable prop', () => {
@@ -20,7 +20,7 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('.icon.arrow-downward').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close when using searchable prop', () => {
@@ -28,7 +28,7 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('body').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close when using taggable prop', () => {
@@ -36,7 +36,7 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('.icon.arrow-downward').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close when using taggable prop', () => {
@@ -44,7 +44,7 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('body').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close when using searchable and taggable prop', () => {
@@ -52,7 +52,7 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('.icon.arrow-downward').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close when using searchable and taggable prop', () => {
@@ -60,6 +60,6 @@ context('close', () => {
 
     cy.get('.vue-select').click()
     cy.get('body').click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 })

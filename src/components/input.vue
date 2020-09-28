@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUpdated } from 'vue'
 
 export default {
   inheritAttrs: false,
@@ -69,6 +69,9 @@ export default {
       context.emit('escape', event)
     }
     onMounted(() => {
+      if (props.autofocus) input.value.focus()
+    })
+    onUpdated(() => {
       if (props.autofocus) input.value.focus()
     })
 

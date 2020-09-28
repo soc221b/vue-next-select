@@ -7,7 +7,7 @@
     @focus="focus"
     @blur="() => (searchable ? false : blur())"
   >
-    <div class="vue-select-header">
+    <div ref="header" class="vue-select-header">
       <template
         v-if="(multiple && taggable && modelValue.length === 0) || (searchable === false && taggable === false)"
       >
@@ -17,7 +17,7 @@
       </template>
 
       <template v-if="multiple && taggable">
-        <v-tag :modelValue="tagSelectedOptions" :class="{ collapsed: collapseTags }">
+        <v-tag :modelValue="optionsWithInfo" :collapse-tags="collapseTags">
           <template #default="{ option }">
             <slot name="tag" :option="option.originalOption">
               <span>{{ option.label }}</span>
@@ -50,17 +50,17 @@
           @focus="handleFocusForInput"
           @blur="handleBlurForInput"
           @escape="blur"
-          :autofocus="autofocus || (taggable && isFocusing)"
+          :autofocus="autofocus || (taggable && searchable)"
           :tabindex="tabindex"
         ></v-input>
 
-        <span v-if="loading" class="icon loading">
+        <span v-show="loading" class="icon loading">
           <div></div>
           <div></div>
           <div></div>
         </span>
         <span
-          v-else
+          v-show="loading === false"
           class="icon arrow-downward"
           :class="{ active: isFocusing }"
           @click="toggle"
@@ -69,39 +69,44 @@
       </template>
     </div>
 
-    <template v-if="isFocusing">
-      <template v-if="multiple && taggable && searchable">
-        <v-input
-          ref="input"
-          v-model="searchingInputValue"
-          :disabled="disabled"
-          :placeholder="searchPlaceholder"
-          @input="handleInputForInput"
-          @change="handleChangeForInput"
-          @focus="handleFocusForInput"
-          @blur="handleBlurForInput"
-          @escape="blur"
-          :tabindex="tabindex"
-          :autofocus="autofocus || (taggable && isFocusing)"
-        >
-          <template #append>
-            <span v-if="loading" class="icon loading">
-              <div></div>
-              <div></div>
-              <div></div>
-            </span>
-          </template>
-        </v-input>
-      </template>
-
-      <v-dropdown v-model="dropdownSelectedOptions" @click="handleClickForDropdown">
-        <template #default="{ option }">
-          <slot name="dropdown-item" :option="option.originalOption">
-            <span>{{ option.label }}</span>
-          </slot>
+    <template v-if="multiple && taggable && searchable">
+      <v-input
+        v-show="isFocusing"
+        ref="input"
+        v-model="searchingInputValue"
+        :disabled="disabled"
+        :placeholder="searchPlaceholder"
+        @input="handleInputForInput"
+        @change="handleChangeForInput"
+        @focus="handleFocusForInput"
+        @blur="handleBlurForInput"
+        @escape="blur"
+        :tabindex="tabindex"
+        :autofocus="autofocus || (taggable && searchable)"
+      >
+        <template #append>
+          <span v-show="loading" class="icon loading">
+            <div></div>
+            <div></div>
+            <div></div>
+          </span>
         </template>
-      </v-dropdown>
+      </v-input>
     </template>
+
+    <v-dropdown
+      v-show="isFocusing"
+      v-model="optionsWithInfo"
+      @click="handleClickForDropdown"
+      :header-height="headerAndInputHeight"
+      :hide-selected="hideSelected"
+    >
+      <template #default="{ option }">
+        <slot name="dropdown-item" :option="option.originalOption">
+          <span>{{ option.label }}</span>
+        </slot>
+      </template>
+    </v-dropdown>
   </div>
 </template>
 
@@ -112,6 +117,7 @@ import { default as VTag } from './components/tag.vue'
 import { default as VDropdown } from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption, isSameOption } from './crud'
 import normalize from './normalize'
+import { useHeight } from './hooks'
 
 export default {
   name: 'vue-select',
@@ -125,7 +131,8 @@ export default {
       type: Array,
     },
     visibleOptions: {
-      type: Array,
+      type: [Array, null],
+      default: null,
     },
     allowEmpty: {
       default: false,
@@ -240,6 +247,11 @@ export default {
       isFocusing.value = !isFocusing.value
     }
 
+    const header = ref(null)
+    const headerHeight = useHeight(header, () => props.modelValue)
+    const inputHeight = ref(props.searchable && props.multiple && props.taggable ? '22px' : '0px')
+    const headerAndInputHeight = computed(() => parseFloat(headerHeight.value) + parseFloat(inputHeight.value) + 'px')
+
     // input
     const searchingInputValue = ref('')
     const handleInputForInput = event => {
@@ -301,26 +313,23 @@ export default {
 
     const handleClickForDropdown = (event, option) => addOrRemoveOption(event, option)
     const handleClickForTag = (event, option) => addOrRemoveOption(event, option)
-    const dropdownSelectedOptions = computed(() => {
+
+    const optionsWithInfo = computed(() => {
       const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
-      return (props.visibleOptions || props.options)
-        .filter(option => (props.hideSelected ? selectedValueSet.has(valueBy(option)) === false : true))
-        .map(option => ({
-          key: trackBy(option),
-          label: labelBy(option),
-          selected: selectedValueSet.has(valueBy(option)),
-          originalOption: option,
-        }))
-    })
-    const tagSelectedOptions = computed(() => {
-      const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
+      const visibleValueSet =
+        props.visibleOptions !== null
+          ? new Set(props.visibleOptions.map(option => valueBy(option)))
+          : new Set(props.options.map(option => valueBy(option)))
+
       return props.options.map(option => ({
         key: trackBy(option),
         label: labelBy(option),
         selected: selectedValueSet.has(valueBy(option)),
+        visible: visibleValueSet.has(valueBy(option)),
         originalOption: option,
       }))
     })
+
     watch(
       () => props.options,
       () => {
@@ -338,6 +347,9 @@ export default {
       blur,
       toggle,
 
+      header,
+      headerAndInputHeight,
+
       searchingInputValue,
       handleInputForInput,
       handleChangeForInput,
@@ -346,9 +358,8 @@ export default {
 
       handleClickForDropdown,
       handleClickForTag,
-      dropdownSelectedOptions,
-      tagSelectedOptions,
 
+      optionsWithInfo,
       addOrRemoveOption,
     }
   },

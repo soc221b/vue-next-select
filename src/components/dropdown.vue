@@ -1,7 +1,19 @@
 <template>
-  <ul class="vue-dropdown" @mousedown.prevent>
+  <ul
+    class="vue-dropdown"
+    @mousedown.prevent
+    :style="{ top: headerHeight }"
+    :data-not-selected-length="modelValue.length - selectedOptions.length"
+    :data-selected-length="selectedOptions.length"
+    :data-total-length="modelValue.length"
+  >
     <template v-for="option of modelValue" :key="option.key">
-      <li @click="handleClick($event, option)" class="vue-dropdown-item" :class="{ selected: option.selected }">
+      <li
+        v-if="(hideSelected === false || option.selected === false) && option.visible"
+        @click="handleClick($event, option)"
+        class="vue-dropdown-item"
+        :class="{ selected: option.selected }"
+      >
         <slot :option="option">
           <span>{{ option.label }}</span>
         </slot>
@@ -26,14 +38,24 @@ export default {
         })
       },
     },
+    headerHeight: {
+      required: true,
+      type: String,
+    },
+    hideSelected: {
+      type: Boolean,
+    },
   },
   emits: ['click'],
   setup(props, context) {
+    const selectedOptions = computed(() => props.modelValue.filter(option => option.selected))
+
     const handleClick = (event, option) => {
       context.emit('click', event, option)
     }
 
     return {
+      selectedOptions,
       handleClick,
     }
   },

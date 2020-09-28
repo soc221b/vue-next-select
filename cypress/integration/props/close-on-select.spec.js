@@ -22,7 +22,7 @@ context('close-on-select (single)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().next().click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close on remove', () => {
@@ -30,7 +30,7 @@ context('close-on-select (single)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 })
 
@@ -56,7 +56,7 @@ context('close-on-select (multiple)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().next().click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 
   it('should close on remove', () => {
@@ -64,6 +64,6 @@ context('close-on-select (multiple)', () => {
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown').children().first().click()
-    cy.get('.vue-dropdown').should('not.exist')
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 })
