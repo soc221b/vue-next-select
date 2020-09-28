@@ -6,6 +6,11 @@
     :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
     @blur="() => (searchable ? false : blur())"
+    :data-is-focusing="dataAttrs.isFocusing"
+    :data-visible-length="dataAttrs.visibleLength"
+    :data-not-selected-length="dataAttrs.notSelectedLength"
+    :data-selected-length="dataAttrs.selectedLength"
+    :data-total-length="dataAttrs.totalLength"
   >
     <div ref="header" class="vue-select-header">
       <template
@@ -99,7 +104,6 @@
       v-model="optionsWithInfo"
       @click="handleClickForDropdown"
       :header-height="headerAndInputHeight"
-      :hide-selected="hideSelected"
     >
       <template #default="{ option }">
         <slot name="dropdown-item" :option="option.originalOption">
@@ -111,7 +115,7 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, provide } from 'vue'
 import { default as VInput } from './components/input.vue'
 import { default as VTag } from './components/tag.vue'
 import { default as VDropdown } from './components/dropdown.vue'
@@ -326,6 +330,7 @@ export default {
         label: labelBy(option),
         selected: selectedValueSet.has(valueBy(option)),
         visible: visibleValueSet.has(valueBy(option)),
+        hidden: props.hideSelected ? selectedValueSet.has(valueBy(option)) : false,
         originalOption: option,
       }))
     })
@@ -338,6 +343,15 @@ export default {
       },
       { deep: true },
     )
+
+    const dataAttrs = computed(() => ({
+      isFocusing: isFocusing.value,
+      visibleLength: optionsWithInfo.value.filter(option => option.visible && option.hidden === false).length,
+      notSelectedLength: props.options.length - optionsWithInfo.value.filter(option => option.selected).length,
+      selectedLength: optionsWithInfo.value.filter(option => option.selected).length,
+      totalLength: props.options.length,
+    }))
+    provide('dataAttrs', dataAttrs)
 
     return {
       isFocusing,
@@ -361,6 +375,8 @@ export default {
 
       optionsWithInfo,
       addOrRemoveOption,
+
+      dataAttrs,
     }
   },
   components: {

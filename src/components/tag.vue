@@ -3,9 +3,11 @@
     class="vue-tags"
     @mousedown.prevent
     :class="{ collapsed: collapseTags }"
-    :data-not-selected-length="modelValue.length - selectedOptions.length"
-    :data-selected-length="selectedOptions.length"
-    :data-total-length="modelValue.length"
+    :data-is-focusing="dataAttrs.isFocusing"
+    :data-visible-length="dataAttrs.visibleLength"
+    :data-not-selected-length="dataAttrs.notSelectedLength"
+    :data-selected-length="dataAttrs.selectedLength"
+    :data-total-length="dataAttrs.totalLength"
   >
     <template v-for="option of modelValue" :key="option.key">
       <li @click="handleClick($event, option)" class="vue-tag" :class="{ selected: option.selected }">
@@ -18,7 +20,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { inject } from 'vue'
 
 export default {
   inheritAttrs: false,
@@ -39,14 +41,14 @@ export default {
   },
   emits: ['click'],
   setup(props, context) {
-    const selectedOptions = computed(() => props.modelValue.filter(option => option.selected))
+    const dataAttrs = inject('dataAttrs')
 
     const handleClick = (event, option) => {
       context.emit('click', event, option)
     }
 
     return {
-      selectedOptions,
+      dataAttrs,
       handleClick,
     }
   },

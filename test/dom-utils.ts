@@ -29,7 +29,8 @@ export const clickFirstElement = async element => {
 
 // dropdown
 export const getDropdownElement = wrapper => {
-  return getElement(wrapper, '.vue-dropdown')
+  const element = getElement(wrapper, '.vue-dropdown')
+  return getComputedStyle(getElement(wrapper, '.vue-dropdown')).display === 'none' ? null : element
 }
 
 export const getAllDropdownItemElements = wrapper => {
