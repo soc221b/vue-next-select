@@ -3,23 +3,23 @@ context('tabindex', () => {
     cy.visit('/cypress/fixtures/tabindex/with-taggable.html')
 
     cy.get('.vue-select').click()
-    cy.get('#button1').should('not.be.focused')
+    cy.get('#previous-button').should('not.be.focused')
     cy.get('.vue-dropdown').should('be.visible')
 
     cy.focused().tab({ shift: true })
-    cy.get('#button1').should('be.focused')
+    cy.get('#previous-button').should('be.focused')
     cy.get('.vue-dropdown').should('not.be.visible')
 
     cy.focused().tab()
-    cy.get('#button1').should('not.be.focused')
+    cy.get('#previous-button').should('not.be.focused')
     cy.get('.vue-dropdown').should('be.visible')
 
     cy.focused().tab()
-    cy.get('#button2').should('be.focused')
+    cy.get('#next-button').should('be.focused')
     cy.get('.vue-dropdown').should('not.be.visible')
 
     cy.focused().tab({ shift: true })
-    cy.get('#button1').should('not.be.focused')
+    cy.get('#previous-button').should('not.be.focused')
     cy.get('.vue-dropdown').should('be.visible')
   })
 
@@ -27,23 +27,23 @@ context('tabindex', () => {
     cy.visit('/cypress/fixtures/tabindex/without-taggable.html')
 
     cy.get('.vue-select').click()
-    cy.get('#button1').should('not.be.focused')
+    cy.get('#previous-button').should('not.be.focused')
     cy.get('.vue-dropdown').should('be.visible')
 
     cy.focused().tab({ shift: true })
-    cy.get('#button1').should('be.focused')
+    cy.get('#previous-button').should('be.focused')
     cy.get('.vue-dropdown').should('not.be.visible')
 
     cy.focused().tab()
-    cy.get('#button1').should('not.be.focused')
+    cy.get('#previous-button').should('not.be.focused')
     cy.get('.vue-dropdown').should('be.visible')
 
     cy.focused().tab()
-    cy.get('#button2').should('be.focused')
+    cy.get('#next-button').should('be.focused')
     cy.get('.vue-dropdown').should('not.be.visible')
 
     cy.focused().tab({ shift: true })
-    cy.get('#button1').should('not.be.focused')
+    cy.get('#previous-button').should('not.be.focused')
     cy.get('.vue-dropdown').should('be.visible')
   })
 })
