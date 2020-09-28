@@ -223,6 +223,9 @@ export default {
           if (input.value && input.value._.refs.input === document.activeElement) {
             input.value._.refs.input.blur()
           }
+          if (wrapper.value && wrapper.value === document.activeElement) {
+            wrapper.value.blur()
+          }
           if (props.searchable) context.emit('blur')
           context.emit('close')
         }
