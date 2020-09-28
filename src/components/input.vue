@@ -12,6 +12,7 @@
       @blur="handleBlur"
       @keyup.esc.exact="handleEscape"
       :tabindex="tabindex"
+      :autofocus="autofocus"
     />
     <slot name="append"></slot>
   </div>
@@ -40,6 +41,10 @@ export default {
       required: true,
       type: Number,
     },
+    autofocus: {
+      required: true,
+      type: Boolean,
+    },
   },
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'escape'],
   setup(props, context) {
@@ -64,7 +69,7 @@ export default {
       context.emit('escape', event)
     }
     onMounted(() => {
-      input.value.focus()
+      if (props.autofocus) input.value.focus()
     })
 
     return {

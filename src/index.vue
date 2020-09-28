@@ -40,6 +40,7 @@
 
       <template v-else>
         <v-input
+          ref="input"
           v-if="searchable"
           v-model="searchingInputValue"
           :disabled="disabled"
@@ -49,6 +50,7 @@
           @focus="handleFocusForInput"
           @blur="handleBlurForInput"
           @escape="blur"
+          :autofocus="autofocus || (taggable && isFocusing)"
           :tabindex="tabindex"
           class="vue-select-input"
         ></v-input>
@@ -71,6 +73,7 @@
     <template v-if="isFocusing">
       <template v-if="multiple && taggable && searchable">
         <v-input
+          ref="input"
           v-model="searchingInputValue"
           :disabled="disabled"
           :placeholder="searchPlaceholder"
@@ -80,6 +83,7 @@
           @blur="handleBlurForInput"
           @escape="blur"
           :tabindex="tabindex"
+          :autofocus="autofocus || (taggable && isFocusing)"
           class="vue-select-input"
         >
           <template #append>
@@ -192,19 +196,36 @@ export default {
       default: 0,
       type: Number,
     },
+    autofocus: {
+      default: false,
+      type: Boolean,
+    },
   },
   emits: ['update:modelValue', 'select', 'remove', 'open', 'close', 'search-input', 'search-change', 'focus', 'blur'],
   setup(props, context) {
     const { trackBy, labelBy, valueBy, min, max } = normalize(props)
 
-    // focus
     const wrapper = ref(null)
+    const input = ref(null)
     const isFocusing = ref(false)
     watch(
       () => isFocusing.value,
       () => {
-        if (isFocusing.value) context.emit('open')
-        else context.emit('close')
+        if (isFocusing.value) {
+          context.emit('open')
+          if (props.searchable) context.emit('focus')
+          // toggle arrow downward icon
+          if (input.value && input.value._.refs.input !== document.activeElement) {
+            input.value._.refs.input.focus()
+          }
+        } else {
+          // toggle arrow downward icon
+          if (input.value && input.value._.refs.input === document.activeElement) {
+            input.value._.refs.input.blur()
+          }
+          if (props.searchable) context.emit('blur')
+          context.emit('close')
+        }
       },
     )
     const focus = () => {
@@ -228,11 +249,9 @@ export default {
     }
     const handleFocusForInput = event => {
       focus()
-      context.emit('focus', event)
     }
     const handleBlurForInput = event => {
       blur()
-      context.emit('blur', event)
     }
 
     const selectedOptions = ref([])
@@ -313,6 +332,7 @@ export default {
     return {
       isFocusing,
       wrapper,
+      input,
       focus,
       blur,
       toggle,
