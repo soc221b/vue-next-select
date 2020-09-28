@@ -59,7 +59,7 @@ app.mount(document.querySelector('#app'))
 ### Single Select
 
 ```html
-<vue-select v-model="selectedOptions" :options="options" allow-empty close-on-select></vue-select>
+<vue-select v-model="selectedOptions" :options="options" close-on-select></vue-select>
 ```
 
 ```javascript
@@ -98,27 +98,26 @@ createApp({
 
 ## Props
 
-| Required | Prop                   | Type             | Default          | Arguments | Works if                |
-| -------- | ---------------------- | ---------------- | ---------------- | --------- | ----------------------- |
-| V        | v\-model / model-value | any              |                  |           |                         |
-| V        | options                | Array            |                  |           |                         |
-|          | visible-options        | Array            | props.options    |           |                         |
-|          | allow-empty            | Boolean          | false            |           | props.multiple is false |
-|          | multiple               | Boolean          | false            |           |                         |
-|          | min                    | Number           | 0                |           | props.multiple is true  |
-|          | max                    | Number           | Infinity         |           | props.multiple is true  |
-|          | close-on-select        | Boolean          | false            |           |                         |
-|          | label-by               | Function, String | option           | option    |                         |
-|          | value-by               | Function, String | option           | option    |                         |
-|          | track-by               | Function, String | option           | option    |                         |
-|          | hide-selected          | Boolean          | false            |           | props.multiple is true  |
-|          | disabled               | Boolean          | false            |           |                         |
-|          | loading                | Boolean          | false            |           |                         |
-|          | placeholder            | String           | "Select option"  |           |                         |
-|          | search-placeholder     | String           | "Type to search" |           |                         |
-|          | searchable             | Boolean          | false            |           |                         |
-|          | taggable               | Boolean          | false            |           | props.multiple is true  |
-|          | collapse-tags          | Boolean          | false            |           |                         |
+| Required | Prop                   | Type             | Default          | Arguments | Works if               |
+| -------- | ---------------------- | ---------------- | ---------------- | --------- | ---------------------- |
+| V        | v\-model / model-value | any              |                  |           |                        |
+| V        | options                | Array            |                  |           |                        |
+|          | visible-options        | Array            | props.options    |           |                        |
+|          | multiple               | Boolean          | false            |           |                        |
+|          | min                    | Number           | 0                |           |                        |
+|          | max                    | Number           | Infinity         |           | props.multiple is true |
+|          | close-on-select        | Boolean          | false            |           |                        |
+|          | label-by               | Function, String | option           | option    |                        |
+|          | value-by               | Function, String | option           | option    |                        |
+|          | track-by               | Function, String | option           | option    |                        |
+|          | hide-selected          | Boolean          | false            |           | props.multiple is true |
+|          | disabled               | Boolean          | false            |           |                        |
+|          | loading                | Boolean          | false            |           |                        |
+|          | placeholder            | String           | "Select option"  |           |                        |
+|          | search-placeholder     | String           | "Type to search" |           |                        |
+|          | searchable             | Boolean          | false            |           |                        |
+|          | taggable               | Boolean          | false            |           | props.multiple is true |
+|          | collapse-tags          | Boolean          | false            |           |                        |
 
 ## Events
 

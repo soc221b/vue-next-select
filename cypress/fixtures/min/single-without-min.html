@@ -21,7 +21,7 @@
         name: 'app',
         setup() {
           const selectedOptions = ref('i')
-          const options = ref(['i'])
+          const options = ref(['i', 'love', 'vue'])
           return {
             selectedOptions,
             options,
@@ -31,7 +31,6 @@
         <vue-select
           v-model="selectedOptions"
           :options="options"
-          allow-empty
         ></vue-select>
         `,
       })

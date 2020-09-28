@@ -20,7 +20,7 @@ export default props => {
       ? option => props.valueBy.split('.').reduce((value, key) => value[key], option)
       : option => option
 
-  const min = props.multiple ? props.min : props.allowEmpty ? 0 : 1
+  const min = props.multiple ? props.min : Math.min(1, props.min)
   const max = props.multiple ? props.max : 1
 
   return {

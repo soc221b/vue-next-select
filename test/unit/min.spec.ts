@@ -8,6 +8,69 @@ import {
   clickFirstDeleteIconElement,
 } from '../dom-utils'
 
+it('should allow empty by default', async () => {
+  const state = reactive({
+    model: null,
+    options: [0, 1, 2],
+  })
+  const app = {
+    setup() {
+      return {
+        state,
+      }
+    },
+    components: {
+      VueSelect,
+    },
+    template: `
+      <vue-select
+        v-model="state.model"
+        :options="state.options"
+      ></vue-select>
+    `,
+  }
+  const wrapper = mount(app)
+  await wrapper.trigger('focus')
+
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(0)
+
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(null)
+})
+
+it('should works with min', async () => {
+  const state = reactive({
+    model: null,
+    options: [0, 1, 2],
+  })
+  const app = {
+    setup() {
+      return {
+        state,
+      }
+    },
+    components: {
+      VueSelect,
+    },
+    template: `
+      <vue-select
+        v-model="state.model"
+        :options="state.options"
+        :min="1"
+      ></vue-select>
+    `,
+  }
+  const wrapper = mount(app)
+  await wrapper.trigger('focus')
+
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(0)
+
+  await clickFirstDropdownItemElement(wrapper)
+  expect(state.model).toStrictEqual(0)
+})
+
 it('should not limit by default', async () => {
   const state = reactive({
     model: [0, 1, 2],

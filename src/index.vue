@@ -138,10 +138,6 @@ export default {
       type: [Array, null],
       default: null,
     },
-    allowEmpty: {
-      default: false,
-      type: Boolean,
-    },
     multiple: {
       default: false,
       type: Boolean,
