@@ -220,8 +220,12 @@ export default {
           context.emit('open')
           if (props.searchable) context.emit('focus')
           // toggle arrow downward icon
-          if (input.value && input.value._.refs.input !== document.activeElement) {
-            input.value._.refs.input.focus()
+          if (props.searchable) {
+            if (input.value && input.value._.refs.input !== document.activeElement) {
+              input.value._.refs.input.focus()
+            }
+          } else if (props.searchable === false) {
+            wrapper.value.focus()
           }
         } else {
           // toggle arrow downward icon

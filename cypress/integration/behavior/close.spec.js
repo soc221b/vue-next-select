@@ -47,6 +47,17 @@ context('close', () => {
     cy.get('.vue-dropdown').should('not.be.visible')
   })
 
+  it('should close when using taggable prop', () => {
+    cy.visit('/cypress/fixtures/open-and-close/with-taggable.html')
+
+    cy.get('.vue-select').click()
+    cy.get('.vue-dropdown').children().click({ multiple: true })
+    cy.get('body').click()
+    cy.get('.vue-tag.selected').children().first().click()
+    cy.get('body').click()
+    cy.get('.vue-dropdown').should('not.be.visible')
+  })
+
   it('should close when using searchable and taggable prop', () => {
     cy.visit('/cypress/fixtures/open-and-close/with-searchable-and-taggable.html')
 
