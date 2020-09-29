@@ -107,6 +107,7 @@ createApp({
 |          | min                    | Number           | 0                |           |                        |
 |          | max                    | Number           | Infinity         |           | props.multiple is true |
 |          | close-on-select        | Boolean          | false            |           |                        |
+|          | clear-on-select        | Boolean          | false            |           |                        |
 |          | label-by               | Function, String | option           | option    |                        |
 |          | value-by               | Function, String | option           | option    |                        |
 |          | track-by               | Function, String | option           | option    |                        |
