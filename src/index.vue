@@ -334,7 +334,7 @@ export default {
     watch(
       () => props.options,
       () => {
-        const selectedValueSet = new Set(selectedOptions.value.map(option => option.value))
+        const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)))
         selectedOptions.value = props.options.filter(option => selectedValueSet.has(valueBy(option)))
       },
       { deep: true },
