@@ -1,0 +1,21 @@
+body {
+  padding: 8px;
+  font-size: 16px;
+  min-height: 1500px;
+}
+
+pre {
+  background-color: lightgrey;
+  border-radius: 4px;
+  padding: 4px;
+  max-width: 400px;
+  min-height: 1rem;
+}
+
+h1 {
+  margin-bottom: 4px;
+}
+
+.vue-select {
+  display: inline-block;
+}
