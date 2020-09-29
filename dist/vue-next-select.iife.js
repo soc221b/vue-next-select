@@ -150,7 +150,7 @@ this.VueNextSelect = (function (vue) {
   }
 
   script$1.render = render$1;
-  script$1.__file = "src/components/tag.vue";
+  script$1.__file = "src/components/tags.vue";
 
   var script$2 = {
     inheritAttrs: false,
@@ -267,7 +267,7 @@ this.VueNextSelect = (function (vue) {
         ? option => props.valueBy.split('.').reduce((value, key) => value[key], option)
         : option => option;
 
-    const min = props.multiple ? props.min : props.allowEmpty ? 0 : 1;
+    const min = props.multiple ? props.min : Math.min(1, props.min);
     const max = props.multiple ? props.max : 1;
 
     return {
@@ -308,10 +308,6 @@ this.VueNextSelect = (function (vue) {
         type: [Array, null],
         default: null,
       },
-      allowEmpty: {
-        default: false,
-        type: Boolean,
-      },
       multiple: {
         default: false,
         type: Boolean,
@@ -325,6 +321,10 @@ this.VueNextSelect = (function (vue) {
         type: Number,
       },
       closeOnSelect: {
+        default: false,
+        type: Boolean,
+      },
+      clearOnSelect: {
         default: false,
         type: Boolean,
       },
@@ -394,8 +394,12 @@ this.VueNextSelect = (function (vue) {
             context.emit('open');
             if (props.searchable) context.emit('focus');
             // toggle arrow downward icon
-            if (input.value && input.value._.refs.input !== document.activeElement) {
-              input.value._.refs.input.focus();
+            if (props.searchable) {
+              if (input.value && input.value._.refs.input !== document.activeElement) {
+                input.value._.refs.input.focus();
+              }
+            } else if (props.searchable === false) {
+              wrapper.value.focus();
             }
           } else {
             // toggle arrow downward icon
@@ -470,6 +474,12 @@ this.VueNextSelect = (function (vue) {
           context.emit('select', option);
         }
         if (props.closeOnSelect === true) isFocusing.value = false;
+        if (props.clearOnSelect === true && searchingInputValue.value) {
+          // simulate clear input value
+          input.value._.refs.input.value = '';
+          input.value._.refs.input.dispatchEvent(new Event('input'));
+          input.value._.refs.input.dispatchEvent(new Event('change'));
+        }
       };
       vue.watch(
         () => selectedOptions,
@@ -508,7 +518,7 @@ this.VueNextSelect = (function (vue) {
       vue.watch(
         () => props.options,
         () => {
-          const selectedValueSet = new Set(selectedOptions.value.map(option => option.value));
+          const selectedValueSet = new Set(selectedOptions.value.map(option => valueBy(option)));
           selectedOptions.value = props.options.filter(option => selectedValueSet.has(valueBy(option)));
         },
         { deep: true },
@@ -551,7 +561,7 @@ this.VueNextSelect = (function (vue) {
     },
     components: {
       VInput: script,
-      VTag: script$1,
+      VTags: script$1,
       VDropdown: script$2,
     },
   };
@@ -576,7 +586,7 @@ this.VueNextSelect = (function (vue) {
   const _hoisted_10 = /*#__PURE__*/vue.createVNode("div", null, null, -1 /* HOISTED */);
 
   function render$3(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_v_tag = vue.resolveComponent("v-tag");
+    const _component_v_tags = vue.resolveComponent("v-tags");
     const _component_v_input = vue.resolveComponent("v-input");
     const _component_v_dropdown = vue.resolveComponent("v-dropdown");
 
@@ -603,7 +613,7 @@ this.VueNextSelect = (function (vue) {
           : vue.createCommentVNode("v-if", true),
         ($props.multiple && $props.taggable)
           ? (vue.openBlock(), vue.createBlock(vue.Fragment, { key: 1 }, [
-              vue.createVNode(_component_v_tag, {
+              vue.createVNode(_component_v_tags, {
                 modelValue: $setup.optionsWithInfo,
                 "collapse-tags": $props.collapseTags,
                 tabindex: "-1",
