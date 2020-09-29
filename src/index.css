@@ -90,7 +90,7 @@
   background-color: #999;
   padding: 0 4px;
   margin: 2px;
-  height: 1rem;
+  min-height: 1rem;
   font-size: 0.8rem;
 }
 
@@ -145,6 +145,7 @@
 .vue-dropdown {
   position: absolute;
   background-color: white;
+  z-index: 1;
   max-height: 300px;
   overflow-y: auto;
   width: inherit;
