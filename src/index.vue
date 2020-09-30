@@ -258,7 +258,7 @@ export default {
 
     const header = ref(null)
     const headerHeight = useHeight(header, () => props.modelValue)
-    const inputHeight = ref(props.searchable && props.multiple && props.taggable ? '22px' : '0px')
+    const inputHeight = computed(() => (props.searchable && props.multiple && props.taggable ? '22px' : '0px'))
     const headerAndInputHeight = computed(() => parseFloat(headerHeight.value) + parseFloat(inputHeight.value) + 'px')
 
     // input
