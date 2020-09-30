@@ -2,8 +2,8 @@ export const isSameOption = (option1, option2, { valueBy }) => {
   return valueBy(option1) === valueBy(option2)
 }
 
-export const hasOption = (selectedOptions, option, { valueBy }) => {
-  return selectedOptions.find(_option => isSameOption(_option, option, { valueBy })) !== undefined
+export const hasOption = (options, option, { valueBy }) => {
+  return options.findIndex(_option => isSameOption(_option, option, { valueBy })) !== -1
 }
 
 export const getOptionByValue = (options, value, { valueBy }) => {
