@@ -8,6 +8,13 @@ context('open', () => {
     cy.get('.vue-dropdown').should('be.visible')
   })
 
+  it('should open after clicking arrow downward icon', () => {
+    cy.visit('/cypress/fixtures/open-and-close/without-searchable-and-taggable.html')
+
+    cy.get('.icon.arrow-downward').click()
+    cy.get('.vue-dropdown').should('be.visible')
+  })
+
   it('should keep open after clicking inside', () => {
     cy.visit('/cypress/fixtures/open-and-close/without-searchable-and-taggable.html')
 

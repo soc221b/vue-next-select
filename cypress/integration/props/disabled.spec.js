@@ -14,6 +14,13 @@ context('disabled (single)', () => {
 
     cy.get('.vue-dropdown').should('not.be.visible')
   })
+
+  it('should not open after clicking arrow downward icon', () => {
+    cy.visit('/cypress/fixtures/disabled/single/with.html')
+
+    cy.get('.icon.arrow-downward').click()
+    cy.get('.vue-dropdown').should('not.be.visible')
+  })
 })
 
 context('disabled (multiple)', () => {
@@ -28,6 +35,13 @@ context('disabled (multiple)', () => {
     cy.visit('/cypress/fixtures/disabled/multiple/with.html')
     cy.get('.vue-select').click()
 
+    cy.get('.vue-dropdown').should('not.be.visible')
+  })
+
+  it('should not open after clicking arrow downward icon', () => {
+    cy.visit('/cypress/fixtures/disabled/multiple/with.html')
+
+    cy.get('.icon.arrow-downward').click()
     cy.get('.vue-dropdown').should('not.be.visible')
   })
 })
@@ -47,5 +61,12 @@ context('disabled (taggable)', () => {
 
     cy.get('.vue-tags').children().first().click()
     cy.get('.vue-tags').children().first().should('have.class', 'selected')
+  })
+
+  it('should not open after clicking arrow downward icon', () => {
+    cy.visit('/cypress/fixtures/disabled/taggable/with.html')
+
+    cy.get('.icon.arrow-downward').click()
+    cy.get('.vue-dropdown').should('not.be.visible')
   })
 })
