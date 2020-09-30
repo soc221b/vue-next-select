@@ -252,7 +252,8 @@ export default {
       isFocusing.value = false
     }
     const toggle = event => {
-      isFocusing.value = !isFocusing.value
+      if (isFocusing.value) blur()
+      else focus()
     }
 
     const header = ref(null)
