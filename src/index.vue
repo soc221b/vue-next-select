@@ -248,13 +248,17 @@ export default {
       if (props.disabled) return
       isFocusing.value = true
     }
-    const blur = event => {
+    const blur = () => {
       isFocusing.value = false
     }
-    const toggle = event => {
+    const toggle = () => {
       if (isFocusing.value) blur()
       else focus()
     }
+    watch(
+      () => props.disabled,
+      () => blur(),
+    )
 
     const header = ref(null)
     const headerHeight = useHeight(header, () => props.modelValue)
