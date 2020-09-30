@@ -293,7 +293,7 @@ export default {
     const syncFromModelValue = () => {
       if (isSynchronoused()) return
       innerModelValue.value = []
-      const modelValue = props.multiple ? props.modelValue : [props.modelValue]
+      const modelValue = props.multiple ? props.modelValue : props.modelValue === null ? [] : [props.modelValue]
       for (const value of modelValue) {
         const option = getOptionByValue(props.options, value, { valueBy })
         // guarantee options has modelValue
