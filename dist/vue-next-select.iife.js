@@ -446,9 +446,22 @@ this.VueNextSelect = (function (vue) {
       };
 
       // sync model value
-      let isUpdating = false;
       const innerModelValue = vue.ref([]);
+      const isSynchronoused = () => {
+        if (props.multiple) {
+          if (Array.isArray(props.modelValue) === false) return false
+          if (innerModelValue.value.length !== props.modelValue.length) return false
+          if (Object.keys(innerModelValue.value).some(index => innerModelValue.value[index] !== props.modelValue[index]))
+            return false
+        } else {
+          if (innerModelValue.value.length === 0 && props.modelValue !== null) return false
+          if (innerModelValue.value.length === 1 && props.modelValue === null) return false
+          if (innerModelValue.value[0] !== props.modelValue) return false
+        }
+        return true
+      };
       const syncFromModelValue = () => {
+        if (isSynchronoused()) return
         innerModelValue.value = [];
         const modelValue = props.multiple ? props.modelValue : [props.modelValue];
         for (const value of modelValue) {
@@ -462,13 +475,13 @@ this.VueNextSelect = (function (vue) {
       vue.watch(
         () => props.modelValue,
         () => {
-          if (isUpdating === false) {
-            syncFromModelValue();
-          }
+          syncFromModelValue();
         },
+        { deep: true },
       );
 
       const syncFromInnerModelValue = () => {
+        if (isSynchronoused()) return
         const selectedValues = innerModelValue.value.map(option => valueBy(option));
         if (props.multiple) {
           context.emit('update:modelValue', selectedValues);
@@ -480,9 +493,7 @@ this.VueNextSelect = (function (vue) {
       vue.watch(
         () => innerModelValue,
         () => {
-          isUpdating = true;
           syncFromInnerModelValue();
-          isUpdating = false;
         },
         { deep: true },
       );
