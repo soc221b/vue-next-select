@@ -19,11 +19,26 @@
       const app = createApp({
         name: 'app',
         setup() {
-          const model = ref(['i'])
-          const options = ref(['i', 'love', 'vue'])
+          const model = ref(null)
+          const options = ref([
+            {
+              label: 'Multiple',
+              value: 'multiple',
+            },
+            {
+              label: 'Taggable',
+              value: 'taggable',
+            },
+            {
+              label: 'Searchable',
+              value: 'searchable',
+            },
+          ])
           const changeModelValue = () => {
-            if (model.value.length >= options.value.length) model.value = []
-            else model.value.push(options.value[model.value.length])
+            const index = options.value.findIndex(option => option.value === model.value)
+            if (index === -1) model.value = options.value[0].value
+            else if (index === options.value.length - 1) model.value = null
+            else model.value = options.value[index + 1].value
           }
 
           return {
@@ -37,8 +52,9 @@
         <vue-select
           v-model="model"
           :options="options"
-          multiple
-          taggable
+          value-by="value"
+          track-by="value"
+          label-by="label"
         ></vue-select>
         `,
       })

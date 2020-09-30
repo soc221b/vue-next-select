@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link type="text/css" rel="stylesheet" href="/dist/index.css" />
+    <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="/dist/vue-next-select.iife.js"></script>
+    <script>
+      const { ref, createApp } = Vue
+      const app = createApp({
+        name: 'app',
+        setup() {
+          const model = ref([])
+          const options = ref([
+            {
+              label: 'Multiple',
+              value: 'multiple',
+            },
+            {
+              label: 'Taggable',
+              value: 'taggable',
+            },
+            {
+              label: 'Searchable',
+              value: 'searchable',
+            },
+          ])
+          const changeModelValue = () => {
+            if (model.value.length === 0) model.value.push(options.value[0].value)
+            else if (model.value.length >= options.value.length) model.value.length = 0
+            else model.value.push(options.value[model.value.length].value)
+          }
+
+          return {
+            model,
+            options,
+            changeModelValue,
+          }
+        },
+        template: `
+        <button id="previous-button" @click="changeModelValue">Change</button>
+        <vue-select
+          v-model="model"
+          :options="options"
+          multiple
+          taggable
+          value-by="value"
+          track-by="value"
+          label-by="label"
+        ></vue-select>
+        `,
+      })
+
+      app.component('vue-select', VueNextSelect)
+      app.mount(document.querySelector('#app'))
+    </script>
+  </body>
+</html>
