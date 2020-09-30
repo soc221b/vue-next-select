@@ -421,7 +421,8 @@ var script$3 = {
       isFocusing.value = false;
     };
     const toggle = event => {
-      isFocusing.value = !isFocusing.value;
+      if (isFocusing.value) blur();
+      else focus();
     };
 
     const header = ref(null);
@@ -450,19 +451,24 @@ var script$3 = {
       if (props.multiple) {
         if (Array.isArray(props.modelValue) === false) return false
         if (innerModelValue.value.length !== props.modelValue.length) return false
-        if (Object.keys(innerModelValue.value).some(index => innerModelValue.value[index] !== props.modelValue[index]))
+        if (
+          Object.keys(innerModelValue.value).some(
+            index =>
+              innerModelValue.value[index] !== getOptionByValue(props.options, props.modelValue[index], { valueBy }),
+          )
+        )
           return false
       } else {
         if (innerModelValue.value.length === 0 && props.modelValue !== null) return false
         if (innerModelValue.value.length === 1 && props.modelValue === null) return false
-        if (innerModelValue.value[0] !== props.modelValue) return false
+        if (innerModelValue.value[0] !== getOptionByValue(props.options, props.modelValue, { valueBy })) return false
       }
       return true
     };
     const syncFromModelValue = () => {
       if (isSynchronoused()) return
       innerModelValue.value = [];
-      const modelValue = props.multiple ? props.modelValue : [props.modelValue];
+      const modelValue = props.multiple ? props.modelValue : props.modelValue === null ? [] : [props.modelValue];
       for (const value of modelValue) {
         const option = getOptionByValue(props.options, value, { valueBy });
         // guarantee options has modelValue
