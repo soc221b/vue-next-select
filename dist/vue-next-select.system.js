@@ -444,17 +444,21 @@ System.register('VueNextSelect', ['vue'], function (exports) {
             if (props.disabled) return
             isFocusing.value = true;
           };
-          const blur = event => {
+          const blur = () => {
             isFocusing.value = false;
           };
-          const toggle = event => {
+          const toggle = () => {
             if (isFocusing.value) blur();
             else focus();
           };
+          watch(
+            () => props.disabled,
+            () => blur(),
+          );
 
           const header = ref(null);
           const headerHeight = useHeight(header, () => props.modelValue);
-          const inputHeight = ref(props.searchable && props.multiple && props.taggable ? '22px' : '0px');
+          const inputHeight = computed(() => (props.searchable && props.multiple && props.taggable ? '22px' : '0px'));
           const headerAndInputHeight = computed(() => parseFloat(headerHeight.value) + parseFloat(inputHeight.value) + 'px');
 
           // input

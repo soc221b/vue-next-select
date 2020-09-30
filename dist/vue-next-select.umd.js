@@ -421,17 +421,21 @@
         if (props.disabled) return
         isFocusing.value = true;
       };
-      const blur = event => {
+      const blur = () => {
         isFocusing.value = false;
       };
-      const toggle = event => {
+      const toggle = () => {
         if (isFocusing.value) blur();
         else focus();
       };
+      vue.watch(
+        () => props.disabled,
+        () => blur(),
+      );
 
       const header = vue.ref(null);
       const headerHeight = useHeight(header, () => props.modelValue);
-      const inputHeight = vue.ref(props.searchable && props.multiple && props.taggable ? '22px' : '0px');
+      const inputHeight = vue.computed(() => (props.searchable && props.multiple && props.taggable ? '22px' : '0px'));
       const headerAndInputHeight = vue.computed(() => parseFloat(headerHeight.value) + parseFloat(inputHeight.value) + 'px');
 
       // input
