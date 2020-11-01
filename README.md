@@ -5,6 +5,7 @@
 [![npm version](https://badge.fury.io/js/vue-next-select.svg)](https://badge.fury.io/js/vue-next-select)
 [![CI](https://github.com/iendeavor/vue-next-select/workflows/CI/badge.svg)](https://github.com/iendeavor/vue-next-select/actions)
 [![Coverage Status](https://coveralls.io/repos/github/iendeavor/vue-next-select/badge.svg?branch=develop)](https://coveralls.io/github/iendeavor/vue-next-select?branch=develop)
+[![HitCount](http://hits.dwyl.com/iendeavor/vue-next-select.svg)](http://hits.dwyl.com/iendeavor/vue-next-select)
 
 ## Live Demo
 
