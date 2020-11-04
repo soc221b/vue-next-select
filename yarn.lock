@@ -1116,9 +1116,9 @@
     fastq "^1.6.0"
 
 "@popperjs/core@^2.4.4":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.4.tgz#11d5db19bd178936ec89cd84519c4de439574398"
-  integrity sha512-1oO6+dN5kdIA3sKPZhRGJTfGVP4SWV6KqlMOwry4J3HfyD68sl/3KmG7DeYUzvN+RbhXDnv/D8vNNB8168tAMg==
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.4.tgz#de25b5da9f727985a3757fd59b5d028aba75841a"
+  integrity sha512-ZpKr+WTb8zsajqgDkvCEWgp6d5eJT6Q63Ng2neTbzBO76Lbe91vX/iVIW9dikq+Fs3yEo+ls4cxeXABD2LtcbQ==
 
 "@rollup/plugin-node-resolve@^8.0.1":
   version "8.4.0"
