@@ -9,8 +9,10 @@
   "umd:main": "dist/vue-next-select.umd.prod.js",
   "unpkg": "dist/vue-next-select.umd.prod.js",
   "module": "dist/vue-next-select.es.prod.js",
-  "source": "src/index.ts",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iendeavor/vue-next-select.git"
