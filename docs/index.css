@@ -1,21 +1,94 @@
 body {
-  padding: 8px;
-  font-size: 16px;
-  min-height: 1500px;
+  font-size: 1rem;
+  height: 200vh;
+}
+
+header {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to left bottom, #41b883 0%, white 100%);
+}
+
+header img {
+  display: inline-block;
+}
+
+aside {
+  display: inline-block;
+  margin-top: 2vh;
+  margin-left: 2vw;
+  width: 28vw;
+  vertical-align: top;
+}
+
+main {
+  display: inline-block;
+  margin-top: 2vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  width: 64vw;
+  height: 96vh;
+  overflow-y: scroll;
 }
 
 pre {
   background-color: lightgrey;
   border-radius: 4px;
   padding: 4px;
-  max-width: 400px;
-  min-height: 1rem;
+  max-width: calc(100% - 8px);
+  margin: 0;
+  min-height: 1.1rem;
 }
 
-h1 {
-  margin-bottom: 4px;
+pre ~ pre:not(:first-child) {
+  vertical-align: top;
+  margin-top: 8px;
+}
+
+h2 {
+  margin-bottom: 8px;
+  color: black;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #41b883;
+}
+
+h1:first-child,
+h2:first-child {
+  margin-top: 0;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+aside ul {
+  list-style-type: none;
+  list-style-position: outside;
+  padding: 4px;
+}
+
+aside li {
+  border-radius: 4px;
+}
+
+aside li:hover {
+  background-color: lightgrey;
+}
+
+aside li a {
+  padding: 4px;
+  display: block;
+  width: 100%;
+  color: black;
+  text-decoration: none;
 }
 
 .vue-select {
   display: inline-block;
+  margin-bottom: 8px;
 }

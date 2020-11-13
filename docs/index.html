@@ -9,34 +9,86 @@
     />
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/vue-next-select/dist/index.css" />
     <link type="text/css" rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
+    />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/styles/default.min.css" />
   </head>
 
   <body>
     <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
     <script src="https://unpkg.com/vue-next-select/dist/vue-next-select.iife.js"></script>
 
-    <h1>Single select</h1>
-    <div id="single-select"></div>
-    <script src="./single-select.js"></script>
+    <a
+      class="github-fork-ribbon"
+      href="https://github.com/iendeavor/vue-next-select"
+      data-ribbon="Fork me on GitHub"
+      title="Fork me on GitHub"
+      >Fork me on GitHub</a
+    >
+    <header>
+      <h1>vue-next-select</h1>
+      <p><b>The selecting solution for Vue 3</b></p>
+      <br />
 
-    <h1>Single select (object)</h1>
-    <div id="single-select-object"></div>
-    <script src="./single-select-object.js"></script>
+      <div>
+        <img alt="GitHub" src="https://img.shields.io/github/license/iendeavor/vue-next-select" />
+        <img alt="npm" src="https://img.shields.io/npm/v/vue-next-select" />
+        <img alt="Npm bundle size" src="https://img.shields.io/bundlephobia/minzip/vue-next-select" />
+      </div>
+      <br />
 
-    <h1>Select with search</h1>
-    <div id="select-with-search"></div>
-    <script src="./select-with-search.js"></script>
+      <ul>
+        <li>Fully configurable</li>
+        <li>Single select</li>
+        <li>Multiple select</li>
+        <li>Searching</li>
+        <li>Async options support</li>
+      </ul>
+    </header>
 
-    <h1>Multiple select</h1>
-    <div id="multiple-select"></div>
-    <script src="./multiple-select.js"></script>
+    <aside>
+      <h2 id="examples">Examples:</h2>
+      <ul>
+        <li><a href="#single-select-header">Single select</a></li>
+        <li><a href="#single-select-object-header">Single select (object)</a></li>
+        <li><a href="#select-with-search-header">Select with search</a></li>
+        <li><a href="#multiple-select-header">Multiple select</a></li>
+        <li><a href="#tagging-header">Tagging</a></li>
+        <li><a href="#asynchronous-select-header">Asynchronous select</a></li>
+      </ul>
+    </aside>
 
-    <h1>Tagging</h1>
-    <div id="tagging"></div>
-    <script src="./tagging.js"></script>
+    <main>
+      <h2 id="single-select-header">Single select</h2>
+      <div id="single-select"></div>
+      <script src="./single-select.js"></script>
 
-    <h1>Asynchronous select</h1>
-    <div id="asynchronous-select"></div>
-    <script src="./asynchronous-select.js"></script>
+      <h2 id="single-select-object-header">Single select (object)</h2>
+      <div id="single-select-object"></div>
+      <script src="./single-select-object.js"></script>
+
+      <h2 id="select-with-search-header">Select with search</h2>
+      <div id="select-with-search"></div>
+      <script src="./select-with-search.js"></script>
+
+      <h2 id="multiple-select-header">Multiple select</h2>
+      <div id="multiple-select"></div>
+      <script src="./multiple-select.js"></script>
+
+      <h2 id="tagging-header">Tagging</h2>
+      <div id="tagging"></div>
+      <script src="./tagging.js"></script>
+
+      <h2 id="asynchronous-select-header">Asynchronous select</h2>
+      <div id="asynchronous-select"></div>
+      <script src="./asynchronous-select.js"></script>
+    </main>
+
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad()
+    </script>
   </body>
 </html>
