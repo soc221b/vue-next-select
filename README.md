@@ -11,132 +11,19 @@
 
 [![Edit vue-next-select](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vue-next-select-01mxz?fontsize=14&hidenavigation=1&theme=dark)
 
-## Features
+## Documentation
 
-- Fully configurable
-- Single select
-- Multiple select
-- Searching
-- Async options support
+https://iendeavor.github.io/vue-next-select/
 
-## Installation
+## Contributing
 
+```bash
+# build package
+yarn build
+
+# run linter
+yarn lint
+
+# run tests
+yarn test
 ```
-$ npm install vue-next-select
-```
-
-```js
-import { reactive, ref, createApp } from 'vue'
-import VueSelect from 'vue-next-select'
-import 'vue-next-select/dist/index.min.css'
-
-const app = createApp({
-  setup() {
-    const value = ref(0)
-    const options = reactive([0, 1, 2])
-    return {
-      value,
-      options,
-    }
-  },
-  components: {
-    // Local registration
-    VueSelect,
-  },
-  template: `
-    <vue-select
-      v-model="value"
-      :options="options"
-    ></vue-select
-  `,
-})
-// Or global registration
-app.component('vue-select', VueSelect)
-app.mount(document.querySelector('#app'))
-```
-
-## Examples
-
-### Single Select
-
-```html
-<vue-select v-model="selectedOptions" :options="options" close-on-select></vue-select>
-```
-
-```javascript
-createApp({
-  setup() {
-    const selectedOptions = ref('I')
-    const options = ref(['I', 'Love', 'Vue'])
-
-    return {
-      selectedOptions,
-      options,
-    }
-  },
-})
-```
-
-### Multiple Select
-
-```html
-<vue-select v-model="selectedOptions" :options="options" multiple :min="1" :max="2" close-on-select></vue-select>
-```
-
-```javascript
-createApp({
-  setup() {
-    const selectedOptions = ref(['I'])
-    const options = ref(['I', 'Love', 'Vue'])
-
-    return {
-      selectedOptions,
-      options,
-    }
-  },
-})
-```
-
-## Props
-
-| Required | Prop                   | Type             | Default          | Arguments | Works if               |
-| -------- | ---------------------- | ---------------- | ---------------- | --------- | ---------------------- |
-| V        | v\-model / model-value | any              |                  |           |                        |
-| V        | options                | Array            |                  |           |                        |
-|          | visible-options        | Array            | props.options    |           |                        |
-|          | multiple               | Boolean          | false            |           |                        |
-|          | min                    | Number           | 0                |           |                        |
-|          | max                    | Number           | Infinity         |           | props.multiple is true |
-|          | close-on-select        | Boolean          | false            |           |                        |
-|          | clear-on-select        | Boolean          | false            |           |                        |
-|          | label-by               | Function, String | option           | option    |                        |
-|          | value-by               | Function, String | option           | option    |                        |
-|          | track-by               | Function, String | option           | option    |                        |
-|          | hide-selected          | Boolean          | false            |           | props.multiple is true |
-|          | disabled               | Boolean          | false            |           |                        |
-|          | loading                | Boolean          | false            |           |                        |
-|          | placeholder            | String           | "Select option"  |           |                        |
-|          | search-placeholder     | String           | "Type to search" |           |                        |
-|          | searchable             | Boolean          | false            |           |                        |
-|          | taggable               | Boolean          | false            |           | props.multiple is true |
-|          | collapse-tags          | Boolean          | false            |           |                        |
-
-## Events
-
-| Listener        | Arguments |
-| --------------- | --------- |
-| @select         | option    |
-| @remove         | option    |
-| @open           |           |
-| @close          |           |
-| @search\-input  | event     |
-| @search\-change | event     |
-| @focus          | event     |
-| @blur           | event     |
-
-## Slots
-
-| Name           | Arguments |
-| -------------- | --------- |
-| #tag           | option    |
-| #dropdown-item | option    |

@@ -66,26 +66,66 @@ p {
   margin-bottom: 0;
 }
 
-aside ul {
+aside > ul {
   list-style-type: none;
   list-style-position: outside;
   padding: 4px;
 }
 
-aside li {
+aside > ul > li {
   border-radius: 4px;
 }
 
-aside li:hover {
+aside > ul > li:hover {
   background-color: lightgrey;
 }
 
-aside li a {
+aside > ul > li > a {
   padding: 4px;
   display: block;
   width: 100%;
   color: black;
   text-decoration: none;
+}
+
+aside > h3 {
+  color: #41b883;
+}
+
+main > table {
+  width: 100%;
+  font-family: monospace;
+  font-weight: 1.3rem;
+}
+
+main > table > tbody > tr {
+  border-bottom: 1px solid grey;
+}
+
+main > table > thead > tr {
+  color: black;
+  background-color: darkgrey;
+}
+
+main > table > tbody > tr:nth-child(2n) {
+  background-color: #eee;
+}
+
+main > table > tbody > tr:hover {
+  background-color: #ccc;
+}
+
+main > table > thead > tr > td,
+main > table > tbody > tr > td {
+  padding: 4px;
+}
+
+#footer {
+  height: 100vh;
+}
+
+hr {
+  margin: 32px 0;
 }
 
 .vue-select {

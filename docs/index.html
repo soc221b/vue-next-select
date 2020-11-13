@@ -50,6 +50,12 @@
 
     <aside>
       <h2 id="examples">Examples:</h2>
+      <h3>Setup</h3>
+      <ul>
+        <li><a href="#getting-started">Getting started</a></li>
+      </ul>
+
+      <h3>Examples</h3>
       <ul>
         <li><a href="#single-select-header">Single select</a></li>
         <li><a href="#single-select-object-header">Single select (object)</a></li>
@@ -58,9 +64,58 @@
         <li><a href="#tagging-header">Tagging</a></li>
         <li><a href="#asynchronous-select-header">Asynchronous select</a></li>
       </ul>
+
+      <h3>API</h3>
+      <ul>
+        <li><a href="#props">Props</a></li>
+        <li><a href="#events">Events</a></li>
+      </ul>
     </aside>
 
     <main>
+      <h2 id="getting-started">Getting started</h2>
+      <div>
+        <h3>Installation</h3>
+
+        <p>via npm</p>
+        <pre><code>npm install vue-next-select
+
+yarn add vue-next-select</code></pre>
+
+        <p>via CDN</p>
+        <pre><code>&lt;script src=&quot;https://unpkg.com/vue-next-select&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/vue-next-select/dist/index.min.css&quot;&gt;</code></pre>
+      </div>
+
+      <div>
+        <h3>Usage</h3>
+
+        <pre><code class="javascript">import { createApp, ref } from 'vue'
+import VueNextSelect from 'vue-next-select'
+import 'vue-next-select/dist/index.min.css'
+
+const app = createApp({
+  name: 'app',
+  setup () {
+    const model = ref(null)
+    const options = ['vue', 'next', 'select']
+    return {
+      model,
+      options
+    }
+  },
+  template: `
+    &lt;vue-next-select
+      v-model=&quot;model&quot;
+      :options=&quot;options&quot;
+    &gt;&lt;/vue-next-select&gt;
+  `
+})
+
+app.component('vue-select', VueNextSelect)</code></pre>
+      </div>
+      <hr />
+
       <h2 id="single-select-header">Single select</h2>
       <div id="single-select"></div>
       <script src="./single-select.js"></script>
@@ -84,6 +139,221 @@
       <h2 id="asynchronous-select-header">Asynchronous select</h2>
       <div id="asynchronous-select"></div>
       <script src="./asynchronous-select.js"></script>
+      <hr />
+
+      <h2 id="props">Props</h2>
+      <table cellspacing="0">
+        <thead>
+          <tr>
+            <td>Required</td>
+            <td>Prop</td>
+            <td>Type</td>
+            <td>Default</td>
+            <td>Arguments</td>
+            <td>Works if</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>V</td>
+            <td>v-model / model-value</td>
+            <td>any</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>V</td>
+            <td>options</td>
+            <td>Array</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>visible-options</td>
+            <td>Array</td>
+            <td>props.options</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>multiple</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>min</td>
+            <td>Number</td>
+            <td>0</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>max</td>
+            <td>Number</td>
+            <td>Infinity</td>
+            <td></td>
+            <td>props.multiple is true</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>close-on-select</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>clear-on-select</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>label-by</td>
+            <td>Function, String</td>
+            <td>option</td>
+            <td>option</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>value-by</td>
+            <td>Function, String</td>
+            <td>option</td>
+            <td>option</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>track-by</td>
+            <td>Function, String</td>
+            <td>option</td>
+            <td>option</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>hide-selected</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td>props.multiple is true</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>disabled</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>loading</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>placeholder</td>
+            <td>String</td>
+            <td>"Select option"</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>search-placeholder</td>
+            <td>String</td>
+            <td>"Type to search"</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>searchable</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>taggable</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td>props.multiple is true</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>collapse-tags</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="events">Events</h2>
+      <table cellspacing="0">
+        <thead>
+          <tr>
+            <td>Listener</td>
+            <td>Arguments</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>select</td>
+            <td>option</td>
+          </tr>
+          <tr>
+            <td>remove</td>
+            <td>option</td>
+          </tr>
+          <tr>
+            <td>open</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>close</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>search-input</td>
+            <td>event</td>
+          </tr>
+          <tr>
+            <td>search-change</td>
+            <td>event</td>
+          </tr>
+          <tr>
+            <td>focus</td>
+            <td>event</td>
+          </tr>
+          <tr>
+            <td>blur</td>
+            <td>event</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="footer"></div>
     </main>
 
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.min.js"></script>
