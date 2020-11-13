@@ -1,5 +1,6 @@
 body {
   font-size: 1rem;
+  font-family: 'Dosis', sans-serif;
   height: 200vh;
 }
 
@@ -10,7 +11,7 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to left bottom, #41b883 0%, white 100%);
+  background: linear-gradient(to right top, #41b883 0%, white 100%);
 }
 
 header img {
@@ -44,7 +45,7 @@ pre {
   min-height: 1.1rem;
 }
 
-pre ~ pre:not(:first-child) {
+main pre {
   vertical-align: top;
   margin-top: 8px;
 }
@@ -131,4 +132,8 @@ hr {
 .vue-select {
   display: inline-block;
   margin-bottom: 8px;
+}
+
+.github-fork-ribbon::before {
+  background-color: #41b883;
 }
