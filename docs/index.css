@@ -26,12 +26,25 @@ header > ul > li > a {
   color: #4179b8;
 }
 
+.badges {
+  max-width: 80vw;
+  text-align: center;
+}
+
 aside {
   display: inline-block;
+  position: absolute;
+  top: 100vh;
   margin-top: 2vh;
   margin-left: 2vw;
   width: 18vw;
   vertical-align: top;
+}
+
+@media (max-width: 768px) {
+  aside {
+    display: none;
+  }
 }
 
 aside > ul {
@@ -58,12 +71,21 @@ aside > ul > li > a {
 
 main {
   display: inline-block;
+  position: absolute;
+  right: 0;
   margin-top: 2vh;
   margin-left: 2vw;
   margin-right: 2vw;
   width: 75vw;
   height: 96vh;
-  overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+  main {
+    margin-right: 1vw;
+    margin-left: 1vw;
+    width: 98vw;
+  }
 }
 
 main > table {

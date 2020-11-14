@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link
       type="text/css"
       rel="stylesheet"
@@ -34,7 +35,7 @@
       <p><b>The selecting solution for Vue 3</b></p>
       <br />
 
-      <div>
+      <div class="badges">
         <img alt="GitHub" src="https://img.shields.io/github/license/iendeavor/vue-next-select?color=%236f41b8" />
         <img alt="npm" src="https://img.shields.io/npm/v/vue-next-select?color=%23414db8&label=release" />
         <img alt="npm downloads" src="https://img.shields.io/npm/dw/vue-next-select?color=%234171b8" />
@@ -363,6 +364,24 @@ app.mount('#app')</code></pre>
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.min.js"></script>
     <script>
       hljs.initHighlightingOnLoad()
+    </script>
+
+    <script>
+      function controlScroll() {
+        if (window.scrollY >= window.visualViewport.height) {
+          document.querySelector('main').style.overflowY = 'scroll'
+        } else {
+          document.querySelector('main').style.overflowY = 'hidden'
+        }
+
+        if (window.scrollY > window.visualViewport.height) {
+          document.querySelector('body').style.overflowY = 'hidden'
+        } else {
+          document.querySelector('body').style.overflowY = 'scroll'
+        }
+      }
+      window.addEventListener('scroll', controlScroll)
+      window.addEventListener('unload', () => window.removeEventListener('scroll', controlScroll))
     </script>
   </body>
 </html>
