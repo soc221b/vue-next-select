@@ -14,57 +14,12 @@ header {
   background: linear-gradient(to right top, #41b883 0%, white 100%);
 }
 
-header img {
-  display: inline-block;
-}
-
 aside {
   display: inline-block;
   margin-top: 2vh;
   margin-left: 2vw;
-  width: 28vw;
+  width: 18vw;
   vertical-align: top;
-}
-
-main {
-  display: inline-block;
-  margin-top: 2vh;
-  margin-left: 2vw;
-  margin-right: 2vw;
-  width: 64vw;
-  height: 96vh;
-  overflow-y: scroll;
-}
-
-pre {
-  background-color: lightgrey;
-  border-radius: 4px;
-  padding: 4px;
-  max-width: calc(100% - 8px);
-  margin: 0;
-  min-height: 1.1rem;
-}
-
-main pre {
-  vertical-align: top;
-  margin-top: 8px;
-}
-
-h2 {
-  margin-bottom: 8px;
-  color: black;
-  padding: 4px;
-  border-radius: 4px;
-  background-color: #41b883;
-}
-
-h1:first-child,
-h2:first-child {
-  margin-top: 0;
-}
-
-p {
-  margin-bottom: 0;
 }
 
 aside > ul {
@@ -89,8 +44,14 @@ aside > ul > li > a {
   text-decoration: none;
 }
 
-aside > h3 {
-  color: #41b883;
+main {
+  display: inline-block;
+  margin-top: 2vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  width: 75vw;
+  height: 96vh;
+  overflow-y: scroll;
 }
 
 main > table {
@@ -119,6 +80,37 @@ main > table > tbody > tr:hover {
 main > table > thead > tr > td,
 main > table > tbody > tr > td {
   padding: 4px;
+}
+
+pre {
+  vertical-align: top;
+  margin: 8px 0;
+  background-color: lightgrey;
+  border-radius: 4px;
+  min-height: 1.2rem;
+  padding: 8px;
+}
+
+code {
+  padding: 0 !important;
+  background-color: lightgrey !important;
+}
+
+h2 {
+  margin-bottom: 8px;
+  color: black;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #41b883;
+}
+
+h1:first-child,
+h2:first-child {
+  margin-top: 0;
+}
+
+p {
+  margin-bottom: 0;
 }
 
 #footer {
