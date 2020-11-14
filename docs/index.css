@@ -7,6 +7,8 @@ body {
 header {
   width: 100vw;
   height: 100vh;
+  box-sizing: border-box;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +16,13 @@ header {
   background: linear-gradient(to right top, #41b883 0%, white 100%);
 }
 
+header > h1,
+header > p {
+  margin: 4px;
+}
+
 header ul {
+  overflow-y: auto;
   list-style-type: square;
 }
 
@@ -89,7 +97,11 @@ main {
 }
 
 main > table {
-  width: 100%;
+  width: 98vw;
+  max-width: 98vw;
+  min-width: 98vw;
+  overflow-x: auto;
+  display: block;
   font-weight: 1.3rem;
 }
 
