@@ -35,18 +35,21 @@
       <br />
 
       <div>
-        <img alt="GitHub" src="https://img.shields.io/github/license/iendeavor/vue-next-select" />
-        <img alt="npm" src="https://img.shields.io/npm/v/vue-next-select" />
+        <img alt="GitHub" src="https://img.shields.io/github/license/iendeavor/vue-next-select?color=%236f41b8" />
+        <img alt="npm" src="https://img.shields.io/npm/v/vue-next-select?color=%2341b883" />
         <img alt="Npm bundle size" src="https://img.shields.io/bundlephobia/minzip/vue-next-select" />
       </div>
       <br />
 
       <ul>
-        <li>Fully configurable</li>
         <li>Single select</li>
         <li>Multiple select</li>
-        <li>Searching</li>
-        <li>Async options support</li>
+        <li><a href="#tagging-header">Tagging</a></li>
+        <li>
+          <a href="#select-with-search-header">Filtering</a> / <a href="#asynchronous-select-header">Searching</a>
+        </li>
+        <li><a href="#asynchronous-select-header">Asynchronous support</a></li>
+        <li>No dependencies</li>
       </ul>
     </header>
 
@@ -145,7 +148,6 @@ app.mount('#app')</code></pre>
       <table cellspacing="0">
         <thead>
           <tr>
-            <td>Required</td>
             <td>Prop</td>
             <td>Type</td>
             <td>Default</td>
@@ -155,7 +157,6 @@ app.mount('#app')</code></pre>
         </thead>
         <tbody>
           <tr>
-            <td>V</td>
             <td>v-model / model-value</td>
             <td>any</td>
             <td></td>
@@ -163,7 +164,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td>V</td>
             <td>options</td>
             <td>Array</td>
             <td></td>
@@ -171,7 +171,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>visible-options</td>
             <td>Array</td>
             <td>props.options</td>
@@ -179,7 +178,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>multiple</td>
             <td>Boolean</td>
             <td>false</td>
@@ -187,7 +185,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>min</td>
             <td>Number</td>
             <td>0</td>
@@ -195,7 +192,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>max</td>
             <td>Number</td>
             <td>Infinity</td>
@@ -203,7 +199,6 @@ app.mount('#app')</code></pre>
             <td>props.multiple is true</td>
           </tr>
           <tr>
-            <td></td>
             <td>close-on-select</td>
             <td>Boolean</td>
             <td>false</td>
@@ -211,7 +206,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>clear-on-select</td>
             <td>Boolean</td>
             <td>false</td>
@@ -219,7 +213,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>label-by</td>
             <td>Function, String</td>
             <td>option</td>
@@ -227,7 +220,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>value-by</td>
             <td>Function, String</td>
             <td>option</td>
@@ -235,7 +227,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>track-by</td>
             <td>Function, String</td>
             <td>option</td>
@@ -243,7 +234,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>hide-selected</td>
             <td>Boolean</td>
             <td>false</td>
@@ -251,7 +241,6 @@ app.mount('#app')</code></pre>
             <td>props.multiple is true</td>
           </tr>
           <tr>
-            <td></td>
             <td>disabled</td>
             <td>Boolean</td>
             <td>false</td>
@@ -259,7 +248,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>loading</td>
             <td>Boolean</td>
             <td>false</td>
@@ -267,7 +255,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>placeholder</td>
             <td>String</td>
             <td>"Select option"</td>
@@ -275,7 +262,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>search-placeholder</td>
             <td>String</td>
             <td>"Type to search"</td>
@@ -283,7 +269,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>searchable</td>
             <td>Boolean</td>
             <td>false</td>
@@ -291,7 +276,6 @@ app.mount('#app')</code></pre>
             <td></td>
           </tr>
           <tr>
-            <td></td>
             <td>taggable</td>
             <td>Boolean</td>
             <td>false</td>
@@ -299,7 +283,6 @@ app.mount('#app')</code></pre>
             <td>props.multiple is true</td>
           </tr>
           <tr>
-            <td></td>
             <td>collapse-tags</td>
             <td>Boolean</td>
             <td>false</td>
@@ -319,35 +302,35 @@ app.mount('#app')</code></pre>
         </thead>
         <tbody>
           <tr>
-            <td>select</td>
+            <td>selected</td>
             <td>option</td>
           </tr>
           <tr>
-            <td>remove</td>
+            <td>removed</td>
             <td>option</td>
           </tr>
           <tr>
-            <td>open</td>
+            <td>opened</td>
             <td></td>
           </tr>
           <tr>
-            <td>close</td>
+            <td>closed</td>
             <td></td>
           </tr>
           <tr>
-            <td>search-input</td>
+            <td>search:input</td>
             <td>event</td>
           </tr>
           <tr>
-            <td>search-change</td>
+            <td>search:change</td>
             <td>event</td>
           </tr>
           <tr>
-            <td>focus</td>
+            <td>search:focus</td>
             <td>event</td>
           </tr>
           <tr>
-            <td>blur</td>
+            <td>search:blur</td>
             <td>event</td>
           </tr>
         </tbody>

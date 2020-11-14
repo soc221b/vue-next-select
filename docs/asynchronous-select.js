@@ -63,7 +63,7 @@ createApp({
   taggable
   searchable
   :min="3"
-  @search-input="handleSearchInput"
+  @search:input="handleSearchInput"
   :loading="loadingCount !== 0"
 ></vue-select>
 `.trim()
@@ -133,7 +133,7 @@ createApp({
         taggable
         searchable
         :min="3"
-        @search-input="handleSearchInput"
+        @search:input="handleSearchInput"
         :loading="loadingCount !== 0"
       ></vue-select>
       <pre>{{ model }}</pre>

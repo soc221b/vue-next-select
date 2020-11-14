@@ -14,6 +14,10 @@ header {
   background: linear-gradient(to right top, #41b883 0%, white 100%);
 }
 
+header a {
+  color: #4179b8;
+}
+
 aside {
   display: inline-block;
   margin-top: 2vh;
@@ -56,15 +60,19 @@ main {
 
 main > table {
   width: 100%;
-  font-family: monospace;
   font-weight: 1.3rem;
 }
 
+main > table > tbody {
+  font-family: monospace;
+}
+
 main > table > tbody > tr {
-  border-bottom: 1px solid grey;
+  line-height: 2;
 }
 
 main > table > thead > tr {
+  line-height: 2;
   color: black;
   background-color: darkgrey;
 }

@@ -42,7 +42,7 @@ createApp({
   track-by="name"
   searchable
   clear-on-select
-  @search-input="hanldeSearchInput"
+  @search:input="hanldeSearchInput"
 ></vue-select>
 `.trim()
 
@@ -90,7 +90,7 @@ createApp({
         track-by="name"
         searchable
         clear-on-select
-        @search-input="hanldeSearchInput"
+        @search:input="hanldeSearchInput"
       ></vue-select>
       <pre>{{ model }}</pre>
 
