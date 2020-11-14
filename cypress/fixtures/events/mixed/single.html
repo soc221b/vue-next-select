@@ -49,10 +49,10 @@
           v-model="selectedOptions"
           :options="options"
           searchable
-          @open="handleOpen"
-          @focus="handleFocus"
-          @blur="handleBlur"
-          @close="handleClose"
+          @opened="handleOpen"
+          @search:focus="handleFocus"
+          @search:blur="handleBlur"
+          @closed="handleClose"
         ></vue-select>
         `,
       })

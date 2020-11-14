@@ -210,7 +210,17 @@ export default {
       type: Boolean,
     },
   },
-  emits: ['update:modelValue', 'select', 'remove', 'open', 'close', 'search-input', 'search-change', 'focus', 'blur'],
+  emits: [
+    'update:modelValue',
+    'selected',
+    'removed',
+    'opened',
+    'closed',
+    'search:input',
+    'search:change',
+    'search:focus',
+    'search:blur',
+  ],
   setup(props, context) {
     const { trackBy, labelBy, valueBy, min, max } = normalize(props)
 
@@ -221,8 +231,8 @@ export default {
       () => isFocusing.value,
       () => {
         if (isFocusing.value) {
-          context.emit('open')
-          if (props.searchable) context.emit('focus')
+          context.emit('opened')
+          if (props.searchable) context.emit('search:focus')
           // toggle arrow downward icon
           if (props.searchable) {
             if (input.value && input.value._.refs.input !== document.activeElement) {
@@ -239,8 +249,8 @@ export default {
           if (wrapper.value && wrapper.value === document.activeElement) {
             wrapper.value.blur()
           }
-          if (props.searchable) context.emit('blur')
-          context.emit('close')
+          if (props.searchable) context.emit('search:blur')
+          context.emit('closed')
         }
       },
     )
@@ -268,10 +278,10 @@ export default {
     // input
     const searchingInputValue = ref('')
     const handleInputForInput = event => {
-      context.emit('search-input', event)
+      context.emit('search:input', event)
     }
     const handleChangeForInput = event => {
-      context.emit('search-change', event)
+      context.emit('search:change', event)
     }
     const handleFocusForInput = event => {
       focus()
@@ -354,15 +364,15 @@ export default {
       option = option.originalOption
       if (hasOption(innerModelValue.value, option, { valueBy })) {
         innerModelValue.value = removeOption(innerModelValue.value, option, { min, valueBy })
-        context.emit('remove', option)
+        context.emit('removed', option)
       } else {
         if (!props.multiple) {
           const removingOption = innerModelValue.value[0]
           innerModelValue.value = removeOption(innerModelValue.value, innerModelValue.value[0], { min: 0, valueBy })
-          context.emit('remove', removingOption)
+          context.emit('removed', removingOption)
         }
         innerModelValue.value = addOption(innerModelValue.value, option, { max, valueBy })
-        context.emit('select', option)
+        context.emit('selected', option)
       }
       if (props.closeOnSelect === true) isFocusing.value = false
       if (props.clearOnSelect === true && searchingInputValue.value) {

@@ -23,7 +23,7 @@ it('should emit select event with option', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        @select="handleSelect"
+        @selected="handleSelect"
       ></vue-select>
     `,
   }
@@ -53,7 +53,7 @@ it('should emit remove event with option', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        @remove="handleRemove"
+        @removed="handleRemove"
       ></vue-select>
     `,
   }
@@ -83,7 +83,7 @@ it('should emit open event', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        @open="handleOpen"
+        @opened="handleOpen"
       ></vue-select>
     `,
   }
@@ -112,7 +112,7 @@ it('should emit close event', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        @close="handleClose"
+        @closed="handleClose"
       ></vue-select>
     `,
   }
