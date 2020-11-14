@@ -49,7 +49,7 @@
           v-if="searchable"
           v-model="searchingInputValue"
           :disabled="disabled"
-          :placeholder="searchPlaceholder"
+          :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
           @input="handleInputForInput"
           @change="handleChangeForInput"
           @focus="handleFocusForInput"
