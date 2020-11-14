@@ -14,7 +14,15 @@ header {
   background: linear-gradient(to right top, #41b883 0%, white 100%);
 }
 
-header a {
+header ul {
+  list-style-type: square;
+}
+
+header > ul > li {
+  line-height: 2rem;
+}
+
+header > ul > li > a {
   color: #4179b8;
 }
 
