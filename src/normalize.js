@@ -1,27 +1,32 @@
+import { computed } from 'vue'
+
 export default props => {
-  const trackBy =
+  const trackBy = computed(() =>
     typeof props.trackBy === 'function'
       ? props.trackBy
       : typeof props.trackBy === 'string'
       ? option => props.trackBy.split('.').reduce((value, key) => value[key], option)
-      : option => option
+      : option => option,
+  )
 
-  const labelBy =
+  const labelBy = computed(() =>
     typeof props.labelBy === 'function'
       ? props.labelBy
       : typeof props.labelBy === 'string'
       ? option => props.labelBy.split('.').reduce((value, key) => value[key], option)
-      : option => option
+      : option => option,
+  )
 
-  const valueBy =
+  const valueBy = computed(() =>
     typeof props.valueBy === 'function'
       ? props.valueBy
       : typeof props.valueBy === 'string'
       ? option => props.valueBy.split('.').reduce((value, key) => value[key], option)
-      : option => option
+      : option => option,
+  )
 
-  const min = props.multiple ? props.min : Math.min(1, props.min)
-  const max = props.multiple ? props.max : 1
+  const min = computed(() => (props.multiple ? props.min : Math.min(1, props.min)))
+  const max = computed(() => (props.multiple ? props.max : 1))
 
   return {
     trackBy,

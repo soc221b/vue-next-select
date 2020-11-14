@@ -299,14 +299,16 @@ export default {
         if (
           Object.keys(innerModelValue.value).some(
             index =>
-              innerModelValue.value[index] !== getOptionByValue(props.options, props.modelValue[index], { valueBy }),
+              innerModelValue.value[index] !==
+              getOptionByValue(props.options, props.modelValue[index], { valueBy: valueBy.value }),
           )
         )
           return false
       } else {
         if (innerModelValue.value.length === 0 && props.modelValue !== null) return false
         if (innerModelValue.value.length === 1 && props.modelValue === null) return false
-        if (innerModelValue.value[0] !== getOptionByValue(props.options, props.modelValue, { valueBy })) return false
+        if (innerModelValue.value[0] !== getOptionByValue(props.options, props.modelValue, { valueBy: valueBy.value }))
+          return false
       }
       return true
     }
@@ -315,10 +317,10 @@ export default {
       innerModelValue.value = []
       const modelValue = props.multiple ? props.modelValue : props.modelValue === null ? [] : [props.modelValue]
       for (const value of modelValue) {
-        const option = getOptionByValue(props.options, value, { valueBy })
+        const option = getOptionByValue(props.options, value, { valueBy: valueBy.value })
         // guarantee options has modelValue
-        if (hasOption(props.options, option, { valueBy }) === false) continue
-        innerModelValue.value = addOption(innerModelValue.value, option, { max: Infinity, valueBy })
+        if (hasOption(props.options, option, { valueBy: valueBy.value }) === false) continue
+        innerModelValue.value = addOption(innerModelValue.value, option, { max: Infinity, valueBy: valueBy.value })
       }
     }
     syncFromModelValue()
@@ -332,7 +334,7 @@ export default {
 
     const syncFromInnerModelValue = () => {
       if (isSynchronoused()) return
-      const selectedValues = innerModelValue.value.map(option => valueBy(option))
+      const selectedValues = innerModelValue.value.map(option => valueBy.value(option))
       if (props.multiple) {
         context.emit('update:modelValue', selectedValues)
       } else {
@@ -352,8 +354,8 @@ export default {
     watch(
       () => props.options,
       () => {
-        const selectedValueSet = new Set(innerModelValue.value.map(option => valueBy(option)))
-        innerModelValue.value = props.options.filter(option => selectedValueSet.has(valueBy(option)))
+        const selectedValueSet = new Set(innerModelValue.value.map(option => valueBy.value(option)))
+        innerModelValue.value = props.options.filter(option => selectedValueSet.has(valueBy.value(option)))
       },
       { deep: true },
     )
@@ -362,16 +364,19 @@ export default {
       if (props.disabled) return
 
       option = option.originalOption
-      if (hasOption(innerModelValue.value, option, { valueBy })) {
-        innerModelValue.value = removeOption(innerModelValue.value, option, { min, valueBy })
+      if (hasOption(innerModelValue.value, option, { valueBy: valueBy.value })) {
+        innerModelValue.value = removeOption(innerModelValue.value, option, { min: min.value, valueBy: valueBy.value })
         context.emit('removed', option)
       } else {
         if (!props.multiple) {
           const removingOption = innerModelValue.value[0]
-          innerModelValue.value = removeOption(innerModelValue.value, innerModelValue.value[0], { min: 0, valueBy })
+          innerModelValue.value = removeOption(innerModelValue.value, innerModelValue.value[0], {
+            min: 0,
+            valueBy: valueBy.value,
+          })
           context.emit('removed', removingOption)
         }
-        innerModelValue.value = addOption(innerModelValue.value, option, { max, valueBy })
+        innerModelValue.value = addOption(innerModelValue.value, option, { max: max.value, valueBy: valueBy.value })
         context.emit('selected', option)
       }
       if (props.closeOnSelect === true) isFocusing.value = false
@@ -386,18 +391,18 @@ export default {
     const handleClickForTag = (event, option) => addOrRemoveOption(event, option)
 
     const optionsWithInfo = computed(() => {
-      const selectedValueSet = new Set(innerModelValue.value.map(option => valueBy(option)))
+      const selectedValueSet = new Set(innerModelValue.value.map(option => valueBy.value(option)))
       const visibleValueSet =
         props.visibleOptions !== null
-          ? new Set(props.visibleOptions.map(option => valueBy(option)))
-          : new Set(props.options.map(option => valueBy(option)))
+          ? new Set(props.visibleOptions.map(option => valueBy.value(option)))
+          : new Set(props.options.map(option => valueBy.value(option)))
 
       return props.options.map(option => ({
-        key: trackBy(option),
-        label: labelBy(option),
-        selected: selectedValueSet.has(valueBy(option)),
-        visible: visibleValueSet.has(valueBy(option)),
-        hidden: props.hideSelected ? selectedValueSet.has(valueBy(option)) : false,
+        key: trackBy.value(option),
+        label: labelBy.value(option),
+        selected: selectedValueSet.has(valueBy.value(option)),
+        visible: visibleValueSet.has(valueBy.value(option)),
+        hidden: props.hideSelected ? selectedValueSet.has(valueBy.value(option)) : false,
         originalOption: option,
       }))
     })
