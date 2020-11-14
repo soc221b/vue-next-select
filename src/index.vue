@@ -17,7 +17,7 @@
         v-if="(multiple && taggable && modelValue.length === 0) || (searchable === false && taggable === false)"
       >
         <div class="vue-input">
-          <input :placeholder="placeholder" disabled />
+          <input :placeholder="innerPlaceholder" readonly @click="focus" />
         </div>
       </template>
 
@@ -416,6 +416,26 @@ export default {
     }))
     provide('dataAttrs', dataAttrs)
 
+    const innerPlaceholder = computed(() => {
+      const selectedOptions = optionsWithInfo.value.filter(option => option.selected)
+
+      if (props.multiple) {
+        if (selectedOptions.length === 0) {
+          return props.placeholder
+        } else if (selectedOptions.length === 1) {
+          return '1 option selected'
+        } else {
+          return selectedOptions.length + ' options selected'
+        }
+      } else {
+        if (selectedOptions.length === 0) {
+          return props.placeholder
+        } else {
+          return selectedOptions[0].label
+        }
+      }
+    })
+
     return {
       isFocusing,
       wrapper,
@@ -440,6 +460,8 @@ export default {
       addOrRemoveOption,
 
       dataAttrs,
+
+      innerPlaceholder,
     }
   },
   components: {
