@@ -66,7 +66,6 @@
       <h2>Setup</h2>
       <ul>
         <li><a href="#getting-started">Getting started</a></li>
-        <li><a href="#playground">Playground</a></li>
       </ul>
 
       <h2>Examples</h2>
@@ -102,6 +101,7 @@
       <div>
         <h3>Usage</h3>
 
+        <p>via npm</p>
         <pre><code class="javascript">import { createApp, ref } from 'vue'
 import VueNextSelect from 'vue-next-select'
 import 'vue-next-select/dist/index.min.css'
@@ -126,6 +126,9 @@ const app = createApp({
 
 app.component('vue-select', VueNextSelect)
 app.mount('#app')</code></pre>
+
+        <p>via CDN</p>
+        <pre><code class="javascript">app.component('vue-select', window.VueNextSelect)</code></pre>
       </div>
       <hr />
 

@@ -51,6 +51,7 @@ aside {
 
 aside.fixed {
   position: fixed;
+  margin-top: 0;
 }
 
 @media (max-width: 768px) {
@@ -101,11 +102,8 @@ main {
 }
 
 main > table {
-  width: 98vw;
-  max-width: 98vw;
-  min-width: 98vw;
-  overflow-x: auto;
-  display: block;
+  width: 100%;
+  table-layout: fixed;
   font-weight: 1.3rem;
 }
 
@@ -150,12 +148,12 @@ code {
   background-color: lightgrey !important;
 }
 
-h2 {
+h2,
+h3 {
   margin-bottom: 8px;
-  color: black;
-  padding: 4px;
+  padding: 4px 0;
   border-radius: 4px;
-  background-color: #41b883;
+  color: #41b883;
 }
 
 h1:first-child,
