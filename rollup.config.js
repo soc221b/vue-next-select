@@ -15,7 +15,7 @@ const packageName = 'vue-next-select'
 const pascalCasePackageName = 'VueNextSelect'
 
 const input = 'src/index.vue'
-const formats = ['es', 'iife', 'umd', 'amd', 'cjs', 'system']
+const formats = ['es', 'iife', 'cjs']
 
 if (process.env.DEVELOPMENT) formats.splice(2)
 

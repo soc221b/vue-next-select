@@ -6,8 +6,8 @@
   },
   "description": "The complete selecting solution for Vue.js 3.x",
   "main": "dist/vue-next-select.cjs.prod.js",
-  "umd:main": "dist/vue-next-select.umd.prod.js",
-  "unpkg": "dist/vue-next-select.umd.prod.js",
+  "umd:main": "dist/vue-next-select.iife.prod.js",
+  "unpkg": "dist/vue-next-select.iife.prod.js",
   "module": "dist/vue-next-select.es.prod.js",
   "types": "dist/index.d.ts",
   "files": [
