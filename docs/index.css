@@ -2,6 +2,7 @@ body {
   font-size: 1rem;
   font-family: 'Dosis', sans-serif;
   height: 200vh;
+  overflow-x: hidden;
 }
 
 header {
@@ -41,12 +42,15 @@ header > ul > li > a {
 
 aside {
   display: inline-block;
-  position: absolute;
-  top: 100vh;
+  top: 0vh;
   margin-top: 2vh;
   margin-left: 2vw;
   width: 18vw;
   vertical-align: top;
+}
+
+aside.fixed {
+  position: fixed;
 }
 
 @media (max-width: 768px) {

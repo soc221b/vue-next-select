@@ -369,19 +369,27 @@ app.mount('#app')</code></pre>
     <script>
       function controlScroll() {
         if (window.scrollY >= window.visualViewport.height) {
-          document.querySelector('main').style.overflowY = 'scroll'
+          document.querySelector('aside').classList.add('fixed')
         } else {
-          document.querySelector('main').style.overflowY = 'hidden'
-        }
-
-        if (window.scrollY > window.visualViewport.height) {
-          document.querySelector('body').style.overflowY = 'hidden'
-        } else {
-          document.querySelector('body').style.overflowY = 'scroll'
+          document.querySelector('aside').classList.remove('fixed')
         }
       }
       window.addEventListener('scroll', controlScroll)
       window.addEventListener('unload', () => window.removeEventListener('scroll', controlScroll))
+    </script>
+
+    <script>
+      window.onload = () => {
+        if (window.location.hash) {
+          const hash = window.location.hash
+          window.location.hash = ''
+          window.scroll(0, window.scrollY - 1)
+          window.scroll(0, window.scrollY + 1)
+          setTimeout(() => {
+            window.location.hash = hash
+          })
+        }
+      }
     </script>
   </body>
 </html>
