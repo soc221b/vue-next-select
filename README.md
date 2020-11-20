@@ -1,7 +1,5 @@
 # vue-next-select
 
-**Status: WIP**
-
 ## Documentation
 
 https://iendeavor.github.io/vue-next-select/
