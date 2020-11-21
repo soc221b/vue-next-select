@@ -138,6 +138,10 @@
   background-color: rgba(239, 239, 239);
 }
 
+.vue-input > input[readonly] {
+  cursor: default;
+}
+
 .vue-select-header > .vue-input > input[disabled] {
   background-color: unset;
 }
