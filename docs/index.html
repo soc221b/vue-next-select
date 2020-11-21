@@ -371,7 +371,7 @@ app.mount('#app')</code></pre>
 
     <script>
       function controlScroll() {
-        if (window.scrollY >= window.visualViewport.height) {
+        if (window.scrollY >= window.visualViewport.height * 1.02) {
           document.querySelector('aside').classList.add('fixed')
         } else {
           document.querySelector('aside').classList.remove('fixed')
