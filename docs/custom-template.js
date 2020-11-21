@@ -9,13 +9,8 @@ export default createApp({
     VueSelect
   },
   setup() {
-    const model = ref(null)
-
-    const options = [
-      { language: 'JavaScript' },
-      { language: 'Python' },
-      { language: 'PHP' }
-    ]
+    const model = ref('bird')
+    const options = ['bird', 'horse', 'monkey', 'squirrel']
 
     return {
       model,
@@ -29,19 +24,23 @@ export default createApp({
 <vue-select
   v-model="model"
   :options="options"
-  label-by="language"
-  :track-by="option => option.language"
-></vue-select>
+>
+  <template v-slot:dropdown-item="{ option }">
+    <img
+      :src="'./images/' + option + '.jpg'"
+      style="width: 100%; vertical-align: middle;"
+    />
+  </template>
+</vue-select>
 `.trim()
 
   const { ref, createApp } = Vue
 
-  const app = createApp({
+  const singleSelect = createApp({
     name: 'app',
     setup() {
-      const model = ref(null)
-
-      const options = [{ language: 'JavaScript' }, { language: 'Python' }, { language: 'PHP' }]
+      const model = ref('bird')
+      const options = ['bird', 'horse', 'monkey', 'squirrel']
 
       return {
         model,
@@ -55,9 +54,14 @@ export default createApp({
       <vue-select
         v-model="model"
         :options="options"
-        label-by="language"
-        :track-by="option => option.language"
-      ></vue-select>
+      >
+        <template v-slot:dropdown-item="{ option }">
+          <img
+            :src="'./images/' + option + '.jpg'"
+            style="width: 100%; vertical-align: middle;"
+          />
+        </template>
+      </vue-select>
       <pre>{{ model }}</pre>
 
       <p><i>Code sample:</i></p>
@@ -66,6 +70,6 @@ export default createApp({
     `,
   })
 
-  app.component('vue-select', VueNextSelect)
-  app.mount(document.querySelector('#single-select-object'))
+  singleSelect.component('vue-select', VueNextSelect)
+  singleSelect.mount(document.querySelector('#custom-template'))
 }

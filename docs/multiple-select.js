@@ -11,17 +11,17 @@ export default createApp({
   setup() {
     const model = ref(['Sinatra', 'Vue.js'])
 
-    const options = ref([
+    const options = [
       { name: 'Vue.js', language: 'JavaScript' },
       { name: 'Rails', language: 'Ruby' },
       { name: 'Sinatra', language: 'Ruby' },
       { name: 'Laravel', language: 'PHP' },
-      { name: 'Phoenix', language: 'Elixir' },
-    ])
+      { name: 'Phoenix', language: 'Elixir' }
+    ]
 
     return {
       model,
-      options,
+      options
     }
   }
 })
@@ -48,13 +48,13 @@ export default createApp({
     setup() {
       const model = ref(['Sinatra', 'Vue.js'])
 
-      const options = ref([
+      const options = [
         { name: 'Vue.js', language: 'JavaScript' },
         { name: 'Rails', language: 'Ruby' },
         { name: 'Sinatra', language: 'Ruby' },
         { name: 'Laravel', language: 'PHP' },
         { name: 'Phoenix', language: 'Elixir' },
-      ])
+      ]
 
       return {
         model,

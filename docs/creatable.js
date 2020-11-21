@@ -55,7 +55,7 @@ export default createApp({
       visibleOptions,
       handleSearchInput,
       handleSelected,
-      handleRemoved,
+      handleRemoved
     }
   }
 })

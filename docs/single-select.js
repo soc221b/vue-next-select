@@ -11,17 +11,17 @@ export default createApp({
   setup() {
     const model = ref(null)
 
-    const options = ref([
+    const options = [
       'element',
       'ant-design-vue',
-      'vuetify',
-    ])
+      'vuetify'
+    ]
 
     return {
       model,
-      options,
+      options
     }
-  })
+  }
 })
 `.trim()
 
@@ -39,7 +39,7 @@ export default createApp({
     setup() {
       const model = ref(null)
 
-      const options = ref(['element', 'ant-design-vue', 'vuetify'])
+      const options = ['element', 'ant-design-vue', 'vuetify']
 
       return {
         model,

@@ -63,7 +63,7 @@ export default createApp({
       options,
       visibleOptions,
       loading,
-      handleSearchInput,
+      handleSearchInput
     }
   }
 })

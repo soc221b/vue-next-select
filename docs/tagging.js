@@ -11,18 +11,18 @@ export default createApp({
   setup() {
     const model = ref(['Jest', 'Puppeteer'])
 
-    const options = ref([
+    const options = [
       'Jest',
       'Mocha',
       'Selenium',
       'Puppeteer',
       'Jasmine',
-      'Karma',
-    ])
+      'Karma'
+    ]
 
     return {
       model,
-      options,
+      options
     }
   }
 })
@@ -45,7 +45,7 @@ export default createApp({
     setup() {
       const model = ref(['Jest', 'Puppeteer'])
 
-      const options = ref(['Jest', 'Mocha', 'Selenium', 'Puppeteer', 'Jasmine', 'Karma'])
+      const options = ['Jest', 'Mocha', 'Selenium', 'Puppeteer', 'Jasmine', 'Karma']
 
       return {
         model,

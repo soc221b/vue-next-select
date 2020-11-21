@@ -49,7 +49,7 @@ header ul {
 }
 
 header > ul > li {
-  line-height: 2rem;
+  line-height: 1.5rem;
 }
 
 header > ul > li > a {
@@ -68,6 +68,8 @@ aside {
   margin-left: 2vw;
   width: 25vw;
   vertical-align: top;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 aside.fixed {
@@ -88,6 +90,7 @@ aside > ul {
 }
 
 aside > ul > li {
+  line-height: 1.5rem;
   border-radius: 4px;
 }
 
