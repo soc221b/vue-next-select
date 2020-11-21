@@ -1,17 +1,20 @@
 {
   const jsCode = `
-createApp({
+import { ref, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
+
+export default createApp({
   name: 'app',
+  components: {
+    VueSelect
+  },
   setup() {
     const model = ref(null)
 
     const options = ref([
-      { label: 'Select option' },
-      { label: 'Option' },
-      { label: 'Label by' },
-      { label: 'Track by' },
-      { label: 'Value by' },
-      { label: 'Close on select' },
+      { language: 'JavaScript' },
+      { language: 'Python' },
+      { language: 'PHP' },
     ])
 
     return {
@@ -26,8 +29,8 @@ createApp({
 <vue-select
   v-model="model"
   :options="options"
-  label-by="label"
-  :track-by="option => option.value"
+  label-by="language"
+  :track-by="option => option.language"
 ></vue-select>
 `.trim()
 
@@ -38,14 +41,7 @@ createApp({
     setup() {
       const model = ref(null)
 
-      const options = ref([
-        { label: 'Select option' },
-        { label: 'Option' },
-        { label: 'Label by' },
-        { label: 'Track by' },
-        { label: 'Value by' },
-        { label: 'Close on select' },
-      ])
+      const options = ref([{ language: 'JavaScript' }, { language: 'Python' }, { language: 'PHP' }])
 
       return {
         model,
@@ -59,8 +55,8 @@ createApp({
       <vue-select
         v-model="model"
         :options="options"
-        label-by="label"
-        :track-by="option => option.value"
+        label-by="language"
+        :track-by="option => option.language"
       ></vue-select>
       <pre>{{ model }}</pre>
 

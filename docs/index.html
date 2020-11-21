@@ -9,19 +9,22 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/vue-next-select/dist/index.css" />
+    <link type="text/css" rel="stylesheet" href="../dist/index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
     />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/styles/default.min.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Dosis" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="./index.css" />
   </head>
 
   <body>
     <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
     <script src="https://unpkg.com/vue-next-select/dist/vue-next-select.iife.js"></script>
+    <script src="../dist/vue-next-select.iife.js"></script>
 
     <a
       class="github-fork-ribbon"
@@ -70,6 +73,7 @@
         <li><a href="#multiple-select-header">Multiple select</a></li>
         <li><a href="#tagging-header">Tagging</a></li>
         <li><a href="#asynchronous-select-header">Asynchronous select</a></li>
+        <li><a href="#creatable-header">Creatable</a></li>
       </ul>
 
       <h2>API</h2>
@@ -149,6 +153,10 @@ app.mount('#app')</code></pre>
       <h2 id="asynchronous-select-header">Asynchronous select</h2>
       <div id="asynchronous-select"></div>
       <script src="./asynchronous-select.js"></script>
+
+      <h2 id="creatable-header">Creatable</h2>
+      <div id="creatable"></div>
+      <script src="./creatable.js"></script>
       <hr />
 
       <h2 id="props">Props</h2>
@@ -351,30 +359,6 @@ app.mount('#app')</code></pre>
       hljs.initHighlightingOnLoad()
     </script>
 
-    <script>
-      function controlScroll() {
-        if (window.scrollY >= window.visualViewport.height * 1.02) {
-          document.querySelector('aside').classList.add('fixed')
-        } else {
-          document.querySelector('aside').classList.remove('fixed')
-        }
-      }
-      window.addEventListener('scroll', controlScroll)
-      window.addEventListener('unload', () => window.removeEventListener('scroll', controlScroll))
-    </script>
-
-    <script>
-      window.onload = () => {
-        if (window.location.hash) {
-          const hash = window.location.hash
-          window.location.hash = ''
-          window.scroll(0, window.scrollY - 1)
-          window.scroll(0, window.scrollY + 1)
-          setTimeout(() => {
-            window.location.hash = hash
-          })
-        }
-      }
-    </script>
+    <script src="./sticky.js"></script>
   </body>
 </html>

@@ -1,5 +1,8 @@
 {
   const jsCode = `
+import { ref, computed, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
+
 const getCountryList = async name => {
   return new Promise(resolve => {
     const xhr = new XMLHttpRequest()
@@ -15,15 +18,27 @@ const getCountryList = async name => {
   })
 }
 
-createApp({
+const useLoading = () => {
+  const loading = ref(0)
+  return {
+    loading: computed(() => loading.value !== 0 ),
+    load: () => { loading.value++ },
+    unload: () => { loading.value-- },
+  }
+}
+
+export default createApp({
   name: 'app',
+  components: {
+    VueSelect
+  },
   setup() {
     const model = ref([])
 
     const options = ref([])
     const visibleOptions = ref([])
 
-    const loadingCount = ref(0)
+    const { loading, load, unload } = useLoading()
     const searchInput = ref('')
     const handleSearchInput = async event => {
       searchInput.value = event.target.value
@@ -32,7 +47,7 @@ createApp({
         return
       }
 
-      ++loadingCount.value
+      load()
       const currentSearchInput = searchInput.value
       const foundOptions = await getCountryList(searchInput.value)
       if (currentSearchInput === searchInput.value) {
@@ -40,14 +55,14 @@ createApp({
         options.value = Array.from(new Set(options.value))
         visibleOptions.value = foundOptions
       }
-      --loadingCount.value
+      unload()
     }
 
     return {
       model,
       options,
       visibleOptions,
-      loadingCount,
+      loading,
       handleSearchInput,
     }
   }
@@ -60,11 +75,9 @@ createApp({
   :options="options"
   :visible-options="visibleOptions"
   multiple
-  taggable
   searchable
-  :min="3"
   @search:input="handleSearchInput"
-  :loading="loadingCount !== 0"
+  :loading="loading"
 ></vue-select>
 `.trim()
 
@@ -83,7 +96,20 @@ createApp({
     })
   }
 
-  const { ref, createApp } = Vue
+  const { ref, computed, createApp } = Vue
+
+  const useLoading = () => {
+    const loadingCount = ref(0)
+    return {
+      loading: computed(() => loadingCount.value !== 0),
+      load: () => {
+        loadingCount.value++
+      },
+      unload: () => {
+        loadingCount.value--
+      },
+    }
+  }
 
   const app = createApp({
     name: 'app',
@@ -93,7 +119,7 @@ createApp({
       const options = ref([])
       const visibleOptions = ref([])
 
-      const loadingCount = ref(0)
+      const { loading, load, unload } = useLoading()
       const searchInput = ref('')
       const handleSearchInput = async event => {
         searchInput.value = event.target.value
@@ -102,7 +128,7 @@ createApp({
           return
         }
 
-        ++loadingCount.value
+        load()
         const currentSearchInput = searchInput.value
         const foundOptions = await getCountryList(searchInput.value)
         if (currentSearchInput === searchInput.value) {
@@ -110,14 +136,14 @@ createApp({
           options.value = Array.from(new Set(options.value))
           visibleOptions.value = foundOptions
         }
-        --loadingCount.value
+        unload()
       }
 
       return {
         model,
         options,
         visibleOptions,
-        loadingCount,
+        loading,
         handleSearchInput,
 
         jsCode,
@@ -130,11 +156,9 @@ createApp({
         :options="options"
         :visible-options="visibleOptions"
         multiple
-        taggable
         searchable
-        :min="3"
         @search:input="handleSearchInput"
-        :loading="loadingCount !== 0"
+        :loading="loading"
       ></vue-select>
       <pre>{{ model }}</pre>
 

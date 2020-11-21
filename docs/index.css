@@ -1,6 +1,27 @@
+html {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Dosis';
+}
+
 body {
-  font-size: 1rem;
-  font-family: 'Dosis', sans-serif;
   height: 200vh;
   overflow-x: hidden;
 }
@@ -45,7 +66,7 @@ aside {
   top: 0vh;
   margin-top: 2vh;
   margin-left: 2vw;
-  width: 18vw;
+  width: 25vw;
   vertical-align: top;
 }
 
@@ -89,7 +110,7 @@ main {
   margin-top: 2vh;
   margin-left: 2vw;
   margin-right: 2vw;
-  width: 75vw;
+  width: 70vw;
   height: 96vh;
 }
 

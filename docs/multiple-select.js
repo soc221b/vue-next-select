@@ -1,7 +1,13 @@
 {
   const jsCode = `
-createApp({
+import { ref, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
+
+export default createApp({
   name: 'app',
+  components: {
+    VueSelect
+  },
   setup() {
     const model = ref(['Sinatra', 'Vue.js'])
 
@@ -26,10 +32,11 @@ createApp({
   v-model="model"
   :options="options"
   multiple
-  label-by="name"
+  label-by="langauge"
   track-by="name"
   value-by="name"
-  :max="2"
+  :min="1"
+  :max="3"
   placeholder="Pick some"
 ></vue-select>
 `.trim()
@@ -62,10 +69,11 @@ createApp({
         v-model="model"
         :options="options"
         multiple
-        label-by="name"
+        label-by="language"
         track-by="name"
         value-by="name"
-        :max="2"
+        :min="1"
+        :max="3"
         placeholder="Pick some"
       ></vue-select>
       <pre>{{ model }}</pre>

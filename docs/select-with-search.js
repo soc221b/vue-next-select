@@ -1,7 +1,13 @@
 {
   const jsCode = `
-createApp({
+import { ref, computed, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
+
+export default createApp({
   name: 'app',
+  components: {
+    VueSelect
+  },
   setup() {
     const model = ref({ name: 'Vue.js', language: 'JavaScript' })
 
@@ -19,7 +25,7 @@ createApp({
     }
 
     const visibleOptions = computed(() => {
-      const re = new RegExp(searchInput.value)
+      const re = new RegExp(searchInput.value.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&'))
       return options.value.filter(option => re.test(option.name))
     })
 
@@ -67,7 +73,7 @@ createApp({
       }
 
       const visibleOptions = computed(() => {
-        const re = new RegExp(searchInput.value)
+        const re = new RegExp(searchInput.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
         return options.value.filter(option => re.test(option.name))
       })
 

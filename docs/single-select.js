@@ -1,18 +1,20 @@
 {
   const jsCode = `
-createApp({
+import { ref, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
+
+export default createApp({
   name: 'app',
+  components: {
+    VueSelect
+  },
   setup() {
     const model = ref(null)
 
     const options = ref([
-      'Select option',
-      'Option',
-      'Mulitple',
-      'Searchable',
-      'Taggable',
-      'Close on select',
-      'Hide selected',
+      'element',
+      'ant-design-vue',
+      'vuetify',
     ])
 
     return {
@@ -37,15 +39,7 @@ createApp({
     setup() {
       const model = ref(null)
 
-      const options = ref([
-        'Select option',
-        'Option',
-        'Mulitple',
-        'Searchable',
-        'Taggable',
-        'Close on select',
-        'Hide selected',
-      ])
+      const options = ref(['element', 'ant-design-vue', 'vuetify'])
 
       return {
         model,

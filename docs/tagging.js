@@ -1,16 +1,23 @@
 {
   const jsCode = `
-createApp({
+import { ref, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
+
+export default createApp({
   name: 'app',
+  components: {
+    VueSelect
+  },
   setup() {
-    const model = ref(['Vue.js', 'Rails', 'Phoenix'])
+    const model = ref(['Jest', 'Puppeteer'])
 
     const options = ref([
-      { name: 'Vue.js', language: 'JavaScript' },
-      { name: 'Rails', language: 'Ruby' },
-      { name: 'Sinatra', language: 'Ruby' },
-      { name: 'Laravel', language: 'PHP' },
-      { name: 'Phoenix', language: 'Elixir' },
+      'Jest',
+      'Mocha',
+      'Selenium',
+      'Puppeteer',
+      'Jasmine',
+      'Karma',
     ])
 
     return {
@@ -28,10 +35,6 @@ createApp({
   multiple
   taggable
   hide-selected
-  label-by="name"
-  track-by="name"
-  value-by="name"
-  collapse-tags
 ></vue-select>
 `.trim()
 
@@ -40,15 +43,9 @@ createApp({
   const app = createApp({
     name: 'app',
     setup() {
-      const model = ref(['Vue.js', 'Rails', 'Phoenix'])
+      const model = ref(['Jest', 'Puppeteer'])
 
-      const options = ref([
-        { name: 'Vue.js', language: 'JavaScript' },
-        { name: 'Rails', language: 'Ruby' },
-        { name: 'Sinatra', language: 'Ruby' },
-        { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir' },
-      ])
+      const options = ref(['Jest', 'Mocha', 'Selenium', 'Puppeteer', 'Jasmine', 'Karma'])
 
       return {
         model,
@@ -65,10 +62,6 @@ createApp({
         multiple
         taggable
         hide-selected
-        label-by="name"
-        track-by="name"
-        value-by="name"
-        collapse-tags
       ></vue-select>
       <pre>{{ model }}</pre>
 
