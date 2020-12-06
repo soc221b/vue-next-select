@@ -11,13 +11,13 @@ export default createApp({
   setup() {
     const model = ref({ name: 'Vue.js', language: 'JavaScript' })
 
-    const options = [
+    const options = ref([
       model.value,
       { name: 'Rails', language: 'Ruby' },
       { name: 'Sinatra', language: 'Ruby' },
       { name: 'Laravel', language: 'PHP' },
       { name: 'Phoenix', language: 'Elixir' }
-    ]
+    ])
 
     const searchInput = ref('')
     const hanldeSearchInput = event => {
@@ -59,13 +59,13 @@ export default createApp({
     setup() {
       const model = ref({ name: 'Vue.js', language: 'JavaScript' })
 
-      const options = [
+      const options = ref([
         model.value,
         { name: 'Rails', language: 'Ruby' },
         { name: 'Sinatra', language: 'Ruby' },
         { name: 'Laravel', language: 'PHP' },
         { name: 'Phoenix', language: 'Elixir' },
-      ]
+      ])
 
       const searchInput = ref('')
       const hanldeSearchInput = event => {
