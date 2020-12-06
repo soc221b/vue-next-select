@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, ref, isReactive, isRef, toRef } from 'vue'
 
 export default props => {
   const trackBy = computed(() =>
@@ -28,11 +28,14 @@ export default props => {
   const min = computed(() => (props.multiple ? props.min : Math.min(1, props.min)))
   const max = computed(() => (props.multiple ? props.max : 1))
 
+  const options = isRef(props.options) || isReactive(props.options) ? toRef(props, 'options') : ref(props.options)
+
   return {
     trackBy,
     labelBy,
     valueBy,
     min,
     max,
+    options,
   }
 }

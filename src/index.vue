@@ -222,7 +222,7 @@ export default {
     'search:blur',
   ],
   setup(props, context) {
-    const { trackBy, labelBy, valueBy, min, max } = normalize(props)
+    const { trackBy, labelBy, valueBy, min, max, options } = normalize(props)
 
     const wrapper = ref(null)
     const input = ref(null)
@@ -300,14 +300,14 @@ export default {
           Object.keys(innerModelValue.value).some(
             index =>
               innerModelValue.value[index] !==
-              getOptionByValue(props.options, props.modelValue[index], { valueBy: valueBy.value }),
+              getOptionByValue(options.value, props.modelValue[index], { valueBy: valueBy.value }),
           )
         )
           return false
       } else {
         if (innerModelValue.value.length === 0 && props.modelValue !== null) return false
         if (innerModelValue.value.length === 1 && props.modelValue === null) return false
-        if (innerModelValue.value[0] !== getOptionByValue(props.options, props.modelValue, { valueBy: valueBy.value }))
+        if (innerModelValue.value[0] !== getOptionByValue(options.value, props.modelValue, { valueBy: valueBy.value }))
           return false
       }
       return true
@@ -317,9 +317,9 @@ export default {
       innerModelValue.value = []
       const modelValue = props.multiple ? props.modelValue : props.modelValue === null ? [] : [props.modelValue]
       for (const value of modelValue) {
-        const option = getOptionByValue(props.options, value, { valueBy: valueBy.value })
+        const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
         // guarantee options has modelValue
-        if (hasOption(props.options, option, { valueBy: valueBy.value }) === false) continue
+        if (hasOption(options.value, option, { valueBy: valueBy.value }) === false) continue
         innerModelValue.value = addOption(innerModelValue.value, option, { max: Infinity, valueBy: valueBy.value })
       }
     }
@@ -352,10 +352,10 @@ export default {
 
     // guarantee options has modelValue
     watch(
-      () => props.options,
+      () => options.value,
       () => {
         const selectedValueSet = new Set(innerModelValue.value.map(option => valueBy.value(option)))
-        innerModelValue.value = props.options.filter(option => selectedValueSet.has(valueBy.value(option)))
+        innerModelValue.value = options.value.filter(option => selectedValueSet.has(valueBy.value(option)))
       },
       { deep: true },
     )
@@ -395,9 +395,9 @@ export default {
       const visibleValueSet =
         props.visibleOptions !== null
           ? new Set(props.visibleOptions.map(option => valueBy.value(option)))
-          : new Set(props.options.map(option => valueBy.value(option)))
+          : new Set(options.value.map(option => valueBy.value(option)))
 
-      return props.options.map(option => ({
+      return options.value.map(option => ({
         key: trackBy.value(option),
         label: labelBy.value(option),
         selected: selectedValueSet.has(valueBy.value(option)),
@@ -410,9 +410,9 @@ export default {
     const dataAttrs = computed(() => ({
       isFocusing: isFocusing.value,
       visibleLength: optionsWithInfo.value.filter(option => option.visible && option.hidden === false).length,
-      notSelectedLength: props.options.length - optionsWithInfo.value.filter(option => option.selected).length,
+      notSelectedLength: options.value.length - optionsWithInfo.value.filter(option => option.selected).length,
       selectedLength: optionsWithInfo.value.filter(option => option.selected).length,
-      totalLength: props.options.length,
+      totalLength: options.value.length,
     }))
     provide('dataAttrs', dataAttrs)
 
