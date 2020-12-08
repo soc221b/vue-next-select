@@ -82,7 +82,7 @@
 }
 
 .vue-tag {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   list-style-type: none;
@@ -96,10 +96,6 @@
 
 .vue-tag > span {
   margin-right: 4px;
-}
-
-.vue-tag {
-  display: none;
 }
 
 .vue-tag.selected {
