@@ -3,6 +3,7 @@
 import { createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
+// for composition API
 export default createApp({
   name: 'app',
   components: {
@@ -29,7 +30,35 @@ export default createApp({
       options,
       handleSelected,
     }
-  }
+  },
+})
+
+// for option API
+export default createApp({
+  name: 'app',
+  components: {
+    VueSelect
+  },
+  data() {
+    return {
+      options: ['Scroll to top', 'Alert', 'Console'],
+    }
+  },
+  methods: {
+    handleSelected(selectedOption) {
+      switch (selectedOption) {
+        case 'Scroll to top':
+          scrollTo(0, 0)
+          break
+        case 'Alert':
+          alert('You just dispatched "alert" option.')
+          break
+        case 'Console':
+          console.log('You just dispatched "Console" option.')
+          break
+      }
+    },
+  },
 })
 `.trim()
 

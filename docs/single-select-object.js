@@ -3,6 +3,7 @@
 import { ref, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
+// for composition API
 export default createApp({
   name: 'app',
   components: {
@@ -22,6 +23,24 @@ export default createApp({
       options
     }
   }
+})
+
+// for option API
+export default createApp({
+  name: 'app',
+  components: {
+    VueSelect
+  },
+  data() {
+    return {
+      model: null,
+      options: [
+        { language: 'JavaScript' },
+        { language: 'Python' },
+        { language: 'PHP' },
+      ],
+    }
+  },
 })
 `.trim()
 

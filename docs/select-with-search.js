@@ -3,6 +3,7 @@
 import { ref, computed, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
+// for composition API
 export default createApp({
   name: 'app',
   components: {
@@ -36,6 +37,40 @@ export default createApp({
       visibleOptions
     }
   }
+})
+
+// for option API
+export default createApp({
+  name: 'app',
+  components: {
+    VueSelect
+  },
+  data() {
+    const model = { name: 'Vue.js', language: 'JavaScript' }
+
+    return {
+      model,
+      options: [
+        model,
+        { name: 'Rails', language: 'Ruby' },
+        { name: 'Sinatra', language: 'Ruby' },
+        { name: 'Laravel', language: 'PHP' },
+        { name: 'Phoenix', language: 'Elixir' },
+      ],
+      searchInput: '',
+    }
+  },
+  computed: {
+    visibleOptions() {
+      const re = new RegExp(this.searchInput.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&'))
+      return this.options.filter(option => re.test(option.name))
+    },
+  },
+  methods: {
+    hanldeSearchInput(event) {
+      this.searchInput = event.target.value
+    },
+  },
 })
 `.trim()
 

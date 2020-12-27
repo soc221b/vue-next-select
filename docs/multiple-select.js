@@ -3,6 +3,7 @@
 import { ref, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
+// for composition API
 export default createApp({
   name: 'app',
   components: {
@@ -16,14 +17,34 @@ export default createApp({
       { name: 'Rails', language: 'Ruby' },
       { name: 'Sinatra', language: 'Ruby' },
       { name: 'Laravel', language: 'PHP' },
-      { name: 'Phoenix', language: 'Elixir' }
+      { name: 'Phoenix', language: 'Elixir' },
     ]
 
     return {
       model,
-      options
+      options,
     }
-  }
+  },
+})
+
+// for option API
+export default createApp({
+  name: 'app',
+  components: {
+    VueSelect
+  },
+  data() {
+    return {
+      model: ['Sinatra', 'Vue.js'],
+      options: [
+        { name: 'Vue.js', language: 'JavaScript' },
+        { name: 'Rails', language: 'Ruby' },
+        { name: 'Sinatra', language: 'Ruby' },
+        { name: 'Laravel', language: 'PHP' },
+        { name: 'Phoenix', language: 'Elixir' },
+      ],
+    }
+  },
 })
 `.trim()
 

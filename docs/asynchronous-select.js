@@ -3,6 +3,7 @@
 import { ref, computed, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
+// for composition API
 const getCountryList = async name => {
   return new Promise(resolve => {
     const xhr = new XMLHttpRequest()
@@ -63,9 +64,56 @@ export default createApp({
       options,
       visibleOptions,
       loading,
-      handleSearchInput
+      handleSearchInput,
     }
-  }
+  },
+})
+
+// for option API
+export default createApp({
+  name: 'app',
+  components: {
+    VueSelect
+  },
+  data() {
+    return {
+      model: [],
+      options: [],
+      visibleOptions: [],
+      loadingCount: 0,
+      searchInput: '',
+    }
+  },
+  computed: {
+    loading() {
+      return this.loadingCount !== 0
+    },
+  },
+  methods: {
+    async handleSearchInput(event) {
+      this.searchInput = event.target.value
+      if (this.searchInput === '') {
+        this.visibleOptions = this.model
+        return
+      }
+
+      this.load()
+      const currentSearchInput = this.searchInput
+      const foundOptions = await getCountryList(this.searchInput)
+      if (currentSearchInput === this.searchInput) {
+        this.options = this.model.concat(foundOptions)
+        this.option = Array.from(new Set(this.options))
+        this.visibleOptions = foundOptions
+      }
+      this.unload()
+    },
+    load() {
+      ++this.loadingCount
+    },
+    unload() {
+      --this.loadingCount
+    },
+  },
 })
 `.trim()
 

@@ -3,6 +3,7 @@
 import { ref, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
+// for composition API
 export default createApp({
   name: 'app',
   setup() {
@@ -40,7 +41,7 @@ export default createApp({
       tempOption.value = ''
     }
 
-    const handleRemoved = (option) => {
+    const handleRemoved = option => {
       if (originalOptions.includes(option)) {
         return
       }
@@ -55,9 +56,62 @@ export default createApp({
       visibleOptions,
       handleSearchInput,
       handleSelected,
-      handleRemoved
+      handleRemoved,
     }
-  }
+  },
+})
+
+// for option API
+const originalOptions = ['HTML', 'CSS', 'JavaScript']
+
+export default createApp({
+  name: 'app',
+  data() {
+    const options = originalOptions.slice()
+    return {
+      model: [],
+      options,
+      visibleOptions: options,
+      tempOption: '',
+    }
+  },
+  methods: {
+    async handleSearchInput(event) {
+      // remove temp option
+      if (this.model.includes(this.tempOption) === false && originalOptions.includes(this.tempOption) === false) {
+        this.options = this.options.filter(option => option !== this.tempOption)
+      }
+
+      this.tempOption = event.target.value.trim()
+      if (this.tempOption === '') {
+        this.visibleOptions = this.options
+        return
+      }
+
+      // add temp option
+      if (this.options.includes(this.tempOption) === false) {
+        this.options.push(this.tempOption)
+      }
+
+      const re = new RegExp(this.tempOption.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&'))
+      const foundOptions = this.options.filter(option => re.test(option))
+      this.visibleOptions = foundOptions
+    },
+
+    handleSelected() {
+      // keep selected option in options
+      this.tempOption = ''
+    },
+
+    handleRemoved(option) {
+      if (originalOptions.includes(option)) {
+        return
+      }
+
+      this.options = this.options.filter(o => o !== option)
+      this.visibleOptions = this.visibleOptions.filter(o => o !== option)
+    },
+  },
 })
 `.trim()
 

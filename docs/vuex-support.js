@@ -4,6 +4,7 @@ import { computed, createApp } from 'vue'
 import { createStore, useStore } from 'vuex'
 import VueSelect from 'vue-next-select'
 
+// for composition API
 const store = createStore({
   state: {
     value: 'State'
@@ -25,20 +26,58 @@ const app = createApp({
 
     const store = useStore()
     const modelValue = computed(() => store.state.value)
-    const handleSelected = (selectedOption) => store.commit('updateValue', selectedOption)
-    const handleRemoved = (removedOption) => store.commit('updateValue', null)
+    const handleSelected = selectedOption => store.commit('updateValue', selectedOption)
+    const handleRemoved = removedOption => store.commit('updateValue', null)
 
     return {
       modelValue,
       options,
       handleSelected,
-      handleRemoved
+      handleRemoved,
+    }
+  },
+})
+
+app.use(store)
+
+// for composition API
+const store = createStore({
+  state: {
+    value: 'State'
+  },
+  mutations: {
+    updateValue (state, value) {
+      state.value = value
     }
   }
 })
 
+const app = createApp({
+  name: 'app',
+  components: {
+    VueSelect
+  },
+  data() {
+    return {
+      options: ['State', 'Getters', 'Mutations', 'Actions'],
+    }
+  },
+  computed: {
+    modelValue() {
+      return this.$store.state.value
+    },
+  },
+  methods: {
+    handleSelected(selectedOption) {
+      this.$store.commit('updateValue', selectedOption)
+    },
+    handleRemoved(removedOption) {
+      this.$store.commit('updateValue', null)
+    },
+  },
+})
+
 app.use(store)
-export default app
 `.trim()
 
   const htmlCode = `
