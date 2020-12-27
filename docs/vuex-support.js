@@ -40,7 +40,7 @@ const app = createApp({
 
 app.use(store)
 
-// for composition API
+// for option API
 const store = createStore({
   state: {
     value: 'State'
