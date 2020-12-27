@@ -31,6 +31,7 @@ export default createApp({
   :options="options"
   label-by="language"
   :track-by="option => option.language"
+  :min="1"
 ></vue-select>
 `.trim()
 
@@ -57,6 +58,7 @@ export default createApp({
         :options="options"
         label-by="language"
         :track-by="option => option.language"
+        :min="1"
       ></vue-select>
       <pre>{{ model }}</pre>
 
