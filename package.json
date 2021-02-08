@@ -53,7 +53,7 @@
     "csso": "^4.0.3",
     "cypress": "^6.0.0",
     "cypress-plugin-tab": "^1.0.5",
-    "husky": "^4.2.5",
+    "husky": "^5.0.9",
     "jest": "^25.5.4",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
