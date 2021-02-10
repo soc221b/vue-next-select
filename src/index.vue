@@ -232,24 +232,23 @@ export default {
       () => {
         if (isFocusing.value) {
           context.emit('opened')
-          if (props.searchable) context.emit('search:focus')
-          // toggle arrow downward icon
           if (props.searchable) {
             if (input.value && input.value._.refs.input !== document.activeElement) {
               input.value._.refs.input.focus()
             }
-          } else if (props.searchable === false) {
+            context.emit('search:focus')
+          } else {
             wrapper.value.focus()
           }
         } else {
-          // toggle arrow downward icon
-          if (input.value && input.value._.refs.input === document.activeElement) {
-            input.value._.refs.input.blur()
-          }
-          if (wrapper.value && wrapper.value === document.activeElement) {
+          if (props.searchable) {
+            if (input.value && input.value._.refs.input === document.activeElement) {
+              input.value._.refs.input.blur()
+            }
+            context.emit('search:blur')
+          } else {
             wrapper.value.blur()
           }
-          if (props.searchable) context.emit('search:blur')
           context.emit('closed')
         }
       },
