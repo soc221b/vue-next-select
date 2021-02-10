@@ -102,7 +102,7 @@
     <v-dropdown
       v-show="isFocusing"
       v-model="optionsWithInfo"
-      @click="handleClickForDropdown"
+      @click="addOrRemoveOption"
       :header-height="headerAndInputHeight"
     >
       <template #default="{ option }">
@@ -116,9 +116,9 @@
 
 <script>
 import { ref, computed, watch, provide } from 'vue'
-import { default as VInput } from './components/input.vue'
-import { default as VTags } from './components/tags.vue'
-import { default as VDropdown } from './components/dropdown.vue'
+import VInput from './components/input.vue'
+import VTags from './components/tags.vue'
+import VDropdown from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption, isSameOption } from './crud'
 import normalize from './normalize'
 import { useHeight } from './hooks'
@@ -224,8 +224,8 @@ export default {
   setup(props, context) {
     const { trackBy, labelBy, valueBy, min, max, options } = normalize(props)
 
-    const wrapper = ref(null)
-    const input = ref(null)
+    const wrapper = ref()
+    const input = ref()
     const isFocusing = ref(false)
     watch(
       () => isFocusing.value,
@@ -269,7 +269,7 @@ export default {
       () => blur(),
     )
 
-    const header = ref(null)
+    const header = ref()
     const headerHeight = useHeight(header, () => props.modelValue)
     const inputHeight = computed(() => (props.searchable && props.multiple && props.taggable ? '22px' : '0px'))
     const headerAndInputHeight = computed(() => parseFloat(headerHeight.value) + parseFloat(inputHeight.value) + 'px')
@@ -290,50 +290,54 @@ export default {
     }
 
     // sync model value
-    const innerModelValue = ref([])
+    const normalizedModelValue = ref([])
     const isSynchronoused = () => {
       if (props.multiple) {
         if (Array.isArray(props.modelValue) === false) return false
-        if (innerModelValue.value.length !== props.modelValue.length) return false
+        if (normalizedModelValue.value.length !== props.modelValue.length) return false
         if (
-          Object.keys(innerModelValue.value).some(
+          Object.keys(normalizedModelValue.value).some(
             index =>
-              innerModelValue.value[index] !==
+              normalizedModelValue.value[index] !==
               getOptionByValue(options.value, props.modelValue[index], { valueBy: valueBy.value }),
           )
         )
           return false
       } else {
-        if (innerModelValue.value.length === 0 && props.modelValue !== null) return false
-        if (innerModelValue.value.length === 1 && props.modelValue === null) return false
-        if (innerModelValue.value[0] !== getOptionByValue(options.value, props.modelValue, { valueBy: valueBy.value }))
+        if (normalizedModelValue.value.length === 0 && props.modelValue !== null) return false
+        if (normalizedModelValue.value.length === 1 && props.modelValue === null) return false
+        if (
+          normalizedModelValue.value[0] !==
+          getOptionByValue(options.value, props.modelValue, { valueBy: valueBy.value })
+        )
           return false
       }
       return true
     }
     const syncFromModelValue = () => {
       if (isSynchronoused()) return
-      innerModelValue.value = []
+      normalizedModelValue.value = []
       const modelValue = props.multiple ? props.modelValue : props.modelValue === null ? [] : [props.modelValue]
       for (const value of modelValue) {
         const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
         // guarantee options has modelValue
         if (hasOption(options.value, option, { valueBy: valueBy.value }) === false) continue
-        innerModelValue.value = addOption(innerModelValue.value, option, { max: Infinity, valueBy: valueBy.value })
+        normalizedModelValue.value = addOption(normalizedModelValue.value, option, {
+          max: Infinity,
+          valueBy: valueBy.value,
+        })
       }
     }
     syncFromModelValue()
     watch(
       () => props.modelValue,
-      () => {
-        syncFromModelValue()
-      },
+      () => syncFromModelValue(),
       { deep: true },
     )
 
-    const syncFromInnerModelValue = () => {
+    const syncToModelValue = () => {
       if (isSynchronoused()) return
-      const selectedValues = innerModelValue.value.map(option => valueBy.value(option))
+      const selectedValues = normalizedModelValue.value.map(option => valueBy.value(option))
       if (props.multiple) {
         context.emit('update:modelValue', selectedValues)
       } else {
@@ -342,10 +346,8 @@ export default {
       }
     }
     watch(
-      () => innerModelValue,
-      () => {
-        syncFromInnerModelValue()
-      },
+      () => normalizedModelValue,
+      () => syncToModelValue(),
       { deep: true },
     )
 
@@ -353,8 +355,8 @@ export default {
     watch(
       () => options.value,
       () => {
-        const selectedValueSet = new Set(innerModelValue.value.map(option => valueBy.value(option)))
-        innerModelValue.value = options.value.filter(option => selectedValueSet.has(valueBy.value(option)))
+        const selectedValueSet = new Set(normalizedModelValue.value.map(option => valueBy.value(option)))
+        normalizedModelValue.value = options.value.filter(option => selectedValueSet.has(valueBy.value(option)))
       },
       { deep: true },
     )
@@ -363,19 +365,25 @@ export default {
       if (props.disabled) return
 
       option = option.originalOption
-      if (hasOption(innerModelValue.value, option, { valueBy: valueBy.value })) {
-        innerModelValue.value = removeOption(innerModelValue.value, option, { min: min.value, valueBy: valueBy.value })
+      if (hasOption(normalizedModelValue.value, option, { valueBy: valueBy.value })) {
+        normalizedModelValue.value = removeOption(normalizedModelValue.value, option, {
+          min: min.value,
+          valueBy: valueBy.value,
+        })
         context.emit('removed', option)
       } else {
         if (!props.multiple) {
-          const removingOption = innerModelValue.value[0]
-          innerModelValue.value = removeOption(innerModelValue.value, innerModelValue.value[0], {
+          const removingOption = normalizedModelValue.value[0]
+          normalizedModelValue.value = removeOption(normalizedModelValue.value, normalizedModelValue.value[0], {
             min: 0,
             valueBy: valueBy.value,
           })
           context.emit('removed', removingOption)
         }
-        innerModelValue.value = addOption(innerModelValue.value, option, { max: max.value, valueBy: valueBy.value })
+        normalizedModelValue.value = addOption(normalizedModelValue.value, option, {
+          max: max.value,
+          valueBy: valueBy.value,
+        })
         context.emit('selected', option)
       }
       if (props.closeOnSelect === true) isFocusing.value = false
@@ -386,11 +394,9 @@ export default {
         input.value._.refs.input.dispatchEvent(new Event('change'))
       }
     }
-    const handleClickForDropdown = (event, option) => addOrRemoveOption(event, option)
-    const handleClickForTag = (event, option) => addOrRemoveOption(event, option)
 
     const optionsWithInfo = computed(() => {
-      const selectedValueSet = new Set(innerModelValue.value.map(option => valueBy.value(option)))
+      const selectedValueSet = new Set(normalizedModelValue.value.map(option => valueBy.value(option)))
       const visibleValueSet =
         props.visibleOptions !== null
           ? new Set(props.visibleOptions.map(option => valueBy.value(option)))
@@ -451,9 +457,6 @@ export default {
       handleChangeForInput,
       handleFocusForInput,
       handleBlurForInput,
-
-      handleClickForDropdown,
-      handleClickForTag,
 
       optionsWithInfo,
       addOrRemoveOption,
