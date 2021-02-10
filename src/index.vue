@@ -130,6 +130,9 @@ export default {
     modelValue: {
       required: true,
     },
+    emptyModelValue: {
+      default: null,
+    },
     options: {
       required: true,
       type: Array,
@@ -304,8 +307,8 @@ export default {
         )
           return false
       } else {
-        if (normalizedModelValue.value.length === 0 && props.modelValue !== null) return false
-        if (normalizedModelValue.value.length === 1 && props.modelValue === null) return false
+        if (normalizedModelValue.value.length === 0 && props.modelValue !== props.emptyModelValue) return false
+        if (normalizedModelValue.value.length === 1 && props.modelValue === props.emptyModelValue) return false
         if (
           normalizedModelValue.value[0] !==
           getOptionByValue(options.value, props.modelValue, { valueBy: valueBy.value })
@@ -317,7 +320,11 @@ export default {
     const syncFromModelValue = () => {
       if (isSynchronoused()) return
       normalizedModelValue.value = []
-      const modelValue = props.multiple ? props.modelValue : props.modelValue === null ? [] : [props.modelValue]
+      const modelValue = props.multiple
+        ? props.modelValue
+        : props.modelValue === props.emptyModelValue
+        ? []
+        : [props.modelValue]
       for (const value of modelValue) {
         const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
         // guarantee options has modelValue
@@ -342,7 +349,7 @@ export default {
         context.emit('update:modelValue', selectedValues)
       } else {
         if (selectedValues.length) context.emit('update:modelValue', selectedValues[0])
-        else context.emit('update:modelValue', null)
+        else context.emit('update:modelValue', props.emptyModelValue)
       }
     }
     watch(
