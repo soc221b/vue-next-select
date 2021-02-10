@@ -1,10 +1,10 @@
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, nextTick } from 'vue'
 import { Ref } from 'vue'
 
 export const useHeight = (element: Ref<Element>, watchSource: any) => {
   const height = ref('0')
   const calcHeaderHeight = () => {
-    setTimeout(() => {
+    nextTick(() => {
       if (!element.value) return
       height.value = window.getComputedStyle(element.value).height
     })
