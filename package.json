@@ -1,28 +1,7 @@
 {
   "name": "vue-next-select",
   "version": "1.0.0",
-  "engines": {
-    "node": ">=10"
-  },
   "description": "The complete selecting solution for Vue.js 3.x",
-  "main": "dist/vue-next-select.cjs.prod.js",
-  "umd:main": "dist/vue-next-select.iife.prod.js",
-  "unpkg": "dist/vue-next-select.iife.prod.js",
-  "module": "dist/vue-next-select.es.prod.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iendeavor/vue-next-select.git"
-  },
-  "bugs": {
-    "url": "https://github.com/iendeavor/vue-next-select/issues"
-  },
-  "homepage": "https://github.com/iendeavor/vue-next-select#readme",
-  "author": "Ernest <iattempt.net@gmail.com>",
-  "license": "MIT",
   "keywords": [
     "select",
     "multipleselect",
@@ -31,6 +10,24 @@
     "vue",
     "vue3",
     "vue-next"
+  ],
+  "homepage": "https://github.com/iendeavor/vue-next-select#readme",
+  "bugs": {
+    "url": "https://github.com/iendeavor/vue-next-select/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iendeavor/vue-next-select.git"
+  },
+  "license": "MIT",
+  "author": "Ernest <iattempt.net@gmail.com>",
+  "main": "dist/vue-next-select.cjs.prod.js",
+  "umd:main": "dist/vue-next-select.iife.prod.js",
+  "unpkg": "dist/vue-next-select.iife.prod.js",
+  "module": "dist/vue-next-select.es.prod.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
   ],
   "scripts": {
     "build": "rollup --config",
@@ -43,6 +40,13 @@
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "git diff --exit-code && git diff --staged --exit-code && yarn lint && yarn build && yarn test"
+    }
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
@@ -79,11 +83,7 @@
   "peerDependencies": {
     "vue": "^3.0.0"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "yarn lint",
-      "pre-push": "git diff --exit-code && git diff --staged --exit-code && yarn lint && yarn build && yarn test"
-    }
+  "engines": {
+    "node": ">=10"
   }
 }
