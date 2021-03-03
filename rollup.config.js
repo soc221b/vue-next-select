@@ -24,19 +24,6 @@ formats.forEach(format => {
   const config = {
     input,
     external: ['vue'],
-    output: {
-      globals: {
-        vue: 'Vue',
-      },
-      format,
-      name: pascalCasePackageName,
-      extend: true,
-      exports: 'auto',
-    },
-  }
-
-  configs.push({
-    ...config,
     plugins: [
       vue(),
       ts({
@@ -60,6 +47,19 @@ formats.forEach(format => {
       }),
     ],
     output: {
+      globals: {
+        vue: 'Vue',
+      },
+      format,
+      name: pascalCasePackageName,
+      extend: true,
+      exports: 'auto',
+    },
+  }
+
+  configs.push({
+    ...config,
+    output: {
       ...config.output,
       file: path.resolve(`dist/${packageName}.${format}.js`),
     },
@@ -67,18 +67,7 @@ formats.forEach(format => {
 
   configs.push({
     ...config,
-    plugins: [
-      vue(),
-      ts({
-        tsconfig: false,
-        experimentalDecorators: true,
-        module: 'es2015',
-      }),
-      svg({ base64: true }),
-      resolve(),
-      globals(),
-      terser(),
-    ],
+    plugins: [...config.plugins, terser()],
     output: {
       ...config.output,
       file: path.resolve(`dist/${packageName}.${format}.prod.js`),
