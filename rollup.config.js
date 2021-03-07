@@ -8,6 +8,7 @@ import vue from 'rollup-plugin-vue'
 import copy from 'rollup-plugin-copy'
 import csso from 'csso'
 import svg from 'rollup-plugin-svg'
+import json from '@rollup/plugin-json'
 
 rm.sync(path.resolve('dist/**/*'))
 
@@ -25,6 +26,7 @@ formats.forEach(format => {
     input,
     external: ['vue'],
     plugins: [
+      json(),
       vue(),
       ts({
         tsconfig: false,

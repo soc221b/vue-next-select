@@ -46,6 +46,7 @@
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
     "@popperjs/core": "^2.4.4",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@types/jest": "^26.0.15",
     "@vue/compiler-sfc": "^3.0.0",

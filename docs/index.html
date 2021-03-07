@@ -40,6 +40,7 @@
     >
     <header>
       <h1>vue-next-select</h1>
+      <span id="version"></span>
       <p><b>The selecting solution for Vue 3</b></p>
       <br />
 
@@ -391,6 +392,9 @@ app.mount('#app')</code></pre>
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.min.js"></script>
     <script>
       hljs.initHighlightingOnLoad()
+    </script>
+    <script>
+      document.querySelector('#version').innerHTML = `(${VueNextSelect.__VERSION__})`
     </script>
 
     <script src="./sticky.js"></script>

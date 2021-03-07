@@ -118,8 +118,9 @@ import VDropdown from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption, isSameOption } from './crud'
 import normalize from './normalize'
 import { useHeight } from './hooks'
+import { version } from '../package.json'
 
-export default {
+const VueSelect = {
   name: 'vue-select',
   inheritAttrs: false,
   props: {
@@ -485,4 +486,8 @@ export default {
     VDropdown,
   },
 }
+
+VueSelect.__VERSION__ = version
+
+export default VueSelect
 </script>
