@@ -112,6 +112,10 @@
   font-size: 0.8rem;
 }
 
+.vue-tags[data-removable='false'] .vue-tag.selected img:hover {
+  cursor: not-allowed;
+}
+
 .vue-input {
   display: flex;
   align-items: center;
@@ -189,6 +193,14 @@
 
 .vue-dropdown-item.selected:hover {
   background-color: #ff6a6a;
+}
+
+.vue-dropdown[data-removable='false'] .vue-dropdown-item.selected:hover {
+  cursor: not-allowed;
+}
+
+.vue-dropdown[data-addable='false'][data-multiple='true'] .vue-dropdown-item:not(.selected):hover {
+  cursor: not-allowed;
 }
 
 .icon.loading {

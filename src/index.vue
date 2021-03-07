@@ -6,11 +6,7 @@
     :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
     @blur="() => (searchable ? false : blur())"
-    :data-is-focusing="dataAttrs.isFocusing"
-    :data-visible-length="dataAttrs.visibleLength"
-    :data-not-selected-length="dataAttrs.notSelectedLength"
-    :data-selected-length="dataAttrs.selectedLength"
-    :data-total-length="dataAttrs.totalLength"
+    v-bind="dataAttrs"
   >
     <div ref="header" class="vue-select-header">
       <template
@@ -420,11 +416,14 @@ export default {
     })
 
     const dataAttrs = computed(() => ({
-      isFocusing: isFocusing.value,
-      visibleLength: optionsWithInfo.value.filter(option => option.visible && option.hidden === false).length,
-      notSelectedLength: options.value.length - optionsWithInfo.value.filter(option => option.selected).length,
-      selectedLength: optionsWithInfo.value.filter(option => option.selected).length,
-      totalLength: options.value.length,
+      'data-is-focusing': isFocusing.value,
+      'data-visible-length': optionsWithInfo.value.filter(option => option.visible && option.hidden === false).length,
+      'data-not-selected-length': options.value.length - optionsWithInfo.value.filter(option => option.selected).length,
+      'data-selected-length': optionsWithInfo.value.filter(option => option.selected).length,
+      'data-addable': optionsWithInfo.value.filter(option => option.selected).length < max.value,
+      'data-removable': optionsWithInfo.value.filter(option => option.selected).length > min.value,
+      'data-total-length': options.value.length,
+      'data-multiple': props.multiple,
     }))
     provide('dataAttrs', dataAttrs)
 

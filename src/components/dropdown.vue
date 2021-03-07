@@ -1,14 +1,5 @@
 <template>
-  <ul
-    class="vue-dropdown"
-    @mousedown.prevent
-    :style="{ top: headerHeight }"
-    :data-is-focusing="dataAttrs.isFocusing"
-    :data-visible-length="dataAttrs.visibleLength"
-    :data-not-selected-length="dataAttrs.notSelectedLength"
-    :data-selected-length="dataAttrs.selectedLength"
-    :data-total-length="dataAttrs.totalLength"
-  >
+  <ul class="vue-dropdown" @mousedown.prevent :style="{ top: headerHeight }" v-bind="dataAttrs">
     <template v-for="option of modelValue" :key="option.key">
       <li
         v-if="option.visible && option.hidden === false"

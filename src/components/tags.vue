@@ -5,11 +5,7 @@
     :class="{ collapsed: collapseTags }"
     tabindex="-1"
     @click="handleClick"
-    :data-is-focusing="dataAttrs.isFocusing"
-    :data-visible-length="dataAttrs.visibleLength"
-    :data-not-selected-length="dataAttrs.notSelectedLength"
-    :data-selected-length="dataAttrs.selectedLength"
-    :data-total-length="dataAttrs.totalLength"
+    v-bind="dataAttrs"
   >
     <template v-for="option of modelValue" :key="option.key">
       <li class="vue-tag" :class="{ selected: option.selected }">
