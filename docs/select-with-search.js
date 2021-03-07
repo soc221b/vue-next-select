@@ -131,6 +131,7 @@ export default createApp({
         track-by="name"
         searchable
         clear-on-select
+        clear-on-close
         @search:input="hanldeSearchInput"
       ></vue-select>
       <pre>{{ model }}</pre>
