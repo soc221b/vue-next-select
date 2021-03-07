@@ -191,6 +191,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    clearOnClose: {
+      default: false,
+      type: Boolean,
+    },
 
     taggable: {
       default: false,
@@ -244,6 +248,7 @@ export default {
             if (input.value && input.value._.refs.input === document.activeElement) {
               input.value._.refs.input.blur()
             }
+            if (props.clearOnClose) clearInput()
             context.emit('search:blur')
           } else {
             wrapper.value.blur()
@@ -390,12 +395,14 @@ export default {
         context.emit('selected', option)
       }
       if (props.closeOnSelect === true) isFocusing.value = false
-      if (props.clearOnSelect === true && searchingInputValue.value) {
-        // simulate clear input value
-        input.value._.refs.input.value = ''
-        input.value._.refs.input.dispatchEvent(new Event('input'))
-        input.value._.refs.input.dispatchEvent(new Event('change'))
-      }
+      if (props.clearOnSelect === true && searchingInputValue.value) clearInput()
+    }
+
+    const clearInput = () => {
+      // simulate clear input value
+      input.value._.refs.input.value = ''
+      input.value._.refs.input.dispatchEvent(new Event('input'))
+      input.value._.refs.input.dispatchEvent(new Event('change'))
     }
 
     const optionsWithInfo = computed(() => {
