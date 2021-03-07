@@ -55,6 +55,10 @@
   cursor: not-allowed;
 }
 
+.vue-select.disabled input {
+  cursor: not-allowed;
+}
+
 .vue-select-header {
   display: flex;
   width: 100%;
@@ -132,10 +136,6 @@
 
 .vue-input > input[disabled] {
   background-color: rgba(239, 239, 239);
-}
-
-.vue-input > input[readonly] {
-  cursor: default;
 }
 
 .vue-select-header > .vue-input > input[disabled] {
