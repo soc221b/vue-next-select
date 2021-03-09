@@ -450,7 +450,7 @@ const VueSelect = {
         if (selectedOptions.length === 0) {
           return props.placeholder
         } else {
-          return selectedOptions[0].label
+          return selectedOptions[0].label + ''
         }
       }
     })
