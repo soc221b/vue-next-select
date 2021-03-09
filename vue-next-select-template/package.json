@@ -1,0 +1,23 @@
+{
+  "name": "vue-next-select-template",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "vite": "latest",
+    "vue": "next",
+    "vue-next-select": "latest"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "latest",
+    "@vue/compiler-sfc": "latest",
+    "typescript": "latest"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
