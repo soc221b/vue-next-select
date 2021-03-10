@@ -29,4 +29,12 @@ context('searchable', () => {
     cy.get('.vue-input').type('i')
     cy.get('.vue-dropdown-item').should('have.length', 1)
   })
+
+  it('filter typing value by label by default', () => {
+    cy.visit('/cypress/fixtures/searchable/default.html')
+    cy.get('.vue-select').click()
+
+    cy.get('.vue-input').type('Rails')
+    cy.get('.vue-dropdown-item').should('have.length', 1)
+  })
 })

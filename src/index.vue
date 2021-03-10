@@ -111,11 +111,11 @@
 </template>
 
 <script>
-import { ref, computed, watch, provide } from 'vue'
+import { ref, computed, watch, provide, getCurrentInstance } from 'vue'
 import VInput from './components/input.vue'
 import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
-import { addOption, removeOption, getOptionByValue, hasOption, isSameOption } from './crud'
+import { addOption, removeOption, getOptionByValue, hasOption } from './crud'
 import normalize from './normalize'
 import { useHeight } from './hooks'
 import { version } from '../package.json'
@@ -232,6 +232,7 @@ const VueSelect = {
   setup(props, context) {
     const { trackBy, labelBy, valueBy, disabledBy, min, max, options } = normalize(props)
 
+    const instance = getCurrentInstance()
     const wrapper = ref()
     const input = ref()
     const isFocusing = ref(false)
@@ -297,6 +298,12 @@ const VueSelect = {
     const handleBlurForInput = event => {
       blur()
     }
+    const searchedOptions = computed(() => {
+      const hasSearchListeners = instance.vnode.props['onSearch:input'] || instance.vnode.props['onSearch:change']
+      return searchingInputValue.value && !hasSearchListeners
+        ? options.value.filter(option => (labelBy.value(option) + '').indexOf(searchingInputValue.value) > -1)
+        : undefined
+    })
 
     // sync model value
     const normalizedModelValue = ref([])
@@ -412,10 +419,9 @@ const VueSelect = {
 
     const optionsWithInfo = computed(() => {
       const selectedValueSet = new Set(normalizedModelValue.value.map(option => valueBy.value(option)))
-      const visibleValueSet =
-        props.visibleOptions !== null
-          ? new Set(props.visibleOptions.map(option => valueBy.value(option)))
-          : new Set(options.value.map(option => valueBy.value(option)))
+      const visibleValueSet = new Set(
+        (props.visibleOptions ?? searchedOptions.value ?? options.value).map(option => valueBy.value(option)),
+      )
 
       return options.value.map(option => ({
         key: trackBy.value(option),
