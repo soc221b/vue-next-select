@@ -17,7 +17,7 @@ export default createApp({
       { name: 'Rails', language: 'Ruby' },
       { name: 'Sinatra', language: 'Ruby' },
       { name: 'Laravel', language: 'PHP' },
-      { name: 'Phoenix', language: 'Elixir' },
+      { name: 'Phoenix', language: 'Elixir', disabled: true },
     ]
 
     return {
@@ -41,7 +41,7 @@ export default createApp({
         { name: 'Rails', language: 'Ruby' },
         { name: 'Sinatra', language: 'Ruby' },
         { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir' },
+        { name: 'Phoenix', language: 'Elixir', disabled: true },
       ],
     }
   },
@@ -74,7 +74,7 @@ export default createApp({
         { name: 'Rails', language: 'Ruby' },
         { name: 'Sinatra', language: 'Ruby' },
         { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir' },
+        { name: 'Phoenix', language: 'Elixir', disabled: true },
       ]
 
       return {

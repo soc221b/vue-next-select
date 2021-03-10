@@ -17,7 +17,7 @@ export default createApp({
       { name: 'Rails', language: 'Ruby' },
       { name: 'Sinatra', language: 'Ruby' },
       { name: 'Laravel', language: 'PHP' },
-      { name: 'Phoenix', language: 'Elixir' }
+      { name: 'Phoenix', language: 'Elixir', disabled: true }
     ])
 
     const searchInput = ref('')
@@ -55,7 +55,7 @@ export default createApp({
         { name: 'Rails', language: 'Ruby' },
         { name: 'Sinatra', language: 'Ruby' },
         { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir' },
+        { name: 'Phoenix', language: 'Elixir', disabled: true },
       ],
       searchInput: '',
     }
@@ -99,7 +99,7 @@ export default createApp({
         { name: 'Rails', language: 'Ruby' },
         { name: 'Sinatra', language: 'Ruby' },
         { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir' },
+        { name: 'Phoenix', language: 'Elixir', disabled: true },
       ])
 
       const searchInput = ref('')
