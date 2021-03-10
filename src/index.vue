@@ -171,6 +171,10 @@ const VueSelect = {
     valueBy: {
       type: [String, Function],
     },
+    disabledBy: {
+      default: 'disabled',
+      type: [String, Function],
+    },
 
     disabled: {
       default: false,
@@ -226,7 +230,7 @@ const VueSelect = {
     'search:blur',
   ],
   setup(props, context) {
-    const { trackBy, labelBy, valueBy, min, max, options } = normalize(props)
+    const { trackBy, labelBy, valueBy, disabledBy, min, max, options } = normalize(props)
 
     const wrapper = ref()
     const input = ref()
@@ -417,6 +421,7 @@ const VueSelect = {
         key: trackBy.value(option),
         label: labelBy.value(option),
         selected: selectedValueSet.has(valueBy.value(option)),
+        disabled: disabledBy.value(option),
         visible: visibleValueSet.has(valueBy.value(option)),
         hidden: props.hideSelected ? selectedValueSet.has(valueBy.value(option)) : false,
         originalOption: option,

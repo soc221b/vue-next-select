@@ -5,7 +5,7 @@
         v-if="option.visible && option.hidden === false"
         @click="handleClick($event, option)"
         class="vue-dropdown-item"
-        :class="{ selected: option.selected }"
+        :class="{ selected: option.selected, disabled: option.disabled }"
       >
         <slot :option="option">
           <span>{{ option.label }}</span>
@@ -41,6 +41,7 @@ export default {
     const dataAttrs = inject('dataAttrs')
 
     const handleClick = (event, option) => {
+      if (option.disabled) return
       context.emit('click', event, option)
     }
 
