@@ -183,7 +183,7 @@
   border-bottom-right-radius: 4px;
 }
 
-.vue-dropdown-item:hover {
+.vue-dropdown-item.highlighted {
   background-color: #41b883;
 }
 
@@ -196,7 +196,7 @@
   background-color: #f3f3f3;
 }
 
-.vue-dropdown-item.selected:hover {
+.vue-dropdown-item.selected.highlighted {
   background-color: #ff6a6a;
 }
 

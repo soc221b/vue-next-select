@@ -7,6 +7,11 @@
     @focus="focus"
     @blur="() => (searchable ? false : blur())"
     v-bind="dataAttrs"
+    @keypress.enter="
+      () => highlightedIndex !== undefined && addOrRemoveOption($event, optionsWithInfo[highlightedIndex])
+    "
+    @keydown.down.prevent="pointerForward"
+    @keydown.up.prevent="pointerBackward"
   >
     <div ref="header" class="vue-select-header">
       <template
@@ -99,6 +104,7 @@
       v-show="isFocusing"
       v-model="optionsWithInfo"
       @click="addOrRemoveOption"
+      @mousemove="(ev, option, index) => pointerSet(index)"
       :header-height="headerAndInputHeight"
     >
       <template #default="{ option }">
@@ -117,7 +123,7 @@ import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption } from './crud'
 import normalize from './normalize'
-import { useHeight } from './hooks'
+import { useHeight, usePointer } from './hooks'
 import { version } from '../package.json'
 
 const VueSelect = {
@@ -417,22 +423,27 @@ const VueSelect = {
       input.value._.refs.input.dispatchEvent(new Event('change'))
     }
 
+    const renderedOptions = computed(() => props.visibleOptions ?? searchedOptions.value ?? options.value)
+
     const optionsWithInfo = computed(() => {
       const selectedValueSet = new Set(normalizedModelValue.value.map(option => valueBy.value(option)))
-      const visibleValueSet = new Set(
-        (props.visibleOptions ?? searchedOptions.value ?? options.value).map(option => valueBy.value(option)),
-      )
+      const visibleValueSet = new Set(renderedOptions.value.map(option => valueBy.value(option)))
 
-      return options.value.map(option => ({
+      return options.value.map((option, index) => ({
         key: trackBy.value(option),
         label: labelBy.value(option),
         selected: selectedValueSet.has(valueBy.value(option)),
         disabled: disabledBy.value(option),
         visible: visibleValueSet.has(valueBy.value(option)),
         hidden: props.hideSelected ? selectedValueSet.has(valueBy.value(option)) : false,
+        highlighted: index === highlightedIndex.value,
         originalOption: option,
       }))
     })
+
+    const { highlightedIndex, pointerForward, pointerBackward, pointerSet } = usePointer(
+      computed(() => renderedOptions.value.length),
+    )
 
     const dataAttrs = computed(() => ({
       'data-is-focusing': isFocusing.value,
@@ -489,6 +500,11 @@ const VueSelect = {
       dataAttrs,
 
       innerPlaceholder,
+
+      highlightedIndex,
+      pointerForward,
+      pointerBackward,
+      pointerSet,
     }
   },
   components: {
