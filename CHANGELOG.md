@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/iendeavor/vue-next-select/compare/v1.2.1...v1.3.0) (2021-03-18)
+
+
+### Features
+
+* filter options by label by default ([6ebd509](https://github.com/iendeavor/vue-next-select/commit/6ebd50923c5251cc7f3538fcd4aa21786e3425c7))
+* implement disabled option ([a456bc2](https://github.com/iendeavor/vue-next-select/commit/a456bc207147575d71573628c37a7db7c066aaa5))
+* select with highlight item ([a50dccf](https://github.com/iendeavor/vue-next-select/commit/a50dccf48a38d899ac49df73d7f480c84440671b))
+
 ### [1.2.1](https://github.com/iendeavor/vue-next-select/compare/v1.2.0...v1.2.1) (2021-03-09)
 
 
