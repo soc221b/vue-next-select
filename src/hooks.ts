@@ -1,4 +1,4 @@
-import { ref, watch, onMounted, nextTick, watchEffect } from 'vue'
+import { ref, watch, onMounted, nextTick, watchEffect, computed } from 'vue'
 import { Ref } from 'vue'
 
 export const useHeight = (element: Ref<Element>, watchSource: any) => {
@@ -14,25 +14,58 @@ export const useHeight = (element: Ref<Element>, watchSource: any) => {
   return height
 }
 
-export const usePointer = (endIndex: Ref<number>) => {
-  const highlightedIndex = ref()
-  const pointerForward = () => ++highlightedIndex.value
-  const pointerBackward = () => --highlightedIndex.value
-  const pointerSet = index => (highlightedIndex.value = index)
+interface Option {
+  originalIndex: number
+  disabled: boolean
+  hidden: boolean
+  visible: boolean
+}
+export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref<number | null>) => {
+  const pointerForward = () => {
+    if (isSomeSelectable.value === false) return
+    if (highlightedOriginalIndex.value === null) return
+    let tempOriginalIndex = highlightedOriginalIndex.value + 1
+    while (tempOriginalIndex !== highlightedOriginalIndex.value) {
+      if (options.value.length <= tempOriginalIndex) tempOriginalIndex = 0
+      if (pointerSet(tempOriginalIndex)) break
+      ++tempOriginalIndex
+    }
+  }
+  const pointerBackward = () => {
+    if (isSomeSelectable.value === false) return
+    if (highlightedOriginalIndex.value === null) return
+    let tempOriginalIndex = highlightedOriginalIndex.value - 1
+    while (tempOriginalIndex !== highlightedOriginalIndex.value) {
+      if (tempOriginalIndex < 0) tempOriginalIndex = options.value.length - 1
+      if (pointerSet(tempOriginalIndex)) break
+      --tempOriginalIndex
+    }
+  }
+
+  const pointerSet = originalIndex => {
+    const option = options.value.find(option => option.originalIndex === originalIndex)
+    if (option === undefined) return false
+    if (isSelectable(option) === false) return false
+    highlightedOriginalIndex.value = originalIndex
+    return true
+  }
+
+  const isSelectable = (option: Option) => !option.disabled && !option.hidden && option.visible
+  const isSomeSelectable = computed(() => options.value.some(option => isSelectable(option)))
+
   watchEffect(() => {
-    if (endIndex.value <= 0) {
-      highlightedIndex.value = undefined
-    } else if (highlightedIndex.value === undefined) {
-      highlightedIndex.value = 0
-    } else if (highlightedIndex.value < 0) {
-      highlightedIndex.value = endIndex.value - 1
-    } else if (endIndex.value <= highlightedIndex.value) {
-      highlightedIndex.value = 0
+    if (isSomeSelectable.value === false) highlightedOriginalIndex.value = null
+    if (
+      highlightedOriginalIndex.value === null ||
+      isSelectable(options.value[highlightedOriginalIndex.value]) === false
+    ) {
+      for (const option of options.value) {
+        if (pointerSet(option.originalIndex)) break
+      }
     }
   })
 
   return {
-    highlightedIndex,
     pointerForward,
     pointerBackward,
     pointerSet,

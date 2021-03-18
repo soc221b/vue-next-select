@@ -1,12 +1,12 @@
 <template>
   <ul class="vue-dropdown" @mousedown.prevent :style="{ top: headerHeight }" v-bind="dataAttrs">
-    <template v-for="(option, index) of modelValue" :key="option.key">
+    <template v-for="option of modelValue" :key="option.key">
       <li
         v-if="option.visible && option.hidden === false"
         @click="handleClick($event, option)"
         class="vue-dropdown-item"
         :class="{ selected: option.selected, disabled: option.disabled, highlighted: option.highlighted }"
-        @mousemove.self="handleMousemove($event, option, index)"
+        @mousemove.self="handleMousemove($event, option)"
       >
         <slot :option="option">
           <span>{{ option.label }}</span>
@@ -46,8 +46,8 @@ export default {
       context.emit('click', event, option)
     }
 
-    const handleMousemove = (event, option, index) => {
-      context.emit('mousemove', event, option, index)
+    const handleMousemove = (event, option) => {
+      context.emit('mousemove', event, option)
     }
 
     return {
