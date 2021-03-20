@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/iendeavor/vue-next-select/compare/v1.3.1...v1.3.2) (2021-03-20)
+
+
+### Bug Fixes
+
+* it should not select on non-selectable option ([3dcf8cf](https://github.com/iendeavor/vue-next-select/commit/3dcf8cfeea4002de52a36145cd98762545671378))
+
 ### [1.3.1](https://github.com/iendeavor/vue-next-select/compare/v1.3.0...v1.3.1) (2021-03-19)
 
 
