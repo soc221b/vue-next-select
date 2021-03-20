@@ -8,8 +8,7 @@
     @blur="() => (searchable ? false : blur())"
     v-bind="dataAttrs"
     @keypress.enter="
-      () =>
-        highlightedOriginalIndex !== undefined && addOrRemoveOption($event, optionsWithInfo[highlightedOriginalIndex])
+      () => highlightedOriginalIndex !== null && addOrRemoveOption($event, optionsWithInfo[highlightedOriginalIndex])
     "
     @keydown.down.prevent="pointerForward"
     @keydown.up.prevent="pointerBackward"
