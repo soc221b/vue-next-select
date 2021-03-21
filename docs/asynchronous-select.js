@@ -3,7 +3,6 @@
 import { ref, computed, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
-// for composition API
 const getCountryList = async name => {
   return new Promise(resolve => {
     const xhr = new XMLHttpRequest()
@@ -19,6 +18,7 @@ const getCountryList = async name => {
   })
 }
 
+// for composition API
 const useLoading = () => {
   const loading = ref(0)
   return {
