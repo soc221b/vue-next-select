@@ -3,7 +3,7 @@
     <template v-for="option of modelValue" :key="option.key">
       <li
         v-if="option.visible && option.hidden === false"
-        @click="handleClick($event, option)"
+        @click="handleClickItem($event, option)"
         class="vue-dropdown-item"
         :class="{ selected: option.selected, disabled: option.disabled, highlighted: option.highlighted }"
         @mousemove.self="handleMousemove($event, option)"
@@ -37,13 +37,13 @@ export default {
       type: String,
     },
   },
-  emits: ['click', 'mousemove'],
+  emits: ['click-item', 'mousemove'],
   setup(props, context) {
     const dataAttrs = inject('dataAttrs')
 
-    const handleClick = (event, option) => {
+    const handleClickItem = (event, option) => {
       if (option.disabled) return
-      context.emit('click', event, option)
+      context.emit('click-item', event, option)
     }
 
     const handleMousemove = (event, option) => {
@@ -52,7 +52,7 @@ export default {
 
     return {
       dataAttrs,
-      handleClick,
+      handleClickItem,
       handleMousemove,
     }
   },

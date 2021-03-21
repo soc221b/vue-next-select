@@ -103,7 +103,7 @@
     <v-dropdown
       v-show="isFocusing"
       v-model="optionsWithInfo"
-      @click="addOrRemoveOption"
+      @click-item="addOrRemoveOption"
       @mousemove="(ev, option) => pointerSet(option.originalIndex)"
       :header-height="headerAndInputHeight"
     >
