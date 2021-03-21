@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.4](https://github.com/iendeavor/vue-next-select/compare/v1.3.3...v1.3.4) (2021-03-21)
+
+
+### Bug Fixes
+
+* add min-height for empty label ([faa7d90](https://github.com/iendeavor/vue-next-select/commit/faa7d9066600cf9c73ca2c34612cc6a9845abd18)), closes [#125](https://github.com/iendeavor/vue-next-select/issues/125)
+
 ### [1.3.3](https://github.com/iendeavor/vue-next-select/compare/v1.3.2...v1.3.3) (2021-03-20)
 
 ### [1.3.2](https://github.com/iendeavor/vue-next-select/compare/v1.3.1...v1.3.2) (2021-03-20)
