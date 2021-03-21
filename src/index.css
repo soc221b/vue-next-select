@@ -176,6 +176,7 @@
   list-style-type: none;
   padding: 4px;
   cursor: pointer;
+  min-height: 1rem;
 }
 
 .vue-dropdown-item:last-child {
