@@ -241,6 +241,7 @@ const VueSelect = {
     const instance = getCurrentInstance()
     const wrapper = ref()
     const input = ref()
+    const inputEl = computed(() => input.value?._.refs.input)
     const isFocusing = ref(false)
     watch(
       () => isFocusing.value,
@@ -248,8 +249,8 @@ const VueSelect = {
         if (isFocusing.value) {
           context.emit('opened')
           if (props.searchable) {
-            if (input.value && input.value._.refs.input !== document.activeElement) {
-              input.value._.refs.input.focus()
+            if (inputEl.value !== document.activeElement) {
+              inputEl.value.focus()
             }
             context.emit('search:focus')
           } else {
@@ -257,8 +258,8 @@ const VueSelect = {
           }
         } else {
           if (props.searchable) {
-            if (input.value && input.value._.refs.input === document.activeElement) {
-              input.value._.refs.input.blur()
+            if (inputEl.value === document.activeElement) {
+              inputEl.value.blur()
             }
             if (props.clearOnClose) clearInput()
             context.emit('search:blur')
@@ -418,9 +419,9 @@ const VueSelect = {
 
     const clearInput = () => {
       // simulate clear input value
-      input.value._.refs.input.value = ''
-      input.value._.refs.input.dispatchEvent(new Event('input'))
-      input.value._.refs.input.dispatchEvent(new Event('change'))
+      inputEl.value.value = ''
+      inputEl.value.dispatchEvent(new Event('input'))
+      inputEl.value.dispatchEvent(new Event('change'))
     }
 
     const renderedOptions = computed(() => props.visibleOptions ?? searchedOptions.value ?? options.value)
