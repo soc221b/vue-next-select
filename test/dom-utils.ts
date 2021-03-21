@@ -58,25 +58,9 @@ export const getAllTagItemElements = wrapper => {
   return getAllElements(getTagElement(wrapper))
 }
 
-export const clickAllTagItemElements = async wrapper => {
-  await clickAllElements(getAllTagItemElements(wrapper))
-}
-
-export const getFirstTagItemElement = wrapper => {
-  return getFirstElement(getAllTagItemElements(wrapper))
-}
-
-export const clickFirstTagItemElement = async wrapper => {
-  await clickFirstElement(getFirstTagItemElement(wrapper))
-}
-
 // delete-icon elements
 export const getAllDeleteIconElements = wrapper => {
   return getAllElements(getTagElement(wrapper)).map(deleteIconElement => deleteIconElement.children[1])
-}
-
-export const clickAllDeleteIconElements = async wrapper => {
-  await clickAllElements(getAllDeleteIconElements(wrapper))
 }
 
 export const getFirstDeleteIconElement = wrapper => {

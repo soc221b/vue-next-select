@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
 import VueSelect from '../dist/vue-next-select.es'
-import { getDropdownElement, clickFirstTagItemElement, clickFirstDeleteIconElement } from './dom-utils'
+import { getDropdownElement, clickFirstDeleteIconElement } from './dom-utils'
 
 it('should open dropdown after click wrapper', async () => {
   const state = reactive({
