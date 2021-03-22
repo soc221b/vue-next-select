@@ -6,7 +6,7 @@
         @click="handleClickItem($event, option)"
         class="vue-dropdown-item"
         :class="{ selected: option.selected, disabled: option.disabled, highlighted: option.highlighted }"
-        @mousemove.self="handleMousemove($event, option)"
+        @mousemove="handleMousemove($event, option)"
       >
         <slot :option="option">
           <span>{{ option.label }}</span>
