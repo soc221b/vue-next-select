@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.5](https://github.com/iendeavor/vue-next-select/compare/v1.3.4...v1.3.5) (2021-03-22)
+
+
+### Bug Fixes
+
+* mousemove should be triggered on custom template ([ba0530d](https://github.com/iendeavor/vue-next-select/commit/ba0530d7f8271c1e724574995c9761b1957fd980))
+
 ### [1.3.4](https://github.com/iendeavor/vue-next-select/compare/v1.3.3...v1.3.4) (2021-03-21)
 
 
