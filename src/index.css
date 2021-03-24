@@ -42,7 +42,13 @@
   outline: none;
 }
 
-.vue-select[data-is-focusing='true']:not([data-visible-length='0']) {
+.vue-select[data-is-focusing='true'][data-popper-placement='top']:not([data-visible-length='0']) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.vue-select[data-is-focusing='true']:not([data-visible-length='0']):not([data-popper-placement='top']),
+.vue-select[data-is-focusing='true'][data-popper-placement='bottom']:not([data-visible-length='0']) {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -162,10 +168,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
   border: 1px solid #999;
   list-style-type: none;
+}
+
+.vue-dropdown[data-popper-placement='top'] {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.vue-dropdown:not([data-popper-placement='top']),
+.vue-dropdown[data-popper-placement='bottom'] {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .vue-dropdown[data-visible-length='0'] {

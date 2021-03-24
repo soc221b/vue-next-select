@@ -48,6 +48,7 @@ export default createApp({
 <vue-select
   v-model="model"
   :options="options"
+  popper
 ></vue-select>
 `.trim()
 
@@ -71,6 +72,7 @@ export default createApp({
       <vue-select
         v-model="model"
         :options="options"
+        popper
       ></vue-select>
 
       <pre>{{ model }}</pre>

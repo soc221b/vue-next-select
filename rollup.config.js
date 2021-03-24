@@ -25,7 +25,7 @@ const configs = []
 formats.forEach(format => {
   const config = {
     input,
-    external: ['vue'],
+    external: ['vue', 'vue-use-popperjs'],
     plugins: [
       json(),
       vue(),
@@ -45,6 +45,7 @@ formats.forEach(format => {
     output: {
       globals: {
         vue: 'Vue',
+        'vue-use-popperjs': 'VueUsePopperjs',
       },
       format,
       name: pascalCasePackageName,

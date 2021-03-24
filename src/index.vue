@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, provide, getCurrentInstance, nextTick } from 'vue'
+import { ref, computed, watch, provide, getCurrentInstance, watchEffect, nextTick } from 'vue'
 import VInput from './components/input.vue'
 import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
@@ -126,6 +126,7 @@ import { addOption, removeOption, getOptionByValue, hasOption } from './crud'
 import normalize from './normalize'
 import { useHeight, usePointer } from './hooks'
 import { version } from '../package.json'
+import { usePopperjs } from 'vue-use-popperjs'
 
 const VueSelect = {
   name: 'vue-select',
@@ -218,6 +219,11 @@ const VueSelect = {
       type: Number,
     },
     autofocus: {
+      default: false,
+      type: Boolean,
+    },
+
+    popper: {
       default: false,
       type: Boolean,
     },
@@ -514,6 +520,37 @@ const VueSelect = {
       }
     })
 
+    if (props.popper) {
+      const modifiers = [
+        {
+          name: 'apply-placement-to-reference',
+          enabled: true,
+          phase: 'write',
+          fn: ({ state }) => {
+            state.elements.reference.setAttribute('data-popper-placement', state.placement)
+          },
+          requires: ['computeStyles'],
+        },
+      ]
+      const { visible, instance } = usePopperjs(wrapper, dropdown, {
+        trigger: 'manual',
+        placement: 'bottom',
+        modifiers,
+      })
+      watchEffect(() => {
+        visible.value = isFocusing.value
+      })
+      watchEffect(() => {
+        normalizedModelValue.value
+        optionsWithInfo.value
+        highlightedOriginalIndex.value
+        instance.value?.update()
+        nextTick(() => {
+          instance.value?.update()
+        })
+      })
+    }
+
     return {
       isFocusing,
       wrapper,
@@ -543,6 +580,8 @@ const VueSelect = {
       pointerForward,
       pointerBackward,
       pointerSet,
+
+      dropdown,
     }
   },
   components: {
