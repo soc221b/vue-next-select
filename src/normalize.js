@@ -13,6 +13,7 @@ export default props => {
   const labelBy = createComputedForGetterFunction(toRef(props, 'labelBy'))
   const valueBy = createComputedForGetterFunction(toRef(props, 'valueBy'))
   const disabledBy = createComputedForGetterFunction(toRef(props, 'disabledBy'))
+  const groupBy = createComputedForGetterFunction(toRef(props, 'groupBy'))
 
   const min = computed(() => (props.multiple ? props.min : Math.min(1, props.min)))
   const max = computed(() => (props.multiple ? props.max : 1))
@@ -23,6 +24,7 @@ export default props => {
     labelBy,
     valueBy,
     disabledBy,
+    groupBy,
     min,
     max,
     options,

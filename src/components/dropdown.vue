@@ -5,7 +5,12 @@
         v-if="option.visible && option.hidden === false"
         @click="handleClickItem($event, option)"
         class="vue-dropdown-item"
-        :class="{ selected: option.selected, disabled: option.disabled, highlighted: option.highlighted }"
+        :class="{
+          selected: option.selected,
+          disabled: option.disabled,
+          highlighted: option.highlighted,
+          group: option.group,
+        }"
         @mousemove="handleMousemove($event, option)"
       >
         <slot :option="option">

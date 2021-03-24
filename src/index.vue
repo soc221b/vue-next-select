@@ -221,6 +221,11 @@ const VueSelect = {
       default: false,
       type: Boolean,
     },
+
+    groupBy: {
+      default: 'group',
+      type: [String, Function],
+    },
   },
   emits: [
     'update:modelValue',
@@ -234,7 +239,7 @@ const VueSelect = {
     'search:blur',
   ],
   setup(props, context) {
-    const { labelBy, valueBy, disabledBy, min, max, options } = normalize(props)
+    const { labelBy, valueBy, disabledBy, groupBy, min, max, options } = normalize(props)
 
     const instance = getCurrentInstance()
     const wrapper = ref()
@@ -390,6 +395,40 @@ const VueSelect = {
     const addOrRemoveOption = (event, option) => {
       if (props.disabled) return
 
+      if (option.group && props.multiple) addOrRemoveOptionForGroupOption(event, option)
+      else addOrRemoveOptionForNonGroupOption(event, option)
+
+      if (props.closeOnSelect === true) isFocusing.value = false
+      if (props.clearOnSelect === true && searchingInputValue.value) clearInput()
+    }
+    const addOrRemoveOptionForGroupOption = (event, option) => {
+      option = option.originalOption
+      const has = option.value.every(value => {
+        const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
+        return hasOption(normalizedModelValue.value, option, { valueBy: valueBy.value })
+      })
+      if (has) {
+        option.value.forEach(value => {
+          const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
+          normalizedModelValue.value = removeOption(normalizedModelValue.value, option, {
+            min: min.value,
+            valueBy: valueBy.value,
+          })
+          context.emit('removed', option)
+        })
+      } else {
+        option.value.forEach(value => {
+          const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
+          if (hasOption(normalizedModelValue.value, option, { valueBy: valueBy.value })) return
+          normalizedModelValue.value = addOption(normalizedModelValue.value, option, {
+            max: max.value,
+            valueBy: valueBy.value,
+          })
+          context.emit('selected', option)
+        })
+      }
+    }
+    const addOrRemoveOptionForNonGroupOption = (event, option) => {
       option = option.originalOption
       if (hasOption(normalizedModelValue.value, option, { valueBy: valueBy.value })) {
         normalizedModelValue.value = removeOption(normalizedModelValue.value, option, {
@@ -412,8 +451,6 @@ const VueSelect = {
         })
         context.emit('selected', option)
       }
-      if (props.closeOnSelect === true) isFocusing.value = false
-      if (props.clearOnSelect === true && searchingInputValue.value) clearInput()
     }
 
     const clearInput = () => {
@@ -430,17 +467,56 @@ const VueSelect = {
       const selectedValueSet = new Set(normalizedModelValue.value.map(option => valueBy.value(option)))
       const visibleValueSet = new Set(renderedOptions.value.map(option => valueBy.value(option)))
 
-      return options.value.map((option, index) => ({
-        key: valueBy.value(option),
-        label: labelBy.value(option),
-        selected: selectedValueSet.has(valueBy.value(option)),
-        disabled: disabledBy.value(option),
-        visible: visibleValueSet.has(valueBy.value(option)),
-        hidden: props.hideSelected ? selectedValueSet.has(valueBy.value(option)) : false,
-        highlighted: index === highlightedOriginalIndex.value,
-        originalIndex: index,
-        originalOption: option,
-      }))
+      const optionsWithInfo = options.value.map((option, index) => {
+        const optionWithInfo = {
+          key: valueBy.value(option),
+          label: labelBy.value(option),
+          // selected: selectedValueSet.has(valueBy.value(option)),
+          // disabled: disabledBy.value(option),
+          group: groupBy.value(option),
+          // visible: visibleValueSet.has(valueBy.value(option)),
+          // hidden: props.hideSelected ? selectedValueSet.has(valueBy.value(option)) : false,
+          highlighted: index === highlightedOriginalIndex.value,
+          originalIndex: index,
+          originalOption: option,
+        }
+
+        optionWithInfo.selected = optionWithInfo.group
+          ? option.value.every(value => selectedValueSet.has(value))
+          : selectedValueSet.has(valueBy.value(option))
+
+        optionWithInfo.disabled = optionWithInfo.group
+          ? disabledBy.value(option) ||
+            option.value.every(value => {
+              const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
+              return disabledBy.value(option)
+            })
+          : disabledBy.value(option)
+
+        optionWithInfo.visible = optionWithInfo.group
+          ? option.value.some(value => visibleValueSet.has(value))
+          : visibleValueSet.has(valueBy.value(option))
+
+        optionWithInfo.hidden = props.hideSelected
+          ? optionWithInfo.group
+            ? option.value.every(value => selectedValueSet.has(value))
+            : selectedValueSet.has(valueBy.value(option))
+          : false
+
+        return optionWithInfo
+      })
+
+      for (const option of optionsWithInfo) {
+        if (option.group === false) continue
+        if (option.disabled) {
+          const values = new Set(option.originalOption.value)
+          optionsWithInfo
+            .filter(optionWithInfo => values.has(valueBy.value(optionWithInfo.originalOption)))
+            .forEach(optionWithInfo => (optionWithInfo.disabled = true))
+        }
+      }
+
+      return optionsWithInfo
     })
     const { pointerForward: _pointerForward, pointerBackward: _pointerBackward, pointerSet } = usePointer(
       optionsWithInfo,
@@ -495,7 +571,7 @@ const VueSelect = {
     provide('dataAttrs', dataAttrs)
 
     const innerPlaceholder = computed(() => {
-      const selectedOptions = optionsWithInfo.value.filter(option => option.selected)
+      const selectedOptions = optionsWithInfo.value.filter(option => option.selected).filter(option => !option.group)
 
       if (props.multiple) {
         if (selectedOptions.length === 0) {

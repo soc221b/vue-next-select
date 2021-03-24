@@ -66,6 +66,7 @@
         <li>Single select</li>
         <li>Multiple select</li>
         <li><a href="#tagging-header">Tagging</a></li>
+        <li><a href="#group-header">Group</a></li>
         <li>
           <a href="#select-with-search-header">Filtering</a> / <a href="#asynchronous-select-header">Searching</a>
         </li>
@@ -89,6 +90,7 @@
         <li><a href="#select-with-search-header">Select with search</a></li>
         <li><a href="#multiple-select-header">Multiple select</a></li>
         <li><a href="#tagging-header">Tagging</a></li>
+        <li><a href="#group-header">Group</a></li>
         <li><a href="#asynchronous-select-header">Asynchronous select</a></li>
         <li><a href="#creatable-header">Creatable</a></li>
         <li><a href="#vuex-support-header">Vuex support</a></li>
@@ -186,6 +188,10 @@ app.mount('#app')</code></pre>
       <h2 id="tagging-header">Tagging</h2>
       <div id="tagging"></div>
       <script src="./tagging.js"></script>
+
+      <h2 id="group-header">Group</h2>
+      <div id="group"></div>
+      <script src="./group.js"></script>
 
       <h2 id="asynchronous-select-header">Asynchronous select</h2>
       <div id="asynchronous-select"></div>
@@ -353,6 +359,12 @@ app.mount('#app')</code></pre>
             <td>any</td>
             <td>null</td>
             <td>Only works with single mode, identify with strict comparator (===) internally</td>
+          </tr>
+          <tr>
+            <td>group-by</td>
+            <td>Function, String</td>
+            <td>'group'</td>
+            <td>See label-by</td>
           </tr>
         </tbody>
       </table>
