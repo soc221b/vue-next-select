@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.6](https://github.com/iendeavor/vue-next-select/compare/v1.3.5...v1.3.6) (2021-03-24)
+
+
+### Bug Fixes
+
+* it should scroll to highlighted option ([f91b05b](https://github.com/iendeavor/vue-next-select/commit/f91b05bb222031b6d1d523a47379256f864245a5))
+* remove small blank padding on corner ([6f7eba9](https://github.com/iendeavor/vue-next-select/commit/6f7eba9e3efc9d4155e1575982820790c2ef777b))
+
 ### [1.3.5](https://github.com/iendeavor/vue-next-select/compare/v1.3.4...v1.3.5) (2021-03-22)
 
 
