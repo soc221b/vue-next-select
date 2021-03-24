@@ -101,6 +101,7 @@
     </template>
 
     <v-dropdown
+      ref="dropdown"
       v-show="isFocusing"
       v-model="optionsWithInfo"
       @click-item="addOrRemoveOption"
@@ -117,7 +118,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, provide, getCurrentInstance, watchEffect } from 'vue'
+import { ref, computed, watch, provide, getCurrentInstance, nextTick } from 'vue'
 import VInput from './components/input.vue'
 import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
@@ -240,6 +241,7 @@ const VueSelect = {
 
     const instance = getCurrentInstance()
     const wrapper = ref()
+    const dropdown = ref()
     const input = ref()
     const inputEl = computed(() => input.value?._.refs.input)
     const isFocusing = ref(false)
@@ -443,7 +445,45 @@ const VueSelect = {
         originalOption: option,
       }))
     })
-    const { pointerForward, pointerBackward, pointerSet } = usePointer(optionsWithInfo, highlightedOriginalIndex)
+    const { pointerForward: _pointerForward, pointerBackward: _pointerBackward, pointerSet } = usePointer(
+      optionsWithInfo,
+      highlightedOriginalIndex,
+    )
+    const pointerForward = (...args) => {
+      _pointerForward(...args)
+      nextTick(updateScrollTop)
+    }
+    const pointerBackward = (...args) => {
+      _pointerBackward(...args)
+      nextTick(updateScrollTop)
+    }
+    const updateScrollTop = () => {
+      const highlightedEl = wrapper.value?.querySelector('.highlighted')
+      if (!highlightedEl) return
+      if (!dropdown.value) return
+
+      const computedStyle = getComputedStyle(highlightedEl)
+      while (
+        highlightedEl.offsetTop +
+          parseFloat(computedStyle.height) +
+          parseFloat(computedStyle.paddingTop) +
+          parseFloat(computedStyle.paddingBottom) >
+        dropdown.value.$el.clientHeight + dropdown.value.$el.scrollTop
+      ) {
+        dropdown.value.$el.scrollTop =
+          dropdown.value.$el.scrollTop +
+          parseFloat(computedStyle.height) +
+          parseFloat(computedStyle.paddingTop) +
+          parseFloat(computedStyle.paddingBottom)
+      }
+      while (highlightedEl.offsetTop < dropdown.value.$el.scrollTop) {
+        dropdown.value.$el.scrollTop =
+          dropdown.value.$el.scrollTop -
+          parseFloat(computedStyle.height) -
+          parseFloat(computedStyle.paddingTop) -
+          parseFloat(computedStyle.paddingBottom)
+      }
+    }
 
     const dataAttrs = computed(() => ({
       'data-is-focusing': isFocusing.value,
@@ -480,6 +520,7 @@ const VueSelect = {
     return {
       isFocusing,
       wrapper,
+      dropdown,
       input,
       focus,
       blur,
