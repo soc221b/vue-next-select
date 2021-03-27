@@ -88,4 +88,23 @@ context('pointer', () => {
     cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
     cy.get('.vue-dropdown-item.disabled').should('not.have.class', 'highlighted')
   })
+
+  it('should highlight closest option if original one is unavailable', () => {
+    cy.visit('/cypress/fixtures/pointer/removable.html')
+
+    cy.get('.vue-select').click()
+    cy.get('.vue-dropdown-item').first().next().trigger('mousemove')
+    cy.get('.vue-dropdown-item').first().next().trigger('click')
+    cy.get('.vue-dropdown-item').first().next().trigger('click')
+
+    cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
+
+    cy.get('.vue-dropdown-item').first().next().trigger('click')
+    cy.get('.vue-dropdown-item').first().next().trigger('click')
+
+    cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
+
+    cy.get('.vue-dropdown-item').first().trigger('click')
+    cy.get('.vue-dropdown-item').first().trigger('click')
+  })
 })

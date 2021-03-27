@@ -55,6 +55,11 @@ export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref
 
   watchEffect(() => {
     if (isSomeSelectable.value === false) highlightedOriginalIndex.value = null
+    if (options.value.length <= highlightedOriginalIndex.value) {
+      for (const option of options.value.reverse()) {
+        if (pointerSet(option.originalIndex)) break
+      }
+    }
     if (
       highlightedOriginalIndex.value === null ||
       isSelectable(options.value[highlightedOriginalIndex.value]) === false
