@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/iendeavor/vue-next-select/compare/v1.3.6...v2.0.0) (2021-03-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove tracky-by prop
+
+### Features
+
+* remove trackBy due to conflicted to valueBy ([8ee3375](https://github.com/iendeavor/vue-next-select/commit/8ee33757272a9839f57e2665982bd93d5cb94bf4))
+
 ### [1.3.6](https://github.com/iendeavor/vue-next-select/compare/v1.3.5...v1.3.6) (2021-03-24)
 
 
