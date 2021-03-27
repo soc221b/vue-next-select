@@ -9,6 +9,7 @@ import copy from 'rollup-plugin-copy-watch'
 import csso from 'csso'
 import svg from 'rollup-plugin-svg'
 import json from '@rollup/plugin-json'
+import babel from '@rollup/plugin-babel'
 
 rm.sync(path.resolve('dist/**/*'))
 
@@ -36,6 +37,10 @@ formats.forEach(format => {
       svg({ base64: true }),
       resolve(),
       globals(),
+      babel({
+        babelHelpers: 'bundled',
+        extensions: ['.js', '.ts', '.vue'],
+      }),
     ],
     output: {
       globals: {
