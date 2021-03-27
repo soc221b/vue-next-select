@@ -69,6 +69,7 @@ aside {
   width: 25vw;
   vertical-align: top;
   max-height: 100vh;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -168,6 +169,13 @@ pre {
 }
 
 code {
+  padding: 0 4px !important;
+  border-radius: 4px;
+  color: #41b883;
+  background-color: #eee !important;
+}
+
+pre code {
   padding: 0 !important;
   background-color: lightgrey !important;
 }
@@ -186,7 +194,7 @@ h2:first-child {
 }
 
 p {
-  margin-bottom: 0;
+  line-height: 1.2;
 }
 
 #footer {

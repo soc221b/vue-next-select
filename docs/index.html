@@ -69,9 +69,11 @@
     </header>
 
     <aside>
-      <h2>Setup</h2>
+      <h2>Getting started</h2>
       <ul>
-        <li><a href="#getting-started">Getting started</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#options">Options</a></li>
+        <li><a href="#v-model">v-model</a></li>
       </ul>
 
       <h2>Examples</h2>
@@ -98,22 +100,14 @@
     <main>
       <h2 id="getting-started">Getting started</h2>
       <div>
-        <h3>Installation</h3>
+        <h3 id="installation">Installation</h3>
 
-        <p>via npm</p>
-        <pre><code class="sh">npm add vue-next-select</code></pre>
+        <p>via package managers</p>
+        <pre><code class="sh">yarn add vue-next-select
+npm i vue-next-select</code></pre>
 
-        <p>via CDN</p>
-        <pre><code>&lt;script src=&quot;https://unpkg.com/vue-next-select&quot;&gt;&lt;/script&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/vue-next-select/dist/index.min.css&quot;&gt;</code></pre>
-      </div>
-
-      <div>
-        <h3>Usage</h3>
-
-        <p>via npm</p>
         <pre><code class="javascript">import { createApp, ref } from 'vue'
-import VueNextSelect from 'vue-next-select'
+import VueSelect from 'vue-next-select'
 import 'vue-next-select/dist/index.min.css'
 
 const app = createApp({
@@ -127,18 +121,58 @@ const app = createApp({
     }
   },
   template: `
-    &lt;vue-next-select
+    &lt;vue-select
       v-model=&quot;model&quot;
       :options=&quot;options&quot;
-    &gt;&lt;/vue-next-select&gt;
+    &gt;&lt;/vue-select&gt;
   `
 })
 
-app.component('vue-select', VueNextSelect)
+app.component('vue-select', VueSelect)
 app.mount('#app')</code></pre>
 
         <p>via CDN</p>
-        <pre><code class="javascript">app.component('vue-select', window.VueNextSelect)</code></pre>
+        <pre><code>&lt;script src=&quot;https://unpkg.com/vue-next-select&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/vue-next-select/dist/index.min.css&quot; /&gt;</code></pre>
+        <pre><code class="html">app.component('vue-select', VueNextSelect)</code></pre>
+
+        <h3 id="options">Options</h3>
+        <p><code>vue-next-select</code> accepts arrays of any type values to use as options:</p>
+        <pre><code class="html">&lt;vue-select :options="['Select', 'Options']">&lt;/vue-select></code></pre>
+
+        <p>When using with non-primitive values, you must provide an additional prop: <code>track-by</code>.</p>
+        <p><code>track-by</code> is used to identify the option within the options thus it’s value has to be unique.</p>
+        <pre><code class="html">&lt;vue-select
+  track-by="name"
+  label-by="name"
+  :options="[{ name: 'Vue.js', language: 'JavaScript' }, { name: 'Laravel', language: 'PHP' }]"
+>&lt;/vue-select></code></pre>
+
+        <p>You could also provide a path or Function for complex structures:</p>
+        <pre><code class="html">&lt;vue-select
+  track-by="nested.name"
+  :track-by="option => option.nested.name"
+  :options="[{ nested: { name: 'Vue.js', language: 'JavaScript' } }, { nested: { name: 'Laravel', language: 'PHP' } }]"
+>&lt;/vue-select></code></pre>
+
+        <h3 id="v-model">v-model</h3>
+        <p>
+          The most common use case for <code>vue-next-select</code> is to have the chosen value synced with a parent
+          component.
+        </p>
+        <pre><code class="html">&lt;vue-select v-model="selected" :options="['Vue.js', 'JavaScript']">&lt;/vue-select></code></pre>
+
+        <p>
+          When works with non-primitive options, there will be situations where maybe you just need to return a value
+          from an object instead of the object itself.
+        </p>
+        <p>You could use <code>value-by</code> to do this:</p>
+        <pre><code class="html">&lt;!-- The selected will be 'Vue.js' or 'Laravel' here -->
+&lt;vue-select
+  v-model="selected"
+  value-by="name"
+  :options="[{ name: 'Vue.js', language: 'JavaScript' }, { name: 'Laravel', language: 'PHP' }]"
+>&lt;/vue-select></code></pre>
       </div>
       <hr />
 
@@ -256,28 +290,28 @@ app.mount('#app')</code></pre>
             <td>Function, String</td>
             <td>option</td>
             <td>option</td>
-            <td></td>
+            <td>When using with string, you can give a path to get nested value</td>
           </tr>
           <tr>
             <td>value-by</td>
             <td>Function, String</td>
             <td>option</td>
             <td>option</td>
-            <td></td>
+            <td>See label-by</td>
           </tr>
           <tr>
             <td>track-by</td>
             <td>Function, String</td>
             <td>option</td>
             <td>option</td>
-            <td></td>
+            <td>See label-by</td>
           </tr>
           <tr>
             <td>disabled-by</td>
             <td>Function, String</td>
             <td>'disabled'</td>
             <td>option</td>
-            <td></td>
+            <td>See label-by</td>
           </tr>
           <tr>
             <td>hide-selected</td>
