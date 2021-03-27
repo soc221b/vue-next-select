@@ -54,7 +54,6 @@ export default createApp({
   :options="options"
   multiple
   label-by="langauge"
-  track-by="name"
   value-by="name"
   :min="1"
   :max="3"
@@ -91,7 +90,6 @@ export default createApp({
         :options="options"
         multiple
         label-by="language"
-        track-by="name"
         value-by="name"
         :min="1"
         :max="3"

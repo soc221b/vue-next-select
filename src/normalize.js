@@ -10,7 +10,6 @@ const createComputedForGetterFunction = maybePathFunc =>
   })
 
 export default props => {
-  const trackBy = createComputedForGetterFunction(toRef(props, 'trackBy'))
   const labelBy = createComputedForGetterFunction(toRef(props, 'labelBy'))
   const valueBy = createComputedForGetterFunction(toRef(props, 'valueBy'))
   const disabledBy = createComputedForGetterFunction(toRef(props, 'disabledBy'))
@@ -21,7 +20,6 @@ export default props => {
   const options = isRef(props.options) || isReactive(props.options) ? toRef(props, 'options') : ref(props.options)
 
   return {
-    trackBy,
     labelBy,
     valueBy,
     disabledBy,

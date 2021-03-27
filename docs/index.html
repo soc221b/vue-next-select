@@ -140,21 +140,6 @@ app.mount('#app')</code></pre>
         <p><code>vue-next-select</code> accepts arrays of any type values to use as options:</p>
         <pre><code class="html">&lt;vue-select :options="['Select', 'Options']">&lt;/vue-select></code></pre>
 
-        <p>When using with non-primitive values, you must provide an additional prop: <code>track-by</code>.</p>
-        <p><code>track-by</code> is used to identify the option within the options thus it’s value has to be unique.</p>
-        <pre><code class="html">&lt;vue-select
-  track-by="name"
-  label-by="name"
-  :options="[{ name: 'Vue.js', language: 'JavaScript' }, { name: 'Laravel', language: 'PHP' }]"
->&lt;/vue-select></code></pre>
-
-        <p>You could also provide a path or Function for complex structures:</p>
-        <pre><code class="html">&lt;vue-select
-  track-by="nested.name"
-  :track-by="option => option.nested.name"
-  :options="[{ nested: { name: 'Vue.js', language: 'JavaScript' } }, { nested: { name: 'Laravel', language: 'PHP' } }]"
->&lt;/vue-select></code></pre>
-
         <h3 id="v-model">v-model</h3>
         <p>
           The most common use case for <code>vue-next-select</code> is to have the chosen value synced with a parent
@@ -294,13 +279,6 @@ app.mount('#app')</code></pre>
           </tr>
           <tr>
             <td>value-by</td>
-            <td>Function, String</td>
-            <td>option</td>
-            <td>option</td>
-            <td>See label-by</td>
-          </tr>
-          <tr>
-            <td>track-by</td>
             <td>Function, String</td>
             <td>option</td>
             <td>option</td>

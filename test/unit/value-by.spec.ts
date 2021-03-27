@@ -68,7 +68,6 @@ it('should works with string path', async () => {
         :options="state.options"
         multiple
         value-by="nested.value"
-        track-by="nested.value"
       ></vue-select>
     `,
   }
@@ -111,7 +110,6 @@ it('should works with function', async () => {
         :options="state.options"
         multiple
         :value-by="valueBy"
-        :track-by="valueBy"
       ></vue-select>
     `,
   }

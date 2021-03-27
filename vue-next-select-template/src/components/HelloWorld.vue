@@ -1,5 +1,5 @@
 <template>
-  <vue-select v-model="model" :options="options" label-by="language" :track-by="option => option.language"></vue-select>
+  <vue-select v-model="model" :options="options" label-by="language"></vue-select>
 </template>
 
 <script lang="ts">

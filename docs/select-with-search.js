@@ -80,7 +80,6 @@ export default createApp({
   :options="options"
   :visible-options="visibleOptions"
   label-by="name"
-  track-by="name"
   searchable
   clear-on-select
   @search:input="hanldeSearchInput"
@@ -128,7 +127,6 @@ export default createApp({
         :options="options"
         :visible-options="visibleOptions"
         label-by="name"
-        track-by="name"
         searchable
         clear-on-select
         clear-on-close
