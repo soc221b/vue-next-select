@@ -95,7 +95,7 @@ export default createApp({
         :max="3"
         placeholder="Pick some"
       ></vue-select>
-      <pre>{{ model }}</pre>
+      <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 
       <p><i>Code sample:</i></p>
       <pre><code class="html">{{ htmlCode }}</code></pre>

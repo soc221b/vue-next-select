@@ -73,7 +73,7 @@ export default createApp({
         :options="options"
       ></vue-select>
 
-      <pre>{{ model }}</pre>
+      <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 
       <p><i>Code sample:</i></p>
       <pre><code class="html">{{ htmlCode }}</code></pre>

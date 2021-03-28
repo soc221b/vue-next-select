@@ -25,12 +25,12 @@ const app = createApp({
     const options = ['State', 'Getters', 'Mutations', 'Actions']
 
     const store = useStore()
-    const modelValue = computed(() => store.state.value)
+    const model = computed(() => store.state.value)
     const handleSelected = selectedOption => store.commit('updateValue', selectedOption)
     const handleRemoved = removedOption => store.commit('updateValue', null)
 
     return {
-      modelValue,
+      model,
       options,
       handleSelected,
       handleRemoved,
@@ -63,7 +63,7 @@ const app = createApp({
     }
   },
   computed: {
-    modelValue() {
+    model() {
       return this.$store.state.value
     },
   },
@@ -83,7 +83,7 @@ app.use(store)
   const htmlCode = `
 <vue-select
   :options="options"
-  :modelValue="modelValue"
+  :modelValue="model"
   @selected="handleSelected"
   @removed="handleRemoved"
 ></vue-select>
@@ -110,12 +110,12 @@ app.use(store)
       const options = ['State', 'Getters', 'Mutations', 'Actions']
 
       const store = useStore()
-      const modelValue = computed(() => store.state.value)
+      const model = computed(() => store.state.value)
       const handleSelected = selectedOption => store.commit('updateValue', selectedOption)
       const handleRemoved = removedOption => store.commit('updateValue', null)
 
       return {
-        modelValue,
+        model,
         options,
         handleSelected,
         handleRemoved,
@@ -127,12 +127,12 @@ app.use(store)
     template: `
       <vue-select
         :options="options"
-        :modelValue="modelValue"
+        :modelValue="model"
         @selected="handleSelected"
         @removed="handleRemoved"
       ></vue-select>
 
-      <pre>{{ modelValue }}</pre>
+      <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 
       <p><i>Code sample:</i></p>
       <pre><code class="html">{{ htmlCode }}</code></pre>

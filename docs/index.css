@@ -35,7 +35,7 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right top, #41b883 0%, white 100%);
+  background: linear-gradient(to right top, #3ea276 0%, white 100%);
 }
 
 header > h1,
@@ -162,22 +162,17 @@ main > table > tbody > tr > td {
 pre {
   vertical-align: top;
   margin: 8px 0;
-  background-color: lightgrey;
   border-radius: 4px;
   min-height: 1.2rem;
-  padding: 8px;
 }
 
 code {
   padding: 0 4px !important;
   border-radius: 4px;
-  color: #41b883;
-  background-color: #eee !important;
 }
 
 pre code {
-  padding: 0 !important;
-  background-color: lightgrey !important;
+  padding: 12px 16px !important;
 }
 
 h2,
@@ -185,7 +180,7 @@ h3 {
   margin-bottom: 8px;
   padding: 4px 0;
   border-radius: 4px;
-  color: #41b883;
+  color: #3ea276;
 }
 
 h1:first-child,
@@ -210,8 +205,19 @@ hr {
   margin-bottom: 8px;
 }
 
+.vue-select ~ pre.result {
+  margin-top: 0;
+  display: inline-block;
+  margin-left: 8px;
+  width: calc(100% - 150px - 8px);
+}
+
+.vue-select ~ pre.result code {
+  min-height: 4px;
+}
+
 .github-fork-ribbon::before {
-  background-color: #41b883;
+  background-color: #3ea276;
 }
 
 #features .vue-select {

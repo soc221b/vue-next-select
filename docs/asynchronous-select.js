@@ -208,7 +208,7 @@ export default createApp({
         @search:input="handleSearchInput"
         :loading="loading"
       ></vue-select>
-      <pre>{{ model }}</pre>
+      <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 
       <p><i>Code sample:</i></p>
       <pre><code class="html">{{ htmlCode }}</code></pre>
