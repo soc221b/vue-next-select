@@ -1,6 +1,7 @@
 html {
   font-family: 'Lato', sans-serif;
   font-size: 20px;
+  scroll-behavior: smooth;
 }
 
 h1 {
@@ -127,9 +128,11 @@ main {
 }
 
 main > table {
-  width: 100%;
+  display: block;
   table-layout: fixed;
-  font-weight: 1.3rem;
+  font-size: 0.9rem;
+  width: 100%;
+  overflow-x: scroll;
 }
 
 main > table > tbody {
@@ -156,7 +159,20 @@ main > table > tbody > tr:hover {
 
 main > table > thead > tr > td,
 main > table > tbody > tr > td {
+  border-left: black 1px solid;
+  border-top: black 1px solid;
   padding: 4px;
+  overflow-x: auto;
+}
+
+main > table > thead > tr > td {
+  border-top: none;
+}
+
+main > table > thead > tr > td:first-child,
+main > table > tbody > tr > td:first-child {
+  border-left: none;
+  white-space: nowrap;
 }
 
 pre {
@@ -169,6 +185,8 @@ pre {
 code {
   padding: 0 4px !important;
   border-radius: 4px;
+  color: white;
+  background-color: #3ea276;
 }
 
 pre code {

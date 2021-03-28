@@ -143,12 +143,12 @@ app.mount('#app')</code></pre>
         <pre><code class="html">app.component('vue-select', VueNextSelect)</code></pre>
 
         <h3 id="options">Options</h3>
-        <p><code>vue-next-select</code> accepts arrays of any type values to use as options:</p>
+        <p><b>vue-next-select</b> accepts arrays of any type values to use as options:</p>
         <pre><code class="html">&lt;vue-select :options="['Select', 'Options']">&lt;/vue-select></code></pre>
 
         <h3 id="v-model">v-model</h3>
         <p>
-          The most common use case for <code>vue-next-select</code> is to have the chosen value synced with a parent
+          The most common use case for <b>vue-next-select</b> is to have the chosen value synced with a parent
           component.
         </p>
         <pre><code class="html">&lt;vue-select v-model="selected" :options="['Vue.js', 'JavaScript']">&lt;/vue-select></code></pre>
@@ -210,12 +210,17 @@ app.mount('#app')</code></pre>
 
       <h2 id="props">Props</h2>
       <table cellspacing="0">
+        <colgroup>
+          <col width="200px" />
+          <col width="110px" />
+          <col width="200px" />
+          <col />
+        </colgroup>
         <thead>
           <tr>
             <td>Prop</td>
             <td>Type</td>
             <td>Default</td>
-            <td>Arguments</td>
             <td>Description</td>
           </tr>
         </thead>
@@ -225,12 +230,10 @@ app.mount('#app')</code></pre>
             <td>any</td>
             <td></td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>options</td>
             <td>Array</td>
-            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -239,27 +242,23 @@ app.mount('#app')</code></pre>
             <td>Array</td>
             <td>props.options</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>multiple</td>
             <td>Boolean</td>
             <td>false</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>min</td>
             <td>Number</td>
             <td>0</td>
-            <td></td>
             <td>Set 1 can prevent deselect option for single mode</td>
           </tr>
           <tr>
             <td>max</td>
             <td>Number</td>
             <td>Infinity</td>
-            <td></td>
             <td>Only work when props.multiple is true</td>
           </tr>
           <tr>
@@ -267,26 +266,25 @@ app.mount('#app')</code></pre>
             <td>Boolean</td>
             <td>false</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>clear-on-select</td>
             <td>Boolean</td>
             <td>false</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>label-by</td>
             <td>Function, String</td>
             <td>option</td>
-            <td>option</td>
-            <td>When using with string, you can give a path to get nested value</td>
+            <td>
+              <p>When using with string, you can give a path to get nested value.</p>
+              <p>When using with Function, first argument is option itself.</p>
+            </td>
           </tr>
           <tr>
             <td>value-by</td>
             <td>Function, String</td>
-            <td>option</td>
             <td>option</td>
             <td>See label-by</td>
           </tr>
@@ -294,14 +292,12 @@ app.mount('#app')</code></pre>
             <td>disabled-by</td>
             <td>Function, String</td>
             <td>'disabled'</td>
-            <td>option</td>
             <td>See label-by</td>
           </tr>
           <tr>
             <td>hide-selected</td>
             <td>Boolean</td>
             <td>false</td>
-            <td></td>
             <td>Only work when props.multiple is true</td>
           </tr>
           <tr>
@@ -309,13 +305,11 @@ app.mount('#app')</code></pre>
             <td>Boolean</td>
             <td>false</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>loading</td>
             <td>Boolean</td>
             <td>false</td>
-            <td></td>
             <td></td>
           </tr>
           <tr>
@@ -323,20 +317,17 @@ app.mount('#app')</code></pre>
             <td>String</td>
             <td>"Select option"</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>search-placeholder</td>
             <td>String</td>
             <td>"Type to search"</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>searchable</td>
             <td>Boolean</td>
             <td>false</td>
-            <td></td>
             <td>by default, to filter option by label, unless props.visibleOption or search events occurs</td>
           </tr>
           <tr>
@@ -344,13 +335,11 @@ app.mount('#app')</code></pre>
             <td>Boolean</td>
             <td>false</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>taggable</td>
             <td>Boolean</td>
             <td>false</td>
-            <td></td>
             <td>Only work when props.multiple is true</td>
           </tr>
           <tr>
@@ -358,13 +347,11 @@ app.mount('#app')</code></pre>
             <td>Boolean</td>
             <td>false</td>
             <td></td>
-            <td></td>
           </tr>
           <tr>
             <td>empty-model-value</td>
             <td>any</td>
             <td>null</td>
-            <td></td>
             <td>Only works with single mode, identify with strict comparator (===) internally</td>
           </tr>
         </tbody>
@@ -372,6 +359,11 @@ app.mount('#app')</code></pre>
 
       <h2 id="events">Events</h2>
       <table cellspacing="0">
+        <colgroup>
+          <col width="200px" />
+          <col width="200px" />
+          <col />
+        </colgroup>
         <thead>
           <tr>
             <td>Listener</td>
