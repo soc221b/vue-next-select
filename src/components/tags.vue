@@ -8,7 +8,7 @@
     v-bind="dataAttrs"
   >
     <template v-for="option of modelValue" :key="option.key">
-      <li class="vue-tag" :class="{ selected: option.selected }">
+      <li v-if="!option.group" class="vue-tag" :class="{ selected: option.selected }">
         <slot :option="option">
           <span>{{ option.label }}</span>
         </slot>
