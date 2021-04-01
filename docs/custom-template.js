@@ -40,7 +40,7 @@ export default createApp({
   v-model="model"
   :options="options"
 >
-  <template v-slot:dropdown-item="{ option }">
+  <template #dropdown-item="{ option }">
     <img
       :src="'./images/' + option + '.jpg'"
       style="width: 100%; vertical-align: middle;"
@@ -70,7 +70,7 @@ export default createApp({
         v-model="model"
         :options="options"
       >
-        <template v-slot:dropdown-item="{ option }">
+        <template #dropdown-item="{ option }">
           <img
             :src="'./images/' + option + '.jpg'"
             style="width: 100%; vertical-align: middle;"
