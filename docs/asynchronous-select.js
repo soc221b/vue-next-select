@@ -207,7 +207,13 @@ export default createApp({
         searchable
         @search:input="handleSearchInput"
         :loading="loading"
-      ></vue-select>
+      >
+        <template #caret="{ isLoading, isFocusing, toggle }">
+          <div v-if="isLoading">Loading</div>
+          <div v-else-if="isFocusing">Opening</div>
+          <div v-else>Closing</div>
+        </template>
+      </vue-select>
       <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 
       <p><i>Code sample:</i></p>

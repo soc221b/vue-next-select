@@ -60,18 +60,20 @@
           :tabindex="tabindex"
         ></v-input>
 
-        <span v-show="loading" class="icon loading">
-          <div></div>
-          <div></div>
-          <div></div>
-        </span>
-        <span
-          v-show="loading === false"
-          class="icon arrow-downward"
-          :class="{ active: isFocusing }"
-          @click="toggle"
-          @mousedown.prevent.stop
-        ></span>
+        <slot name="caret" :is-loading="loading" :is-focusing="isFocusing" :toggle="toggle">
+          <span v-show="loading" class="icon loading">
+            <div></div>
+            <div></div>
+            <div></div>
+          </span>
+          <span
+            v-show="loading === false"
+            class="icon arrow-downward"
+            :class="{ active: isFocusing }"
+            @click="toggle"
+            @mousedown.prevent.stop
+          ></span>
+        </slot>
       </template>
     </div>
 
@@ -91,11 +93,13 @@
         :autofocus="autofocus || (taggable && searchable)"
       >
         <template #append>
-          <span v-show="loading" class="icon loading">
-            <div></div>
-            <div></div>
-            <div></div>
-          </span>
+          <slot name="caret" :is-loading="loading" :is-focusing="isFocusing" :toggle="toggle">
+            <span v-show="loading" class="icon loading">
+              <div></div>
+              <div></div>
+              <div></div>
+            </span>
+          </slot>
         </template>
       </v-input>
     </template>
