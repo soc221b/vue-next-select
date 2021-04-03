@@ -36,7 +36,7 @@ context('hide-selected', () => {
     cy.visit(path.join(__dirname, 'with.html'))
     cy.get('.vue-select').click()
 
-    cy.get('.vue-tags').children().first().click()
+    cy.get('.vue-tags .icon').first().click()
     cy.get('.vue-dropdown').children().should('have.length', 3)
   })
 })

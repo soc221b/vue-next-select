@@ -47,7 +47,7 @@ context('search:focus event', () => {
         window.removeEventListener('search:focus-custom-event', setReject)
         window.addEventListener('search:focus-custom-event', setReject)
       })
-      cy.get('.vue-tags').children().first().click()
+      cy.get('.vue-tags .icon').first().click()
       cy.then(finish)
     })
   })

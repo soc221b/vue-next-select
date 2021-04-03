@@ -52,7 +52,7 @@ context('disabled (taggable)', () => {
     cy.visit(path.join(__dirname, 'taggable/without.html'))
     cy.get('.vue-select').click()
 
-    cy.get('.vue-tags').children().first().click()
+    cy.get('.vue-tags .icon').first().click()
     cy.get('.vue-tags').children().first().should('not.have.class', 'selected')
   })
 
@@ -60,7 +60,7 @@ context('disabled (taggable)', () => {
     cy.visit(path.join(__dirname, 'taggable/with.html'))
     cy.get('.vue-select').click()
 
-    cy.get('.vue-tags').children().first().click()
+    cy.get('.vue-tags .icon').first().click()
     cy.get('.vue-tags').children().first().should('have.class', 'selected')
   })
 

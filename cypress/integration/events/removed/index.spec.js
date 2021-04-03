@@ -34,7 +34,7 @@ context('removed event', () => {
         window.removeEventListener('removed-custom-event', setResolve)
         window.addEventListener('removed-custom-event', setResolve)
       })
-      cy.get('.vue-tags').children().first().click()
+      cy.get('.vue-tags .icon').first().click()
       cy.then(finish)
     })
   })
