@@ -13,9 +13,9 @@ export default createApp({
     const model = ref(null)
 
     const options = [
-      'element',
-      'ant-design-vue',
-      'vuetify'
+      { language: 'JavaScript' },
+      { language: 'Python' },
+      { language: 'PHP' }
     ]
 
     return {
@@ -35,9 +35,9 @@ export default createApp({
     return {
       model: null,
       options: [
-        'element',
-        'ant-design-vue',
-        'vuetify',
+        { language: 'JavaScript' },
+        { language: 'Python' },
+        { language: 'PHP' },
       ],
     }
   },
@@ -48,21 +48,24 @@ export default createApp({
 <vue-select
   v-model="model"
   :options="options"
+  label-by="language"
+  :min="1"
 ></vue-select>
 `.trim()
 
   const { ref, createApp } = Vue
 
-  const singleSelect = createApp({
+  const app = createApp({
     name: 'app',
     setup() {
       const model = ref(null)
 
-      const options = ['element', 'ant-design-vue', 'vuetify']
+      const options = [{ language: 'JavaScript' }, { language: 'Python' }, { language: 'PHP' }]
 
       return {
         model,
         options,
+
         jsCode,
         htmlCode,
       }
@@ -71,8 +74,9 @@ export default createApp({
       <vue-select
         v-model="model"
         :options="options"
+        label-by="language"
+        :min="1"
       ></vue-select>
-
       <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 
       <p><i>Code sample:</i></p>
@@ -81,6 +85,6 @@ export default createApp({
     `,
   })
 
-  singleSelect.component('vue-select', VueNextSelect)
-  singleSelect.mount(document.querySelector('#single-select'))
+  app.component('vue-select', VueNextSelect)
+  app.mount(document.querySelector('#single-select'))
 }

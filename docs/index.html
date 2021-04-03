@@ -31,7 +31,8 @@
     <link type="text/css" rel="stylesheet" href="./index.css" />
     <style>
       .skip-to-content-link {
-        background: #3ea276;
+        color: white !important;
+        background-color: #3ea276;
         height: 30px;
         left: 50%;
         padding: 8px;
@@ -103,7 +104,6 @@
       <h2><a href="#examples">Examples</a></h2>
       <ul>
         <li><a href="#single-select-header">Single select</a></li>
-        <li><a href="#single-select-object-header">Single select (object)</a></li>
         <li><a href="#select-with-search-header">Select with search</a></li>
         <li><a href="#multiple-select-header">Multiple select</a></li>
         <li><a href="#tagging-header">Tagging</a></li>
@@ -165,6 +165,16 @@ app.mount('#app')</code></pre>
         <p><b>vue-next-select</b> accepts arrays of any type values to use as options:</p>
         <pre><code class="html">&lt;vue-select :options="['Select', 'Options']">&lt;/vue-select></code></pre>
 
+        <p>
+          By default, the label of option will be the option itself. When your option is an object or non-primitive
+          values, it would be more make sense to use a string value to display it, so you have to provide an additional
+          <code>label-by: string | Function</code>:
+        </p>
+        <pre><code class="html">&lt;vue-select
+  label-by="country"
+  :options="[{ country: 'United States', code: 'USA' }, { country: 'Taiwan', code: 'TWN' }]"
+>&lt;/vue-select></code></pre>
+
         <h3 id="v-model"><a href="#v-model">v-model</a></h3>
         <p>
           The most common use case for <b>vue-next-select</b> is to have the chosen value synced with a parent
@@ -174,13 +184,23 @@ app.mount('#app')</code></pre>
 
         <p>
           When works with non-primitive options, there will be situations where maybe you just need to return a value
-          from an object instead of the object itself.
+          from an object instead of the object itself. You could use <code>value-by: string | Function</code> to do
+          this:
         </p>
-        <p>You could use <code>value-by</code> to do this:</p>
         <pre><code class="html">&lt;!-- The selected will be 'Vue.js' or 'Laravel' here -->
 &lt;vue-select
   v-model="selected"
   value-by="name"
+  :options="[{ name: 'Vue.js', language: 'JavaScript' }, { name: 'Laravel', language: 'PHP' }]"
+>&lt;/vue-select></code></pre>
+
+        <p>
+          <b>vue-next-select</b> use <code>null</code> as empty value by default for single mode select. You could use
+          <code>empty-model-value: any</code> to override this behavior:
+        </p>
+        <pre><code class="html">&lt;vue-select
+  v-model="selected"
+  :empty-model-value="undefined"
   :options="[{ name: 'Vue.js', language: 'JavaScript' }, { name: 'Laravel', language: 'PHP' }]"
 >&lt;/vue-select></code></pre>
       </div>
@@ -189,31 +209,27 @@ app.mount('#app')</code></pre>
       <h2 id="examples"><a href="#examples">Examples</a></h2>
       <div>
         <h3 id="single-select-header"><a href="#single-select-header">Single select</a></h3>
+
+        <p>
+          You could use <code>min: number</code> (set it to 1) to prevent clearing it once there is an option be
+          selected.
+        </p>
+
         <div id="single-select"></div>
         <script src="./single-select.js"></script>
 
-        <h3 id="single-select-object-header"><a href="#single-select-object-header">Single select (object)</a></h3>
-
-        <p>
-          When working with objects, you generally need to provide a <code>label</code> prop which is used to display
-          the option.
-        </p>
-
-        <p>You could use prop: <code>:min="1"</code> to prevent clearing it once there is an option be selected.</p>
-
-        <div id="single-select-object"></div>
-        <script src="./single-select-object.js"></script>
-
         <h3 id="select-with-search-header"><a href="#select-with-search-header">Select with search</a></h3>
 
-        <p>To make it be <b>searchable / filterable</b>, you just need to add <code>searchable</code> prop</p>
+        <p>
+          To make it be <b>searchable / filterable</b>, you just need to set <code>searchable: boolean</code> to true.
+        </p>
 
-        <p>By default, existing options will be filtered by the search query string (in ignore case mode)</p>
+        <p>By default, existing options will be filtered by the search query (case insensitive).</p>
 
         <p>
           If you need to customize this behavior, just handle <code>@search:input</code> or
           <code>@search:change</code> events and apply an additional <code>visible-option</code> prop to dynamically
-          change rendered options. you could get more details in
+          change rendered options. For more details, see
           <a href="#asynchronous-select-header">asynchronous-select</a> example below.
         </p>
 
@@ -221,10 +237,26 @@ app.mount('#app')</code></pre>
         <script src="./select-with-search.js"></script>
 
         <h3 id="multiple-select-header"><a href="#multiple-select-header">Multiple select</a></h3>
+        <p>
+          By default, <b>vue-next-select</b> supports select a single value. If you need multiple values, use the
+          <code>multiple: boolean</code> prop, when the multiple is true, <code>v-model / modelValue</code> must be an
+          array.
+        </p>
+
+        <p>
+          If you need to limit the number of selections, use <code>min: number</code> and/or <code>max: number</code>.
+        </p>
+
+        <p>
+          When <code>close-on-select: boolean</code> is true, it will hide the dropdown after select or remove an
+          option.
+        </p>
+
         <div id="multiple-select"></div>
         <script src="./multiple-select.js"></script>
 
         <h3 id="tagging-header"><a href="#tagging-header">Tagging</a></h3>
+
         <div id="tagging"></div>
         <script src="./tagging.js"></script>
 
@@ -258,6 +290,19 @@ app.mount('#app')</code></pre>
         <script src="./creatable.js"></script>
 
         <h3 id="vuex-support-header"><a href="#vuex-support-header">Vuex support</a></h3>
+
+        <p>
+          <b>vue-next-select</b> emits the <code>@update:modelValue</code>, <code>@selected</code>, and
+          <code>@removed</code> events, this would be useful. For example, when using Vuex, you could use those events
+          to trigger a mutation:
+        </p>
+
+        <p>
+          Note: the <code>@removed</code> event will be fired before <code>@selected</code> event if applicable. It
+          makes more sense if you use <code>min: boolean</code> to limit the selection in single selection mode, you
+          have to remove it and than add another one.
+        </p>
+
         <div id="vuex-support"></div>
         <script src="./vuex-support.js"></script>
 
@@ -443,6 +488,10 @@ app.mount('#app')</code></pre>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>update:modelValue</td>
+              <td>modelValue</td>
+            </tr>
             <tr>
               <td>selected</td>
               <td>option</td>

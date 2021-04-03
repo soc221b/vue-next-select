@@ -13,11 +13,11 @@ export default createApp({
     const model = ref(['Sinatra', 'Vue.js'])
 
     const options = [
-      { name: 'Vue.js', language: 'JavaScript' },
-      { name: 'Rails', language: 'Ruby' },
-      { name: 'Sinatra', language: 'Ruby' },
-      { name: 'Laravel', language: 'PHP' },
-      { name: 'Phoenix', language: 'Elixir', disabled: true },
+      'Vue.js',
+      'Rails',
+      'Sinatra',
+      'Laravel',
+      'Phoenix',
     ]
 
     return {
@@ -37,11 +37,11 @@ export default createApp({
     return {
       model: ['Sinatra', 'Vue.js'],
       options: [
-        { name: 'Vue.js', language: 'JavaScript' },
-        { name: 'Rails', language: 'Ruby' },
-        { name: 'Sinatra', language: 'Ruby' },
-        { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir', disabled: true },
+        'Vue.js',
+        'Rails',
+        'Sinatra',
+        'Laravel',
+        'Phoenix',
       ],
     }
   },
@@ -53,11 +53,9 @@ export default createApp({
   v-model="model"
   :options="options"
   multiple
-  label-by="langauge"
-  value-by="name"
   :min="1"
   :max="3"
-  placeholder="Pick some"
+  close-on-select
 ></vue-select>
 `.trim()
 
@@ -68,13 +66,7 @@ export default createApp({
     setup() {
       const model = ref(['Sinatra', 'Vue.js'])
 
-      const options = [
-        { name: 'Vue.js', language: 'JavaScript' },
-        { name: 'Rails', language: 'Ruby' },
-        { name: 'Sinatra', language: 'Ruby' },
-        { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir', disabled: true },
-      ]
+      const options = ['Vue.js', 'Rails', 'Sinatra', 'Laravel', 'Phoenix']
 
       return {
         model,
@@ -89,11 +81,9 @@ export default createApp({
         v-model="model"
         :options="options"
         multiple
-        label-by="language"
-        value-by="name"
         :min="1"
         :max="3"
-        placeholder="Pick some"
+        close-on-select
       ></vue-select>
       <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 
