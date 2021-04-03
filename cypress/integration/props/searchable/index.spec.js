@@ -38,4 +38,12 @@ context('searchable', () => {
     cy.get('.vue-input').type('Rails')
     cy.get('.vue-dropdown-item').should('have.length', 1)
   })
+
+  it('filter typing value (ignore case) by label by default', () => {
+    cy.visit(path.join(__dirname, 'default.html'))
+    cy.get('.vue-select').click()
+
+    cy.get('.vue-input').type('RAILS')
+    cy.get('.vue-dropdown-item').should('have.length', 1)
+  })
 })

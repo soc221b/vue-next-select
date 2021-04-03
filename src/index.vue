@@ -309,9 +309,10 @@ const VueSelect = {
     const handleBlurForInput = event => {
       blur()
     }
+    const searchRe = computed(() => new RegExp(searchingInputValue.value, 'i'))
     const searchedOptions = computed(() => {
       return searchingInputValue.value
-        ? options.value.filter(option => (labelBy.value(option) + '').indexOf(searchingInputValue.value) > -1)
+        ? options.value.filter(option => searchRe.value.test(labelBy.value(option)))
         : undefined
     })
 
