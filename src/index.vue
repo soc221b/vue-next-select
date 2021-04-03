@@ -310,8 +310,7 @@ const VueSelect = {
       blur()
     }
     const searchedOptions = computed(() => {
-      const hasSearchListeners = instance.vnode.props['onSearch:input'] || instance.vnode.props['onSearch:change']
-      return searchingInputValue.value && !hasSearchListeners
+      return searchingInputValue.value
         ? options.value.filter(option => (labelBy.value(option) + '').indexOf(searchingInputValue.value) > -1)
         : undefined
     })
