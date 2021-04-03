@@ -129,6 +129,11 @@
   padding: 4px;
 }
 
+.vue-select[data-is-focusing='false'] .vue-input > input,
+input[readonly] {
+  cursor: default;
+}
+
 .vue-input > input {
   border: none;
   outline: none;
