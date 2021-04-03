@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
+        browser: [electron, chrome, firefox]
 
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +22,7 @@ jobs:
       - run: yarn install
       - run: yarn build
 
-      - run: yarn test:cypress
+      - run: yarn test:cypress --browser ${{ matrix.browser }}
 
       - run: yarn test:jest --coverage
         env:
