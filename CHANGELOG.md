@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/iendeavor/vue-next-select/compare/v2.1.0...v2.1.1) (2021-04-03)
+
+
+### Bug Fixes
+
+* cursor should only be text when input appears ([efbad93](https://github.com/iendeavor/vue-next-select/commit/efbad93c51de451695a1b9a1512c265b8168230c)), closes [#157](https://github.com/iendeavor/vue-next-select/issues/157)
+* ignore case by default ([0132082](https://github.com/iendeavor/vue-next-select/commit/01320829c994bd73a5a7a33bcdd98da056d877a4)), closes [#157](https://github.com/iendeavor/vue-next-select/issues/157)
+* it should filter iff there is no visible-option ([3c46d53](https://github.com/iendeavor/vue-next-select/commit/3c46d537303741cf8168df7423909e318f3f4de4))
+* tags should ignore groups ([f705477](https://github.com/iendeavor/vue-next-select/commit/f705477513a199696db24859ea3e9b9f451d3cd6))
+
 ## [2.1.0](https://github.com/iendeavor/vue-next-select/compare/v2.0.1...v2.1.0) (2021-03-30)
 
 
