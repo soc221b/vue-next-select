@@ -22,29 +22,26 @@
         setup() {
           const selectedOptions = ref(['i'])
           const options = ref([{ value: 'i' }, { value: 'love' }, { value: 'vue' }])
-          const searchInput = ref('')
-          const handleSearch = event => (searchInput.value = event.target.value)
-          watch(
-            () => searchInput.value,
-            () =>
-              (options.value = [{ value: 'i' }, { value: 'love' }, { value: 'vue' }].filter(option =>
-                new RegExp(searchInput.value).test(option.value),
-              )),
-          )
           return {
             selectedOptions,
             options,
-            handleSearch,
           }
         },
         template: `
+        <button id="remove-unselected-options" @click="options = [{ value: 'i'}]">
+          Remove unselected
+        </button>
+        <button id="remove-selected-options" @click="options = []">
+          Remove selected
+        </button>
+        <button id="reset-options" @click="options = [{ value: 'i' }, { value: 'love' }, { value: 'vue' }]">
+          Reset
+        </button>
         <vue-select
           v-model="selectedOptions"
           :options="options"
           multiple
-          searchable
           value-by="value"
-          @search:input="handleSearch"
         ></vue-select>
         `,
       })

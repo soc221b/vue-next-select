@@ -23,20 +23,20 @@ context('options', () => {
 
   it('should keep valid selected values after options has changed (object)', () => {
     cy.visit(path.join(__dirname, 'change-options-with-object.html'))
+
     cy.get('.vue-select').click()
-
     cy.get('.vue-dropdown-item.selected').should('have.length', 1)
 
-    cy.get('input').type('i')
+    cy.get('#remove-unselected-options').click()
+    cy.get('.vue-select').click()
     cy.get('.vue-dropdown-item.selected').should('have.length', 1)
 
-    cy.get('input').type('{backspace}')
-    cy.get('.vue-dropdown-item.selected').should('have.length', 1)
-
-    cy.get('input').type('e')
+    cy.get('#remove-selected-options').click()
+    cy.get('.vue-select').click()
     cy.get('.vue-dropdown-item.selected').should('have.length', 0)
 
-    cy.get('input').type('{backspace}')
+    cy.get('#reset-options').click()
+    cy.get('.vue-select').click()
     cy.get('.vue-dropdown-item.selected').should('have.length', 0)
   })
 
