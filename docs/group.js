@@ -12,6 +12,16 @@ export default createApp({
   setup() {
     const model = ref(['express', 'koa'])
 
+    const options = [
+      { label: 'All', value: ['express', 'koa', 'django', 'flask'], group: true, level: 0 },
+      { label: 'NodeJS', value: ['express', 'koa'], group: true, level: 1 },
+      { label: 'Express', value: 'express', level: 2 },
+      { label: 'Koa', value: 'koa', level: 2 },
+      { label: 'Python', value: ['django', 'flask'], group: true, level: 1 },
+      { label: 'Django', value: 'django', level: 2 },
+      { label: 'Flask', value: 'flask', level: 2 },
+    ]
+
     const searchInput = ref('')
     const hanldeSearchInput = event => {
       searchInput.value = event.target.value
