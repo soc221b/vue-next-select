@@ -13,27 +13,15 @@
             label: 'Getting started',
             id: 'getting-started',
           },
+          {
+            label: 'Examples',
+            id: 'examples',
+          },
+          {
+            label: 'API',
+            id: 'api',
+          },
         ]
-          .concat(
-            Array.from(document.querySelectorAll('.vue-select'))
-              .map(selectEl => selectEl.parentElement)
-              .slice(1)
-              .map(selectWrapper => selectWrapper.previousSibling.previousSibling)
-              .map(headerEl => ({
-                label: headerEl.innerText,
-                id: headerEl.id,
-              })),
-          )
-          .concat([
-            {
-              label: 'Props',
-              id: 'props',
-            },
-            {
-              label: 'Events',
-              id: 'events',
-            },
-          ])
       })
 
       const handleSelected = selectedOption => {

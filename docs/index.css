@@ -1,7 +1,6 @@
 html {
   font-family: 'Lato', sans-serif;
   font-size: 20px;
-  scroll-behavior: smooth;
 }
 
 h1 {
@@ -36,7 +35,7 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right top, #3ea276 0%, white 100%);
+  background: linear-gradient(to right top, #3ea27756 0%, white 100%);
 }
 
 header > h1,
@@ -51,10 +50,6 @@ header ul {
 
 header > ul > li {
   line-height: 1.5rem;
-}
-
-header > ul > li > a {
-  color: #4179b8;
 }
 
 .badges {
@@ -96,16 +91,25 @@ aside > ul > li {
   border-radius: 4px;
 }
 
-aside > ul > li:hover {
-  background-color: lightgrey;
+aside > ul > li > a,
+aside > ul > li > a:visited {
+  color: black;
 }
 
-aside > ul > li > a {
+aside a {
   padding: 4px;
   display: block;
   width: 100%;
-  color: black;
+}
+
+a,
+a:visited {
+  color: #3ea277;
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 main {
@@ -127,7 +131,7 @@ main {
   }
 }
 
-main > table {
+main > div > table {
   display: block;
   table-layout: fixed;
   font-size: 0.9rem;
@@ -135,42 +139,42 @@ main > table {
   overflow-x: scroll;
 }
 
-main > table > tbody {
+main > div > table > tbody {
   font-family: monospace;
 }
 
-main > table > tbody > tr {
+main > div > table > tbody > tr {
   line-height: 2;
 }
 
-main > table > thead > tr {
+main > div > table > thead > tr {
   line-height: 2;
   color: black;
   background-color: darkgrey;
 }
 
-main > table > tbody > tr:nth-child(2n) {
+main > div > table > tbody > tr:nth-child(2n) {
   background-color: #eee;
 }
 
-main > table > tbody > tr:hover {
+main > div > table > tbody > tr:hover {
   background-color: #ccc;
 }
 
-main > table > thead > tr > td,
-main > table > tbody > tr > td {
+main > div > table > thead > tr > td,
+main > div > table > tbody > tr > td {
   border-left: black 1px solid;
   border-top: black 1px solid;
   padding: 4px;
   overflow-x: auto;
 }
 
-main > table > thead > tr > td {
+main > div > table > thead > tr > td {
   border-top: none;
 }
 
-main > table > thead > tr > td:first-child,
-main > table > tbody > tr > td:first-child {
+main > div > table > thead > tr > td:first-child,
+main > div > table > tbody > tr > td:first-child {
   border-left: none;
   white-space: nowrap;
 }
@@ -185,8 +189,8 @@ pre {
 code {
   padding: 0 4px !important;
   border-radius: 4px;
-  color: white;
-  background-color: #3ea276;
+  color: #3ea277d6;
+  background-color: #83838323;
 }
 
 pre code {
@@ -198,7 +202,6 @@ h3 {
   margin-bottom: 8px;
   padding: 4px 0;
   border-radius: 4px;
-  color: #3ea276;
 }
 
 h1:first-child,
@@ -207,7 +210,7 @@ h2:first-child {
 }
 
 p {
-  line-height: 1.2;
+  line-height: 1.4;
 }
 
 #footer {

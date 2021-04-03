@@ -15,26 +15,14 @@ export default createApp({
     const options = ref([
       model.value,
       { name: 'Rails', language: 'Ruby' },
-      { name: 'Sinatra', language: 'Ruby' },
+      { name: 'Sinatra', language: 'Ruby', disabled: true },
       { name: 'Laravel', language: 'PHP' },
       { name: 'Phoenix', language: 'Elixir', disabled: true }
     ])
 
-    const searchInput = ref('')
-    const hanldeSearchInput = event => {
-      searchInput.value = event.target.value
-    }
-
-    const visibleOptions = computed(() => {
-      const re = new RegExp(searchInput.value.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&'))
-      return options.value.filter(option => re.test(option.name))
-    })
-
     return {
       model,
       options,
-      hanldeSearchInput,
-      visibleOptions
     }
   }
 })
@@ -53,23 +41,11 @@ export default createApp({
       options: [
         model,
         { name: 'Rails', language: 'Ruby' },
-        { name: 'Sinatra', language: 'Ruby' },
+        { name: 'Sinatra', language: 'Ruby', disabled: true },
         { name: 'Laravel', language: 'PHP' },
         { name: 'Phoenix', language: 'Elixir', disabled: true },
       ],
-      searchInput: '',
     }
-  },
-  computed: {
-    visibleOptions() {
-      const re = new RegExp(this.searchInput.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&'))
-      return this.options.filter(option => re.test(option.name))
-    },
-  },
-  methods: {
-    hanldeSearchInput(event) {
-      this.searchInput = event.target.value
-    },
   },
 })
 `.trim()
@@ -78,11 +54,9 @@ export default createApp({
 <vue-select
   v-model="model"
   :options="options"
-  :visible-options="visibleOptions"
   label-by="name"
   searchable
   clear-on-select
-  @search:input="hanldeSearchInput"
 ></vue-select>
 `.trim()
 
@@ -96,26 +70,14 @@ export default createApp({
       const options = ref([
         model.value,
         { name: 'Rails', language: 'Ruby' },
-        { name: 'Sinatra', language: 'Ruby' },
+        { name: 'Sinatra', language: 'Ruby', disabled: true },
         { name: 'Laravel', language: 'PHP' },
         { name: 'Phoenix', language: 'Elixir', disabled: true },
       ])
 
-      const searchInput = ref('')
-      const hanldeSearchInput = event => {
-        searchInput.value = event.target.value
-      }
-
-      const visibleOptions = computed(() => {
-        const re = new RegExp(searchInput.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        return options.value.filter(option => re.test(option.name))
-      })
-
       return {
         model,
         options,
-        hanldeSearchInput,
-        visibleOptions,
 
         jsCode,
         htmlCode,
@@ -125,12 +87,9 @@ export default createApp({
       <vue-select
         v-model="model"
         :options="options"
-        :visible-options="visibleOptions"
         label-by="name"
         searchable
         clear-on-select
-        clear-on-close
-        @search:input="hanldeSearchInput"
       ></vue-select>
       <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 

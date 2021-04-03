@@ -29,6 +29,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Dosis" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Lato" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="./index.css" />
+    <style>
+      .skip-to-content-link {
+        background: #3ea276;
+        height: 30px;
+        left: 50%;
+        padding: 8px;
+        position: absolute;
+        transform: translateY(-100%);
+        transition: transform 0.3s;
+      }
+
+      .skip-to-content-link:focus {
+        transform: translateY(0%);
+      }
+    </style>
   </head>
 
   <body>
@@ -36,6 +51,8 @@
     <script src="https://unpkg.com/vuex@next/dist/vuex.global.prod.js"></script>
     <script src="https://unpkg.com/vue-next-select/dist/vue-next-select.iife.prod.js"></script>
     <script src="../dist/vue-next-select.iife.prod.js"></script>
+
+    <a class="skip-to-content-link" href="#main"> Skip to content </a>
 
     <a
       class="github-fork-ribbon"
@@ -46,7 +63,7 @@
     >
     <header>
       <h1>vue-next-select</h1>
-      <span id="version"></span>
+      <a target="_blank" href="https://www.npmjs.com/package/vue-next-select"><span id="version"></span></a>
       <p><b>The selecting solution for Vue 3</b></p>
       <br />
 
@@ -76,14 +93,14 @@
     </header>
 
     <aside>
-      <h2>Getting started</h2>
+      <h2><a href="#getting-started">Getting started</a></h2>
       <ul>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#options">Options</a></li>
         <li><a href="#v-model">v-model</a></li>
       </ul>
 
-      <h2>Examples</h2>
+      <h2><a href="#examples">Examples</a></h2>
       <ul>
         <li><a href="#single-select-header">Single select</a></li>
         <li><a href="#single-select-object-header">Single select (object)</a></li>
@@ -98,7 +115,7 @@
         <li><a href="#custom-template-header">Custom template</a></li>
       </ul>
 
-      <h2>API</h2>
+      <h2><a href="#api">API</a></h2>
       <ul>
         <li><a href="#props">Props</a></li>
         <li><a href="#events">Events</a></li>
@@ -106,9 +123,9 @@
     </aside>
 
     <main>
-      <h2 id="getting-started">Getting started</h2>
+      <h2 id="getting-started"><a href="#getting-started">Getting started</a></h2>
       <div>
-        <h3 id="installation">Installation</h3>
+        <h3 id="installation"><a href="#installation">Installation</a></h3>
 
         <p>via package managers</p>
         <pre><code class="sh">yarn add vue-next-select
@@ -144,11 +161,11 @@ app.mount('#app')</code></pre>
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/vue-next-select/dist/index.min.css&quot; /&gt;</code></pre>
         <pre><code class="html">app.component('vue-select', VueNextSelect)</code></pre>
 
-        <h3 id="options">Options</h3>
+        <h3 id="options"><a href="#options">Options</a></h3>
         <p><b>vue-next-select</b> accepts arrays of any type values to use as options:</p>
         <pre><code class="html">&lt;vue-select :options="['Select', 'Options']">&lt;/vue-select></code></pre>
 
-        <h3 id="v-model">v-model</h3>
+        <h3 id="v-model"><a href="#v-model">v-model</a></h3>
         <p>
           The most common use case for <b>vue-next-select</b> is to have the chosen value synced with a parent
           component.
@@ -169,256 +186,303 @@ app.mount('#app')</code></pre>
       </div>
       <hr />
 
-      <h2 id="single-select-header">Single select</h2>
-      <div id="single-select"></div>
-      <script src="./single-select.js"></script>
+      <h2 id="examples"><a href="#examples">Examples</a></h2>
+      <div>
+        <h3 id="single-select-header"><a href="#single-select-header">Single select</a></h3>
+        <div id="single-select"></div>
+        <script src="./single-select.js"></script>
 
-      <h2 id="single-select-object-header">Single select (object)</h2>
-      <div id="single-select-object"></div>
-      <script src="./single-select-object.js"></script>
+        <h3 id="single-select-object-header"><a href="#single-select-object-header">Single select (object)</a></h3>
 
-      <h2 id="select-with-search-header">Select with search</h2>
-      <div id="select-with-search"></div>
-      <script src="./select-with-search.js"></script>
+        <p>
+          When working with objects, you generally need to provide a <code>label</code> prop which is used to display
+          the option.
+        </p>
 
-      <h2 id="multiple-select-header">Multiple select</h2>
-      <div id="multiple-select"></div>
-      <script src="./multiple-select.js"></script>
+        <p>You could use prop: <code>:min="1"</code> to prevent clearing it once there is an option be selected.</p>
 
-      <h2 id="tagging-header">Tagging</h2>
-      <div id="tagging"></div>
-      <script src="./tagging.js"></script>
+        <div id="single-select-object"></div>
+        <script src="./single-select-object.js"></script>
 
-      <h2 id="group-header">Group</h2>
-      <div id="group"></div>
-      <script src="./group.js"></script>
+        <h3 id="select-with-search-header"><a href="#select-with-search-header">Select with search</a></h3>
 
-      <h2 id="asynchronous-select-header">Asynchronous select</h2>
-      <div id="asynchronous-select"></div>
-      <script src="./asynchronous-select.js"></script>
+        <p>To make it be <b>searchable / filterable</b>, you just need to add <code>searchable</code> prop</p>
 
-      <h2 id="creatable-header">Creatable</h2>
-      <div id="creatable"></div>
-      <script src="./creatable.js"></script>
+        <p>By default, existing options will be filtered by the search query string (in ignore case mode)</p>
 
-      <h2 id="vuex-support-header">Vuex support</h2>
-      <div id="vuex-support"></div>
-      <script src="./vuex-support.js"></script>
+        <p>
+          If you need to customize this behavior, just handle <code>@search:input</code> or
+          <code>@search:change</code> events and apply an additional <code>visible-option</code> prop to dynamically
+          change rendered options. you could get more details in
+          <a href="#asynchronous-select-header">asynchronous-select</a> example below.
+        </p>
 
-      <h2 id="action-dispatcher-header">Action dispatcher</h2>
-      <div id="action-dispatcher"></div>
-      <script src="./action-dispatcher.js"></script>
+        <div id="select-with-search"></div>
+        <script src="./select-with-search.js"></script>
 
-      <h2 id="custom-template-header">Custom template</h2>
-      <div id="custom-template"></div>
-      <script src="./custom-template.js"></script>
+        <h3 id="multiple-select-header"><a href="#multiple-select-header">Multiple select</a></h3>
+        <div id="multiple-select"></div>
+        <script src="./multiple-select.js"></script>
+
+        <h3 id="tagging-header"><a href="#tagging-header">Tagging</a></h3>
+        <div id="tagging"></div>
+        <script src="./tagging.js"></script>
+
+        <h3 id="group-header"><a href="#group-header">Group</a></h3>
+        <p>
+          You could define an option as group by adding a <code>group</code> (default, set it via
+          <code>group-by</code> prop) to true.
+        </p>
+
+        <p>
+          It uses the <code>label-by</code> to locate the group label as same as a normal option, and the
+          <code>value-by</code> to destinguish which option belongs to current group.
+        </p>
+
+        <p>
+          When selecting a group option it will select all the options belong to it, and deselect all if those options
+          are already selected.
+        </p>
+
+        <p>Despite that the options are grouped, the options must be a flat array of objects.</p>
+
+        <div id="group"></div>
+        <script src="./group.js"></script>
+
+        <h3 id="asynchronous-select-header"><a href="#asynchronous-select-header">Asynchronous select</a></h3>
+        <div id="asynchronous-select"></div>
+        <script src="./asynchronous-select.js"></script>
+
+        <h3 id="creatable-header"><a href="#creatable-header">Creatable</a></h3>
+        <div id="creatable"></div>
+        <script src="./creatable.js"></script>
+
+        <h3 id="vuex-support-header"><a href="#vuex-support-header">Vuex support</a></h3>
+        <div id="vuex-support"></div>
+        <script src="./vuex-support.js"></script>
+
+        <h3 id="action-dispatcher-header"><a href="#action-dispatcher-header">Action dispatcher</a></h3>
+        <div id="action-dispatcher"></div>
+        <script src="./action-dispatcher.js"></script>
+
+        <h3 id="custom-template-header"><a href="#custom-template-header">Custom template</a></h3>
+        <div id="custom-template"></div>
+        <script src="./custom-template.js"></script>
+      </div>
       <hr />
 
-      <h2 id="props">Props</h2>
-      <table cellspacing="0">
-        <colgroup>
-          <col width="200px" />
-          <col width="110px" />
-          <col width="200px" />
-          <col />
-        </colgroup>
-        <thead>
-          <tr>
-            <td>Prop</td>
-            <td>Type</td>
-            <td>Default</td>
-            <td>Description</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>v-model / model-value</td>
-            <td>any</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>options</td>
-            <td>Array</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>visible-options</td>
-            <td>Array</td>
-            <td>props.options</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>multiple</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>min</td>
-            <td>Number</td>
-            <td>0</td>
-            <td>Set 1 can prevent deselect option for single mode</td>
-          </tr>
-          <tr>
-            <td>max</td>
-            <td>Number</td>
-            <td>Infinity</td>
-            <td>Only work when props.multiple is true</td>
-          </tr>
-          <tr>
-            <td>close-on-select</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>clear-on-select</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>label-by</td>
-            <td>Function, String</td>
-            <td>option</td>
-            <td>
-              <p>When using with string, you can give a path to get nested value.</p>
-              <p>When using with Function, first argument is option itself.</p>
-            </td>
-          </tr>
-          <tr>
-            <td>value-by</td>
-            <td>Function, String</td>
-            <td>option</td>
-            <td>See label-by</td>
-          </tr>
-          <tr>
-            <td>disabled-by</td>
-            <td>Function, String</td>
-            <td>'disabled'</td>
-            <td>See label-by</td>
-          </tr>
-          <tr>
-            <td>hide-selected</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>Only work when props.multiple is true</td>
-          </tr>
-          <tr>
-            <td>disabled</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>loading</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>placeholder</td>
-            <td>String</td>
-            <td>"Select option"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>search-placeholder</td>
-            <td>String</td>
-            <td>"Type to search"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>searchable</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>by default, to filter option by label, unless props.visibleOption or search events occurs</td>
-          </tr>
-          <tr>
-            <td>clear-on-close</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>taggable</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td>Only work when props.multiple is true</td>
-          </tr>
-          <tr>
-            <td>collapse-tags</td>
-            <td>Boolean</td>
-            <td>false</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>empty-model-value</td>
-            <td>any</td>
-            <td>null</td>
-            <td>Only works with single mode, identify with strict comparator (===) internally</td>
-          </tr>
-          <tr>
-            <td>group-by</td>
-            <td>Function, String</td>
-            <td>'group'</td>
-            <td>See label-by</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2 id="api"><a href="#api">API</a></h2>
 
-      <h2 id="events">Events</h2>
-      <table cellspacing="0">
-        <colgroup>
-          <col width="200px" />
-          <col width="200px" />
-          <col />
-        </colgroup>
-        <thead>
-          <tr>
-            <td>Listener</td>
-            <td>Arguments</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>selected</td>
-            <td>option</td>
-          </tr>
-          <tr>
-            <td>removed</td>
-            <td>option</td>
-          </tr>
-          <tr>
-            <td>opened</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>closed</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>search:input</td>
-            <td>event</td>
-          </tr>
-          <tr>
-            <td>search:change</td>
-            <td>event</td>
-          </tr>
-          <tr>
-            <td>search:focus</td>
-            <td>event</td>
-          </tr>
-          <tr>
-            <td>search:blur</td>
-            <td>event</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <h3 id="props"><a href="#props">Props</a></h3>
+        <table cellspacing="0">
+          <colgroup>
+            <col width="200px" />
+            <col width="110px" />
+            <col width="200px" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <td>Prop</td>
+              <td>Type</td>
+              <td>Default</td>
+              <td>Description</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>v-model / model-value</td>
+              <td>any</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>options</td>
+              <td>Array</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>visible-options</td>
+              <td>Array</td>
+              <td>props.options</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>multiple</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>min</td>
+              <td>Number</td>
+              <td>0</td>
+              <td>Set 1 can prevent deselect option for single mode</td>
+            </tr>
+            <tr>
+              <td>max</td>
+              <td>Number</td>
+              <td>Infinity</td>
+              <td>Only work when props.multiple is true</td>
+            </tr>
+            <tr>
+              <td>close-on-select</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>clear-on-select</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>label-by</td>
+              <td>Function, String</td>
+              <td>option</td>
+              <td>
+                <p>When using with string, you could give a path to get nested value.</p>
+                <p>When using with Function, first argument is option itself.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>value-by</td>
+              <td>Function, String</td>
+              <td>option</td>
+              <td>See label-by</td>
+            </tr>
+            <tr>
+              <td>disabled-by</td>
+              <td>Function, String</td>
+              <td>'disabled'</td>
+              <td>See label-by</td>
+            </tr>
+            <tr>
+              <td>hide-selected</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td>Only work when props.multiple is true</td>
+            </tr>
+            <tr>
+              <td>disabled</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>loading</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>placeholder</td>
+              <td>String</td>
+              <td>"Select option"</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>search-placeholder</td>
+              <td>String</td>
+              <td>"Type to search"</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>searchable</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td>by default, to filter option by label, unless props.visibleOption or search events occurs</td>
+            </tr>
+            <tr>
+              <td>clear-on-close</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>taggable</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td>Only work when props.multiple is true</td>
+            </tr>
+            <tr>
+              <td>collapse-tags</td>
+              <td>Boolean</td>
+              <td>false</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>empty-model-value</td>
+              <td>any</td>
+              <td>null</td>
+              <td>Only works with single mode, identify with strict comparator (===) internally</td>
+            </tr>
+            <tr>
+              <td>group-by</td>
+              <td>Function, String</td>
+              <td>'group'</td>
+              <td>See label-by</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 id="events"><a href="#events">Events</a></h3>
+        <table cellspacing="0">
+          <colgroup>
+            <col width="200px" />
+            <col width="200px" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <td>Listener</td>
+              <td>Arguments</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>selected</td>
+              <td>option</td>
+            </tr>
+            <tr>
+              <td>removed</td>
+              <td>option</td>
+            </tr>
+            <tr>
+              <td>opened</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>closed</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>search:input</td>
+              <td>event</td>
+            </tr>
+            <tr>
+              <td>search:change</td>
+              <td>event</td>
+            </tr>
+            <tr>
+              <td>search:focus</td>
+              <td>event</td>
+            </tr>
+            <tr>
+              <td>search:blur</td>
+              <td>event</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div id="footer"></div>
+
+      <div id="back-to-top"></div>
+      <script src="./back-to-top.js"></script>
     </main>
 
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.2/build/highlight.min.js"></script>
