@@ -66,6 +66,7 @@ app.use(store)
   :options="options"
   :modelValue="$store.state.value"
   @update:modelValue="value => $store.commit('update', value)"
+  close-on-select
 ></vue-select>
 `.trim()
 
@@ -104,6 +105,7 @@ app.use(store)
         :options="options"
         :modelValue="store.state.value"
         @update:modelValue="value => store.commit('update', value)"
+        close-on-select
       ></vue-select>
 
       <pre class="result"><code class="plaintext">{{ store.state.value }}</code></pre>

@@ -55,7 +55,6 @@ export default createApp({
   multiple
   :min="1"
   :max="3"
-  close-on-select
 ></vue-select>
 `.trim()
 
@@ -83,7 +82,6 @@ export default createApp({
         multiple
         :min="1"
         :max="3"
-        close-on-select
       ></vue-select>
       <pre class="result"><code class="plaintext">{{ model }}</code></pre>
 

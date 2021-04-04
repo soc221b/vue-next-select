@@ -3,67 +3,56 @@
 import { ref, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
+const originalOptions = ['HTML', 'CSS', 'JavaScript']
+
 // for composition API
 export default createApp({
   name: 'app',
   setup() {
     const model = ref([])
 
-    const originalOptions = ['HTML', 'CSS', 'JavaScript']
     const options = ref(originalOptions.slice())
-    const visibleOptions = ref(options.value)
 
     const tempOption = ref('')
     const handleSearchInput = async event => {
-      // remove temp option
+      // if temp option is not selected, remove it.
       if (model.value.includes(tempOption.value) === false && originalOptions.includes(tempOption.value) === false) {
         options.value = options.value.filter(option => option !== tempOption.value)
       }
 
+      // only show original options and selecting options
       tempOption.value = event.target.value.trim()
       if (tempOption.value === '') {
-        visibleOptions.value = options.value
         return
       }
 
-      // add temp option
+      // to make created option selectable and visible, we need to add it to options
       if (options.value.includes(tempOption.value) === false) {
         options.value.push(tempOption.value)
       }
 
-      const re = new RegExp(tempOption.value.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&'))
-      const foundOptions = options.value.filter(option => re.test(option))
-      visibleOptions.value = foundOptions
+      const re = new RegExp(tempOption.value, 'i')
     }
 
-    const handleSelected = () => {
-      // keep selected option in options
-      tempOption.value = ''
-    }
-
+    // remove dynamically created option if it is no longer be selected
     const handleRemoved = option => {
       if (originalOptions.includes(option)) {
         return
       }
 
       options.value = options.value.filter(o => o !== option)
-      visibleOptions.value = visibleOptions.value.filter(o => o !== option)
     }
 
     return {
       model,
       options,
-      visibleOptions,
       handleSearchInput,
-      handleSelected,
       handleRemoved,
     }
   },
 })
 
 // for option API
-const originalOptions = ['HTML', 'CSS', 'JavaScript']
-
 export default createApp({
   name: 'app',
   data() {
@@ -71,36 +60,26 @@ export default createApp({
     return {
       model: [],
       options,
-      visibleOptions: options,
       tempOption: '',
     }
   },
   methods: {
-    async handleSearchInput(event) {
-      // remove temp option
+    handleSearchInput (event) {
+      // if temp option is not selected, remove it.
       if (this.model.includes(this.tempOption) === false && originalOptions.includes(this.tempOption) === false) {
         this.options = this.options.filter(option => option !== this.tempOption)
       }
 
+      // only show original options and selecting options
       this.tempOption = event.target.value.trim()
       if (this.tempOption === '') {
-        this.visibleOptions = this.options
         return
       }
 
-      // add temp option
+      // to make created option selectable and visible, we need to add it to options
       if (this.options.includes(this.tempOption) === false) {
         this.options.push(this.tempOption)
       }
-
-      const re = new RegExp(this.tempOption.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&'))
-      const foundOptions = this.options.filter(option => re.test(option))
-      this.visibleOptions = foundOptions
-    },
-
-    handleSelected() {
-      // keep selected option in options
-      this.tempOption = ''
     },
 
     handleRemoved(option) {
@@ -108,9 +87,9 @@ export default createApp({
         return
       }
 
+      // remove dynamically created option if it is no longer be selected
       this.options = this.options.filter(o => o !== option)
-      this.visibleOptions = this.visibleOptions.filter(o => o !== option)
-    },
+    }
   },
 })
 `.trim()
@@ -119,69 +98,57 @@ export default createApp({
 <vue-select
   v-model="model"
   :options="options"
-  :visible-options="visibleOptions"
   multiple
   searchable
+  clear-on-close
   @search:input="handleSearchInput"
-  @selected="handleSelected"
   @removed="handleRemoved"
 ></vue-select>
 `.trim()
 
   const { ref, createApp } = Vue
 
+  const originalOptions = ['HTML', 'CSS', 'JavaScript']
+
   const app = createApp({
     name: 'app',
     setup() {
       const model = ref([])
 
-      const originalOptions = ['HTML', 'CSS', 'JavaScript']
       const options = ref(originalOptions.slice())
-      const visibleOptions = ref(options.value)
 
       const tempOption = ref('')
       const handleSearchInput = async event => {
-        // remove temp option
+        // if temp option is not selected, remove it.
         if (model.value.includes(tempOption.value) === false && originalOptions.includes(tempOption.value) === false) {
           options.value = options.value.filter(option => option !== tempOption.value)
         }
 
+        // only show original options and selecting options
         tempOption.value = event.target.value.trim()
         if (tempOption.value === '') {
-          visibleOptions.value = options.value
           return
         }
 
-        // add temp option
+        // to make created option selectable and visible, we need to add it to options
         if (options.value.includes(tempOption.value) === false) {
           options.value.push(tempOption.value)
         }
-
-        const re = new RegExp(tempOption.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        const foundOptions = options.value.filter(option => re.test(option))
-        visibleOptions.value = foundOptions
       }
 
-      const handleSelected = () => {
-        // keep selected option in options
-        tempOption.value = ''
-      }
-
+      // remove dynamically created option if it is no longer be selected
       const handleRemoved = option => {
         if (originalOptions.includes(option)) {
           return
         }
 
         options.value = options.value.filter(o => o !== option)
-        visibleOptions.value = visibleOptions.value.filter(o => o !== option)
       }
 
       return {
         model,
         options,
-        visibleOptions,
         handleSearchInput,
-        handleSelected,
         handleRemoved,
 
         jsCode,
@@ -192,11 +159,10 @@ export default createApp({
       <vue-select
         v-model="model"
         :options="options"
-        :visible-options="visibleOptions"
         multiple
         searchable
+        clear-on-close
         @search:input="handleSearchInput"
-        @selected="handleSelected"
         @removed="handleRemoved"
       ></vue-select>
       <pre class="result"><code class="plaintext">{{ model }}</code></pre>
