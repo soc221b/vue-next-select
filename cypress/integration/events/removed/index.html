@@ -12,7 +12,6 @@
   </head>
 
   <body>
-    <button id="previous-button">button</button>
     <div id="app"></div>
     <script src="/dist/vue-next-select.iife.js"></script>
     <script>
@@ -24,7 +23,7 @@
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
           const handle = () => {
-            window.dispatchEvent(new Event('search-change-custom-event'))
+            window.dispatchEvent(new Event('removed-custom-event'))
           }
           return {
             selectedOptions,
@@ -37,8 +36,8 @@
           v-model="selectedOptions"
           :options="options"
           multiple
-          searchable
-          @search:change="handle"
+          taggable
+          @removed="handle"
         ></vue-select>
         `,
       })

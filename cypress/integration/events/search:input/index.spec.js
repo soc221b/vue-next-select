@@ -12,16 +12,16 @@ const finish = () => {
   if (shouldReject) throw Error()
 }
 
-context('select event', () => {
-  it('should fire select event', () => {
+context('search:input event', () => {
+  it('should fire event after type something', () => {
     setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('select-custom-event', setResolve)
-        window.addEventListener('select-custom-event', setResolve)
+        window.removeEventListener('search:input-custom-event', setResolve)
+        window.addEventListener('search:input-custom-event', setResolve)
       })
-      cy.get('.vue-dropdown').children().first().next().click()
+      cy.get('.vue-input').type('i')
       cy.then(finish)
     })
   })

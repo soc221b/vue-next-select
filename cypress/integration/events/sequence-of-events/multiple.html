@@ -23,12 +23,24 @@
         setup() {
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
+          const handleOpen = () => {
+            window.dispatchEvent(new Event('opened-custom-event'))
+          }
+          const handleFocus = () => {
+            window.dispatchEvent(new Event('search:focus-custom-event'))
+          }
+          const handleBlur = () => {
+            window.dispatchEvent(new Event('search:blur-custom-event'))
+          }
           const handleClose = () => {
-            window.dispatchEvent(new Event('close-custom-event'))
+            window.dispatchEvent(new Event('closed-custom-event'))
           }
           return {
             selectedOptions,
             options,
+            handleOpen,
+            handleFocus,
+            handleBlur,
             handleClose,
           }
         },
@@ -36,8 +48,12 @@
         <vue-select
           v-model="selectedOptions"
           :options="options"
+          searchable
           multiple
           taggable
+          @opened="handleOpen"
+          @search:focus="handleFocus"
+          @search:blur="handleBlur"
           @closed="handleClose"
         ></vue-select>
         `,

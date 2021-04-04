@@ -20,10 +20,10 @@
       const app = createApp({
         name: 'app',
         setup() {
-          const selectedOptions = ref(['i'])
+          const selectedOptions = ref('i')
           const options = ref(['i', 'love', 'vue'])
           const handle = () => {
-            window.dispatchEvent(new Event('search-input-custom-event'))
+            window.dispatchEvent(new Event('selected-custom-event'))
           }
           return {
             selectedOptions,
@@ -35,9 +35,7 @@
         <vue-select
           v-model="selectedOptions"
           :options="options"
-          multiple
-          searchable
-          @search:input="handle"
+          @selected="handle"
         ></vue-select>
         `,
       })

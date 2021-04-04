@@ -23,7 +23,7 @@
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
           const handle = () => {
-            window.dispatchEvent(new Event('focus-custom-event'))
+            window.dispatchEvent(new Event('opened-custom-event'))
           }
           return {
             selectedOptions,
@@ -37,8 +37,7 @@
           :options="options"
           multiple
           taggable
-          searchable
-          @search:focus="handle"
+          @opened="handle"
         ></vue-select>
         `,
       })

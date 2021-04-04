@@ -23,7 +23,7 @@
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
           const handle = () => {
-            window.dispatchEvent(new Event('open-custom-event'))
+            window.dispatchEvent(new Event('search:input-custom-event'))
           }
           return {
             selectedOptions,
@@ -36,8 +36,8 @@
           v-model="selectedOptions"
           :options="options"
           multiple
-          taggable
-          @opened="handle"
+          searchable
+          @search:input="handle"
         ></vue-select>
         `,
       })

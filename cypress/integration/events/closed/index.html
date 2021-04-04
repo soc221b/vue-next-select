@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    <button id="previous-button">button</button>
     <div id="app"></div>
     <script src="/dist/vue-next-select.iife.js"></script>
     <script>
@@ -22,13 +23,13 @@
         setup() {
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
-          const handle = () => {
-            window.dispatchEvent(new Event('remove-custom-event'))
+          const handleClose = () => {
+            window.dispatchEvent(new Event('closed-custom-event'))
           }
           return {
             selectedOptions,
             options,
-            handle,
+            handleClose,
           }
         },
         template: `
@@ -37,7 +38,7 @@
           :options="options"
           multiple
           taggable
-          @removed="handle"
+          @closed="handleClose"
         ></vue-select>
         `,
       })

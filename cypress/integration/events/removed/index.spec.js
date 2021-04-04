@@ -12,27 +12,27 @@ const finish = () => {
   if (shouldReject) throw Error()
 }
 
-context('remove event', () => {
-  it('should fire remove event after removing option', () => {
+context('removed event', () => {
+  it('should fire event after removing option', () => {
     setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('remove-custom-event', setResolve)
-        window.addEventListener('remove-custom-event', setResolve)
+        window.removeEventListener('removed-custom-event', setResolve)
+        window.addEventListener('removed-custom-event', setResolve)
       })
       cy.get('.vue-dropdown').children().first().click()
       cy.then(finish)
     })
   })
 
-  it('should fire remove event after removing option by clicking tag', () => {
+  it('should fire event after removing option by clicking tag', () => {
     setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('remove-custom-event', setResolve)
-        window.addEventListener('remove-custom-event', setResolve)
+        window.removeEventListener('removed-custom-event', setResolve)
+        window.addEventListener('removed-custom-event', setResolve)
       })
       cy.get('.vue-tags').children().first().click()
       cy.then(finish)
