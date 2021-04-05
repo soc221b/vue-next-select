@@ -1,5 +1,7 @@
 {
-  const jsCode = `
+  const jsCode = Vue.computed(() =>
+    isCompositionApi.value
+      ? `
 import { ref, computed, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
@@ -18,7 +20,6 @@ const getCountryList = async name => {
   })
 }
 
-// for composition API
 const useLoading = () => {
   const loading = ref(0)
   return {
@@ -28,8 +29,7 @@ const useLoading = () => {
   }
 }
 
-export default createApp({
-  name: 'app',
+createApp({
   components: {
     VueSelect
   },
@@ -67,11 +67,29 @@ export default createApp({
       handleSearchInput,
     }
   },
-})
+}).mount('#app')
+`.trim()
+      : `
+import { ref, computed, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
 
-// for option API
-export default createApp({
-  name: 'app',
+const getCountryList = async name => {
+  return new Promise(resolve => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', \`https://restcountries.eu/rest/v2/name/${name}\`)
+    xhr.send()
+    xhr.onloadend = () => {
+      try {
+        resolve(JSON.parse(xhr.response).map(info => info.name))
+      } catch (error) {
+        resolve([])
+      }
+    }
+  })
+}
+
+const app = new Vue({
+  el: '#app',
   components: {
     VueSelect
   },
@@ -115,7 +133,8 @@ export default createApp({
     },
   },
 })
-`.trim()
+`.trim(),
+  )
 
   const htmlCode = `
 <vue-select
@@ -217,5 +236,5 @@ export default createApp({
   })
 
   app.component('vue-select', VueNextSelect)
-  app.mount(document.querySelector('#asynchronous-select'))
+  app.mount('#asynchronous-select')
 }

@@ -1,11 +1,11 @@
 {
-  const jsCode = `
+  const jsCode = Vue.computed(() =>
+    isCompositionApi.value
+      ? `
 import { ref, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
-// for composition API
-export default createApp({
-  name: 'app',
+createApp({
   components: {
     VueSelect
   },
@@ -25,11 +25,14 @@ export default createApp({
       options,
     }
   },
-})
+}).mount('#app')
+`.trim()
+      : `
+import { ref, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
 
-// for option API
-export default createApp({
-  name: 'app',
+const app = new Vue({
+  el: '#app',
   components: {
     VueSelect
   },
@@ -46,7 +49,8 @@ export default createApp({
     }
   },
 })
-`.trim()
+`.trim(),
+  )
 
   const htmlCode = `
 <vue-select
@@ -92,5 +96,5 @@ export default createApp({
   })
 
   app.component('vue-select', VueNextSelect)
-  app.mount(document.querySelector('#multiple-select'))
+  app.mount('#multiple-select')
 }

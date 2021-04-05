@@ -1,13 +1,13 @@
 {
-  const jsCode = `
+  const jsCode = Vue.computed(() =>
+    isCompositionApi.value
+      ? `
 import { ref, createApp } from 'vue'
 import VueSelect from 'vue-next-select'
 
 const originalOptions = ['HTML', 'CSS', 'JavaScript']
 
-// for composition API
-export default createApp({
-  name: 'app',
+createApp({
   setup() {
     const model = ref([])
 
@@ -50,11 +50,16 @@ export default createApp({
       handleRemoved,
     }
   },
-})
+}).mount('#app')
+`.trim()
+      : `
+import { ref, createApp } from 'vue'
+import VueSelect from 'vue-next-select'
 
-// for option API
-export default createApp({
-  name: 'app',
+const originalOptions = ['HTML', 'CSS', 'JavaScript']
+
+const app = new Vue({
+  el: '#app',
   data() {
     const options = originalOptions.slice()
     return {
@@ -92,7 +97,8 @@ export default createApp({
     }
   },
 })
-`.trim()
+`.trim(),
+  )
 
   const htmlCode = `
 <vue-select
@@ -174,5 +180,5 @@ export default createApp({
   })
 
   app.component('vue-select', VueNextSelect)
-  app.mount(document.querySelector('#creatable'))
+  app.mount('#creatable')
 }

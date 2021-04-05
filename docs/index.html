@@ -44,6 +44,30 @@
       .skip-to-content-link:focus {
         transform: translateY(0%);
       }
+
+      #toggleCompositionApi {
+        display: none;
+        /* display: flex; */
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index: 1000;
+        border-radius: 8px;
+        height: 24px;
+        width: fit-content;
+        border: transparent;
+        color: #3ea277;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        bottom: 0;
+        right: 0;
+        font-size: 0.8rem;
+        background-color: transparent;
+        outline: none;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        user-select: none;
+      }
     </style>
   </head>
 
@@ -52,8 +76,21 @@
     <script src="https://unpkg.com/vuex@next/dist/vuex.global.prod.js"></script>
     <script src="https://unpkg.com/vue-next-select/dist/vue-next-select.iife.prod.js"></script>
     <script src="../dist/vue-next-select.iife.prod.js"></script>
-
     <a class="skip-to-content-link" href="#main"> Skip to content </a>
+
+    <button id="toggleCompositionApi"></button>
+    <script>
+      const btn = document.querySelector('#toggleCompositionApi')
+      const isCompositionApi = Vue.ref(
+        localStorage.getItem('isCompositionApi') === null ? true : localStorage.getItem('isCompositionApi') === 'true',
+      )
+      btn.innerHTML = isCompositionApi.value ? 'Switch to Option API' : 'Switch to Composition API'
+      const toggleCompositionApi = () => {
+        localStorage.setItem('isCompositionApi', !isCompositionApi.value)
+        location.reload()
+      }
+      btn.addEventListener('click', toggleCompositionApi)
+    </script>
 
     <a
       class="github-fork-ribbon"
@@ -97,6 +134,7 @@
       <h2><a href="#getting-started">Getting started</a></h2>
       <ul>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#basic-usage">Basic usage</a></li>
         <li><a href="#options">Options</a></li>
         <li><a href="#v-model">v-model</a></li>
       </ul>
@@ -131,35 +169,14 @@
         <pre><code class="sh">yarn add vue-next-select
 npm i vue-next-select</code></pre>
 
-        <pre><code class="javascript">import { createApp, ref } from 'vue'
-import VueSelect from 'vue-next-select'
-import 'vue-next-select/dist/index.min.css'
-
-const app = createApp({
-  name: 'app',
-  setup () {
-    const model = ref(null)
-    const options = ['vue', 'next', 'select']
-    return {
-      model,
-      options
-    }
-  },
-  template: `
-    &lt;vue-select
-      v-model=&quot;model&quot;
-      :options=&quot;options&quot;
-    &gt;&lt;/vue-select&gt;
-  `
-})
-
-app.component('vue-select', VueSelect)
-app.mount('#app')</code></pre>
-
         <p>via CDN</p>
         <pre><code>&lt;script src=&quot;https://unpkg.com/vue-next-select&quot;&gt;&lt;/script&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/vue-next-select/dist/index.min.css&quot; /&gt;</code></pre>
-        <pre><code class="html">app.component('vue-select', VueNextSelect)</code></pre>
+        <pre><code class="javascript">app.component('vue-select', VueNextSelect)</code></pre>
+
+        <h3 id="basic-usage"><a href="#basic-usage">Basic usage</a></h3>
+        <div id="usage"></div>
+        <script src="./usage.js"></script>
 
         <h3 id="options"><a href="#options">Options</a></h3>
         <p><b>vue-next-select</b> accepts arrays of any type values to use as options:</p>
@@ -338,7 +355,7 @@ app.mount('#app')</code></pre>
 
         <p>There are some useful slots which to give you the ability to customize template.</p>
 
-        <p>For example, you can use <code>#dropdown-item</code> to render options as image:</p>
+        <p>For example, you can use <code>#dropdown-item</code> to render options as images:</p>
 
         <p>
           You can find all avalable slots <a href="#slots">in below</a>, if you need more slots, please feel free to let

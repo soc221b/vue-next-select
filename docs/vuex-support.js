@@ -1,10 +1,11 @@
 {
-  const jsCode = `
-import { computed, createApp } from 'vue'
+  const jsCode = Vue.computed(() =>
+    isCompositionApi.value
+      ? `
+import { createApp } from 'vue'
 import { createStore, useStore } from 'vuex'
 import VueSelect from 'vue-next-select'
 
-// for composition API
 const store = createStore({
   state: {
     value: 'State'
@@ -16,7 +17,7 @@ const store = createStore({
   }
 })
 
-const app = createApp({
+createApp({
   name: 'app',
   components: {
     VueSelect
@@ -24,18 +25,20 @@ const app = createApp({
   setup() {
     const options = ['State', 'Getters', 'Mutations', 'Actions']
 
-    const store = useStore()
-
     return {
       options,
     }
   },
 })
+  .use(store)
+  .mount('#app')
+`.trim()
+      : `
+import Vue from 'vue'
+import Vuex from 'vuex'
+import VueSelect from 'vue-next-select'
 
-app.use(store)
-
-// for option API
-const store = createStore({
+const store = new Vuex.Store({
   state: {
     value: 'State'
   },
@@ -46,8 +49,8 @@ const store = createStore({
   }
 })
 
-const app = createApp({
-  name: 'app',
+const app = new Vue({
+  el: '#app',
   components: {
     VueSelect
   },
@@ -59,7 +62,8 @@ const app = createApp({
 })
 
 app.use(store)
-`.trim()
+`.trim(),
+  )
 
   const htmlCode = `
 <vue-select
@@ -70,7 +74,7 @@ app.use(store)
 ></vue-select>
 `.trim()
 
-  const { computed, createApp } = Vue
+  const { createApp } = Vue
   const { createStore, useStore } = Vuex
 
   // Create a new store instance.
@@ -90,10 +94,7 @@ app.use(store)
     setup() {
       const options = ['State', 'Getters', 'Mutations', 'Actions']
 
-      const store = useStore()
-
       return {
-        store,
         options,
 
         jsCode,
@@ -103,12 +104,12 @@ app.use(store)
     template: `
       <vue-select
         :options="options"
-        :modelValue="store.state.value"
-        @update:modelValue="value => store.commit('update', value)"
+        :modelValue="$store.state.value"
+        @update:modelValue="value => $store.commit('update', value)"
         close-on-select
       ></vue-select>
 
-      <pre class="result"><code class="plaintext">{{ store.state.value }}</code></pre>
+      <pre class="result"><code class="plaintext">{{ $store.state.value }}</code></pre>
 
       <p><i>Code sample:</i></p>
       <pre><code class="html">{{ htmlCode }}</code></pre>
@@ -118,5 +119,5 @@ app.use(store)
 
   singleSelect.use(store)
   singleSelect.component('vue-select', VueNextSelect)
-  singleSelect.mount(document.querySelector('#vuex-support'))
+  singleSelect.mount('#vuex-support')
 }

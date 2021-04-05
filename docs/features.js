@@ -50,5 +50,5 @@
   })
 
   featureSelect.component('vue-select', VueNextSelect)
-  featureSelect.mount(document.querySelector('#features'))
+  featureSelect.mount('#features')
 }

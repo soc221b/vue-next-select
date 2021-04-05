@@ -12,11 +12,7 @@ createApp({
   setup() {
     const model = ref(null)
 
-    const options = [
-      { language: 'JavaScript' },
-      { language: 'Python' },
-      { language: 'PHP' }
-    ]
+    const options = ['vue', 'next', 'select']
 
     return {
       model,
@@ -26,7 +22,7 @@ createApp({
 }).mount('#app')
 `.trim()
       : `
-import { ref, createApp } from 'vue'
+import Vue from 'vue'
 import VueSelect from 'vue-next-select'
 
 const app = new Vue({
@@ -37,11 +33,7 @@ const app = new Vue({
   data() {
     return {
       model: null,
-      options: [
-        { language: 'JavaScript' },
-        { language: 'Python' },
-        { language: 'PHP' },
-      ],
+      options: ['vue', 'next', 'select'],
     }
   },
 })
@@ -52,8 +44,6 @@ const app = new Vue({
 <vue-select
   v-model="model"
   :options="options"
-  label-by="language"
-  :min="1"
 ></vue-select>
 `.trim()
 
@@ -75,20 +65,11 @@ const app = new Vue({
       }
     },
     template: `
-      <vue-select
-        v-model="model"
-        :options="options"
-        label-by="language"
-        :min="1"
-      ></vue-select>
-      <pre class="result"><code class="plaintext">{{ model }}</code></pre>
-
-      <p><i>Code sample:</i></p>
       <pre><code class="html">{{ htmlCode }}</code></pre>
       <pre><code class="javascript">{{ jsCode }}</code></pre>
     `,
   })
 
   app.component('vue-select', VueNextSelect)
-  app.mount('#single-select')
+  app.mount('#usage')
 }

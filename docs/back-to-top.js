@@ -32,5 +32,5 @@
     `,
   })
 
-  comp.mount(document.querySelector('#back-to-top'))
+  comp.mount('#back-to-top')
 }
