@@ -20,7 +20,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: yarn install
+      - name: Install Cache
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn
+
       - run: yarn build
 
       - run: yarn test:cypress --browser ${{ matrix.browser }}
