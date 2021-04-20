@@ -1,3 +1,4 @@
 {
+  "pageLoadTimeout": 300000,
   "video": false
 }
