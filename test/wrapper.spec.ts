@@ -31,7 +31,7 @@ it('should open dropdown after click wrapper', async () => {
   await wrapper.trigger('focus')
   expect(getDropdownElement(wrapper)).not.toBe(null)
 
-  await wrapper.element.parentElement.dispatchEvent(new Event('click'))
+  await wrapper.trigger('blur')
   expect(getDropdownElement(wrapper)).toBe(null)
 })
 
