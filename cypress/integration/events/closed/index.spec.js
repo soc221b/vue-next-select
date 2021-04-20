@@ -14,8 +14,8 @@ const finish = () => {
 
 context('closed event', () => {
   it('should not fire event', () => {
-    setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setResolve()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('closed-custom-event', setReject)
@@ -27,8 +27,8 @@ context('closed event', () => {
   })
 
   it('should not fire event after adding option', () => {
-    setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setResolve()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('closed-custom-event', setReject)
@@ -40,8 +40,8 @@ context('closed event', () => {
   })
 
   it('should not fire event after removing option', () => {
-    setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setResolve()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('closed-custom-event', setReject)
@@ -53,8 +53,8 @@ context('closed event', () => {
   })
 
   it('should not fire event after removing option by click tag', () => {
-    setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setResolve()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('closed-custom-event', setReject)
@@ -66,8 +66,8 @@ context('closed event', () => {
   })
 
   it('should fire event', () => {
-    setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setReject()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('closed-custom-event', setResolve)
@@ -79,8 +79,8 @@ context('closed event', () => {
   })
 
   it('should fire event after clicking arrow downward icon', () => {
-    setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setReject()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('closed-custom-event', setResolve)

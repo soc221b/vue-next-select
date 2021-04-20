@@ -14,8 +14,8 @@ const finish = () => {
 
 context('search:blur event', () => {
   it('should not fire event after adding option', () => {
-    setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setResolve()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('search:blur-custom-event', setReject)
@@ -27,8 +27,8 @@ context('search:blur event', () => {
   })
 
   it('should not fire event after removing option', () => {
-    setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setResolve()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('search:blur-custom-event', setReject)
@@ -40,8 +40,8 @@ context('search:blur event', () => {
   })
 
   it('should not fire event after removing option by clicking tag', () => {
-    setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setResolve()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('search:blur-custom-event', setReject)
@@ -53,8 +53,8 @@ context('search:blur event', () => {
   })
 
   it('should fire event', () => {
-    setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setReject()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('search:blur-custom-event', setResolve)
@@ -66,8 +66,8 @@ context('search:blur event', () => {
   })
 
   it('should fire event after clicking arrow downward icon', () => {
-    setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
+      setReject()
       cy.get('.vue-select').click()
       cy.then(() => {
         window.removeEventListener('search:blur-custom-event', setResolve)
