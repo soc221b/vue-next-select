@@ -376,22 +376,6 @@ const VueSelect = {
       { deep: true },
     )
 
-    const syncToModelValue = () => {
-      if (isSynchronoused()) return
-      const selectedValues = normalizedModelValue.value.map(option => valueBy.value(option))
-      if (props.multiple) {
-        context.emit('update:modelValue', selectedValues)
-      } else {
-        if (selectedValues.length) context.emit('update:modelValue', selectedValues[0])
-        else context.emit('update:modelValue', props.emptyModelValue)
-      }
-    }
-    watch(
-      () => normalizedModelValue,
-      () => syncToModelValue(),
-      { deep: true },
-    )
-
     // guarantee options has modelValue
     watch(
       () => options.value,
@@ -407,6 +391,7 @@ const VueSelect = {
 
       if (option.group && props.multiple) addOrRemoveOptionForGroupOption(event, option)
       else addOrRemoveOptionForNonGroupOption(event, option)
+      syncToModelValue()
 
       if (props.closeOnSelect === true) isFocusing.value = false
       if (props.clearOnSelect === true && searchingInputValue.value) clearInput()
@@ -460,6 +445,16 @@ const VueSelect = {
           valueBy: valueBy.value,
         })
         context.emit('selected', option)
+      }
+    }
+    const syncToModelValue = () => {
+      if (isSynchronoused()) return
+      const selectedValues = normalizedModelValue.value.map(option => valueBy.value(option))
+      if (props.multiple) {
+        context.emit('update:modelValue', selectedValues)
+      } else {
+        if (selectedValues.length) context.emit('update:modelValue', selectedValues[0])
+        else context.emit('update:modelValue', props.emptyModelValue)
       }
     }
 
