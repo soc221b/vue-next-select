@@ -12,6 +12,14 @@
     "
     @keydown.down.prevent="pointerForward"
     @keydown.up.prevent="pointerBackward"
+    :id="`vs${instance.uid}-combobox`"
+    :role="searchable ? 'combobox' : null"
+    :aria-expanded="isFocusing"
+    aria-haspopup="listbox"
+    :aria-owns="`vs${instance.uid}-listbox`"
+    :aria-activedescendant="
+      highlightedOriginalIndex === null ? null : `vs${instance.uid}-option-${highlightedOriginalIndex}`
+    "
   >
     <div ref="header" class="vue-select-header">
       <template
@@ -58,6 +66,7 @@
           @escape="blur"
           :autofocus="autofocus || (taggable && searchable)"
           :tabindex="tabindex"
+          :comboboxUid="instance.uid"
         ></v-input>
 
         <span v-show="loading" class="icon loading">
@@ -89,6 +98,7 @@
         @escape="blur"
         :tabindex="tabindex"
         :autofocus="autofocus || (taggable && searchable)"
+        :comboboxUid="instance.uid"
       >
         <template #append>
           <span v-show="loading" class="icon loading">
@@ -107,6 +117,7 @@
       @click-item="addOrRemoveOption"
       @mousemove="(ev, option) => pointerSet(option.originalIndex)"
       :header-height="headerAndInputHeight"
+      :comboboxUid="instance.uid"
     >
       <template #default="{ option }">
         <slot name="dropdown-item" :option="option.originalOption">
@@ -596,6 +607,8 @@ const VueSelect = {
     })
 
     return {
+      instance,
+
       isFocusing,
       wrapper,
       dropdown,

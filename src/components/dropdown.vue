@@ -1,6 +1,14 @@
 <template>
-  <ul class="vue-dropdown" @mousedown.prevent :style="{ top: headerHeight }" v-bind="dataAttrs">
-    <template v-for="option of modelValue" :key="option.key">
+  <ul
+    class="vue-dropdown"
+    @mousedown.prevent
+    :style="{ top: headerHeight }"
+    v-bind="dataAttrs"
+    role="listbox"
+    :id="`vs${comboboxUid}-listbox`"
+    :aria-multiselectable="dataAttrs['data-multiple']"
+  >
+    <template v-for="(option, index) of modelValue" :key="option.key">
       <li
         v-if="option.visible && option.hidden === false"
         @click="handleClickItem($event, option)"
@@ -12,6 +20,10 @@
           group: option.group,
         }"
         @mousemove="handleMousemove($event, option)"
+        role="option"
+        :id="`vs${comboboxUid}-option-${index}`"
+        :aria-selected="option.disabled ? undefined : option.highlighted"
+        :aria-disabled="option.disabled"
       >
         <slot :option="option">
           <span>{{ option.label }}</span>
@@ -38,6 +50,11 @@ export default {
       },
     },
     headerHeight: {
+      required: true,
+      type: String,
+    },
+
+    comboboxUid: {
       required: true,
       type: String,
     },

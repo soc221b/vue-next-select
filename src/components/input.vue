@@ -13,6 +13,9 @@
       @keyup.esc.exact="handleEscape"
       :tabindex="tabindex"
       :autofocus="autofocus"
+      aria-autocomplete="list"
+      :aria-controls="`vs${comboboxUid}-listbox`"
+      :aria-labelledby="`vs${comboboxUid}-combobox`"
     />
     <slot name="append"></slot>
   </div>
@@ -44,6 +47,11 @@ export default {
     autofocus: {
       required: true,
       type: Boolean,
+    },
+
+    comboboxUid: {
+      required: true,
+      type: String,
     },
   },
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'escape'],
