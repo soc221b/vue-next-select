@@ -131,20 +131,39 @@ const VueSelect = {
   name: 'vue-select',
   inheritAttrs: false,
   props: {
+    // modelValue
     modelValue: {
       required: true,
     },
     emptyModelValue: {
       default: null,
     },
+
+    // options
     options: {
       required: true,
       type: Array,
+    },
+    labelBy: {
+      type: [String, Function],
+    },
+    valueBy: {
+      type: [String, Function],
+    },
+    disabledBy: {
+      default: 'disabled',
+      type: [String, Function],
+    },
+    groupBy: {
+      default: 'group',
+      type: [String, Function],
     },
     visibleOptions: {
       type: [Array, null],
       default: null,
     },
+
+    // multiple
     multiple: {
       default: false,
       type: Boolean,
@@ -157,46 +176,17 @@ const VueSelect = {
       default: Infinity,
       type: Number,
     },
-    closeOnSelect: {
-      default: false,
-      type: Boolean,
-    },
-    clearOnSelect: {
-      default: false,
-      type: Boolean,
-    },
-    hideSelected: {
-      default: false,
-      type: Boolean,
-    },
-    labelBy: {
-      type: [String, Function],
-    },
-    valueBy: {
-      type: [String, Function],
-    },
-    disabledBy: {
-      default: 'disabled',
-      type: [String, Function],
-    },
 
-    disabled: {
+    // search
+    searchable: {
       default: false,
       type: Boolean,
-    },
-    loading: {
-      default: false,
-      type: Boolean,
-    },
-    placeholder: {
-      default: 'Select option',
-      type: String,
     },
     searchPlaceholder: {
       default: 'Type to search',
       type: String,
     },
-    searchable: {
+    clearOnSelect: {
       default: false,
       type: Boolean,
     },
@@ -205,6 +195,7 @@ const VueSelect = {
       type: Boolean,
     },
 
+    // tag
     taggable: {
       default: false,
       type: Boolean,
@@ -212,6 +203,28 @@ const VueSelect = {
     collapseTags: {
       default: false,
       type: Boolean,
+    },
+
+    // misc
+    disabled: {
+      default: false,
+      type: Boolean,
+    },
+    loading: {
+      default: false,
+      type: Boolean,
+    },
+    closeOnSelect: {
+      default: false,
+      type: Boolean,
+    },
+    hideSelected: {
+      default: false,
+      type: Boolean,
+    },
+    placeholder: {
+      default: 'Select option',
+      type: String,
     },
     tabindex: {
       default: 0,
@@ -221,18 +234,15 @@ const VueSelect = {
       default: false,
       type: Boolean,
     },
-
-    groupBy: {
-      default: 'group',
-      type: [String, Function],
-    },
   },
   emits: [
-    'update:modelValue',
     'selected',
     'removed',
+    'update:modelValue',
+
     'opened',
     'closed',
+
     'search:input',
     'search:change',
     'search:focus',
