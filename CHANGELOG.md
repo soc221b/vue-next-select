@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/iendeavor/vue-next-select/compare/v2.1.1...v2.2.0) (2021-04-30)
+
+
+### Features
+
+* a11y ([bdf57c3](https://github.com/iendeavor/vue-next-select/commit/bdf57c3f67200d846411367e18999d7e25695ca1))
+
+
+### Bug Fixes
+
+* update:ModelValue event should be fired synchronously ([209489c](https://github.com/iendeavor/vue-next-select/commit/209489c26c3bfd6ff15c8b06c039a5392aa9e1ee))
+
 ### [2.1.1](https://github.com/iendeavor/vue-next-select/compare/v2.1.0...v2.1.1) (2021-04-03)
 
 
