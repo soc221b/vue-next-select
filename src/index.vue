@@ -442,7 +442,7 @@ const VueSelect = {
         })
         context.emit('removed', option)
       } else {
-        if (!props.multiple) {
+        if (!props.multiple && normalizedModelValue.value.length === 1) {
           const removingOption = normalizedModelValue.value[0]
           normalizedModelValue.value = removeOption(normalizedModelValue.value, normalizedModelValue.value[0], {
             min: 0,

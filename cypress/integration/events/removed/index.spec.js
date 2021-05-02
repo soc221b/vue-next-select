@@ -38,4 +38,17 @@ context('removed event', () => {
       cy.then(finish)
     })
   })
+
+  it('should not fire event when there is no selected option', () => {
+    setResolve()
+    cy.visit(path.join(__dirname, 'single.html')).then(window => {
+      cy.get('.vue-select').click()
+      cy.then(() => {
+        window.removeEventListener('removed-custom-event', setReject)
+        window.addEventListener('removed-custom-event', setReject)
+      })
+      cy.get('.vue-dropdown').children().first().next().click()
+      cy.then(finish)
+    })
+  })
 })
