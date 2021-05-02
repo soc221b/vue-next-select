@@ -53,9 +53,44 @@
       </template>
 
       <template v-else>
+        <template v-if="searchable">
+          <v-input
+            ref="input"
+            v-model="searchingInputValue"
+            :disabled="disabled"
+            :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
+            @input="handleInputForInput"
+            @change="handleChangeForInput"
+            @focus="handleFocusForInput"
+            @blur="handleBlurForInput"
+            @escape="blur"
+            :autofocus="autofocus || (taggable && searchable)"
+            :tabindex="tabindex"
+            :comboboxUid="instance.uid"
+          >
+            <template #append>
+              <span v-show="loading" class="icon loading">
+                <div></div>
+                <div></div>
+                <div></div>
+              </span>
+              <span
+                v-show="loading === false"
+                class="icon arrow-downward"
+                :class="{ active: isFocusing }"
+                @click="toggle"
+                @mousedown.prevent.stop
+              ></span>
+            </template>
+          </v-input>
+        </template>
+      </template>
+    </div>
+
+    <template v-if="multiple && taggable && searchable">
+      <template v-if="isFocusing">
         <v-input
           ref="input"
-          v-if="searchable"
           v-model="searchingInputValue"
           :disabled="disabled"
           :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
@@ -74,42 +109,9 @@
               <div></div>
               <div></div>
             </span>
-            <span
-              v-show="loading === false"
-              class="icon arrow-downward"
-              :class="{ active: isFocusing }"
-              @click="toggle"
-              @mousedown.prevent.stop
-            ></span>
           </template>
         </v-input>
       </template>
-    </div>
-
-    <template v-if="multiple && taggable && searchable">
-      <v-input
-        ref="input"
-        v-show="isFocusing"
-        v-model="searchingInputValue"
-        :disabled="disabled"
-        :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
-        @input="handleInputForInput"
-        @change="handleChangeForInput"
-        @focus="handleFocusForInput"
-        @blur="handleBlurForInput"
-        @escape="blur"
-        :autofocus="autofocus || (taggable && searchable)"
-        :tabindex="tabindex"
-        :comboboxUid="instance.uid"
-      >
-        <template #append>
-          <span v-show="loading" class="icon loading">
-            <div></div>
-            <div></div>
-            <div></div>
-          </span>
-        </template>
-      </v-input>
     </template>
 
     <v-dropdown
@@ -276,10 +278,12 @@ const VueSelect = {
         if (isFocusing.value) {
           context.emit('opened')
           if (props.searchable) {
-            if (inputEl.value !== document.activeElement) {
-              inputEl.value.focus()
-            }
-            context.emit('search:focus')
+            nextTick(() => {
+              if (inputEl.value !== document.activeElement) {
+                inputEl.value.focus()
+              }
+              context.emit('search:focus')
+            })
           } else {
             wrapper.value.focus()
           }
