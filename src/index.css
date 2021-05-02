@@ -66,8 +66,8 @@
   justify-content: space-between;
 }
 
-.vue-select-header > .icon.loading,
-.vue-select-header > .icon.arrow-downward {
+.vue-select-header .icon.loading,
+.vue-select-header .icon.arrow-downward {
   margin-right: 4px;
 }
 
@@ -98,7 +98,7 @@
   font-size: 0.8rem;
 }
 
-.vue-tag > span {
+.vue-tag span {
   margin-right: 4px;
 }
 
@@ -129,12 +129,12 @@
   padding: 4px;
 }
 
-.vue-select[data-is-focusing='false'] .vue-input > input,
+.vue-select[data-is-focusing='false'] .vue-input input,
 input[readonly] {
   cursor: default;
 }
 
-.vue-input > input {
+.vue-input input {
   border: none;
   outline: none;
   width: 100%;
@@ -143,15 +143,15 @@ input[readonly] {
   padding: 0;
 }
 
-.vue-input > input[disabled] {
+.vue-input input[disabled] {
   background-color: rgba(239, 239, 239);
 }
 
-.vue-input > input[readonly] {
+.vue-input input[readonly] {
   background-color: unset;
 }
 
-.vue-select-header > .vue-input > input[disabled] {
+.vue-select-header .vue-input input[disabled] {
   background-color: unset;
 }
 
