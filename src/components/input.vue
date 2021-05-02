@@ -51,7 +51,7 @@ export default {
 
     comboboxUid: {
       required: true,
-      type: String,
+      type: Number,
     },
   },
   emits: ['update:modelValue', 'input', 'change', 'focus', 'blur', 'escape'],

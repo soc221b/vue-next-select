@@ -56,7 +56,7 @@ export default {
 
     comboboxUid: {
       required: true,
-      type: String,
+      type: Number,
     },
   },
   emits: ['click-item', 'mousemove'],
