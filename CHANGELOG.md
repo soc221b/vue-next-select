@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/iendeavor/vue-next-select/compare/v2.2.0...v2.3.0) (2021-05-02)
+
+
+### Features
+
+* expose loading and toggle slot ([8e6aee1](https://github.com/iendeavor/vue-next-select/commit/8e6aee177eae0fab45f1ae6cbbc82f74847e8d01)), closes [#150](https://github.com/iendeavor/vue-next-select/issues/150)
+
+
+### Bug Fixes
+
+* style ([03de974](https://github.com/iendeavor/vue-next-select/commit/03de974b13dd9166485b43ada54eb66355c60ed8))
+* wrong type validation ([a11f33e](https://github.com/iendeavor/vue-next-select/commit/a11f33ea498b9f9b38245cd22f73a7d150c56cee))
+
 ## [2.2.0](https://github.com/iendeavor/vue-next-select/compare/v2.1.1...v2.2.0) (2021-04-30)
 
 
