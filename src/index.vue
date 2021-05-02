@@ -67,37 +67,39 @@
           :autofocus="autofocus || (taggable && searchable)"
           :tabindex="tabindex"
           :comboboxUid="instance.uid"
-        ></v-input>
-
-        <span v-show="loading" class="icon loading">
-          <div></div>
-          <div></div>
-          <div></div>
-        </span>
-        <span
-          v-show="loading === false"
-          class="icon arrow-downward"
-          :class="{ active: isFocusing }"
-          @click="toggle"
-          @mousedown.prevent.stop
-        ></span>
+        >
+          <template #append>
+            <span v-show="loading" class="icon loading">
+              <div></div>
+              <div></div>
+              <div></div>
+            </span>
+            <span
+              v-show="loading === false"
+              class="icon arrow-downward"
+              :class="{ active: isFocusing }"
+              @click="toggle"
+              @mousedown.prevent.stop
+            ></span>
+          </template>
+        </v-input>
       </template>
     </div>
 
     <template v-if="multiple && taggable && searchable">
       <v-input
-        v-show="isFocusing"
         ref="input"
+        v-show="isFocusing"
         v-model="searchingInputValue"
         :disabled="disabled"
-        :placeholder="searchPlaceholder"
+        :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
         @input="handleInputForInput"
         @change="handleChangeForInput"
         @focus="handleFocusForInput"
         @blur="handleBlurForInput"
         @escape="blur"
-        :tabindex="tabindex"
         :autofocus="autofocus || (taggable && searchable)"
+        :tabindex="tabindex"
         :comboboxUid="instance.uid"
       >
         <template #append>
