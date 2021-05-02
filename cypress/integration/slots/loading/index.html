@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link type="text/css" rel="stylesheet" href="/dist/index.css" />
+    <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="/dist/vue-next-select.iife.js"></script>
+    <script>
+      const { ref, createApp } = Vue
+      const app = createApp({
+        name: 'app',
+        setup() {
+          const selectedOptions = ref('i')
+          const options = ref(['i'])
+          const loading = ref(false)
+          const handleSearchInput = async () => {
+            loading.value = true
+            await new Promise(resolve => setTimeout(resolve, 100))
+            loading.value = false
+          }
+          return {
+            selectedOptions,
+            options,
+            loading,
+            handleSearchInput,
+          }
+        },
+        template: `
+        <vue-select
+          v-model="selectedOptions"
+          :options="options"
+          searchable
+          @search:input="handleSearchInput"
+          :loading="loading"
+        >
+          <template #loading>
+            <span id="custom-loading">Loading</span>
+          </template>
+        </vue-select>
+        `,
+      })
+
+      app.component('vue-select', VueNextSelect)
+      app.mount(document.querySelector('#app'))
+    </script>
+  </body>
+</html>
