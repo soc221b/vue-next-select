@@ -36,7 +36,7 @@
     "test:cypress": "yarn cypress run",
     "release": "standard-version",
     "lint": "prettier --check *",
-    "_postinstall": "husky install",
+    "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
   },
