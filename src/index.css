@@ -245,3 +245,7 @@ input[readonly] {
     transform: rotate(360deg);
   }
 }
+
+.inline-flex {
+  display: inline-flex;
+}

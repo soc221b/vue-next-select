@@ -6,7 +6,7 @@ context('loading', () => {
     cy.visit(path.join(__dirname, 'without.html'))
     cy.get('.vue-select').click()
 
-    cy.get('.loading').should('not.be.visible')
+    cy.get('.loading').should('not.exist')
   })
 
   it('should not be removed', () => {
