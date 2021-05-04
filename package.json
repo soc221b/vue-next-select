@@ -32,8 +32,9 @@
   "scripts": {
     "build": "rollup --config",
     "dev": "rollup --config --watch --environment DEVELOPMENT",
-    "test": "yarn test:cypress",
+    "test": "yarn test:jest && yarn test:cypress",
     "test:cypress": "yarn cypress run",
+    "test:jest": "jest --clearCache && jest test/**/*",
     "release": "standard-version",
     "lint": "prettier --check *",
     "postinstall": "husky install",

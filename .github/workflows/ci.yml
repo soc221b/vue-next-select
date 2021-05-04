@@ -23,4 +23,11 @@ jobs:
 
       - run: yarn test:cypress
 
-      # TODO: https://github.com/vuejs/vue-test-utils-next/issues/418
+      - run: yarn test:jest --coverage
+        env:
+          CI: true
+
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v1.1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
