@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/iendeavor/vue-next-select/compare/v2.3.0...v2.3.1) (2021-05-04)
+
+
+### Bug Fixes
+
+* it should only fire removed event when there is one selected option ([3ebcfd6](https://github.com/iendeavor/vue-next-select/commit/3ebcfd67185f663251273c487fdc066567e11ffd))
+* wrong use of teleport ([49b8775](https://github.com/iendeavor/vue-next-select/commit/49b877533c53d7ed6be0b1bacdb428f761156cd0)), closes [#180](https://github.com/iendeavor/vue-next-select/issues/180)
+
 ## [2.3.0](https://github.com/iendeavor/vue-next-select/compare/v2.2.0...v2.3.0) (2021-05-02)
 
 
