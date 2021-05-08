@@ -10,6 +10,7 @@ const viewNames = [
   'Remote searching',
   'Custom dropdown',
   'Custom tag',
+  'Vuex',
 ]
 
 export const routes = viewNames.map(viewName => ({

@@ -16,7 +16,8 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "latest",
     "@vue/compiler-sfc": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "vuex": "^4.0.0"
   },
   "engines": {
     "node": ">=12"
