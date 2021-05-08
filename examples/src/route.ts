@@ -10,6 +10,7 @@ const viewNames = [
   'Remote searching',
   'Custom dropdown',
   'Custom tag',
+  'Custom empty model value',
   'Vuex',
 ]
 

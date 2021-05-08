@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link type="text/css" rel="stylesheet" href="/dist/index.css" />
+    <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="/dist/vue-next-select.iife.js"></script>
+    <script>
+      const { ref, createApp } = Vue
+      const app = createApp({
+        name: 'app',
+        setup() {
+          const model = ref('i')
+          const options = ref(['i', 'love', 'vue'])
+
+          return {
+            model,
+            options,
+          }
+        },
+        template: `
+        <div id="modelValue">{{ model === '' ? '<empty string>' : model }}</div>
+        <vue-select
+          v-model="model"
+          :options="options"
+          empty-model-value=""
+        ></vue-select>
+        `,
+      })
+
+      app.component('vue-select', VueNextSelect)
+      app.mount(document.querySelector('#app'))
+    </script>
+  </body>
+</html>
