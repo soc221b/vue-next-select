@@ -6,8 +6,8 @@
 
 - **Type**:
 
-  - `(T)[]` if `multiple` is `true`
-  - `(T | E)` if `multiple` is `false`
+  - `(OptionType)[]` if `multiple` is `true`
+  - `(OptionType | EmptyModelValueType)` if `multiple` is `false`
 
 - **Details**:
 
@@ -17,7 +17,7 @@
 
 ### empty-model-value
 
-- **Type**: `E`
+- **Type**: `EmptyModelValueType = any`
 
 - **Default**: `null`
 
@@ -29,7 +29,7 @@
 
 ### options
 
-- **Type**: `T[]`
+- **Type**: `OptionType[] = any[]`
 
 - **Details**:
 
@@ -37,7 +37,7 @@
 
 ### visible-options
 
-- **Type**: `T[]`
+- **Type**: `OptionType[]`
 
 - **Details**:
 
@@ -105,7 +105,7 @@
 
   Same as `label-by` but for `group`
 
-  If one option is group, its `value` must be type `T[]`.
+  If one option is group, its `value` must be type `OptionType[]`.
 
   When a group option is selected, those `value`s will be selected, and if all of those `value`s are already selected,
   it will be deselected.
@@ -224,19 +224,19 @@
 
 - **Arguments**:
 
-  - `{(T | E) | (T | E)[]}` modelValue
+  - `{(OptionType | EmptyModelValueType) | (OptionType | EmptyModelValueType)[]}` modelValue
 
 ### selected
 
 - **Arguments**:
 
-  - `{T}` option
+  - `{OptionType}` option
 
 ### removed
 
 - **Arguments**:
 
-  - `{T}` option
+  - `{OptionType}` option
 
 ### ~~opened~~
 
@@ -284,13 +284,13 @@ New in `v2.4.0+`
 
 - **Attributes**:
 
-  - `{T}` option
+  - `{OptionType}` option
 
 ### tag
 
 - **Attributes**:
 
-  - `{T}` option
+  - `{OptionType}` option
 
 ### toggle
 
