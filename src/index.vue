@@ -250,6 +250,9 @@ const VueSelect = {
     'removed',
     'update:modelValue',
 
+    'focus',
+    'blur',
+    // Deprecated, use `focus` / `blur` instead.
     'opened',
     'closed',
 
@@ -272,6 +275,7 @@ const VueSelect = {
       () => {
         if (isFocusing.value) {
           context.emit('opened')
+          context.emit('focus')
           if (props.searchable) {
             if (inputEl.value !== document.activeElement) {
               inputEl.value.focus()
@@ -291,6 +295,7 @@ const VueSelect = {
             wrapper.value.blur()
           }
           context.emit('closed')
+          context.emit('blur')
         }
       },
     )

@@ -238,9 +238,21 @@
 
   - `{T}` option
 
-### opened
+### ~~opened~~
 
-### closed
+> Warning: deprecated, use [`focus`](#focus) instead.
+
+### ~~closed~~
+
+> Warning: deprecated, use [`blur`](#blur) instead.
+
+### focus
+
+New in `v2.4.0+`
+
+### blur
+
+New in `v2.4.0+`
 
 ### search:input
 
