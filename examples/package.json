@@ -10,7 +10,7 @@
   "dependencies": {
     "vite": "latest",
     "vue": "next",
-    "vue-next-select": "^2.3.1",
+    "vue-next-select": "^2.4.0",
     "vue-router": "^4.0.6"
   },
   "devDependencies": {

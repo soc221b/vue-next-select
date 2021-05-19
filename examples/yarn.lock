@@ -392,10 +392,10 @@ vite@latest:
   optionalDependencies:
     fsevents "~2.3.1"
 
-vue-next-select@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/vue-next-select/-/vue-next-select-2.3.1.tgz#49cb433e0e70268a55df9679cff579b465392418"
-  integrity sha512-y1fr2E7QlAFAJ21uZlLzvtGY3MI3RNGCIJtfOnWg/SO7sF9uQNX29fWe1tLNNLzaT3UoZw5rKmTZL6vD54eXlA==
+vue-next-select@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/vue-next-select/-/vue-next-select-2.4.0.tgz#ae81763d93bfb6f29b335c700955bda268e852d4"
+  integrity sha512-NYuLL9CH8IPSloi2yhPBCLZXJ9ePssyM3TuVMuA6yHggQN5q/WhyGIur/e0i9RbfVfNRYToelj2e6cNst+s+0A==
 
 vue-router@^4.0.6:
   version "4.0.6"
