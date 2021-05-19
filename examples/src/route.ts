@@ -4,7 +4,6 @@ const viewNames = [
   'Basic usage',
   'Creatable',
   'Select all',
-  'Vuex',
   'Limiting selections',
   'Group',
   'Remote searching',
