@@ -19,7 +19,7 @@ context('pointer', () => {
     cy.get('.vue-dropdown-item').first().should('have.class', 'selected')
   })
 
-  it('should change highlighted item when press down', () => {
+  it('should change highlighted item when press down key', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
@@ -47,7 +47,7 @@ context('pointer', () => {
     cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
   })
 
-  it('should change highlighted when filter but old exists', () => {
+  it('should keep currenct highlighted if it is still exists after filter', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
