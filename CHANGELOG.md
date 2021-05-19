@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/iendeavor/vue-next-select/compare/v2.3.1...v2.4.0) (2021-05-19)
+
+
+### Features
+
+* emit consistent event name focus and blur ([5c9ad44](https://github.com/iendeavor/vue-next-select/commit/5c9ad4459b3ef5bab9df2e0bd64a63328561f767))
+
+
+### Bug Fixes
+
+* prevent infinite loop ([69b3ff0](https://github.com/iendeavor/vue-next-select/commit/69b3ff0df9a3208d97feca0590d7e2289c685aca)), closes [#168](https://github.com/iendeavor/vue-next-select/issues/168)
+
 ### [2.3.1](https://github.com/iendeavor/vue-next-select/compare/v2.3.0...v2.3.1) (2021-05-04)
 
 
