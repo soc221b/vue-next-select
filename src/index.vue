@@ -556,12 +556,15 @@ const VueSelect = {
       if (!dropdown.value) return
 
       const computedStyle = getComputedStyle(highlightedEl)
+      let safeCount
+      safeCount = 0
       while (
         highlightedEl.offsetTop +
           parseFloat(computedStyle.height) +
           parseFloat(computedStyle.paddingTop) +
           parseFloat(computedStyle.paddingBottom) >
-        dropdown.value.$el.clientHeight + dropdown.value.$el.scrollTop
+          dropdown.value.$el.clientHeight + dropdown.value.$el.scrollTop &&
+        safeCount++ < optionsWithInfo.value.length
       ) {
         dropdown.value.$el.scrollTop =
           dropdown.value.$el.scrollTop +
@@ -569,7 +572,8 @@ const VueSelect = {
           parseFloat(computedStyle.paddingTop) +
           parseFloat(computedStyle.paddingBottom)
       }
-      while (highlightedEl.offsetTop < dropdown.value.$el.scrollTop) {
+      safeCount = 0
+      while (highlightedEl.offsetTop < dropdown.value.$el.scrollTop && safeCount++ < optionsWithInfo.value.length) {
         dropdown.value.$el.scrollTop =
           dropdown.value.$el.scrollTop -
           parseFloat(computedStyle.height) -

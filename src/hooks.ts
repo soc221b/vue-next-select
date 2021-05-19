@@ -25,7 +25,8 @@ export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref
     if (isSomeSelectable.value === false) return
     if (highlightedOriginalIndex.value === null) return
     let tempOriginalIndex = highlightedOriginalIndex.value + 1
-    while (tempOriginalIndex !== highlightedOriginalIndex.value) {
+    let safeCount = 0
+    while (tempOriginalIndex !== highlightedOriginalIndex.value && safeCount++ < options.value.length) {
       if (options.value.length <= tempOriginalIndex) tempOriginalIndex = 0
       if (pointerSet(tempOriginalIndex)) break
       ++tempOriginalIndex
@@ -35,7 +36,8 @@ export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref
     if (isSomeSelectable.value === false) return
     if (highlightedOriginalIndex.value === null) return
     let tempOriginalIndex = highlightedOriginalIndex.value - 1
-    while (tempOriginalIndex !== highlightedOriginalIndex.value) {
+    let safeCount = 0
+    while (tempOriginalIndex !== highlightedOriginalIndex.value && safeCount++ < options.value.length) {
       if (tempOriginalIndex < 0) tempOriginalIndex = options.value.length - 1
       if (pointerSet(tempOriginalIndex)) break
       --tempOriginalIndex
