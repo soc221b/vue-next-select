@@ -29,6 +29,16 @@ context('pointer', () => {
     cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
   })
 
+  it('should change highlighted item when press up key', () => {
+    cy.visit(path.join(__dirname, 'with-searchable.html'))
+
+    cy.get('.vue-select').click()
+    cy.get('.vue-select').trigger('keydown', 'center', { key: 'up' })
+
+    cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
+    cy.get('.vue-dropdown-item').first().next().next().should('have.class', 'highlighted')
+  })
+
   it('should change highlighted item when mousemove', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
@@ -67,6 +77,21 @@ context('pointer', () => {
 
     cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
     cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
+  })
+
+  it('should not highlight disabled item when press keys', () => {
+    cy.visit(path.join(__dirname, 'with-disabled.html'))
+
+    cy.get('.vue-select').click()
+    cy.get('.vue-select').trigger('keydown', 'center', { key: 'up' })
+
+    cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
+    cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
+
+    cy.get('.vue-select').trigger('keydown', 'center', { key: 'down' })
+
+    cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
+    cy.get('.vue-dropdown-item').first().next().should('not.have.class', 'highlighted')
   })
 
   it('should not be able to highlight on disabled item', () => {
