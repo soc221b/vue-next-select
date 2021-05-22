@@ -1,5 +1,5 @@
 <template>
-  <pre>modelValue: {{ JSON.stringify(state.techStack) }}</pre>
+  <pre>state: {{ JSON.stringify(state.techStack) }}</pre>
 
   <vue-select
     :model-value="state.techStack"

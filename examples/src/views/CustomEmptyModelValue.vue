@@ -1,7 +1,7 @@
 <template>
   <pre>modelValue: {{ JSON.stringify(techStack) }}</pre>
 
-  <vue-select v-model="techStack" :options="options" label-by="framework" :empty-model-value="''" />
+  <vue-select v-model="techStack" :options="options" label-by="framework" value-by="language" :empty-model-value="''" />
 </template>
 
 <script lang="ts">
