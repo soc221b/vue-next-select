@@ -262,7 +262,7 @@ const VueSelect = {
     'search:blur',
   ],
   setup(props, context) {
-    const { labelBy, valueBy, disabledBy, groupBy, min, max, options } = normalize(props)
+    const normalized = normalize(props)
 
     const instance = getCurrentInstance()
     const wrapper = ref()
@@ -337,7 +337,7 @@ const VueSelect = {
     const searchRe = computed(() => new RegExp(searchingInputValue.value, 'i'))
     const searchedOptions = computed(() => {
       return searchingInputValue.value
-        ? options.value.filter(option => searchRe.value.test(labelBy.value(option)))
+        ? normalized.options.filter(option => searchRe.value.test(normalized.labelBy(option)))
         : undefined
     })
 
@@ -351,7 +351,7 @@ const VueSelect = {
           Object.keys(normalizedModelValue.value).some(
             index =>
               normalizedModelValue.value[index] !==
-              getOptionByValue(options.value, props.modelValue[index], { valueBy: valueBy.value }),
+              getOptionByValue(normalized.options, props.modelValue[index], { valueBy: normalized.valueBy }),
           )
         )
           return false
@@ -360,7 +360,7 @@ const VueSelect = {
         if (normalizedModelValue.value.length === 1 && props.modelValue === props.emptyModelValue) return false
         if (
           normalizedModelValue.value[0] !==
-          getOptionByValue(options.value, props.modelValue, { valueBy: valueBy.value })
+          getOptionByValue(normalized.options, props.modelValue, { valueBy: normalized.valueBy })
         )
           return false
       }
@@ -375,12 +375,12 @@ const VueSelect = {
         ? []
         : [props.modelValue]
       for (const value of modelValue) {
-        const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
+        const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
         // guarantee options has modelValue
-        if (hasOption(options.value, option, { valueBy: valueBy.value }) === false) continue
+        if (hasOption(normalized.options, option, { valueBy: normalized.valueBy }) === false) continue
         normalizedModelValue.value = addOption(normalizedModelValue.value, option, {
           max: Infinity,
-          valueBy: valueBy.value,
+          valueBy: normalized.valueBy,
         })
       }
     }
@@ -393,10 +393,12 @@ const VueSelect = {
 
     // guarantee options has modelValue
     watch(
-      () => options.value,
+      () => normalized.options,
       () => {
-        const selectedValueSet = new Set(normalizedModelValue.value.map(option => valueBy.value(option)))
-        normalizedModelValue.value = options.value.filter(option => selectedValueSet.has(valueBy.value(option)))
+        const selectedValueSet = new Set(normalizedModelValue.value.map(option => normalized.valueBy(option)))
+        normalizedModelValue.value = normalized.options.filter(option =>
+          selectedValueSet.has(normalized.valueBy(option)),
+        )
       },
       { deep: true },
     )
@@ -414,25 +416,25 @@ const VueSelect = {
     const addOrRemoveOptionForGroupOption = (event, option) => {
       option = option.originalOption
       const has = option.value.every(value => {
-        const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
-        return hasOption(normalizedModelValue.value, option, { valueBy: valueBy.value })
+        const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
+        return hasOption(normalizedModelValue.value, option, { valueBy: normalized.valueBy })
       })
       if (has) {
         option.value.forEach(value => {
-          const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
+          const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
           normalizedModelValue.value = removeOption(normalizedModelValue.value, option, {
-            min: min.value,
-            valueBy: valueBy.value,
+            min: normalized.min,
+            valueBy: normalized.valueBy,
           })
           context.emit('removed', option)
         })
       } else {
         option.value.forEach(value => {
-          const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
-          if (hasOption(normalizedModelValue.value, option, { valueBy: valueBy.value })) return
+          const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
+          if (hasOption(normalizedModelValue.value, option, { valueBy: normalized.valueBy })) return
           normalizedModelValue.value = addOption(normalizedModelValue.value, option, {
-            max: max.value,
-            valueBy: valueBy.value,
+            max: normalized.max,
+            valueBy: normalized.valueBy,
           })
           context.emit('selected', option)
         })
@@ -440,10 +442,10 @@ const VueSelect = {
     }
     const addOrRemoveOptionForNonGroupOption = (event, option) => {
       option = option.originalOption
-      if (hasOption(normalizedModelValue.value, option, { valueBy: valueBy.value })) {
+      if (hasOption(normalizedModelValue.value, option, { valueBy: normalized.valueBy })) {
         normalizedModelValue.value = removeOption(normalizedModelValue.value, option, {
-          min: min.value,
-          valueBy: valueBy.value,
+          min: normalized.min,
+          valueBy: normalized.valueBy,
         })
         context.emit('removed', option)
       } else {
@@ -451,20 +453,20 @@ const VueSelect = {
           const removingOption = normalizedModelValue.value[0]
           normalizedModelValue.value = removeOption(normalizedModelValue.value, normalizedModelValue.value[0], {
             min: 0,
-            valueBy: valueBy.value,
+            valueBy: normalized.valueBy,
           })
           context.emit('removed', removingOption)
         }
         normalizedModelValue.value = addOption(normalizedModelValue.value, option, {
-          max: max.value,
-          valueBy: valueBy.value,
+          max: normalized.max,
+          valueBy: normalized.valueBy,
         })
         context.emit('selected', option)
       }
     }
     const syncToModelValue = () => {
       if (isSynchronoused()) return
-      const selectedValues = normalizedModelValue.value.map(option => valueBy.value(option))
+      const selectedValues = normalizedModelValue.value.map(option => normalized.valueBy(option))
       if (props.multiple) {
         context.emit('update:modelValue', selectedValues)
       } else {
@@ -480,22 +482,22 @@ const VueSelect = {
       inputEl.value.dispatchEvent(new Event('change'))
     }
 
-    const renderedOptions = computed(() => props.visibleOptions ?? searchedOptions.value ?? options.value)
+    const renderedOptions = computed(() => props.visibleOptions ?? searchedOptions.value ?? normalized.options)
 
     const highlightedOriginalIndex = ref(0)
     const optionsWithInfo = computed(() => {
-      const selectedValueSet = new Set(normalizedModelValue.value.map(option => valueBy.value(option)))
-      const visibleValueSet = new Set(renderedOptions.value.map(option => valueBy.value(option)))
+      const selectedValueSet = new Set(normalizedModelValue.value.map(option => normalized.valueBy(option)))
+      const visibleValueSet = new Set(renderedOptions.value.map(option => normalized.valueBy(option)))
 
-      const optionsWithInfo = options.value.map((option, index) => {
+      const optionsWithInfo = normalized.options.map((option, index) => {
         const optionWithInfo = {
-          key: valueBy.value(option),
-          label: labelBy.value(option),
-          // selected: selectedValueSet.has(valueBy.value(option)),
-          // disabled: disabledBy.value(option),
-          group: groupBy.value(option),
-          // visible: visibleValueSet.has(valueBy.value(option)),
-          // hidden: props.hideSelected ? selectedValueSet.has(valueBy.value(option)) : false,
+          key: normalized.valueBy(option),
+          label: normalized.labelBy(option),
+          // selected: selectedValueSet.has(normalized.valueBy(option)),
+          // disabled: normalized.disabledBy(option),
+          group: normalized.groupBy(option),
+          // visible: visibleValueSet.has(normalized.valueBy(option)),
+          // hidden: props.hideSelected ? selectedValueSet.has(normalized.valueBy(option)) : false,
           highlighted: index === highlightedOriginalIndex.value,
           originalIndex: index,
           originalOption: option,
@@ -503,24 +505,24 @@ const VueSelect = {
 
         optionWithInfo.selected = optionWithInfo.group
           ? option.value.every(value => selectedValueSet.has(value))
-          : selectedValueSet.has(valueBy.value(option))
+          : selectedValueSet.has(normalized.valueBy(option))
 
         optionWithInfo.disabled = optionWithInfo.group
-          ? disabledBy.value(option) ||
+          ? normalized.disabledBy(option) ||
             option.value.every(value => {
-              const option = getOptionByValue(options.value, value, { valueBy: valueBy.value })
-              return disabledBy.value(option)
+              const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
+              return normalized.disabledBy(option)
             })
-          : disabledBy.value(option)
+          : normalized.disabledBy(option)
 
         optionWithInfo.visible = optionWithInfo.group
           ? option.value.some(value => visibleValueSet.has(value))
-          : visibleValueSet.has(valueBy.value(option))
+          : visibleValueSet.has(normalized.valueBy(option))
 
         optionWithInfo.hidden = props.hideSelected
           ? optionWithInfo.group
             ? option.value.every(value => selectedValueSet.has(value))
-            : selectedValueSet.has(valueBy.value(option))
+            : selectedValueSet.has(normalized.valueBy(option))
           : false
 
         return optionWithInfo
@@ -531,17 +533,18 @@ const VueSelect = {
         if (option.disabled) {
           const values = new Set(option.originalOption.value)
           optionsWithInfo
-            .filter(optionWithInfo => values.has(valueBy.value(optionWithInfo.originalOption)))
+            .filter(optionWithInfo => values.has(normalized.valueBy(optionWithInfo.originalOption)))
             .forEach(optionWithInfo => (optionWithInfo.disabled = true))
         }
       }
 
       return optionsWithInfo
     })
-    const { pointerForward: _pointerForward, pointerBackward: _pointerBackward, pointerSet } = usePointer(
-      optionsWithInfo,
-      highlightedOriginalIndex,
-    )
+    const {
+      pointerForward: _pointerForward,
+      pointerBackward: _pointerBackward,
+      pointerSet,
+    } = usePointer(optionsWithInfo, highlightedOriginalIndex)
     const pointerForward = (...args) => {
       _pointerForward(...args)
       nextTick(updateScrollTop)
@@ -585,11 +588,12 @@ const VueSelect = {
     const dataAttrs = computed(() => ({
       'data-is-focusing': isFocusing.value,
       'data-visible-length': optionsWithInfo.value.filter(option => option.visible && option.hidden === false).length,
-      'data-not-selected-length': options.value.length - optionsWithInfo.value.filter(option => option.selected).length,
+      'data-not-selected-length':
+        normalized.options.length - optionsWithInfo.value.filter(option => option.selected).length,
       'data-selected-length': optionsWithInfo.value.filter(option => option.selected).length,
-      'data-addable': optionsWithInfo.value.filter(option => option.selected).length < max.value,
-      'data-removable': optionsWithInfo.value.filter(option => option.selected).length > min.value,
-      'data-total-length': options.value.length,
+      'data-addable': optionsWithInfo.value.filter(option => option.selected).length < normalized.max,
+      'data-removable': optionsWithInfo.value.filter(option => option.selected).length > normalized.min,
+      'data-total-length': normalized.options.length,
       'data-multiple': props.multiple,
     }))
     provide('dataAttrs', dataAttrs)
