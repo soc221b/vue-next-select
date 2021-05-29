@@ -137,6 +137,11 @@ import normalize from './normalize'
 import { useHeight, usePointer } from './hooks'
 import { version } from '../package.json'
 
+function escapeRegExp(pattern) {
+  // $& means the whole matched string
+  return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 const VueSelect = {
   name: 'vue-select',
   inheritAttrs: false,
@@ -334,7 +339,7 @@ const VueSelect = {
     const handleBlurForInput = event => {
       blur()
     }
-    const searchRe = computed(() => new RegExp(searchingInputValue.value, 'i'))
+    const searchRe = computed(() => new RegExp(escapeRegExp(searchingInputValue.value), 'i'))
     const searchedOptions = computed(() => {
       return searchingInputValue.value
         ? normalized.options.filter(option => searchRe.value.test(normalized.labelBy(option)))
