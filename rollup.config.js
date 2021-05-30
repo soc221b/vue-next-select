@@ -74,7 +74,7 @@ formats.forEach(format => {
 const isWatchMode = JSON.parse(process.env.npm_config_argv).original.includes('--watch')
 configs[configs.length - 1].plugins.push(
   copy({
-    watch: isWatchMode ? ['src/index.css'] : false,
+    watch: isWatchMode ? ['src/index.css', 'src/element-plus.css'] : false,
     copyOnce: isWatchMode === false,
     verbose: true,
     targets: [
@@ -85,6 +85,13 @@ configs[configs.length - 1].plugins.push(
         transform: content => csso.minify(content).css,
       },
       { src: 'src/index.css', dest: 'dist' },
+      {
+        src: 'src/element-plus.css',
+        dest: 'dist',
+        rename: (name, extension) => `${name}.min.${extension}`,
+        transform: content => csso.minify(content).css,
+      },
+      { src: 'src/element-plus.css', dest: 'dist' },
     ],
   }),
 )

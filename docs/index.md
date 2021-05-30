@@ -16,6 +16,7 @@ The selecting solution for Vue 3
 - Filtering / Remote Searching
 - Asynchronous support
 - No dependencies
+- CSS styles for popular component libraries out of the box
 
 ## Installation
 
@@ -33,6 +34,8 @@ yarn add vue-next-select
 ```html
 <!-- import style -->
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/vue-next-select/dist/index.min.css" />
+<!-- or Element-Plus style (new in 2.6.0) -->
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/vue-next-select/dist/element-plus.min.css" />
 
 <!-- import script -->
 <script src="https://unpkg.com/vue-next-select/dist/vue-next-select.iife.prod.js"></script>
