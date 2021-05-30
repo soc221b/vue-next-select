@@ -152,13 +152,8 @@
 
 <script>
 import { defineComponent, onBeforeUnmount, ref, watch, watchEffect } from 'vue'
-import VueSelect from 'vue-next-select'
-import 'vue-next-select/dist/index.css'
 
 export default defineComponent({
-  components: {
-    VueSelect,
-  },
   setup() {
     const model = ref(null)
 
