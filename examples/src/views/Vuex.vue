@@ -8,7 +8,7 @@
   />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 

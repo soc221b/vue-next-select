@@ -4,7 +4,7 @@
   <vue-select v-model="techStack" :options="options" label-by="framework" value-by="language" :empty-model-value="''" />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({

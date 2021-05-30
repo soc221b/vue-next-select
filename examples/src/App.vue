@@ -18,7 +18,7 @@
   <router-view />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue'
 import { routes } from './route'
 

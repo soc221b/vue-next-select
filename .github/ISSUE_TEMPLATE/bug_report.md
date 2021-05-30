@@ -12,7 +12,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 A reproduce link:
-https://codesandbox.io/s/github/iendeavor/vue-next-select/tree/develop/vue-next-select-template?file=/src/components/HelloWorld.vue
+https://codesandbox.io/s/github/iendeavor/vue-next-select/tree/develop/examples?file=/src/views/Playground.vue
 
 Steps to reproduce the behavior:
 1. Go to '...'

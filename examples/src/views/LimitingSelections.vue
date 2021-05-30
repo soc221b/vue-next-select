@@ -4,7 +4,7 @@
   <vue-select v-model="artists" :options="languages" multiple searchable :min="1" :max="3" />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({

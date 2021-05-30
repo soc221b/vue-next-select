@@ -1,5 +1,5 @@
 {
-  "name": "vue-next-select-template",
+  "name": "vue-next-select-examples",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -8,15 +8,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "vite": "latest",
-    "vue": "next",
+    "vite": "^2.2.4",
+    "vue": "^3.0.11",
     "vue-next-select": "^2.4.0",
     "vue-router": "^4.0.6"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "latest",
-    "@vue/compiler-sfc": "latest",
-    "typescript": "latest",
+    "@vitejs/plugin-vue": "^1.1.5",
+    "@vue/compiler-sfc": "^3.0.11",
+    "typescript": "^4.3.2",
     "vuex": "^4.0.0"
   },
   "engines": {

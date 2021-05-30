@@ -13,14 +13,12 @@
   />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref } from 'vue'
 
 const userNames = ref([])
 fetch('https://randomuser.me/api/?seed=0&results=1000&inc=name').then(async result => {
-  const userResult = (((await result.json()) as any).results ?? []).map(
-    ({ name: { first, last } }) => first + ' ' + last,
-  )
+  const userResult = ((await result.json()).results ?? []).map(({ name: { first, last } }) => first + ' ' + last)
   userNames.value = [...new Set(userResult)]
 })
 
