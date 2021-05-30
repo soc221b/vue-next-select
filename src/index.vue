@@ -150,6 +150,8 @@ const VueSelect = {
     modelValue: {
       required: true,
     },
+    // TODO: default to `undefined` in next major version
+    // https://github.com/vuejs/vue-next/issues/3744
     emptyModelValue: {
       default: null,
     },
@@ -159,9 +161,11 @@ const VueSelect = {
       required: true,
       type: Array,
     },
+    // TODO: default to `'label'` in next major version
     labelBy: {
       type: [String, Function],
     },
+    // TODO: default to `'value'` in next major version
     valueBy: {
       type: [String, Function],
     },
@@ -173,6 +177,7 @@ const VueSelect = {
       default: 'group',
       type: [String, Function],
     },
+    // TODO: default to `undefined` in next major version
     visibleOptions: {
       type: [Array, null],
       default: null,
@@ -257,8 +262,9 @@ const VueSelect = {
 
     'focus',
     'blur',
-    // Deprecated, use `focus` / `blur` instead.
+    // TODO: remove use `opened` in next major version
     'opened',
+    // TODO: remove use `opened` in next major version
     'closed',
 
     'search:input',
@@ -411,8 +417,10 @@ const VueSelect = {
     const addOrRemoveOption = (event, option) => {
       if (props.disabled) return
 
+      // TODO: hot spot, improve performance
       if (option.group && props.multiple) addOrRemoveOptionForGroupOption(event, option)
       else addOrRemoveOptionForNonGroupOption(event, option)
+
       syncToModelValue()
 
       if (props.closeOnSelect === true) isFocusing.value = false
