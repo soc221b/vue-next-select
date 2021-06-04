@@ -10,6 +10,14 @@ context('pointer', () => {
     cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
   })
 
+  it('should highlight selected option', () => {
+    cy.visit(path.join(__dirname, 'highlight-selected.html'))
+
+    cy.get('.vue-select').click()
+
+    cy.get('.vue-dropdown-item').last().should('have.class', 'highlighted')
+  })
+
   it('should select highlighted item when press enter key', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 

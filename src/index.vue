@@ -598,6 +598,16 @@ const VueSelect = {
           parseFloat(computedStyle.paddingBottom)
       }
     }
+    watch(
+      () => [isFocusing.value, normalized.options, selectedValueSet.value],
+      () => {
+        if (isFocusing.value === false) return
+        if (normalizedModelValue.value.length === 0) return
+        pointerSet(normalized.options.findIndex(option => selectedValueSet.value.has(normalized.valueBy(option))))
+        nextTick(updateScrollTop)
+      },
+      { deep: true, immediate: true },
+    )
 
     const dataAttrs = computed(() => ({
       'data-is-focusing': isFocusing.value,
