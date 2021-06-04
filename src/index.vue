@@ -354,6 +354,9 @@ const VueSelect = {
 
     // sync model value
     const normalizedModelValue = ref([])
+    const selectedValueSet = computed(
+      () => new Set(normalizedModelValue.value.map(option => normalized.valueBy(option))),
+    )
     const isSynchronoused = () => {
       if (props.multiple) {
         if (Array.isArray(props.modelValue) === false) return false
@@ -406,9 +409,8 @@ const VueSelect = {
     watch(
       () => normalized.options,
       () => {
-        const selectedValueSet = new Set(normalizedModelValue.value.map(option => normalized.valueBy(option)))
         normalizedModelValue.value = normalized.options.filter(option =>
-          selectedValueSet.has(normalized.valueBy(option)),
+          selectedValueSet.value.has(normalized.valueBy(option)),
         )
       },
       { deep: true },
@@ -499,26 +501,25 @@ const VueSelect = {
 
     const highlightedOriginalIndex = ref(0)
     const optionsWithInfo = computed(() => {
-      const selectedValueSet = new Set(normalizedModelValue.value.map(option => normalized.valueBy(option)))
       const visibleValueSet = new Set(renderedOptions.value.map(option => normalized.valueBy(option)))
 
       const optionsWithInfo = normalized.options.map((option, index) => {
         const optionWithInfo = {
           key: normalized.valueBy(option),
           label: normalized.labelBy(option),
-          // selected: selectedValueSet.has(normalized.valueBy(option)),
+          // selected: selectedValueSet.value.has(normalized.valueBy(option)),
           // disabled: normalized.disabledBy(option),
           group: normalized.groupBy(option),
           // visible: visibleValueSet.has(normalized.valueBy(option)),
-          // hidden: props.hideSelected ? selectedValueSet.has(normalized.valueBy(option)) : false,
+          // hidden: props.hideSelected ? selectedValueSet.value.has(normalized.valueBy(option)) : false,
           highlighted: index === highlightedOriginalIndex.value,
           originalIndex: index,
           originalOption: option,
         }
 
         optionWithInfo.selected = optionWithInfo.group
-          ? option.value.every(value => selectedValueSet.has(value))
-          : selectedValueSet.has(normalized.valueBy(option))
+          ? option.value.every(value => selectedValueSet.value.has(value))
+          : selectedValueSet.value.has(normalized.valueBy(option))
 
         optionWithInfo.disabled = optionWithInfo.group
           ? normalized.disabledBy(option) ||
@@ -534,8 +535,8 @@ const VueSelect = {
 
         optionWithInfo.hidden = props.hideSelected
           ? optionWithInfo.group
-            ? option.value.every(value => selectedValueSet.has(value))
-            : selectedValueSet.has(normalized.valueBy(option))
+            ? option.value.every(value => selectedValueSet.value.has(value))
+            : selectedValueSet.value.has(normalized.valueBy(option))
           : false
 
         return optionWithInfo
