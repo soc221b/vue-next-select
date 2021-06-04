@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/iendeavor/vue-next-select/compare/v2.4.1...v2.4.2) (2021-06-04)
+
+
+### Bug Fixes
+
+* computed options prop not works ([75c8864](https://github.com/iendeavor/vue-next-select/commit/75c886418796a60196a34e6638ae06977051705d)), closes [#207](https://github.com/iendeavor/vue-next-select/issues/207)
+
 ### [2.4.1](https://github.com/iendeavor/vue-next-select/compare/v2.4.0...v2.4.1) (2021-05-30)
 
 
