@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link type="text/css" rel="stylesheet" href="/dist/index.css" />
+    <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="/dist/vue-next-select.iife.js"></script>
+    <script>
+      const { createApp } = Vue
+
+      const app = createApp({
+        name: 'app',
+        computed: {
+          computedArray2() {
+            let computedArray = this.dataArray.filter(item => item.id !== this.selected1)
+
+            return computedArray
+          },
+        },
+        data() {
+          return {
+            selected1: null,
+            selected2: null,
+            options: [
+              { id: 1, framework: 'Express' },
+              { id: 2, framework: 'Django' },
+              { id: 3, framework: 'Laravel' },
+              { id: 4, framework: 'Python' },
+            ],
+            dataArray: [
+              { id: 1, name: 'Москва' },
+              { id: 2, name: 'Питер' },
+              { id: 3, name: 'Лондон' },
+              { id: 4, name: 'Чита' },
+            ],
+          }
+        },
+        template: `
+        <button id="toggle-options" @click="() => isOptions1 = false">
+          toggle options
+        </button>
+
+        <div id="select1">
+          <vue-select
+            v-model="selected1"
+            :options="options"
+            value-by="id"
+            label-by="framework"
+          />
+        </div>
+
+        <div id="select2">
+          <vue-select
+            v-model="selected2"
+            :options="computedArray2"
+            value-by="id"
+            label-by="name"
+          />
+        </div>
+        `,
+      })
+
+      app.component('vue-select', VueNextSelect)
+      app.mount(document.querySelector('#app'))
+    </script>
+  </body>
+</html>

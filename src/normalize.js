@@ -1,4 +1,4 @@
-import { reactive, computed, ref, isReactive, isRef, toRef, watchEffect } from 'vue'
+import { reactive, computed, toRef, watchEffect } from 'vue'
 
 const createComputedForGetterFunction = maybePathFunc =>
   computed(() => {
@@ -26,8 +26,7 @@ export default props => {
   const max = computed(() => (props.multiple ? props.max : 1))
   watchEffect(() => (normalized.max = max.value))
 
-  const options = isRef(props.options) || isReactive(props.options) ? toRef(props, 'options') : ref(props.options)
-  watchEffect(() => (normalized.options = options.value))
+  watchEffect(() => (normalized.options = props.options))
 
   return normalized
 }
