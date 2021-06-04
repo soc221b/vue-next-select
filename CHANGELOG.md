@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.3](https://github.com/iendeavor/vue-next-select/compare/v2.4.2...v2.4.3) (2021-06-04)
+
+
+### Bug Fixes
+
+* the dropdown should automaticlly scroll to selected option ([f3b3b7d](https://github.com/iendeavor/vue-next-select/commit/f3b3b7dedcbbc00a664b3d628f259b28edc7dc6d)), closes [#206](https://github.com/iendeavor/vue-next-select/issues/206)
+
 ### [2.4.2](https://github.com/iendeavor/vue-next-select/compare/v2.4.1...v2.4.2) (2021-06-04)
 
 
