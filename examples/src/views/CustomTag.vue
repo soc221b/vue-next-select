@@ -26,7 +26,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-:deep(.vue-tag) {
+.vue-select :deep(.vue-tag) {
   background-color: transparent;
 }
 </style>

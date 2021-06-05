@@ -32,6 +32,7 @@
   border-color: #409eff;
 }
 
+.vue-select .vue-select-header .vue-tags,
 .vue-select .vue-select-header .vue-input {
   width: calc(100% - 21px);
 }
