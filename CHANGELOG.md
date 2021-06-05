@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/iendeavor/vue-next-select/compare/v2.4.3...v2.5.0) (2021-06-05)
+
+
+### Features
+
+* expose maxHeight prop ([5e9bf83](https://github.com/iendeavor/vue-next-select/commit/5e9bf836a714cfbfefe50ffb60a27452ed5229d7))
+* expose openDirection prop ([7aebd6b](https://github.com/iendeavor/vue-next-select/commit/7aebd6bc0aa527443e14e8a04670d42e80cec772)), closes [#183](https://github.com/iendeavor/vue-next-select/issues/183)
+
+
+### Bug Fixes
+
+* the dropdown should only automaticlly scroll to selected option after open ([73e7794](https://github.com/iendeavor/vue-next-select/commit/73e7794e4f235a9d8f3c23a2c79625cc53fce342)), closes [#206](https://github.com/iendeavor/vue-next-select/issues/206)
+
 ### [2.4.4](https://github.com/iendeavor/vue-next-select/compare/v2.4.3...v2.4.4) (2021-06-05)
 
 
