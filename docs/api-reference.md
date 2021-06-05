@@ -218,6 +218,18 @@
 
   Whether to collapse dropdown after selected/removed.
 
+### maxHeight
+
+New in `v2.5.0+`
+
+- **Type**: `number`
+
+- **Default**: `300`
+
+- **Details**:
+
+  Max height of dropdown.
+
 ## Events
 
 ### update:modelValue

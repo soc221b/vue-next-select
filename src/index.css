@@ -166,7 +166,6 @@ input[readonly] {
   position: relative;
   background-color: white;
   z-index: 1;
-  max-height: 300px;
   overflow-y: auto;
   width: 100%;
   min-width: 0;

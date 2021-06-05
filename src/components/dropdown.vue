@@ -1,6 +1,7 @@
 <template>
   <ul
     class="vue-dropdown"
+    :style="{ maxHeight: maxHeight + 'px' }"
     @mousedown.prevent
     v-bind="dataAttrs"
     role="listbox"
@@ -52,6 +53,9 @@ export default {
     comboboxUid: {
       required: true,
       type: Number,
+    },
+    maxHeight: {
+      required: true,
     },
   },
   emits: ['click-item', 'mousemove'],

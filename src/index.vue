@@ -116,6 +116,7 @@
       @click-item="addOrRemoveOption"
       @mousemove="(ev, option) => pointerSet(option.originalIndex)"
       :comboboxUid="instance.uid"
+      :maxHeight="maxHeight"
     >
       <template #default="{ option }">
         <slot name="dropdown-item" :option="option.originalOption">
@@ -252,6 +253,10 @@ const VueSelect = {
     autofocus: {
       default: false,
       type: Boolean,
+    },
+    maxHeight: {
+      default: 300,
+      type: Number,
     },
   },
   emits: [
