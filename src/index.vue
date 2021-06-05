@@ -600,7 +600,8 @@ const VueSelect = {
     }
     watch(
       () => [isFocusing.value, normalized.options, selectedValueSet.value],
-      () => {
+      (_, oldValue) => {
+        if (oldValue?.[0] === true) return
         if (isFocusing.value === false) return
         if (normalizedModelValue.value.length === 0) return
         pointerSet(normalized.options.findIndex(option => selectedValueSet.value.has(normalized.valueBy(option))))
