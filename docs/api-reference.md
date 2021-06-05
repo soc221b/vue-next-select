@@ -230,6 +230,18 @@ New in `v2.5.0+`
 
   Max height of dropdown.
 
+### openDirection
+
+New in `v2.5.0+`
+
+- **Type**: `'top' | 'bottom'`
+
+- **Details**:
+
+  Fixed opening direction.
+
+  If it is not set, it will be automatically calculated based on `maxHeight`.
+
 ## Events
 
 ### update:modelValue

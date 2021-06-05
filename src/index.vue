@@ -2,7 +2,7 @@
   <div
     ref="wrapper"
     class="vue-select"
-    :class="{ disabled }"
+    :class="[`direction-${direction}`, { disabled }]"
     :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
     @blur="() => (searchable ? false : blur())"
@@ -257,6 +257,12 @@ const VueSelect = {
     maxHeight: {
       default: 300,
       type: Number,
+    },
+    openDirection: {
+      type: String,
+      validator(value) {
+        return ['top', 'bottom'].includes(value)
+      },
     },
   },
   emits: [
@@ -642,6 +648,23 @@ const VueSelect = {
       }
     })
 
+    const direction = ref()
+    watch(
+      () => [props.openDirection, isFocusing.value],
+      () => {
+        direction.value = props.openDirection ?? calcPreferredDirection() ?? 'bottom'
+      },
+      { immediate: true },
+    )
+    function calcPreferredDirection() {
+      if (wrapper.value === undefined) return
+      if (window === undefined) return
+
+      const spaceBelow = window.innerHeight - wrapper.value.getBoundingClientRect().bottom
+      const hasEnoughSpaceBelow = spaceBelow >= props.maxHeight
+      return hasEnoughSpaceBelow ? 'bottom' : 'top'
+    }
+
     return {
       instance,
 
@@ -670,6 +693,8 @@ const VueSelect = {
       pointerForward,
       pointerBackward,
       pointerSet,
+
+      direction,
     }
   },
   components: {
