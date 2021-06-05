@@ -20,6 +20,7 @@
     :aria-activedescendant="
       highlightedOriginalIndex === null ? null : `vs${instance.uid}-option-${highlightedOriginalIndex}`
     "
+    :aria-busy="loading"
   >
     <div ref="header" class="vue-select-header">
       <template
