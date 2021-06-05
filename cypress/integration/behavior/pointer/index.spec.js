@@ -18,6 +18,16 @@ context('pointer', () => {
     cy.get('.vue-dropdown-item').last().should('have.class', 'highlighted')
   })
 
+  it('should only automaticlly scroll to selected option after open', () => {
+    cy.visit(path.join(__dirname, 'highlight-selected-with-multiple.html'))
+
+    cy.get('.vue-select').click()
+    cy.get('.vue-dropdown-item').first().click()
+    cy.get('.vue-dropdown-item').last().click()
+
+    cy.get('.vue-dropdown-item').last().should('have.class', 'highlighted')
+  })
+
   it('should select highlighted item when press enter key', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
