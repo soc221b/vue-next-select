@@ -66,20 +66,16 @@
           :tabindex="tabindex"
           :comboboxUid="instance.uid"
         />
-        <template v-if="loading">
-          <slot name="loading">
-            <span class="icon loading">
-              <div />
-              <div />
-              <div />
-            </span>
-          </slot>
-        </template>
-        <template v-else>
-          <slot name="toggle" :isFocusing="isFocusing" :toggle="toggle">
-            <span class="icon arrow-downward" :class="{ active: isFocusing }" @click="toggle" @mousedown.prevent.stop />
-          </slot>
-        </template>
+        <slot name="loading">
+          <span class="icon loading">
+            <div />
+            <div />
+            <div />
+          </span>
+        </slot>
+        <slot name="toggle" :isFocusing="isFocusing" :toggle="toggle">
+          <span class="icon arrow-downward" :class="{ active: isFocusing }" @click="toggle" @mousedown.prevent.stop />
+        </slot>
       </template>
     </div>
 
@@ -626,6 +622,8 @@ const VueSelect = {
       'data-removable': optionsWithInfo.value.filter(option => option.selected).length > normalized.min,
       'data-total-length': normalized.options.length,
       'data-multiple': props.multiple,
+      'data-searchable': props.searchable,
+      'data-taggable': props.taggable,
     }))
     provide('dataAttrs', dataAttrs)
 

@@ -54,6 +54,14 @@
   cursor: not-allowed;
 }
 
+.vue-select[aria-busy='false'] .vue-select-header .icon.loading {
+  display: none;
+}
+
+.vue-select[aria-busy='true'][data-taggable='false'] .vue-select-header .icon.arrow-downward {
+  display: none;
+}
+
 .vue-select-header {
   display: flex;
   width: 100%;

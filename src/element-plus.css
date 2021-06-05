@@ -32,8 +32,11 @@
   border-color: #409eff;
 }
 
+.vue-select .vue-select-header .vue-input {
+  width: calc(100% - 21px);
+}
+
 .vue-select .vue-select-header .vue-input input {
-  width: calc(100% - 45px);
   min-height: 38px;
   border: none;
   outline: none;
@@ -175,4 +178,22 @@
   background-color: #f0f2f5;
   border-radius: 4px;
   content: '...';
+}
+
+.icon.arrow-downward {
+  border-style: solid;
+  border-color: #c0c4cc;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 3px;
+  top: -2px;
+  position: relative;
+  transition: all 0.2s linear;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.icon.arrow-downward.active {
+  top: 2px;
+  transform: rotate(-135deg);
 }
