@@ -82,7 +82,7 @@
       </template>
     </div>
 
-    <template v-if="multiple && taggable && searchable">
+    <div class="vue-select-input-wrapper" v-if="multiple && taggable && searchable">
       <v-input
         v-show="isFocusing"
         ref="input"
@@ -107,7 +107,7 @@
           </span>
         </slot>
       </template>
-    </template>
+    </div>
 
     <v-dropdown
       ref="dropdown"
@@ -115,7 +115,6 @@
       v-model="optionsWithInfo"
       @click-item="addOrRemoveOption"
       @mousemove="(ev, option) => pointerSet(option.originalIndex)"
-      :header-height="headerAndInputHeight"
       :comboboxUid="instance.uid"
     >
       <template #default="{ option }">
@@ -325,11 +324,6 @@ const VueSelect = {
       () => props.disabled,
       () => blur(),
     )
-
-    const header = ref()
-    const headerHeight = useHeight(header, () => props.modelValue)
-    const inputHeight = computed(() => (props.searchable && props.multiple && props.taggable ? '26px' : '0px'))
-    const headerAndInputHeight = computed(() => parseFloat(headerHeight.value) + parseFloat(inputHeight.value) + 'px')
 
     // input
     const searchingInputValue = ref('')
@@ -653,9 +647,6 @@ const VueSelect = {
       focus,
       blur,
       toggle,
-
-      header,
-      headerAndInputHeight,
 
       searchingInputValue,
       handleInputForInput,

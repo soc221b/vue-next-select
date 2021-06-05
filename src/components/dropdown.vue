@@ -2,7 +2,6 @@
   <ul
     class="vue-dropdown"
     @mousedown.prevent
-    :style="{ top: headerHeight }"
     v-bind="dataAttrs"
     role="listbox"
     :id="`vs${comboboxUid}-listbox`"
@@ -48,10 +47,6 @@ export default {
           return typeof option.key !== undefined && option.label !== undefined && typeof option.selected === 'boolean'
         })
       },
-    },
-    headerHeight: {
-      required: true,
-      type: String,
     },
 
     comboboxUid: {
