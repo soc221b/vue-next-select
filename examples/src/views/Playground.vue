@@ -363,4 +363,9 @@ code {
   max-width: 100%;
   margin-top: 0;
 }
+
+pre {
+  overflow: auto;
+  height: 500px;
+}
 </style>
