@@ -112,7 +112,6 @@
 
     <v-dropdown
       ref="dropdown"
-      v-show="isFocusing"
       v-model="optionsWithInfo"
       @click-item="addOrRemoveOption"
       @mousemove="(ev, option) => pointerSet(option.originalIndex)"

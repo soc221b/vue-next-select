@@ -163,6 +163,7 @@ input[readonly] {
 }
 
 .vue-dropdown {
+  display: none;
   position: absolute;
   background-color: white;
   z-index: 1;
@@ -175,6 +176,10 @@ input[readonly] {
   box-sizing: content-box;
   border: 1px solid #999;
   list-style-type: none;
+}
+
+.vue-select[aria-expanded='true'] .vue-dropdown {
+  display: unset;
 }
 
 .vue-dropdown[data-visible-length='0'] {
