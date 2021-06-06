@@ -12,14 +12,14 @@ const finish = () => {
   if (shouldReject) throw Error()
 }
 
-context('opened event', () => {
+context('focus event', () => {
   it('should not fire event after removing option', () => {
     setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('opened-custom-event', setReject)
-        window.addEventListener('opened-custom-event', setReject)
+        window.removeEventListener('focus-custom-event', setReject)
+        window.addEventListener('focus-custom-event', setReject)
       })
       cy.get('.vue-dropdown').children().first().next().click()
       cy.then(finish)
@@ -31,8 +31,8 @@ context('opened event', () => {
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('opened-custom-event', setReject)
-        window.addEventListener('opened-custom-event', setReject)
+        window.removeEventListener('focus-custom-event', setReject)
+        window.addEventListener('focus-custom-event', setReject)
       })
       cy.get('.vue-dropdown').children().first().next().click()
       cy.then(finish)
@@ -44,8 +44,8 @@ context('opened event', () => {
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('opened-custom-event', setReject)
-        window.addEventListener('opened-custom-event', setReject)
+        window.removeEventListener('focus-custom-event', setReject)
+        window.addEventListener('focus-custom-event', setReject)
       })
       cy.get('.vue-tags').children().first().click()
       cy.then(finish)
@@ -56,8 +56,8 @@ context('opened event', () => {
     setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.then(() => {
-        window.removeEventListener('opened-custom-event', setResolve)
-        window.addEventListener('opened-custom-event', setResolve)
+        window.removeEventListener('focus-custom-event', setResolve)
+        window.addEventListener('focus-custom-event', setResolve)
       })
       cy.get('.vue-select').click()
       cy.then(finish)
@@ -68,8 +68,8 @@ context('opened event', () => {
     setReject()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.then(() => {
-        window.removeEventListener('opened-custom-event', setResolve)
-        window.addEventListener('opened-custom-event', setResolve)
+        window.removeEventListener('focus-custom-event', setResolve)
+        window.addEventListener('focus-custom-event', setResolve)
       })
       cy.get('.icon.arrow-downward').click()
       cy.then(finish)

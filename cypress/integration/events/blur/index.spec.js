@@ -12,14 +12,14 @@ const finish = () => {
   if (shouldReject) throw Error()
 }
 
-context('closed event', () => {
+context('blur event', () => {
   it('should not fire event', () => {
     setResolve()
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setReject)
-        window.addEventListener('closed-custom-event', setReject)
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
       cy.get('.vue-select').click()
       cy.then(finish)
@@ -31,8 +31,8 @@ context('closed event', () => {
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setReject)
-        window.addEventListener('closed-custom-event', setReject)
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
       cy.get('.vue-dropdown').children().first().next().click()
       cy.then(finish)
@@ -44,8 +44,8 @@ context('closed event', () => {
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setReject)
-        window.addEventListener('closed-custom-event', setReject)
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
       cy.get('.vue-dropdown').children().first().click()
       cy.then(finish)
@@ -57,8 +57,8 @@ context('closed event', () => {
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setReject)
-        window.addEventListener('closed-custom-event', setReject)
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
       cy.get('.icon.delete').first().click()
       cy.then(finish)
@@ -70,8 +70,8 @@ context('closed event', () => {
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setResolve)
-        window.addEventListener('closed-custom-event', setResolve)
+        window.removeEventListener('blur-custom-event', setResolve)
+        window.addEventListener('blur-custom-event', setResolve)
       })
       cy.get('#previous-button').click()
       cy.then(finish)
@@ -83,8 +83,8 @@ context('closed event', () => {
     cy.visit(path.join(__dirname, 'index.html')).then(window => {
       cy.get('.vue-select').click()
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setResolve)
-        window.addEventListener('closed-custom-event', setResolve)
+        window.removeEventListener('blur-custom-event', setResolve)
+        window.addEventListener('blur-custom-event', setResolve)
       })
       cy.get('.icon.arrow-downward').click()
       cy.then(finish)

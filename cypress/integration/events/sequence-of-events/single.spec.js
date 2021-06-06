@@ -22,8 +22,8 @@ context('sequence of events', () => {
   it('should fire open event first', () => {
     cy.visit(path.join(__dirname, 'single.html')).then(window => {
       cy.then(() => {
-        window.removeEventListener('opened-custom-event', setResolve)
-        window.addEventListener('opened-custom-event', setResolve)
+        window.removeEventListener('focus-custom-event', setResolve)
+        window.addEventListener('focus-custom-event', setResolve)
       })
       cy.then(() => {
         window.removeEventListener('search:focus-custom-event', setReject)
@@ -37,8 +37,8 @@ context('sequence of events', () => {
   it('should fire open event first after clicking arrow downward icon', () => {
     cy.visit(path.join(__dirname, 'single.html')).then(window => {
       cy.then(() => {
-        window.removeEventListener('opened-custom-event', setResolve)
-        window.addEventListener('opened-custom-event', setResolve)
+        window.removeEventListener('focus-custom-event', setResolve)
+        window.addEventListener('focus-custom-event', setResolve)
       })
       cy.then(() => {
         window.removeEventListener('search:focus-custom-event', setReject)
@@ -57,8 +57,8 @@ context('sequence of events', () => {
         window.addEventListener('search:blur-custom-event', setResolve)
       })
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setReject)
-        window.addEventListener('closed-custom-event', setReject)
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
       cy.get('#previous-button').click()
       cy.then(finish)
@@ -73,8 +73,8 @@ context('sequence of events', () => {
         window.addEventListener('search:blur-custom-event', setResolve)
       })
       cy.then(() => {
-        window.removeEventListener('closed-custom-event', setReject)
-        window.addEventListener('closed-custom-event', setReject)
+        window.removeEventListener('blur-custom-event', setReject)
+        window.addEventListener('blur-custom-event', setReject)
       })
       cy.get('.icon.arrow-downward').click()
       cy.then(finish)

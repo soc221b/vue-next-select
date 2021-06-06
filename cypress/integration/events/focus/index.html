@@ -12,24 +12,23 @@
   </head>
 
   <body>
-    <button id="previous-button">button</button>
     <div id="app"></div>
     <script src="/dist/vue-next-select.iife.js"></script>
     <script>
       const { ref, createApp } = Vue
-      const deepCopy = value => JSON.parse(JSON.stringify(value))
+
       const app = createApp({
         name: 'app',
         setup() {
           const selectedOptions = ref(['i'])
           const options = ref(['i', 'love', 'vue'])
-          const handleClose = () => {
-            window.dispatchEvent(new Event('closed-custom-event'))
+          const handle = () => {
+            window.dispatchEvent(new Event('focus-custom-event'))
           }
           return {
             selectedOptions,
             options,
-            handleClose,
+            handle,
           }
         },
         template: `
@@ -38,7 +37,7 @@
           :options="options"
           multiple
           taggable
-          @closed="handleClose"
+          @focus="handle"
         ></vue-select>
         `,
       })

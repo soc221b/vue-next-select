@@ -17,14 +17,14 @@
     <script src="/dist/vue-next-select.iife.js"></script>
     <script>
       const { ref, createApp } = Vue
-      const deepCopy = value => JSON.parse(JSON.stringify(value))
+
       const app = createApp({
         name: 'app',
         setup() {
           const selectedOptions = ref('i')
           const options = ref(['i', 'love', 'vue'])
           const handleOpen = () => {
-            window.dispatchEvent(new Event('opened-custom-event'))
+            window.dispatchEvent(new Event('focus-custom-event'))
           }
           const handleFocus = () => {
             window.dispatchEvent(new Event('search:focus-custom-event'))
@@ -33,7 +33,7 @@
             window.dispatchEvent(new Event('search:blur-custom-event'))
           }
           const handleClose = () => {
-            window.dispatchEvent(new Event('closed-custom-event'))
+            window.dispatchEvent(new Event('blur-custom-event'))
           }
           return {
             selectedOptions,
@@ -49,10 +49,10 @@
           v-model="selectedOptions"
           :options="options"
           searchable
-          @opened="handleOpen"
+          @focus="handleOpen"
           @search:focus="handleFocus"
           @search:blur="handleBlur"
-          @closed="handleClose"
+          @blur="handleClose"
         ></vue-select>
         `,
       })
