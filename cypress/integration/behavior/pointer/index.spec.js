@@ -32,7 +32,7 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-select').trigger('keypress', 'center', { key: 'enter' })
+    cy.get('.vue-select').trigger('keypress', { key: 'enter' })
 
     cy.get('.vue-dropdown-item').first().should('have.class', 'selected')
   })
@@ -41,7 +41,7 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-select').trigger('keydown', 'center', { key: 'down' })
+    cy.get('.vue-select').trigger('keydown', { key: 'down' })
 
     cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
     cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
@@ -51,7 +51,7 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-select').trigger('keydown', 'center', { key: 'up' })
+    cy.get('.vue-select').trigger('keydown', { key: 'up' })
 
     cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
     cy.get('.vue-dropdown-item').first().next().next().should('have.class', 'highlighted')
@@ -101,12 +101,12 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'with-disabled.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-select').trigger('keydown', 'center', { key: 'up' })
+    cy.get('.vue-select').trigger('keydown', { key: 'up' })
 
     cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
     cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
 
-    cy.get('.vue-select').trigger('keydown', 'center', { key: 'down' })
+    cy.get('.vue-select').trigger('keydown', { key: 'down' })
 
     cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
     cy.get('.vue-dropdown-item').first().next().should('not.have.class', 'highlighted')
