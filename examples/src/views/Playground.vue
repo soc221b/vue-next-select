@@ -135,6 +135,7 @@
         @removed="payload => handleEvent('removed', payload)"
         @focus="payload => handleEvent('focus', payload)"
         @blur="payload => handleEvent('blur', payload)"
+        @toggle="payload => handleEvent('toggle', payload)"
         @search:input="payload => handleEvent('search:input', payload)"
         @search:change="payload => handleEvent('search:change', payload)"
         @search:focus="payload => handleEvent('search:focus', payload)"

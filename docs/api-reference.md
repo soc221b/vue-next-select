@@ -278,6 +278,10 @@ New in `v2.4.0+`
 
 New in `v2.4.0+`
 
+### toggle
+
+New in `2.6.0+`
+
 ### search:input
 
 - **Arguments**:

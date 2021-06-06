@@ -273,6 +273,7 @@ const VueSelect = {
 
     'focus',
     'blur',
+    'toggle',
     // TODO: remove use `opened` in next major version
     'opened',
     // TODO: remove use `opened` in next major version
@@ -319,6 +320,7 @@ const VueSelect = {
           context.emit('closed')
           context.emit('blur')
         }
+        context.emit('toggle')
       },
     )
     const focus = () => {
