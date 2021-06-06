@@ -12,6 +12,8 @@
     "
     @keydown.down.prevent="pointerForward"
     @keydown.up.prevent="pointerBackward"
+    @keydown.home.prevent="pointerFirst"
+    @keydown.end.prevent="pointerLast"
     :id="`vs${instance.uid}-combobox`"
     :role="searchable ? 'combobox' : null"
     :aria-expanded="isFocusing"
@@ -575,6 +577,18 @@ const VueSelect = {
       _pointerBackward(...args)
       nextTick(updateScrollTop)
     }
+    const pointerFirst = () => {
+      for (const index of normalized.options.keys()) {
+        if (pointerSet(index)) break
+      }
+      nextTick(updateScrollTop)
+    }
+    const pointerLast = () => {
+      for (const index of [...normalized.options.keys()].reverse()) {
+        if (pointerSet(index)) break
+      }
+      nextTick(updateScrollTop)
+    }
     const updateScrollTop = () => {
       const highlightedEl = wrapper.value?.querySelector('.highlighted')
       if (!highlightedEl) return
@@ -695,6 +709,8 @@ const VueSelect = {
       highlightedOriginalIndex,
       pointerForward,
       pointerBackward,
+      pointerFirst,
+      pointerLast,
       pointerSet,
 
       direction,
