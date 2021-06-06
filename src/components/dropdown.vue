@@ -22,7 +22,7 @@
         @mousemove="handleMousemove($event, option)"
         role="option"
         :id="`vs${comboboxUid}-option-${index}`"
-        :aria-selected="option.disabled ? undefined : option.highlighted"
+        :aria-selected="option.selected ? true : option.disabled ? undefined : false"
         :aria-disabled="option.disabled"
       >
         <slot :option="option">
