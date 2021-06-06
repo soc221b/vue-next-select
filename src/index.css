@@ -42,15 +42,15 @@
   outline: none;
 }
 
-.vue-select.disabled {
+.vue-select[aria-disabled='true'] {
   background-color: rgba(239, 239, 239);
 }
 
-.vue-select.disabled * {
+.vue-select[aria-disabled='true'] * {
   cursor: not-allowed;
 }
 
-.vue-select.disabled input {
+.vue-select[aria-disabled='true'] input {
   cursor: not-allowed;
 }
 

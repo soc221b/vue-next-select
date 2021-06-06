@@ -2,7 +2,7 @@
   <div
     ref="wrapper"
     class="vue-select"
-    :class="[`direction-${direction}`, { disabled }]"
+    :class="[`direction-${direction}`]"
     :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
     @blur="() => (searchable ? false : blur())"
@@ -21,6 +21,7 @@
       highlightedOriginalIndex === null ? null : `vs${instance.uid}-option-${highlightedOriginalIndex}`
     "
     :aria-busy="loading"
+    :aria-disabled="disabled"
   >
     <div ref="header" class="vue-select-header">
       <template
