@@ -14,6 +14,7 @@
     @keydown.up.prevent.exact="pointerBackward"
     @keydown.home.prevent.exact="pointerFirst"
     @keydown.end.prevent.exact="pointerLast"
+    @keydown="typeAhead"
     :id="`vs${instance.uid}-combobox`"
     :role="searchable ? 'combobox' : null"
     :aria-expanded="isFocusing"
@@ -589,6 +590,35 @@ const VueSelect = {
       }
       nextTick(updateScrollTop)
     }
+    let recentTypedChars = ''
+    let timerForClearingRecentTypedChars
+    let alphanumRe = /^[\w]$/
+    const sortedOriginalIndexBaseOnHighlighted = computed(() => {
+      const indexes = [...normalized.options.keys()]
+      return indexes.slice(highlightedOriginalIndex.value).concat(indexes.slice(0, highlightedOriginalIndex.value))
+    })
+    const typeAhead = event => {
+      if (props.searchable) return
+
+      let changed = false
+      if (alphanumRe.test(event.key)) {
+        recentTypedChars += event.key.toLowerCase()
+        changed = true
+      } else if (event.code === 'Space') {
+        recentTypedChars += ' '
+      }
+      if (changed) {
+        for (const index of sortedOriginalIndexBaseOnHighlighted.value) {
+          if (normalized.labelBy(normalized.options[index])?.toLowerCase()?.startsWith(recentTypedChars) !== true)
+            continue
+          if (pointerSet(index)) break
+        }
+        clearTimeout(timerForClearingRecentTypedChars)
+        timerForClearingRecentTypedChars = setTimeout(() => {
+          recentTypedChars = ''
+        }, 500)
+      }
+    }
     const updateScrollTop = () => {
       const highlightedEl = wrapper.value?.querySelector('.highlighted')
       if (!highlightedEl) return
@@ -711,6 +741,7 @@ const VueSelect = {
       pointerBackward,
       pointerFirst,
       pointerLast,
+      typeAhead,
       pointerSet,
 
       direction,
