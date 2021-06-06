@@ -7,6 +7,8 @@
     role="listbox"
     :id="`vs${comboboxUid}-listbox`"
     :aria-multiselectable="dataAttrs['data-multiple']"
+    :aria-busy="dataAttrs['data-loading']"
+    :aria-disabled="dataAttrs['data-disabled']"
   >
     <template v-for="(option, index) of modelValue" :key="option.key">
       <li

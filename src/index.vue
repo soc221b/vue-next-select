@@ -672,6 +672,8 @@ const VueSelect = {
       'data-removable': optionsWithInfo.value.filter(option => option.selected).length > normalized.min,
       'data-total-length': normalized.options.length,
       'data-multiple': props.multiple,
+      'data-loading': props.loading,
+      'data-disabled': props.disabled,
     }))
     provide('dataAttrs', dataAttrs)
 
