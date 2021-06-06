@@ -136,7 +136,7 @@
   padding: 4px;
 }
 
-.vue-select[data-is-focusing='false'] .vue-input input,
+.vue-select[data-is-focusing='false'][aria-disabled='false'] .vue-input input,
 input[readonly] {
   cursor: default;
 }
