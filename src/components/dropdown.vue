@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { ref, inject } from 'vue'
+import { inject } from 'vue'
 
 export default {
   inheritAttrs: false,
