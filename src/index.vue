@@ -121,6 +121,7 @@
       @mousemove="(ev, option) => pointerSet(option.originalIndex)"
       :comboboxUid="instance.uid"
       :maxHeight="maxHeight"
+      :highlightedOriginalIndex="highlightedOriginalIndex"
     >
       <template #default="{ option }">
         <slot name="dropdown-item" :option="option.originalOption">
@@ -523,7 +524,6 @@ const VueSelect = {
           group: normalized.groupBy(option),
           // visible: visibleValueSet.has(normalized.valueBy(option)),
           // hidden: props.hideSelected ? selectedValueSet.value.has(normalized.valueBy(option)) : false,
-          highlighted: index === highlightedOriginalIndex.value,
           originalIndex: index,
           originalOption: option,
         }

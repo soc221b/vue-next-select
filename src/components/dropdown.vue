@@ -18,7 +18,7 @@
         :class="{
           selected: option.selected,
           disabled: option.disabled,
-          highlighted: option.highlighted,
+          highlighted: option.originalIndex === highlightedOriginalIndex,
           group: option.group,
         }"
         @mousemove="handleMousemove($event, option)"
@@ -57,6 +57,9 @@ export default {
       type: Number,
     },
     maxHeight: {
+      required: true,
+    },
+    highlightedOriginalIndex: {
       required: true,
     },
   },
