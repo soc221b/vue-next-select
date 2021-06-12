@@ -118,7 +118,7 @@
       ref="dropdown"
       v-model="optionsWithInfo"
       @click-item="addOrRemoveOption"
-      @mousemove="(ev, option) => pointerSet(option.originalIndex)"
+      @mouseenter="(ev, option) => pointerSet(option.originalIndex)"
       :comboboxUid="instance.uid"
       :maxHeight="maxHeight"
       :highlightedOriginalIndex="highlightedOriginalIndex"

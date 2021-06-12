@@ -57,11 +57,11 @@ context('pointer', () => {
     cy.get('.vue-dropdown-item').first().next().next().should('have.class', 'highlighted')
   })
 
-  it('should change highlighted item when mousemove', () => {
+  it('should change highlighted item when mouseenter', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-dropdown-item').first().next().trigger('mousemove')
+    cy.get('.vue-dropdown-item').first().next().trigger('mouseenter')
 
     cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
     cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
@@ -79,19 +79,19 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-dropdown-item').first().next().next().trigger('mousemove')
+    cy.get('.vue-dropdown-item').first().next().next().trigger('mouseenter')
     cy.get('.vue-dropdown-item').first().next().next().should('have.class', 'highlighted')
 
     cy.focused().type('e')
     cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
   })
 
-  it('should change highlighted item when mousemove in filter', () => {
+  it('should change highlighted item when mouseenter in filter', () => {
     cy.visit(path.join(__dirname, 'with-searchable.html'))
 
     cy.get('.vue-select').click()
     cy.focused().type('e')
-    cy.get('.vue-dropdown-item').first().next().trigger('mousemove')
+    cy.get('.vue-dropdown-item').first().next().trigger('mouseenter')
 
     cy.get('.vue-dropdown-item').first().should('not.have.class', 'highlighted')
     cy.get('.vue-dropdown-item').first().next().should('have.class', 'highlighted')
@@ -116,7 +116,7 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'with-disabled.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-dropdown-item.disabled').trigger('mousemove')
+    cy.get('.vue-dropdown-item.disabled').trigger('mouseenter')
 
     cy.get('.vue-dropdown-item.disabled').should('not.have.class', 'highlighted')
   })
@@ -125,9 +125,9 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'with-disabled.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-dropdown-item').first().trigger('mousemove')
+    cy.get('.vue-dropdown-item').first().trigger('mouseenter')
     cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
-    cy.get('.vue-dropdown-item.disabled').trigger('mousemove')
+    cy.get('.vue-dropdown-item.disabled').trigger('mouseenter')
 
     cy.get('.vue-dropdown-item').first().should('have.class', 'highlighted')
     cy.get('.vue-dropdown-item.disabled').should('not.have.class', 'highlighted')
@@ -137,7 +137,7 @@ context('pointer', () => {
     cy.visit(path.join(__dirname, 'removable.html'))
 
     cy.get('.vue-select').click()
-    cy.get('.vue-dropdown-item').first().next().trigger('mousemove')
+    cy.get('.vue-dropdown-item').first().next().trigger('mouseenter')
     cy.get('.vue-dropdown-item').first().next().trigger('click')
     cy.get('.vue-dropdown-item').first().next().trigger('click')
 

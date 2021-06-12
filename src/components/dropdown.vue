@@ -21,7 +21,7 @@
           highlighted: option.originalIndex === highlightedOriginalIndex,
           group: option.group,
         }"
-        @mousemove="handleMousemove($event, option)"
+        @mouseenter="handleMouseenter($event, option)"
         role="option"
         :id="`vs${comboboxUid}-option-${index}`"
         :aria-selected="option.selected ? true : option.disabled ? undefined : false"
@@ -63,7 +63,7 @@ export default {
       required: true,
     },
   },
-  emits: ['click-item', 'mousemove'],
+  emits: ['click-item', 'mouseenter'],
   setup(props, context) {
     const dataAttrs = inject('dataAttrs')
 
@@ -72,14 +72,14 @@ export default {
       context.emit('click-item', event, option)
     }
 
-    const handleMousemove = (event, option) => {
-      context.emit('mousemove', event, option)
+    const handleMouseenter = (event, option) => {
+      context.emit('mouseenter', event, option)
     }
 
     return {
       dataAttrs,
       handleClickItem,
-      handleMousemove,
+      handleMouseenter,
     }
   },
 }

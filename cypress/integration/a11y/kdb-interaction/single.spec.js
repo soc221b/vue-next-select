@@ -18,7 +18,7 @@ context('kbd interaction', () => {
     cy.get('[id="vs1-option-2"]').click()
     cy.get('[aria-selected="true"]').should('have.attr', 'id', 'vs1-option-2')
 
-    cy.get('[id="vs1-option-0"]').first().trigger('mousemove')
+    cy.get('[id="vs1-option-0"]').first().trigger('mouseenter')
     cy.get('[aria-owns="vs1-listbox"]').should('have.attr', 'aria-activedescendant', 'vs1-option-0')
     cy.get('.icon.arrow-downward').click()
     cy.get('[aria-owns="vs1-listbox"]').click()
@@ -49,7 +49,7 @@ context('kbd interaction', () => {
   it('move focus to first option when enter the home key', () => {
     cy.visit(path.join(__dirname, 'single.html'))
     cy.get('[aria-owns="vs1-listbox"]').click()
-    cy.get('[id="vs1-option-2"]').trigger('mousemove')
+    cy.get('[id="vs1-option-2"]').trigger('mouseenter')
     cy.get('[aria-owns="vs1-listbox"]').should('have.attr', 'aria-activedescendant', 'vs1-option-2')
 
     cy.get('[aria-owns="vs1-listbox"]').trigger('keydown', { key: 'home' })
