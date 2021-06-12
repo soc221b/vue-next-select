@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/iendeavor/vue-next-select/compare/v2.5.0...v2.6.0) (2021-06-12)
+
+
+### Features
+
+* a11y ([596b1b6](https://github.com/iendeavor/vue-next-select/commit/596b1b6c45450702ae04e4dae227fa2210743d25))
+* add a11y-disabled ([dc3d7c1](https://github.com/iendeavor/vue-next-select/commit/dc3d7c1d775189f58c54d9a9d8a6375225bc02af))
+* expose toggle event ([9cb3579](https://github.com/iendeavor/vue-next-select/commit/9cb3579f87343a736779890e594302ffe30b6b8a))
+* home/end kbd interaction ([30eaa9d](https://github.com/iendeavor/vue-next-select/commit/30eaa9d34b27622ba3d1da1a909c5ade7f4c4dc6))
+* type-ahead kbd interaction ([36ba77a](https://github.com/iendeavor/vue-next-select/commit/36ba77a45b03dc86d4d7527d433c6af23e8bdabf))
+
+
+### Bug Fixes
+
+* add aria-disabled, aris-busy to listbox ([25d51b4](https://github.com/iendeavor/vue-next-select/commit/25d51b46820f43735b08dc296d8394b52499c1bd))
+* aria-selected indicates that option is selected ([e1e0705](https://github.com/iendeavor/vue-next-select/commit/e1e070534261c814fa8a35513d2020de2e864600))
+* exact matching keydown ([96cdb07](https://github.com/iendeavor/vue-next-select/commit/96cdb070059c91963debe5ff4be74e9721e15dc6))
+* wrong cursor ([d341614](https://github.com/iendeavor/vue-next-select/commit/d34161416f7bf2ef31c7e6d3f489779c75536351))
+
 ## [2.5.0](https://github.com/iendeavor/vue-next-select/compare/v2.4.3...v2.5.0) (2021-06-05)
 
 
