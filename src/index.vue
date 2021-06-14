@@ -5,7 +5,7 @@
     :class="[`direction-${direction}`]"
     :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
-    @blur="() => (searchable ? false : blur())"
+    @blur="e => (searchable ? false : blur(e))"
     v-bind="dataAttrs"
     @keypress.enter.exact="
       () => highlightedOriginalIndex !== null && addOrRemoveOption($event, optionsWithInfo[highlightedOriginalIndex])
@@ -331,7 +331,13 @@ const VueSelect = {
       if (props.disabled) return
       isFocusing.value = true
     }
-    const blur = () => {
+    const blur = e => {
+      if (wrapper.value.contains(e?.relatedTarget)) {
+        setTimeout(() => {
+          wrapper.value.focus()
+        })
+        return
+      }
       isFocusing.value = false
     }
     const toggle = () => {
