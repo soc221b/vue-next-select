@@ -1,0 +1,41 @@
+name: Examples
+
+on:
+  push:
+    tags:
+      - v.*
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: develop
+
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Setup user
+        run: |
+          git config --global user.email actions@users.noreply.github.com
+          git config --global user.name "Action"
+
+      - name: Bump version
+        run: |
+          git init
+          cd examples
+          eval $(echo yarn add vue-next-select@$(cat ../package.json | head -3 | sed 1,2d | sed 's/^.*\: "//' | sed 's/",$//'))
+          git add package.json
+          git commit -m 'chore(bot): bump vue-next-select'
+          cd ..
+
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'develop'
+          directory: '.'
