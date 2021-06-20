@@ -31,8 +31,13 @@ export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref
     }
   }
 
+  const originalIndexToOption = computed(() => {
+    return options.value.reduce((acc, option) => {
+      return Object.assign(acc, { [option.originalIndex]: option })
+    }, {})
+  })
   const pointerSet = originalIndex => {
-    const option = options.value.find(option => option.originalIndex === originalIndex)
+    const option = originalIndexToOption.value[originalIndex]
     if (option === undefined) return false
     if (isSelectable(option) === false) return false
     highlightedOriginalIndex.value = originalIndex
