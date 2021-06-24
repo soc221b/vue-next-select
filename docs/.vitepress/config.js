@@ -15,7 +15,7 @@ module.exports = {
     lastUpdated: 'Last Updated',
 
     nav: [
-      { text: 'Examples', link: '/#examples', activeMatch: '/#examples' },
+      { text: 'Examples', link: '/examples', activeMatch: '/#examples' },
       { text: 'API Reference', link: '/api-reference', activeMatch: '/api-reference' },
       { text: 'Change Logs', link: 'https://github.com/iendeavor/vue-next-select/blob/main/CHANGELOG.md' },
     ],
