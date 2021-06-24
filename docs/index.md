@@ -16,6 +16,7 @@ The selecting solution for Vue 3
 - Filtering / Remote Searching
 - Asynchronous support
 - No dependencies
+- Aims to follow WAI-ARIA for the `combobox` and `listbox` widget
 
 ## Installation
 
@@ -64,3 +65,37 @@ const app = Vue.createApp({
   },
 })
 ```
+
+## Getting Started
+
+### Options
+
+In HTML, each menu option is defined by an `option` element nested inside the `select` element:
+
+```html
+<select>
+  <option>Red</option>
+  <option>Green</option>
+</select>
+```
+
+In `vue-next-select`, you need to pass an `array` of **primitive value**s through an `options` prop:
+
+```html
+<vue-select :options="['Red', 'Green']"> </vue-select>
+```
+
+The `options` prop also accepts an `array` of **object**s. In this case, you need to pass an additional prop: `label-by`
+to display the options:
+
+```html
+<vue-select :options="[{ color: 'Red' }, { color: 'Green' }]" label-by="color"> </vue-select>
+```
+
+`vue-next-select` requires the `options` prop to be an `array`, if there are no options, you must pass an empty `array`:
+
+```html
+<vue-select :options="[]"> </vue-select>
+```
+
+See more details about [options](/api-reference#options) and [label-by](/api-reference#label-by) in API reference.
