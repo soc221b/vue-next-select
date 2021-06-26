@@ -38,7 +38,7 @@
       <template v-if="multiple && taggable">
         <v-tags :modelValue="optionsWithInfo" :collapse-tags="collapseTags" tabindex="-1" @click="focus">
           <template #default="{ option }">
-            <slot name="tag" :option="option.originalOption">
+            <slot name="tag" :option="option.originalOption" :remove="() => addOrRemoveOption($event, option)">
               <span>{{ option.label }}</span>
               <img
                 src="./images/delete.svg"

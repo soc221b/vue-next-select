@@ -319,6 +319,7 @@ New in `2.6.0+`
 - **Attributes**:
 
   - `{OptionType}` option
+  - `{Function}` remove
 
 ### toggle
 
