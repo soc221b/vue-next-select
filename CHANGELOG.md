@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/iendeavor/vue-next-select/compare/v2.6.0...v2.7.0) (2021-06-29)
+
+
+### Features
+
+* expose remove function for tag slot ([77f8f72](https://github.com/iendeavor/vue-next-select/commit/77f8f720ad9eba137be385de3b06338720bc6823)), closes [#235](https://github.com/iendeavor/vue-next-select/issues/235)
+
+
+### Bug Fixes
+
+* prevent blur when click on children ([58ab2bf](https://github.com/iendeavor/vue-next-select/commit/58ab2bf63bc9be0565d86635330fae571f361652))
+
 ## [2.6.0](https://github.com/iendeavor/vue-next-select/compare/v2.5.0...v2.6.0) (2021-06-12)
 
 
