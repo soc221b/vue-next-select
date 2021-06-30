@@ -330,4 +330,10 @@ New in `2.6.0+`
   - `{boolean}` isFocusing
   - `{Function}` toggle
 
+  When using this slot, you often need to bind the `toggle` function to click event or else to enable open/close
+  functionality.
+
+  In addition, you may also have to prevent **mousedown** event by adding `@mousedown.prevent` to prevent default
+  behavior (fire focus event). See more details [here](https://github.com/iendeavor/vue-next-select/issues/239).
+
 ### loading
