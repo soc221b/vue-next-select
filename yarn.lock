@@ -1475,9 +1475,9 @@
     "@types/istanbul-lib-report" "*"
 
 "@types/jest@^26.0.15":
-  version "26.0.23"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.23.tgz#a1b7eab3c503b80451d019efb588ec63522ee4e7"
-  integrity sha512-ZHLmWMJ9jJ9PTiT58juykZpL7KjwJywFN3Rr2pTSkyQfydf/rk22yS7W8p5DaVUMQ2BQC7oYiU3FjbTM/mYrOA==
+  version "26.0.24"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.24.tgz#943d11976b16739185913a1936e0de0c4a7d595a"
+  integrity sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
@@ -1551,17 +1551,6 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vue/compiler-core@3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.1.2.tgz#31ab1d88e1706a5c7a545faeeb64c31bd0101db0"
-  integrity sha512-nHmq7vLjq/XM2IMbZUcKWoH5sPXa2uR/nIKZtjbK5F3TcbnYE/zKsrSUR9WZJ03unlwotNBX1OyxVt9HbWD7/Q==
-  dependencies:
-    "@babel/parser" "^7.12.0"
-    "@babel/types" "^7.12.0"
-    "@vue/shared" "3.1.2"
-    estree-walker "^2.0.1"
-    source-map "^0.6.1"
-
 "@vue/compiler-core@3.1.4":
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.1.4.tgz#a3a74cf52e8f01af386d364ac8a099cbeb260424"
@@ -1572,14 +1561,6 @@
     "@vue/shared" "3.1.4"
     estree-walker "^2.0.1"
     source-map "^0.6.1"
-
-"@vue/compiler-dom@3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.1.2.tgz#75a7731bcc5d9718183a3c56c18e992f7c13e7b1"
-  integrity sha512-k2+SWcWH0jL6WQAX7Or2ONqu5MbtTgTO0dJrvebQYzgqaKMXNI90RNeWeCxS4BnNFMDONpHBeFgbwbnDWIkmRg==
-  dependencies:
-    "@vue/compiler-core" "3.1.2"
-    "@vue/shared" "3.1.2"
 
 "@vue/compiler-dom@3.1.4":
   version "3.1.4"
@@ -1643,11 +1624,6 @@
     "@vue/runtime-core" "3.1.4"
     "@vue/shared" "3.1.4"
     csstype "^2.6.8"
-
-"@vue/shared@3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.1.2.tgz#1069c0bc7d6f4bd15ccf3a5f3be29450aca368f9"
-  integrity sha512-EmH/poaDWBPJaPILXNI/1fvUbArJQmmTyVCwvvyDYDFnkPoTclAbHRAtyIvqfez7jybTDn077HTNILpxlsoWhg==
 
 "@vue/shared@3.1.4":
   version "3.1.4"
