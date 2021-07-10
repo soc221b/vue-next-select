@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw, RouterOptions } from 'vue-router'
 
 const viewNames = [
   'basic-usage',
@@ -14,7 +14,7 @@ const viewNames = [
   'playground',
 ]
 
-export const routes = viewNames.map(viewName => ({
+export const routes: RouterOptions['routes'] = viewNames.map(viewName => ({
   path: `/${viewName}`,
   component: () =>
     import(
@@ -24,6 +24,10 @@ export const routes = viewNames.map(viewName => ({
         .join('')}.vue`
     ),
 }))
+routes.unshift({
+  path: '/',
+  redirect: '/basic-usage',
+})
 
 export default createRouter({
   history: createWebHistory('vue-next-select'),

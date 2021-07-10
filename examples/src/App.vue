@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <template v-for="route of routes" :key="route.path">
+    <template v-for="route of routes.slice(1)" :key="route.path">
       <li>
         <router-link :to="route.path">
           {{
