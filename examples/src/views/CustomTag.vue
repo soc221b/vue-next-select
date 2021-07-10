@@ -2,8 +2,11 @@
   <pre>modelValue: {{ JSON.stringify(colors) }}</pre>
 
   <vue-select v-model="colors" :options="colorOptions" multiple taggable>
-    <template #tag="{ option }">
-      <div :style="`border-radius: 4px; padding: 0 4px; background-color: ${option};`">{{ option }}</div>
+    <template #tag="{ option, remove }">
+      <div :style="`border-radius: 4px; padding: 0 4px; background-color: ${option};`">
+        {{ option }}
+        <span @click.stop="remove">x</span>
+      </div>
     </template>
   </vue-select>
 </template>
