@@ -7,7 +7,7 @@
     @focus="focus"
     @blur="e => (searchable ? false : blur(e))"
     v-bind="dataAttrs"
-    @keypress.enter.exact="
+    @keypress.enter.prevent.exact="
       () => highlightedOriginalIndex !== null && addOrRemoveOption($event, optionsWithInfo[highlightedOriginalIndex])
     "
     @keydown.down.prevent.exact="pointerForward"
