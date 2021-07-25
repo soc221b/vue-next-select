@@ -6,7 +6,7 @@
     :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
     @blur="e => (searchable ? false : blur(e))"
-    v-bind="dataAttrs"
+    v-bind="Object.assign({}, dataAttrs, $attrs)"
     @keypress.enter.prevent.exact="
       () => highlightedOriginalIndex !== null && addOrRemoveOption($event, optionsWithInfo[highlightedOriginalIndex])
     "
