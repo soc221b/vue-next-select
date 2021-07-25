@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/iendeavor/vue-next-select/compare/v2.7.1...v2.8.0) (2021-07-25)
+
+
+### Features
+
+* allow to pass attrs ([b4a3815](https://github.com/iendeavor/vue-next-select/commit/b4a3815fd3064b3fc827764b167326702162fb35))
+
 ### [2.7.1](https://github.com/iendeavor/vue-next-select/compare/v2.7.0...v2.7.1) (2021-07-13)
 
 ### Bug Fixes
