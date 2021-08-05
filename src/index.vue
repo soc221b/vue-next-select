@@ -234,7 +234,7 @@ const VueSelect = {
 
     // misc
     autocomplete: {
-      default: "off",
+      default: 'off',
       type: String,
     },
     disabled: {

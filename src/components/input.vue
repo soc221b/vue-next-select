@@ -31,7 +31,7 @@ export default {
   props: {
     autocomplete: {
       required: false,
-      type: String
+      type: String,
     },
     modelValue: {
       required: true,
