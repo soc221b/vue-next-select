@@ -316,6 +316,8 @@ New in `2.6.0+`
 
 ### label
 
+New in `v2.9.0+`
+
 - **Attributes**:
 
   - `{(OptionType | EmptyModelValueType) | (OptionType | EmptyModelValueType)[]}` option
