@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "vue": "^3.0.11",
-    "vue-next-select": "^2.4.4",
+    "vue-next-select": "2.8.0",
     "vue-router": "^4.0.6",
     "vuex": "^4.0.0"
   },
