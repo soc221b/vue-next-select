@@ -710,7 +710,7 @@ const VueSelect = {
     const selected = computed(() => {
       const selected = selectedOptions.value.map(option => option.originalOption)
       if (props.multiple) return selected
-      return selected[0]
+      return selected[0] || props.emptyModelValue
     })
 
     const direction = ref()
