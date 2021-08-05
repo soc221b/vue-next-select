@@ -314,6 +314,13 @@ New in `2.6.0+`
 
   - `{OptionType}` option
 
+### label
+
+- **Attributes**:
+
+  - `{(OptionType | EmptyModelValueType) | (OptionType | EmptyModelValueType)[]}` option
+  - `{String}` label
+
 ### tag
 
 - **Attributes**:
