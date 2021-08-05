@@ -31,7 +31,7 @@
         v-if="(multiple && taggable && modelValue.length === 0) || (searchable === false && taggable === false)"
       >
         <div class="vue-input">
-          <input :placeholder="innerPlaceholder" readonly @click="focus" />
+          <input :placeholder="innerPlaceholder" :autocomplete="autocomplete" readonly @click="focus" />
         </div>
       </template>
 
@@ -60,6 +60,7 @@
           ref="input"
           v-model="searchingInputValue"
           :disabled="disabled"
+          :autocomplete="autocomplete"
           :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
           @input="handleInputForInput"
           @change="handleChangeForInput"
@@ -93,6 +94,7 @@
         ref="input"
         v-model="searchingInputValue"
         :disabled="disabled"
+        :autocomplete="autocomplete"
         :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
         @input="handleInputForInput"
         @change="handleChangeForInput"
@@ -231,6 +233,10 @@ const VueSelect = {
     },
 
     // misc
+    autocomplete: {
+      default: "off",
+      type: String,
+    },
     disabled: {
       default: false,
       type: Boolean,
