@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/iendeavor/vue-next-select/compare/v2.8.0...v2.9.0) (2021-08-05)
+
+
+### Features
+
+* add autocomplete field support ([#266](https://github.com/iendeavor/vue-next-select/issues/266)) ([d4793be](https://github.com/iendeavor/vue-next-select/commit/d4793be573841a6be65b96f23e5a2dd32dd1c02c))
+* add label slot ([#270](https://github.com/iendeavor/vue-next-select/issues/270)) ([c9d57c3](https://github.com/iendeavor/vue-next-select/commit/c9d57c35b32922df9f258c4733471e98f2ac81f0))
+
 ## [2.8.0](https://github.com/iendeavor/vue-next-select/compare/v2.7.1...v2.8.0) (2021-07-25)
 
 
