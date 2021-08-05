@@ -31,7 +31,9 @@
         v-if="(multiple && taggable && modelValue.length === 0) || (searchable === false && taggable === false)"
       >
         <div class="vue-input">
-          <input :placeholder="innerPlaceholder" :autocomplete="autocomplete" readonly @click="focus" />
+          <slot name="label" :selected="selected">
+            <input :placeholder="innerPlaceholder" :autocomplete="autocomplete" readonly @click="focus" />
+          </slot>
         </div>
       </template>
 
@@ -234,7 +236,7 @@ const VueSelect = {
 
     // misc
     autocomplete: {
-      default: "off",
+      default: 'off',
       type: String,
     },
     disabled: {
@@ -689,24 +691,32 @@ const VueSelect = {
     }))
     provide('dataAttrs', dataAttrs)
 
-    const innerPlaceholder = computed(() => {
-      const selectedOptions = optionsWithInfo.value.filter(option => option.selected).filter(option => !option.group)
+    const selectedOptions = computed(() => {
+      return optionsWithInfo.value.filter(option => option.selected).filter(option => !option.group)
+    })
 
+    const innerPlaceholder = computed(() => {
       if (props.multiple) {
-        if (selectedOptions.length === 0) {
+        if (selectedOptions.value.length === 0) {
           return props.placeholder
-        } else if (selectedOptions.length === 1) {
+        } else if (selectedOptions.value.length === 1) {
           return '1 option selected'
         } else {
-          return selectedOptions.length + ' options selected'
+          return selectedOptions.value.length + ' options selected'
         }
       } else {
-        if (selectedOptions.length === 0) {
+        if (selectedOptions.value.length === 0) {
           return props.placeholder
         } else {
-          return selectedOptions[0].label + ''
+          return selectedOptions.value[0].label + ''
         }
       }
+    })
+
+    const selected = computed(() => {
+      const selected = selectedOptions.value.map(option => option.originalOption)
+      if (props.multiple) return selected
+      return selected[0] || props.emptyModelValue
     })
 
     const direction = ref()
@@ -749,6 +759,7 @@ const VueSelect = {
       dataAttrs,
 
       innerPlaceholder,
+      selected,
 
       highlightedOriginalIndex,
       pointerForward,
