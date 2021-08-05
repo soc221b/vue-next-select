@@ -259,6 +259,10 @@ const VueSelect = {
       default: false,
       type: Boolean,
     },
+    clearable: {
+      default: true,
+      type: Boolean,
+    },
     maxHeight: {
       default: 300,
       type: Number,
@@ -453,6 +457,7 @@ const VueSelect = {
         return hasOption(normalizedModelValue.value, option, { valueBy: normalized.valueBy })
       })
       if (has) {
+        if (!props.clearable) return
         option.value.forEach(value => {
           const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
           normalizedModelValue.value = removeOption(normalizedModelValue.value, option, {
@@ -476,6 +481,7 @@ const VueSelect = {
     const addOrRemoveOptionForNonGroupOption = (event, option) => {
       option = option.originalOption
       if (hasOption(normalizedModelValue.value, option, { valueBy: normalized.valueBy })) {
+        if (!props.clearable) return
         normalizedModelValue.value = removeOption(normalizedModelValue.value, option, {
           min: normalized.min,
           valueBy: normalized.valueBy,

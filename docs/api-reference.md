@@ -218,6 +218,16 @@
 
   Whether to collapse dropdown after selected/removed.
 
+### clearable
+
+- **Type**: `boolean`
+
+- **Default**: `true`
+
+- **Details**:
+
+  Wether to allow clearing the selected options
+
 ### maxHeight
 
 New in `v2.5.0+`

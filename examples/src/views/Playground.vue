@@ -54,6 +54,11 @@
       </div>
 
       <div>
+        <label for="clearable">Clearable:</label>
+        <input id="clearable" v-model="clearable" type="checkbox" />
+      </div>
+
+      <div>
         <label for="labelBy">Label by:</label>
         <input id="labelBy" v-model.lazy="labelBy" />
       </div>
@@ -130,6 +135,7 @@
         :search-placeholder="searchPlaceholder"
         :clear-on-close="clearOnClose"
         :clear-on-select="clearOnSelect"
+        :clearable="clearable"
         @update:modelValue="payload => handleEvent('update:modelValue', payload)"
         @selected="payload => handleEvent('selected', payload)"
         @removed="payload => handleEvent('removed', payload)"
@@ -269,6 +275,8 @@ export default defineComponent({
       collapseTags.value = taggable.value ? collapseTags.value : false
     })
 
+    const clearable = ref(true)
+
     watch(
       () => [multiple.value, labelBy.value, valueBy.value],
       () => {
@@ -321,6 +329,7 @@ export default defineComponent({
       searchPlaceholder,
       clearOnClose,
       clearOnSelect,
+      clearable,
 
       events,
       autoClearEvents,
