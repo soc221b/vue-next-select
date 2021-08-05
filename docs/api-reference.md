@@ -320,7 +320,7 @@ New in `v2.9.0+`
 
 - **Attributes**:
 
-  - `{(OptionType | EmptyModelValueType) | (OptionType | EmptyModelValueType)[]}` option
+  - `{(OptionType | EmptyModelValueType) | (OptionType | EmptyModelValueType)[]}` selected
   - `{String}` label
 
 ### tag
