@@ -2,8 +2,7 @@ name: Examples
 
 on:
   push:
-    tags:
-      - v.*
+    branches: [ test/bump-example ]
 
 jobs:
   docs:
@@ -12,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: test/bump-example
 
       - name: Use Node.js 12
         uses: actions/setup-node@v1
@@ -29,7 +28,7 @@ jobs:
           git init
           cd examples
           eval $(echo yarn add vue-next-select@$(cat ../package.json | head -3 | sed 1,2d | sed 's/^.*\: "//' | sed 's/",$//'))
-          git add package.json
+          git add .
           git commit -m 'chore(bot): bump vue-next-select'
           cd ..
 
@@ -37,5 +36,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: 'develop'
+          branch: 'test/bump-example'
           directory: '.'
