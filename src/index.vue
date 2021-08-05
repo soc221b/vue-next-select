@@ -31,7 +31,7 @@
         v-if="(multiple && taggable && modelValue.length === 0) || (searchable === false && taggable === false)"
       >
         <div class="vue-input">
-          <slot name="label" :label="innerPlaceholder" :selected="selected">
+          <slot name="label" :selected="selected">
             <input :placeholder="innerPlaceholder" :autocomplete="autocomplete" readonly @click="focus" />
           </slot>
         </div>
@@ -236,7 +236,7 @@ const VueSelect = {
 
     // misc
     autocomplete: {
-      default: "off",
+      default: 'off',
       type: String,
     },
     disabled: {

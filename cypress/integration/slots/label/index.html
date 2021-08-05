@@ -31,9 +31,9 @@
           v-model="selectedOptions"
           :options="options"
         >
-          <template #label="{ selected, label }">
+          <template #label="{ selected }">
             <span v-if="selected">{{ selected.toUpperCase() }}</span>
-            <span v-else>{{ label }}</span>
+            <span v-else>Select option</span>
           </template>
         </vue-select>
         `,

@@ -2,13 +2,11 @@
   <pre>modelValue: {{ JSON.stringify(country) }}</pre>
 
   <vue-select v-model="country" :options="countryOptions" label-by="label">
-    <template #label="{ label, selected }">
+    <template #label="{ selected }">
       <template v-if="selected">
         <div>{{ selected.flag }} {{ selected.label }}</div>
       </template>
-      <template v-else>
-        {{ label }}
-      </template>
+      <template v-else>Select option</template>
     </template>
     <template #dropdown-item="{ option }">
       <div>{{ option.flag }} {{ option.label }}</div>

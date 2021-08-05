@@ -32,9 +32,9 @@
           :options="options"
           multiple
         >
-          <template #label="{ selected, label }">
+          <template #label="{ selected }">
             <span v-if="selected.length">{{ selected.length }}</span>
-            <span v-else>{{ label }}</span>
+            <span v-else>Select option</span>
           </template>
         </vue-select>
         `,
