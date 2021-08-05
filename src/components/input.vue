@@ -3,6 +3,7 @@
     <slot name="prepend"></slot>
     <input
       ref="input"
+      :autocomplete="autocomplete"
       :modelValue="modelValue"
       :placeholder="placeholder"
       :disabled="disabled"
@@ -28,6 +29,10 @@ export default {
   inheritAttrs: false,
   name: 'vue-input',
   props: {
+    autocomplete: {
+      required: false,
+      type: String
+    },
     modelValue: {
       required: true,
       type: String,

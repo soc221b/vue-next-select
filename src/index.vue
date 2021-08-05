@@ -32,7 +32,7 @@
       >
         <div class="vue-input">
           <slot name="label" :label="innerPlaceholder" :selected="selected">
-            <input :placeholder="innerPlaceholder" readonly @click="focus" />
+            <input :placeholder="innerPlaceholder" :autocomplete="autocomplete" readonly @click="focus" />
           </slot>
         </div>
       </template>
@@ -62,6 +62,7 @@
           ref="input"
           v-model="searchingInputValue"
           :disabled="disabled"
+          :autocomplete="autocomplete"
           :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
           @input="handleInputForInput"
           @change="handleChangeForInput"
@@ -95,6 +96,7 @@
         ref="input"
         v-model="searchingInputValue"
         :disabled="disabled"
+        :autocomplete="autocomplete"
         :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
         @input="handleInputForInput"
         @change="handleChangeForInput"
@@ -233,6 +235,10 @@ const VueSelect = {
     },
 
     // misc
+    autocomplete: {
+      default: "off",
+      type: String,
+    },
     disabled: {
       default: false,
       type: Boolean,
