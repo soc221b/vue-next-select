@@ -409,10 +409,10 @@ vue-demi@^0.9.1:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.9.1.tgz#25d6e1ebd4d4010757ff3571e2bf6a1d7bf3de82"
   integrity sha512-7s1lufRD2l369eFWPjgLvhqCRk0XzGWJsQc7K4q+0mZtixyGIvsK1Cg88P4NcaRIEiBuuN4q1NN4SZKFKwQswA==
 
-vue-next-select@^2.4.4:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/vue-next-select/-/vue-next-select-2.7.0.tgz#51be46a77d0b9d5c2e9b8dd9fd05e770f8b4d283"
-  integrity sha512-GJdps622YGD/vicDFqWtCOmYuWuIrriovpjnzNV4xWGkZI/b7RpFIJvykWv0Bq7d6wYoaJ59wt3CiV900F4wRw==
+vue-next-select@2.9.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/vue-next-select/-/vue-next-select-2.9.0.tgz#01b58ffc1e3a6d716ee23718c567b99507fe097d"
+  integrity sha512-GjX4pHqZXXitquDeSAtLaf85jXdMUOKyCNzo+EF3xRr4DebGwbST4CtmRvL0TX3EhwLHQjUlAc3JcJX+azpLHg==
 
 vue-router@^4.0.6:
   version "4.0.10"
