@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/iendeavor/vue-next-select/compare/v2.9.0...v2.10.0) (2021-08-31)
+
+
+### Features
+
+* typescript ([e74b791](https://github.com/iendeavor/vue-next-select/commit/e74b79123e75600f62699cb9d9047852cdf6e826)), closes [#291](https://github.com/iendeavor/vue-next-select/issues/291)
+
 ## [2.9.0](https://github.com/iendeavor/vue-next-select/compare/v2.8.0...v2.9.0) (2021-08-05)
 
 
