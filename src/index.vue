@@ -161,9 +161,7 @@ const VueSelect = defineComponent({
     },
     // TODO: default to `undefined` in next major version
     // https://github.com/vuejs/vue-next/issues/3744
-    emptyModelValue: {
-      default: null,
-    },
+    emptyModelValue: {},
 
     // options
     options: {
@@ -298,6 +296,7 @@ const VueSelect = defineComponent({
   ],
   setup(props, context) {
     const normalized = normalize(props)
+    const normalizedEmptyModelValue = computed(() => props.emptyModelValue ?? null)
 
     const instance = getCurrentInstance()
     const wrapper = ref()
@@ -398,8 +397,10 @@ const VueSelect = defineComponent({
         )
           return false
       } else {
-        if (normalizedModelValue.value.length === 0 && props.modelValue !== props.emptyModelValue) return false
-        if (normalizedModelValue.value.length === 1 && props.modelValue === props.emptyModelValue) return false
+        if (normalizedModelValue.value.length === 0 && props.modelValue !== normalizedEmptyModelValue.value)
+          return false
+        if (normalizedModelValue.value.length === 1 && props.modelValue === normalizedEmptyModelValue.value)
+          return false
         if (
           normalizedModelValue.value[0] !==
           getOptionByValue(normalized.options, props.modelValue, { valueBy: normalized.valueBy })
@@ -413,7 +414,7 @@ const VueSelect = defineComponent({
       normalizedModelValue.value = []
       const modelValue: unknown[] = props.multiple
         ? (props.modelValue as unknown[])
-        : props.modelValue === props.emptyModelValue
+        : props.modelValue === normalizedEmptyModelValue.value
         ? []
         : [props.modelValue]
       for (const value of modelValue) {
@@ -514,7 +515,7 @@ const VueSelect = defineComponent({
         context.emit('update:modelValue', selectedValues)
       } else {
         if (selectedValues.length) context.emit('update:modelValue', selectedValues[0])
-        else context.emit('update:modelValue', props.emptyModelValue)
+        else context.emit('update:modelValue', normalizedEmptyModelValue.value)
       }
     }
 
@@ -715,7 +716,7 @@ const VueSelect = defineComponent({
     const selected = computed(() => {
       const selected = selectedOptions.value.map(option => option.originalOption)
       if (props.multiple) return selected
-      return selected[0] || props.emptyModelValue
+      return selected[0] || normalizedEmptyModelValue.value
     })
 
     const direction = ref()
