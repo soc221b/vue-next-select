@@ -1,6 +1,6 @@
 import rm from 'rimraf'
 import path from 'path'
-import ts from 'rollup-plugin-typescript'
+import ts from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import resolve from '@rollup/plugin-node-resolve'
 import globals from 'rollup-plugin-node-globals'
@@ -29,11 +29,7 @@ formats.forEach(format => {
     plugins: [
       json(),
       vue(),
-      ts({
-        tsconfig: false,
-        experimentalDecorators: true,
-        module: 'es2015',
-      }),
+      ts(),
       svg({ base64: true }),
       resolve(),
       globals(),

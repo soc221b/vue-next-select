@@ -143,7 +143,7 @@ import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption } from './crud'
 import normalize from './normalize'
-import { usePointer } from './hooks'
+import { usePointer } from './hooks.ts'
 import { version } from '../package.json'
 
 function escapeRegExp(pattern) {
