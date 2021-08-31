@@ -8,12 +8,14 @@
   </form>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue'
+import VueSelect from 'vue-next-select'
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
 export default defineComponent({
+  components: { VueSelect },
   setup() {
     const pet = ref(null)
 

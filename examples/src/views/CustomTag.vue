@@ -11,10 +11,12 @@
   </vue-select>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue'
+import VueSelect from 'vue-next-select'
 
 export default defineComponent({
+  components: { VueSelect },
   setup() {
     const colors = ref(['gold', 'lime'])
 

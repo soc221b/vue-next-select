@@ -13,10 +13,12 @@
   </vue-select>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue'
+import VueSelect from 'vue-next-select'
 
 export default defineComponent({
+  components: { VueSelect },
   setup() {
     const used = ref(['forEach', 'flat', 'all', 'any'])
 
@@ -42,7 +44,7 @@ export default defineComponent({
             isConstructor: true,
           })
           .concat(constructor.methods.map(method => ({ label: method.name, value: method.name })))
-      }, []),
+      }, [] as { label: string; value: string | string[]; isConstructor?: boolean }[]),
     )
 
     return {

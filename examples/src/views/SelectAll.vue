@@ -4,20 +4,22 @@
   <vue-select v-model="option" :options="options" multiple label-by="label" value-by="value" group-by="isGroup" />
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue'
+import VueSelect from 'vue-next-select'
 
 export default defineComponent({
+  components: { VueSelect },
   setup() {
     const option = ref([])
 
-    const options = [
+    const options = <{ isGroup?: boolean; label: string; value: string | string[] }[]>[
       { label: 'Facebook', value: 'facebook' },
       { label: 'LinkedIn', value: 'linked-in' },
       { label: 'Twiitter', value: 'twiitter' },
       { label: 'Youtube', value: 'youtube' },
     ]
-    options.unshift({ isGroup: true, label: 'All', value: options.map(option => option.value) })
+    options.unshift({ isGroup: true, label: 'All', value: options.map(option => option.value as string) })
 
     return {
       option,

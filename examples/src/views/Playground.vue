@@ -151,12 +151,14 @@
   </fieldset>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, onBeforeUnmount, ref, watch, watchEffect } from 'vue'
+import VueSelect from 'vue-next-select'
 
 export default defineComponent({
+  components: { VueSelect },
   setup() {
-    const model = ref(null)
+    const model = ref<null | string | string[]>(null)
 
     const options = [
       { language: 'JavaScript', framework: ['Express', 'Koa'], disabled: Math.random() > 0.8 },
@@ -173,7 +175,7 @@ export default defineComponent({
 
     const loading = ref(false)
 
-    const placeholder = ref('placeholder')
+    const placeholder = ref<undefined | string>('placeholder')
     watchEffect(() => {
       if (placeholder.value === '') {
         placeholder.value = undefined
@@ -183,7 +185,7 @@ export default defineComponent({
     const hideSelected = ref(false)
     const closeOnSelect = ref(false)
 
-    const labelBy = ref('language')
+    const labelBy = ref<undefined | string>('language')
     watchEffect(() => {
       if (labelBy.value === undefined) return
       if (labelBy.value === '') {
@@ -192,13 +194,13 @@ export default defineComponent({
       }
       if (
         options.every(option => typeof option === 'object' && option !== null) &&
-        options.some(option => option[labelBy.value] === undefined)
+        options.some(option => option[labelBy.value as keyof typeof option] === undefined)
       ) {
         labelBy.value = undefined
       }
     })
 
-    const valueBy = ref('framework')
+    const valueBy = ref<undefined | string>('framework')
     watchEffect(() => {
       if (valueBy.value === undefined) return
       if (valueBy.value === '') {
@@ -207,13 +209,13 @@ export default defineComponent({
       }
       if (
         options.every(option => typeof option === 'object' && option !== null) &&
-        options.some(option => option[valueBy.value] === undefined)
+        options.some(option => option[valueBy.value as keyof typeof option] === undefined)
       ) {
         valueBy.value = undefined
       }
     })
 
-    const disabledBy = ref('disabled')
+    const disabledBy = ref<undefined | string>('disabled')
     watchEffect(() => {
       if (disabledBy.value === undefined) return
       if (disabledBy.value === '') {
@@ -222,7 +224,7 @@ export default defineComponent({
       }
       if (
         options.every(option => typeof option === 'object' && option !== null) &&
-        options.some(option => option[disabledBy.value] === undefined)
+        options.some(option => option[disabledBy.value as keyof typeof option] === undefined)
       ) {
         disabledBy.value = undefined
       }
@@ -230,7 +232,7 @@ export default defineComponent({
 
     const searchable = ref(false)
 
-    const searchPlaceholder = ref('Search placeholder')
+    const searchPlaceholder = ref<undefined | string>('Search placeholder')
     watchEffect(() => {
       if (searchPlaceholder.value === '') {
         searchPlaceholder.value = undefined
@@ -247,16 +249,16 @@ export default defineComponent({
       clearOnSelect.value = searchable.value ? clearOnSelect.value : false
     })
 
-    const min = ref(0)
+    const min = ref<number>(0)
     watchEffect(() => {
-      min.value = parseInt(min.value, 10)
+      min.value = parseInt(min.value + '', 10)
     })
 
     const multiple = ref(false)
 
-    const max = ref(9999)
+    const max = ref<number>(9999)
     watchEffect(() => {
-      max.value = parseInt(max.value, 10)
+      max.value = parseInt(max.value + '', 10)
     })
 
     const taggable = ref(false)
@@ -276,9 +278,9 @@ export default defineComponent({
       },
     )
 
-    const events = ref([])
+    const events = ref<{ name: string; payload: unknown; timestamp: number }[]>([])
     let waitingEvent = 0
-    const handleEvent = async (name, payload) => {
+    const handleEvent = async (name: string, payload: unknown) => {
       ++waitingEvent
       await new Promise(resolve => setTimeout(resolve, Math.random() * 16 + 16 * waitingEvent))
       --waitingEvent
