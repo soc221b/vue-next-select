@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
-import VueSelect from '../../dist/vue-next-select.es'
+import VueSelect from '../../'
 import { clickFirstDropdownItemElement } from '../dom-utils'
 
 it('should emit select event with option', async () => {

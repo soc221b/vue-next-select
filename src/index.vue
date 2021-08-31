@@ -136,14 +136,14 @@
   </div>
 </template>
 
-<script>
-import { ref, computed, watch, provide, getCurrentInstance, nextTick } from 'vue'
+<script lang="ts">
+import { ref, computed, watch, provide, getCurrentInstance, nextTick, defineComponent, PropType } from 'vue'
 import VInput from './components/input.vue'
 import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption } from './crud'
 import normalize from './normalize'
-import { usePointer } from './hooks.ts'
+import { usePointer } from './hooks'
 import { version } from '../package.json'
 
 function escapeRegExp(pattern) {
@@ -151,7 +151,7 @@ function escapeRegExp(pattern) {
   return pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-const VueSelect = {
+const VueSelect = defineComponent({
   name: 'vue-select',
   inheritAttrs: false,
   props: {
@@ -188,7 +188,7 @@ const VueSelect = {
     },
     // TODO: default to `undefined` in next major version
     visibleOptions: {
-      type: [Array, null],
+      type: Array,
       default: null,
     },
 
@@ -272,8 +272,8 @@ const VueSelect = {
       type: Number,
     },
     openDirection: {
-      type: String,
-      validator(value) {
+      type: String as PropType<'top' | 'bottom'>,
+      validator: (value: string) => {
         return ['top', 'bottom'].includes(value)
       },
     },
@@ -339,7 +339,7 @@ const VueSelect = {
       if (props.disabled) return
       isFocusing.value = true
     }
-    const blur = e => {
+    const blur = (e?) => {
       if (wrapper.value.contains(e?.relatedTarget)) {
         setTimeout(() => {
           wrapper.value.focus()
@@ -386,12 +386,14 @@ const VueSelect = {
     const isSynchronoused = () => {
       if (props.multiple) {
         if (Array.isArray(props.modelValue) === false) return false
-        if (normalizedModelValue.value.length !== props.modelValue.length) return false
+        if (normalizedModelValue.value.length !== (props.modelValue as unknown[]).length) return false
         if (
           Object.keys(normalizedModelValue.value).some(
             index =>
               normalizedModelValue.value[index] !==
-              getOptionByValue(normalized.options, props.modelValue[index], { valueBy: normalized.valueBy }),
+              getOptionByValue(normalized.options, (props.modelValue as unknown[])[index], {
+                valueBy: normalized.valueBy,
+              }),
           )
         )
           return false
@@ -409,8 +411,8 @@ const VueSelect = {
     const syncFromModelValue = () => {
       if (isSynchronoused()) return
       normalizedModelValue.value = []
-      const modelValue = props.multiple
-        ? props.modelValue
+      const modelValue: unknown[] = props.multiple
+        ? (props.modelValue as unknown[])
         : props.modelValue === props.emptyModelValue
         ? []
         : [props.modelValue]
@@ -542,23 +544,20 @@ const VueSelect = {
           originalOption: option,
         }
 
-        optionWithInfo.selected = optionWithInfo.group
+        ;(optionWithInfo as any).selected = optionWithInfo.group
           ? option.value.every(value => selectedValueSet.value.has(value))
           : selectedValueSet.value.has(normalized.valueBy(option))
-
-        optionWithInfo.disabled = optionWithInfo.group
+        ;(optionWithInfo as any).disabled = optionWithInfo.group
           ? normalized.disabledBy(option) ||
             option.value.every(value => {
               const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
               return normalized.disabledBy(option)
             })
           : normalized.disabledBy(option)
-
-        optionWithInfo.visible = optionWithInfo.group
+        ;(optionWithInfo as any).visible = optionWithInfo.group
           ? option.value.some(value => visibleValueSet.has(value))
           : visibleValueSet.has(normalized.valueBy(option))
-
-        optionWithInfo.hidden = props.hideSelected
+        ;(optionWithInfo as any).hidden = props.hideSelected
           ? optionWithInfo.group
             ? option.value.every(value => selectedValueSet.value.has(value))
             : selectedValueSet.value.has(normalized.valueBy(option))
@@ -584,12 +583,12 @@ const VueSelect = {
       pointerBackward: _pointerBackward,
       pointerSet,
     } = usePointer(optionsWithInfo, highlightedOriginalIndex)
-    const pointerForward = (...args) => {
-      _pointerForward(...args)
+    const pointerForward = () => {
+      _pointerForward()
       nextTick(updateScrollTop)
     }
-    const pointerBackward = (...args) => {
-      _pointerBackward(...args)
+    const pointerBackward = () => {
+      _pointerBackward()
       nextTick(updateScrollTop)
     }
     const pointerFirst = () => {
@@ -777,7 +776,7 @@ const VueSelect = {
     VTags,
     VDropdown,
   },
-}
+})
 
 VueSelect.__VERSION__ = version
 

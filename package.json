@@ -25,7 +25,7 @@
   "umd:main": "dist/vue-next-select.iife.prod.js",
   "unpkg": "dist/vue-next-select.iife.prod.js",
   "module": "dist/vue-next-select.es.prod.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.vue.d.ts",
   "files": [
     "dist"
   ],

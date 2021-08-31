@@ -10,7 +10,17 @@ const createComputedForGetterFunction = maybePathFunc =>
   })
 
 export default props => {
-  const normalized = reactive({})
+  const normalized = reactive(
+    {} as {
+      labelBy: any
+      valueBy: any
+      disabledBy: any
+      groupBy: any
+      min: any
+      max: any
+      options: any
+    },
+  )
 
   const labelBy = createComputedForGetterFunction(toRef(props, 'labelBy'))
   watchEffect(() => (normalized.labelBy = labelBy.value))
