@@ -2,3 +2,6 @@ dist
 node_modules
 coverage
 CHANGELOG.md
+yarn.lock
+yarn-error.log
+LICENSE
