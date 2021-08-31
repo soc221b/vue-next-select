@@ -1,72 +1,75 @@
-export const isNullEl = any => {
-  return Object.keys(any).length === 0
+import { VueWrapper } from '@vue/test-utils'
+import { ComponentPublicInstance } from 'vue'
+
+export const isNullEl = (object: object) => {
+  return Object.keys(object).length === 0
 }
 
-export const getElement = (wrapper, selector) => {
+export const getElement = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>, selector: any) => {
   const dropdownEl = wrapper.findComponent(selector)
   if (isNullEl(dropdownEl)) return null
-  return dropdownEl.element as any
+  return dropdownEl.element as Element
 }
 
-export const getAllElements = parentEl => {
+export const getAllElements = (parentEl: Element | null) => {
   if (parentEl === null) return []
-  return Array.from(parentEl.children) as any
+  return Array.from(parentEl.children) as Element[]
 }
 
-export const clickAllElements = async allElements => {
+export const clickAllElements = async (allElements: Element[]) => {
   await allElements.forEach(el => el.dispatchEvent(new Event('click')))
 }
 
-export const getFirstElement = allElements => {
+export const getFirstElement = (allElements: Element[]) => {
   if (allElements.length === 0) return null
   return allElements[0]
 }
 
-export const clickFirstElement = async element => {
+export const clickFirstElement = async (element: Element | null) => {
   if (element === null) return
   await element.dispatchEvent(new Event('click'))
 }
 
 // dropdown
-export const getDropdownElement = wrapper => {
+export const getDropdownElement = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   const element = getElement(wrapper, '.vue-dropdown')
-  return getComputedStyle(getElement(wrapper, '.vue-dropdown')).display === 'none' ? null : element
+  return element === null || getComputedStyle(element).display === 'none' ? null : element
 }
 
-export const getAllDropdownItemElements = wrapper => {
+export const getAllDropdownItemElements = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   return getAllElements(getDropdownElement(wrapper))
 }
 
-export const clickAllDropdownItemElements = async wrapper => {
+export const clickAllDropdownItemElements = async <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   await clickAllElements(getAllDropdownItemElements(wrapper))
 }
 
-export const getFirstDropdownItemElement = wrapper => {
+export const getFirstDropdownItemElement = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   return getFirstElement(getAllDropdownItemElements(wrapper))
 }
 
-export const clickFirstDropdownItemElement = async wrapper => {
+export const clickFirstDropdownItemElement = async <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   await clickFirstElement(getFirstDropdownItemElement(wrapper))
 }
 
 // tag
-export const getTagElement = wrapper => {
+export const getTagElement = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   return getElement(wrapper, '.vue-tags')
 }
 
-export const getAllTagItemElements = wrapper => {
+export const getAllTagItemElements = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   return getAllElements(getTagElement(wrapper))
 }
 
 // delete-icon elements
-export const getAllDeleteIconElements = wrapper => {
+export const getAllDeleteIconElements = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   return getAllElements(getTagElement(wrapper)).map(deleteIconElement => deleteIconElement.children[1])
 }
 
-export const getFirstDeleteIconElement = wrapper => {
+export const getFirstDeleteIconElement = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   return getFirstElement(getAllDeleteIconElements(wrapper))
 }
 
-export const clickFirstDeleteIconElement = async wrapper => {
+export const clickFirstDeleteIconElement = async <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>) => {
   await clickFirstElement(getFirstDeleteIconElement(wrapper))
 }

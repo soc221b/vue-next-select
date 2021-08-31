@@ -28,7 +28,7 @@ it('should works by default', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('focus')
 
-  expect(getFirstDropdownItemElement(wrapper).innerHTML).toBe('<span>0</span>')
+  expect(getFirstDropdownItemElement(wrapper)?.innerHTML).toBe('<span>0</span>')
 })
 
 it('should works with string path', async () => {
@@ -76,7 +76,7 @@ it('should works with string path', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('focus')
 
-  expect(getFirstDropdownItemElement(wrapper).innerHTML).toBe('<span>a</span>')
+  expect(getFirstDropdownItemElement(wrapper)?.innerHTML).toBe('<span>a</span>')
 })
 
 it('should works with function', async () => {
@@ -97,7 +97,7 @@ it('should works with function', async () => {
       },
     ],
   })
-  const labelBy = option => option.label
+  const labelBy = (option: { label: string; value: number }) => option.label
   const app = {
     setup() {
       return {
@@ -120,5 +120,5 @@ it('should works with function', async () => {
   const wrapper = mount(app)
   await wrapper.trigger('focus')
 
-  expect(getFirstDropdownItemElement(wrapper).innerHTML).toBe('<span>a</span>')
+  expect(getFirstDropdownItemElement(wrapper)?.innerHTML).toBe('<span>a</span>')
 })

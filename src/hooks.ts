@@ -34,9 +34,9 @@ export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref
   const originalIndexToOption = computed(() => {
     return options.value.reduce((acc, option) => {
       return Object.assign(acc, { [option.originalIndex]: option })
-    }, {})
+    }, {} as Record<number, Option>)
   })
-  const pointerSet = originalIndex => {
+  const pointerSet = (originalIndex: number) => {
     const option = originalIndexToOption.value[originalIndex]
     if (option === undefined) return false
     if (isSelectable(option) === false) return false
@@ -49,7 +49,7 @@ export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref
 
   watchEffect(() => {
     if (isSomeSelectable.value === false) highlightedOriginalIndex.value = null
-    if (options.value.length <= highlightedOriginalIndex.value) {
+    if (highlightedOriginalIndex.value !== null && options.value.length <= highlightedOriginalIndex.value) {
       for (const option of options.value.reverse()) {
         if (pointerSet(option.originalIndex)) break
       }

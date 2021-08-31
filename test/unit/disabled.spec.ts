@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
 import VueSelect from '../../dist/vue-next-select.es'
-import { clickFirstDeleteIconElement, getDropdownElement } from '../dom-utils'
+import { clickFirstDeleteIconElement } from '../dom-utils'
 
 it('should disable tag', async () => {
   const state = reactive({

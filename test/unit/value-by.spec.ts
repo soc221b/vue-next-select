@@ -93,7 +93,7 @@ it('should works with function', async () => {
       },
     ],
   })
-  const valueBy = option => option.value
+  const valueBy = (option: { label: string; value: number }) => option.value
   const app = {
     setup() {
       return {
