@@ -51,7 +51,7 @@
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@types/jest": "^26",
     "@vue/compiler-sfc": "^3.0.0",
-    "@vue/test-utils": "^2.0.0-beta.5",
+    "@vue/test-utils": "^2.0.0-rc",
     "babel-jest": "^26",
     "csso": "^4.0.3",
     "cypress": "^6.0.0",
