@@ -5,15 +5,15 @@ export const isNullEl = (object: object) => {
   return Object.keys(object).length === 0
 }
 
-export const getElement = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>, selector: any) => {
-  const dropdownEl = wrapper.findComponent(selector)
+export const getElement = <T extends ComponentPublicInstance>(wrapper: VueWrapper<T>, selector: string) => {
+  const dropdownEl = wrapper.find(selector)
   if (isNullEl(dropdownEl)) return null
-  return dropdownEl.element as Element
+  return dropdownEl.element
 }
 
 export const getAllElements = (parentEl: Element | null) => {
   if (parentEl === null) return []
-  return Array.from(parentEl.children) as Element[]
+  return Array.from(parentEl.children)
 }
 
 export const clickAllElements = async (allElements: Element[]) => {
