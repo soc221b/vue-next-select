@@ -1737,9 +1737,9 @@
   integrity sha512-E2DQQnG7Qr4GwTs3GlfPPlHliGVADoufTnhpwfoViw7JlyLMmYtjfnTwM6nXAwvSJWiF7D+7AxpnWBBT3VWo6Q==
 
 "@vue/test-utils@^2.0.0-rc":
-  version "2.0.0-rc.13"
-  resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-2.0.0-rc.13.tgz#274dd256dd311c186136dee2fcb6eda1416a7792"
-  integrity sha512-+W4HMjKw8rFf0jgUS7bKeSecHMoDkmNBNuUdF1UIfvcUDd0E9NZBTcW/H1ONtj3z6ySotwAbjsJGJb7s90T1ig==
+  version "2.0.0-rc.14"
+  resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-2.0.0-rc.14.tgz#9da1be7b0e365ff5f945677da17bf6c8a7a83abd"
+  integrity sha512-gmaeKqRCCMfxUtWN2L9fb9mYW5YocNc9KPj6F5uwlyXevlKELi40Oaz0PICYjzHI+7+dC4bV5Dg6Vjnf51VjvQ==
 
 JSONStream@^1.0.4:
   version "1.3.5"
