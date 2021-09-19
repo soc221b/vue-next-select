@@ -1,11 +1,22 @@
 import { reactive, computed, toRef, watchEffect } from 'vue'
 
+export const defaultLabelBySymbol = Symbol('labelBy')
+export const defaultValueBySymbol = Symbol('valueBy')
+
 const createComputedForGetterFunction = maybePathFunc =>
   computed(() => {
     return typeof maybePathFunc.value === 'function'
       ? maybePathFunc.value
       : typeof maybePathFunc.value === 'string'
       ? option => maybePathFunc.value.split('.').reduce((value, key) => value[key], option)
+      : maybePathFunc.value === defaultLabelBySymbol || maybePathFunc.value === defaultValueBySymbol
+      ? option => {
+          const by = maybePathFunc.value === defaultLabelBySymbol ? 'label' : 'value'
+          try {
+            if (Object.prototype.hasOwnProperty.call(option, by)) return option[by]
+          } catch {}
+          return option
+        }
       : typeof maybePathFunc.value === 'symbol'
       ? option => option[maybePathFunc.value]
       : option => option

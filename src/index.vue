@@ -142,7 +142,7 @@ import VInput from './components/input.vue'
 import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption } from './crud'
-import normalize from './normalize'
+import normalize, { defaultLabelBySymbol, defaultValueBySymbol } from './normalize'
 import { usePointer } from './hooks'
 import { version } from '../package.json'
 
@@ -167,11 +167,11 @@ const VueSelect = defineComponent({
       type: Array,
     },
     labelBy: {
-      default: 'label',
+      default: defaultLabelBySymbol,
       type: [String, Symbol, Function],
     },
     valueBy: {
-      default: 'value',
+      default: defaultValueBySymbol,
       type: [String, Symbol, Function],
     },
     disabledBy: {
