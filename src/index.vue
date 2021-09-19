@@ -170,8 +170,8 @@ const VueSelect = defineComponent({
       default: 'label',
       type: [String, Function],
     },
-    // TODO: default to `'value'` in next major version
     valueBy: {
+      default: 'value',
       type: [String, Function],
     },
     disabledBy: {

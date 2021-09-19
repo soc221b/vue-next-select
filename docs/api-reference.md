@@ -83,6 +83,8 @@
 
 - **Type**: `string | (option => string)`
 
+- **Default**: `"value"`
+
 - **Details**:
 
   Same as `label-by` but for `value`
