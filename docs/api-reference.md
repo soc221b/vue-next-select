@@ -262,14 +262,6 @@ New in `v2.5.0+`
 
   - `{OptionType}` option
 
-### ~~opened~~
-
-> Warning: deprecated, use [`focus`](#focus) instead.
-
-### ~~closed~~
-
-> Warning: deprecated, use [`blur`](#blur) instead.
-
 ### focus
 
 New in `v2.4.0+`

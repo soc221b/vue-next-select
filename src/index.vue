@@ -282,10 +282,6 @@ const VueSelect = defineComponent({
     'focus',
     'blur',
     'toggle',
-    // TODO: remove use `opened` in next major version
-    'opened',
-    // TODO: remove use `opened` in next major version
-    'closed',
 
     'search:input',
     'search:change',
@@ -306,7 +302,6 @@ const VueSelect = defineComponent({
       () => isFocusing.value,
       () => {
         if (isFocusing.value) {
-          context.emit('opened')
           context.emit('focus')
           if (props.searchable) {
             if (inputEl.value !== document.activeElement) {
@@ -326,7 +321,6 @@ const VueSelect = defineComponent({
           } else {
             wrapper.value.blur()
           }
-          context.emit('closed')
           context.emit('blur')
         }
         context.emit('toggle')

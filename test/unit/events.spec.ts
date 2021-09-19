@@ -83,7 +83,7 @@ it('should emit open event', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        @opened="handleOpen"
+        @focus="handleOpen"
       ></vue-select>
     `,
   }
@@ -112,7 +112,7 @@ it('should emit close event', async () => {
       <vue-select
         v-model="state.model"
         :options="state.options"
-        @closed="handleClose"
+        @blur="handleClose"
       ></vue-select>
     `,
   }
