@@ -67,6 +67,8 @@
 
 - **Type**: `string | (option => string)`
 
+- **Default**: `"label"`
+
 - **Details**:
 
   This will be used in dropdown and tags.

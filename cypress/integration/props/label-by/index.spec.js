@@ -19,6 +19,13 @@ context('label-by', () => {
     )
   })
 
+  it('default value is `"label"`', () => {
+    cy.visit(path.join(__dirname, 'without2.html'))
+    cy.get('.vue-select').click()
+
+    cy.get('.vue-dropdown-item.selected').should('have.text', 'I')
+  })
+
   it('should works with path', () => {
     cy.visit(path.join(__dirname, 'with-path.html'))
     cy.get('.vue-select').click()

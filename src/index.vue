@@ -166,8 +166,8 @@ const VueSelect = defineComponent({
       required: true,
       type: Array,
     },
-    // TODO: default to `'label'` in next major version
     labelBy: {
+      default: 'label',
       type: [String, Function],
     },
     // TODO: default to `'value'` in next major version
