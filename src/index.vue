@@ -168,19 +168,19 @@ const VueSelect = defineComponent({
     },
     labelBy: {
       default: 'label',
-      type: [String, Function],
+      type: [String, Symbol, Function],
     },
     valueBy: {
       default: 'value',
-      type: [String, Function],
+      type: [String, Symbol, Function],
     },
     disabledBy: {
       default: 'disabled',
-      type: [String, Function],
+      type: [String, Symbol, Function],
     },
     groupBy: {
       default: 'group',
-      type: [String, Function],
+      type: [String, Symbol, Function],
     },
     // TODO: default to `undefined` in next major version
     visibleOptions: {

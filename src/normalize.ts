@@ -6,6 +6,8 @@ const createComputedForGetterFunction = maybePathFunc =>
       ? maybePathFunc.value
       : typeof maybePathFunc.value === 'string'
       ? option => maybePathFunc.value.split('.').reduce((value, key) => value[key], option)
+      : typeof maybePathFunc.value === 'symbol'
+      ? option => option[maybePathFunc.value]
       : option => option
   })
 

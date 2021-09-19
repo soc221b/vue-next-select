@@ -65,7 +65,7 @@
 
 ### label-by
 
-- **Type**: `string | (option => string)`
+- **Type**: `string | symbol | (option => string)`
 
 - **Default**: `"label"`
 
@@ -81,7 +81,7 @@
 
 ### value-by
 
-- **Type**: `string | (option => string)`
+- **Type**: `string | symbol | (option => string)`
 
 - **Default**: `"value"`
 
@@ -91,7 +91,7 @@
 
 ### disabled-by
 
-- **Type**: `string | (option => boolean)`
+- **Type**: `string | symbol | (option => boolean)`
 
 - **Default**: `'disabled'`
 
@@ -101,7 +101,7 @@
 
 ### group-by
 
-- **Type**: `string | (option => boolean)`
+- **Type**: `string | symbol | (option => boolean)`
 
 - **Default**: `'group'`
 
