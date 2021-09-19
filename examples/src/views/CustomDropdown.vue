@@ -21,7 +21,7 @@ import VueSelect from 'vue-next-select'
 export default defineComponent({
   components: { VueSelect },
   setup() {
-    const country = ref(null)
+    const country = ref(undefined)
 
     const countryOptions = ref([
       {

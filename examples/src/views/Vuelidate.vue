@@ -1,4 +1,6 @@
 <template>
+  <pre>modelValue: {{ JSON.stringify(pet) }}</pre>
+
   <form @submit.prevent="handleSubmit">
     <label for="v-pet-select">Choose a pet:</label>
     <vue-select v-model="pet" :options="pets" />
@@ -17,7 +19,7 @@ import { required } from '@vuelidate/validators'
 export default defineComponent({
   components: { VueSelect },
   setup() {
-    const pet = ref(null)
+    const pet = ref(undefined)
 
     const pets = ref(['Dog', 'Cat', 'Parrot', 'Goldfish'])
 

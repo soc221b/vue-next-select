@@ -19,7 +19,7 @@
 
 - **Type**: `EmptyModelValueType = any`
 
-- **Default**: `null`
+- **Default**: `undefined`
 
 - **Details**:
 

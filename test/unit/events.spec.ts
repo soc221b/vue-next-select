@@ -5,7 +5,7 @@ import { clickFirstDropdownItemElement } from '../dom-utils'
 
 it('should emit select event with option', async () => {
   const state = reactive({
-    model: null,
+    model: undefined,
     options: [0, 1, 2],
   })
   const handleSelect = jest.fn()
@@ -65,7 +65,7 @@ it('should emit remove event with option', async () => {
 
 it('should emit open event', async () => {
   const state = reactive({
-    model: null,
+    model: undefined,
     options: [0, 1, 2],
   })
   const handleOpen = jest.fn()
@@ -94,7 +94,7 @@ it('should emit open event', async () => {
 
 it('should emit close event', async () => {
   const state = reactive({
-    model: null,
+    model: undefined,
     options: [0, 1, 2],
   })
   const handleClose = jest.fn()

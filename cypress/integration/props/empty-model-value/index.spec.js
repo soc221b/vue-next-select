@@ -2,12 +2,20 @@
 import path from 'path'
 
 context('empty-model-value', () => {
-  it('should use null as default empty-model-value', () => {
+  it('should use undefined as default empty-model-value', () => {
     cy.visit(path.join(__dirname, 'default.html'))
     cy.get('.vue-select').click()
 
     cy.get('.vue-dropdown-item.selected').click()
-    cy.get('#modelValue').should('have.text', 'null')
+    cy.get('#modelValue').should('have.text', '<undefined>')
+  })
+
+  it('can use null as empty-model-value', () => {
+    cy.visit(path.join(__dirname, 'null.html'))
+    cy.get('.vue-select').click()
+
+    cy.get('.vue-dropdown-item.selected').click()
+    cy.get('#modelValue').should('have.text', '<null>')
   })
 
   it('should use empty string as empty-model-value', () => {

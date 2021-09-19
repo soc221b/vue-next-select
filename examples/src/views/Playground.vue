@@ -158,7 +158,7 @@ import VueSelect from 'vue-next-select'
 export default defineComponent({
   components: { VueSelect },
   setup() {
-    const model = ref<null | string | string[]>(null)
+    const model = ref<undefined | string | string[]>(undefined)
 
     const options = [
       { language: 'JavaScript', framework: ['Express', 'Koa'], disabled: Math.random() > 0.8 },
@@ -169,7 +169,7 @@ export default defineComponent({
     // TODO: options
     // TODO: visible-options
 
-    const emptyModelValue = ref(null)
+    const emptyModelValue = ref(undefined)
 
     const disabled = ref(false)
 

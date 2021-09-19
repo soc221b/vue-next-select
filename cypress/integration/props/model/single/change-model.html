@@ -19,12 +19,12 @@
       const app = createApp({
         name: 'app',
         setup() {
-          const model = ref(null)
+          const model = ref(undefined)
           const options = ref(['i', 'love', 'vue'])
           const changeModelValue = () => {
             const index = options.value.findIndex(option => option === model.value)
             if (index === -1) model.value = options.value[0]
-            else if (index === options.value.length - 1) model.value = null
+            else if (index === options.value.length - 1) model.value = undefined
             else model.value = options.value[index + 1]
           }
 

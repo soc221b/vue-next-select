@@ -19,7 +19,7 @@
       const app = createApp({
         name: 'app',
         setup() {
-          const selectedOptions = ref(null)
+          const selectedOptions = ref(undefined)
           const options = ref(['Rails', 'Sinatra', 'Laravel', 'Phoenix'])
           const isSubmitted = ref(false)
           const handleSubmit = () => (isSubmitted.value = true)

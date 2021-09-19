@@ -28,7 +28,7 @@
           }
         },
         template: `
-        <div id="modelValue">{{ JSON.stringify(model) }}</div>
+        <div id="modelValue">{{ model === undefined ? '<undefined>' : model }}</div>
         <vue-select
           v-model="model"
           :options="options"

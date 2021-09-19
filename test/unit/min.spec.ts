@@ -10,7 +10,7 @@ import {
 
 it('should allow empty by default', async () => {
   const state = reactive({
-    model: null,
+    model: undefined,
     options: [0, 1, 2],
   })
   const app = {
@@ -36,12 +36,12 @@ it('should allow empty by default', async () => {
   expect(state.model).toStrictEqual(0)
 
   await clickFirstDropdownItemElement(wrapper)
-  expect(state.model).toStrictEqual(null)
+  expect(state.model).toStrictEqual(undefined)
 })
 
 it('should works with min', async () => {
   const state = reactive({
-    model: null,
+    model: undefined,
     options: [0, 1, 2],
   })
   const app = {

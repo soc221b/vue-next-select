@@ -11,7 +11,7 @@ import VueSelect from 'vue-next-select'
 export default defineComponent({
   components: { VueSelect },
   setup() {
-    const techStack = ref(null)
+    const techStack = ref(undefined)
 
     const options = [
       { language: 'JavaScript', framework: 'Express' },

@@ -20,7 +20,7 @@
       const app = createApp({
         name: 'app',
         setup() {
-          const selectedOptions = ref(null)
+          const selectedOptions = ref(undefined)
           const options = ref(['i', 'love', 'vue'])
           const handle = () => {
             window.dispatchEvent(new Event('removed-custom-event'))

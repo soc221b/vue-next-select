@@ -19,41 +19,20 @@
       const app = createApp({
         name: 'app',
         setup() {
-          const model = ref(undefined)
-          const options = ref([
-            {
-              label: 'Multiple',
-              value: 'multiple',
-            },
-            {
-              label: 'Taggable',
-              value: 'taggable',
-            },
-            {
-              label: 'Searchable',
-              value: 'searchable',
-            },
-          ])
-          const changeModelValue = () => {
-            const index = options.value.findIndex(option => option.value === model.value)
-            if (index === -1) model.value = options.value[0].value
-            else if (index === options.value.length - 1) model.value = undefined
-            else model.value = options.value[index + 1].value
-          }
+          const model = ref('i')
+          const options = ref(['i', 'love', 'vue'])
 
           return {
             model,
             options,
-            changeModelValue,
           }
         },
         template: `
-        <button id="previous-button" @click="changeModelValue">Change</button>
+        <div id="modelValue">{{ model === null ? '<null>' : model }}</div>
         <vue-select
           v-model="model"
           :options="options"
-          value-by="value"
-          label-by="label"
+          :empty-model-value="null"
         ></vue-select>
         `,
       })

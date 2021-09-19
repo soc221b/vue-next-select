@@ -159,8 +159,6 @@ const VueSelect = defineComponent({
     modelValue: {
       required: true,
     },
-    // TODO: default to `undefined` in next major version
-    // https://github.com/vuejs/vue-next/issues/3744
     emptyModelValue: {},
 
     // options
@@ -296,7 +294,7 @@ const VueSelect = defineComponent({
   ],
   setup(props, context) {
     const normalized = normalize(props)
-    const normalizedEmptyModelValue = computed(() => props.emptyModelValue ?? null)
+    const normalizedEmptyModelValue = computed(() => props.emptyModelValue)
 
     const instance = getCurrentInstance()
     const wrapper = ref()

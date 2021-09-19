@@ -5,7 +5,7 @@ import { getDropdownElement, clickFirstDeleteIconElement } from './dom-utils'
 
 it('should open dropdown after click wrapper', async () => {
   const state = reactive({
-    model: null,
+    model: undefined,
     options: [0, 1, 2],
   })
   const app = {
