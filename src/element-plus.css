@@ -32,6 +32,10 @@
   border-color: #409eff;
 }
 
+.vue-select[aria-expanded='false'] .vue-dropdown {
+  display: none;
+}
+
 .vue-select .vue-select-header .vue-input input {
   width: calc(100% - 45px);
   min-height: 38px;
