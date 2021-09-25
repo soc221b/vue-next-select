@@ -84,8 +84,8 @@
       </div>
 
       <div>
-        <label for="clearOnSelect">Clear on select:</label>
-        <input :disabled="searchable === false" id="clearOnSelect" v-model="clearOnSelect" type="checkbox" />
+        <label for="clearOnChange">Clear on change:</label>
+        <input :disabled="searchable === false" id="clearOnChange" v-model="clearOnChange" type="checkbox" />
       </div>
     </div>
 
@@ -129,7 +129,7 @@
         :searchable="searchable"
         :search-placeholder="searchPlaceholder"
         :clear-on-close="clearOnClose"
-        :clear-on-select="clearOnSelect"
+        :clear-on-change="clearOnChange"
         @update:modelValue="payload => handleEvent('update:modelValue', payload)"
         @selected="payload => handleEvent('selected', payload)"
         @removed="payload => handleEvent('removed', payload)"
@@ -244,9 +244,9 @@ export default defineComponent({
       clearOnClose.value = searchable.value ? clearOnClose.value : false
     })
 
-    const clearOnSelect = ref(false)
+    const clearOnChange = ref(false)
     watchEffect(() => {
-      clearOnSelect.value = searchable.value ? clearOnSelect.value : false
+      clearOnChange.value = searchable.value ? clearOnChange.value : false
     })
 
     const min = ref<number>(0)
@@ -322,7 +322,7 @@ export default defineComponent({
       searchable,
       searchPlaceholder,
       clearOnClose,
-      clearOnSelect,
+      clearOnChange,
 
       events,
       autoClearEvents,

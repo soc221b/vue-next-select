@@ -211,7 +211,7 @@ const VueSelect = defineComponent({
       default: 'Type to search',
       type: String,
     },
-    clearOnSelect: {
+    clearOnChange: {
       default: false,
       type: Boolean,
     },
@@ -448,7 +448,7 @@ const VueSelect = defineComponent({
       syncToModelValue()
 
       if (props.closeOnChange === true) isFocusing.value = false
-      if (props.clearOnSelect === true && searchingInputValue.value) clearInput()
+      if (props.clearOnChange === true && searchingInputValue.value) clearInput()
     }
     const addOrRemoveOptionForGroupOption = (event, option) => {
       option = option.originalOption

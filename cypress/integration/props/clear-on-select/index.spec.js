@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import path from 'path'
 
-context('clear on select', () => {
+context('clear on change', () => {
   it('should open dropdown', () => {
     cy.visit(path.join(__dirname, 'index.html'))
     cy.get('.vue-select').click()

@@ -6,7 +6,7 @@
     :options="languages"
     multiple
     searchable
-    clear-on-select
+    clear-on-change
     clear-on-close
     @search:input="handleInput"
     search-placeholder="Type to add more"

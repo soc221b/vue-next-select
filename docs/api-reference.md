@@ -146,7 +146,7 @@
 
   Whether to clear search text after collapsing dropdown.
 
-### clear-on-select
+### clear-on-change
 
 - **Type**: `boolean`
 
@@ -154,7 +154,7 @@
 
 - **Details**:
 
-  Whether to clear search text after selected/removed.
+  Whether to clear search text after change.
 
 ### multiple
 
