@@ -254,6 +254,12 @@ New in `v2.5.0+`
 
   - `{(OptionType | EmptyModelValueType) | (OptionType | EmptyModelValueType)[]}` modelValue
 
+### change
+
+- **Arguments**:
+
+  - `{(OptionType | EmptyModelValueType) | (OptionType | EmptyModelValueType)[]}` modelValue
+
 ### selected
 
 - **Arguments**:

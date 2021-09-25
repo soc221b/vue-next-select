@@ -278,6 +278,7 @@ const VueSelect = defineComponent({
     'selected',
     'removed',
     'update:modelValue',
+    'change',
 
     'focus',
     'blur',
@@ -503,12 +504,15 @@ const VueSelect = defineComponent({
     const syncToModelValue = () => {
       if (isSynchronoused()) return
       const selectedValues = normalizedModelValue.value.map(option => normalized.valueBy(option))
+      let emitValue
       if (props.multiple) {
-        context.emit('update:modelValue', selectedValues)
+        emitValue = selectedValues
       } else {
-        if (selectedValues.length) context.emit('update:modelValue', selectedValues[0])
-        else context.emit('update:modelValue', normalizedEmptyModelValue.value)
+        if (selectedValues.length) emitValue = selectedValues[0]
+        else emitValue = normalizedEmptyModelValue.value
       }
+      context.emit('update:modelValue', emitValue)
+      context.emit('change', emitValue)
     }
 
     const clearInput = () => {
