@@ -128,9 +128,6 @@ it('should limit by given min length', async () => {
 
   await clickAllDropdownItemElements(wrapper)
   expect(state.model).toStrictEqual([2])
-
-  await clickAllDropdownItemElements(wrapper)
-  expect(state.model).toStrictEqual([0, 1])
 })
 
 it('should limit when init with smaller length', async () => {

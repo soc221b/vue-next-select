@@ -540,13 +540,17 @@ const VueSelect = defineComponent({
         ;(optionWithInfo as any).selected = optionWithInfo.group
           ? option.value.every(value => selectedValueSet.value.has(value))
           : selectedValueSet.value.has(normalized.valueBy(option))
-        ;(optionWithInfo as any).disabled = optionWithInfo.group
-          ? normalized.disabledBy(option) ||
-            option.value.every(value => {
-              const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
-              return normalized.disabledBy(option)
-            })
-          : normalized.disabledBy(option)
+        ;(optionWithInfo as any).disabled =
+          (optionWithInfo.group
+            ? normalized.disabledBy(option) ||
+              option.value.every(value => {
+                const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
+                return normalized.disabledBy(option)
+              })
+            : normalized.disabledBy(option)) ||
+          (props.multiple &&
+            ((selectedValueSet.value.size <= normalized.min && (optionWithInfo as any).selected) ||
+              (selectedValueSet.value.size >= normalized.max && (optionWithInfo as any).selected === false)))
         ;(optionWithInfo as any).visible = optionWithInfo.group
           ? option.value.some(value => visibleValueSet.has(value))
           : visibleValueSet.has(normalized.valueBy(option))
