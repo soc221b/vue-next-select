@@ -36,13 +36,16 @@
   display: none;
 }
 
+.vue-select .vue-select-header .vue-input {
+  padding-left: 15px;
+  padding-right: 30px;
+}
+
 .vue-select .vue-select-header .vue-input input {
   width: calc(100% - 45px);
   min-height: 38px;
   border: none;
   outline: none;
-  padding-left: 15px;
-  padding-right: 30px;
   border-radius: 4px;
 }
 
