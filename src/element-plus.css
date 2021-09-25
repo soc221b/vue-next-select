@@ -57,6 +57,7 @@
   background: #fff;
   border: 1px solid #e4e7ed;
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  margin: 10px 0;
 }
 
 .vue-select.direction-top .vue-dropdown {
