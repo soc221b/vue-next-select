@@ -212,7 +212,7 @@
 
   Whether to Hide already selected options in the dropdown.
 
-### close-on-select
+### close-on-change
 
 - **Type**: `boolean`
 
@@ -220,7 +220,7 @@
 
 - **Details**:
 
-  Whether to collapse dropdown after selected/removed.
+  Whether to collapse dropdown after change.
 
 ### maxHeight
 

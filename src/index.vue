@@ -243,7 +243,7 @@ const VueSelect = defineComponent({
       default: false,
       type: Boolean,
     },
-    closeOnSelect: {
+    closeOnChange: {
       default: false,
       type: Boolean,
     },
@@ -447,7 +447,7 @@ const VueSelect = defineComponent({
 
       syncToModelValue()
 
-      if (props.closeOnSelect === true) isFocusing.value = false
+      if (props.closeOnChange === true) isFocusing.value = false
       if (props.clearOnSelect === true && searchingInputValue.value) clearInput()
     }
     const addOrRemoveOptionForGroupOption = (event, option) => {

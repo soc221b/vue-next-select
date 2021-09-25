@@ -49,8 +49,8 @@
       </div>
 
       <div>
-        <label for="closeOnSelect">Close on select:</label>
-        <input id="closeOnSelect" v-model="closeOnSelect" type="checkbox" />
+        <label for="closeOnChange">Close on change:</label>
+        <input id="closeOnChange" v-model="closeOnChange" type="checkbox" />
       </div>
 
       <div>
@@ -122,7 +122,7 @@
         :collapse-tags="collapseTags"
         :placeholder="placeholder"
         :hide-selected="hideSelected"
-        :close-on-select="closeOnSelect"
+        :close-on-change="closeOnChange"
         :label-by="labelBy"
         :value-by="valueBy"
         :disabled-by="disabledBy"
@@ -183,7 +183,7 @@ export default defineComponent({
     })
 
     const hideSelected = ref(false)
-    const closeOnSelect = ref(false)
+    const closeOnChange = ref(false)
 
     const labelBy = ref<undefined | string>('language')
     watchEffect(() => {
@@ -311,7 +311,7 @@ export default defineComponent({
       disabledBy,
       placeholder,
       hideSelected,
-      closeOnSelect,
+      closeOnChange,
       min,
 
       multiple,
