@@ -163,7 +163,9 @@ export default defineComponent({
     const options = [
       { language: 'JavaScript', framework: ['Express', 'Koa'], disabled: Math.random() > 0.8 },
       { language: 'Python', framework: ['Django', 'Flask'], disabled: Math.random() > 0.8 },
-      { language: 'Others', framework: ['Laravel', 'Rails'], disabled: Math.random() > 0.8 },
+      { language: 'Php', framework: ['Laravel'], disabled: Math.random() > 0.8 },
+      { language: 'Ruby', framework: ['Rails'], disabled: Math.random() > 0.8 },
+      { language: 'Others', framework: ['.net'], disabled: Math.random() > 0.8 },
     ]
 
     // TODO: options
