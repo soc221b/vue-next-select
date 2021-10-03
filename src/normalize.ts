@@ -2,6 +2,8 @@ import { reactive, computed, toRef, watchEffect } from 'vue'
 
 export const defaultLabelBySymbol = Symbol('labelBy')
 export const defaultValueBySymbol = Symbol('valueBy')
+export const defaultPlacement = 'bottom'
+export const defaultTrigger = 'click-to-open'
 
 const createComputedForGetterFunction = maybePathFunc =>
   computed(() => {

@@ -15,7 +15,6 @@ The selecting solution for Vue 3
 - Group
 - Filtering / Remote Searching
 - Asynchronous support
-- No dependencies
 - Aims to follow WAI-ARIA for the `combobox` and `listbox` widget
 
 ## Installation

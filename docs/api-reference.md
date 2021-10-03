@@ -234,17 +234,13 @@ New in `v2.5.0+`
 
   Max height of dropdown.
 
-### openDirection
+### popperOptions
 
-New in `v2.5.0+`
+New in `v3.0.0+`
 
-- **Type**: `'top' | 'bottom'`
+- **Type**: see https://github.com/iendeavor/vue-use-popperjs#options
 
-- **Details**:
-
-  Fixed opening direction.
-
-  If it is not set, it will be automatically calculated based on `maxHeight`.
+- **Default** `{ trigger: 'clicke-to-open', placement: 'bottom' }`
 
 ## Events
 

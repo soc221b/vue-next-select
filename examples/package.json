@@ -8,7 +8,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.0",
+    "vue": "^3.2.19",
     "vue-next-select": "2.10.1",
     "vue-router": "^4.0.6",
     "vuex": "^4.0.0"

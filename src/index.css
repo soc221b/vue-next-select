@@ -259,23 +259,23 @@ input[readonly] {
   display: inline-flex;
 }
 
-.vue-select[aria-expanded='true'].direction-bottom {
+.vue-select[aria-expanded='true'][data-popper-placement='bottom'] {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.vue-select[aria-expanded='true'].direction-top {
+.vue-select[aria-expanded='true'][data-popper-placement='top'] {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-.vue-select.direction-top .vue-dropdown {
+.vue-dropdown[data-popper-placement='top'] {
   bottom: 100%;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
 
-.vue-select.direction-bottom .vue-dropdown {
+.vue-dropdown[data-popper-placement='bottom'] {
   top: 100%;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;

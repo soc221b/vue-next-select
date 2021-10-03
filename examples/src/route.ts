@@ -12,6 +12,7 @@ const viewNames = [
   'custom-empty-model-value',
   'vuex',
   'vuelidate',
+  'popper',
   'playground',
 ]
 

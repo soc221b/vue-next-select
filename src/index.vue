@@ -2,7 +2,6 @@
   <div
     ref="wrapper"
     class="vue-select"
-    :class="[`direction-${direction}`]"
     :tabindex="isFocusing ? -1 : tabindex"
     @focus="focus"
     @blur="e => (searchable ? false : blur(e))"
@@ -25,6 +24,7 @@
     "
     :aria-busy="loading"
     :aria-disabled="disabled"
+    :data-popper-placement="computedPlacement"
   >
     <div ref="header" class="vue-select-header">
       <template
@@ -138,11 +138,13 @@
 
 <script lang="ts">
 import { ref, computed, watch, provide, getCurrentInstance, nextTick, defineComponent, PropType } from 'vue'
+import { usePopperjs } from 'vue-use-popperjs'
+import { useEventListener } from '@vueuse/core'
 import VInput from './components/input.vue'
 import VTags from './components/tags.vue'
 import VDropdown from './components/dropdown.vue'
 import { addOption, removeOption, getOptionByValue, hasOption } from './crud'
-import normalize, { defaultLabelBySymbol, defaultValueBySymbol } from './normalize'
+import normalize, { defaultLabelBySymbol, defaultValueBySymbol, defaultPlacement, defaultTrigger } from './normalize'
 import { usePointer } from './hooks'
 import { version } from '../package.json'
 
@@ -263,15 +265,13 @@ const VueSelect = defineComponent({
       default: false,
       type: Boolean,
     },
+
     maxHeight: {
       default: 300,
       type: Number,
     },
-    openDirection: {
-      type: String as PropType<'top' | 'bottom'>,
-      validator: (value: string) => {
-        return ['top', 'bottom'].includes(value)
-      },
+    popperOptions: {
+      type: Object as PropType<Required<Parameters<typeof usePopperjs>>['2']>,
     },
   },
   emits: [
@@ -719,22 +719,31 @@ const VueSelect = defineComponent({
       return selected[0] || normalizedEmptyModelValue.value
     })
 
-    const direction = ref()
-    watch(
-      () => [props.openDirection, isFocusing.value],
-      () => {
-        direction.value = props.openDirection ?? calcPreferredDirection() ?? 'bottom'
-      },
-      { immediate: true },
-    )
-    function calcPreferredDirection() {
-      if (wrapper.value === undefined) return
-      if (window === undefined) return
-
-      const spaceBelow = window.innerHeight - wrapper.value.getBoundingClientRect().bottom
-      const hasEnoughSpaceBelow = spaceBelow >= props.maxHeight
-      return hasEnoughSpaceBelow ? 'bottom' : 'top'
+    const computedPlacement = ref<Required<Parameters<typeof usePopperjs>>['2']['placement']>()
+    const computePlacement = () => {
+      setTimeout(() => {
+        computedPlacement.value = dropdown.value.$el.dataset.popperPlacement
+      })
     }
+    useEventListener('scroll', computePlacement)
+    useEventListener('resize', computePlacement)
+    const { visible: popperVisible } = usePopperjs(wrapper, dropdown, {
+      placement: defaultPlacement,
+      trigger: defaultTrigger,
+      ...props.popperOptions,
+      onShow: () => {
+        focus()
+        computePlacement()
+        props.popperOptions?.onShow?.()
+      },
+      onHide: () => {
+        blur()
+      },
+    })
+    watch(
+      () => [isFocusing.value],
+      () => (popperVisible.value = isFocusing.value),
+    )
 
     return {
       instance,
@@ -769,7 +778,8 @@ const VueSelect = defineComponent({
       typeAhead,
       pointerSet,
 
-      direction,
+      popperVisible,
+      computedPlacement,
     }
   },
   components: {
