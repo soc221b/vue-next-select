@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-alpha.4](https://github.com/iendeavor/vue-next-select/compare/v2.10.1...v3.0.0-alpha.4) (2021-10-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove `open-direction` prop, use popperOptions.placement instead
+* remove `direction-*` classes, use `data-popper-placement=*` instead
+* clearOnSelected is renamed as clearOnChange
+* closeOnSelected is renamed as closeOnChange
+* options is currently disabled when out of range
+* change default value of value-by from `undefined` to `"value"`
+* change default value of label-by prop from `undefined` to `"label"`
+* remove `opened` and `closed` events, use `focus` and `blur` events instead
+* change default value of emptyModelValue prop from `undefined` to `null`
+
+### Features
+
+* add change event ([dfe5e9d](https://github.com/iendeavor/vue-next-select/commit/dfe5e9d9cf9c4cd1ddb80377f7aa92a67edf4169))
+* allow symbol prop for label-by, value-by, disabled-by, group-by ([7158177](https://github.com/iendeavor/vue-next-select/commit/715817730a0ed881c013fd3c458a3ba0e15aa7b8))
+* change default value of emptyModelValue to `undefined` ([0155b99](https://github.com/iendeavor/vue-next-select/commit/0155b994b4c186145053a804460cba271f01b9a6))
+* change default value of label-by to `"label"` ([19e83ae](https://github.com/iendeavor/vue-next-select/commit/19e83ae0bee0af5a366ee30e87e84ae104e62656))
+* change default value of value-by to `"value"` ([06c9cbd](https://github.com/iendeavor/vue-next-select/commit/06c9cbd5ea1a96acc07d2d6a4b71b1e9c3adc5ca))
+* change default value of visibleOptions to `undefined` ([ec70ab1](https://github.com/iendeavor/vue-next-select/commit/ec70ab1231a23a67f9f5668d651ee972b1ae5556))
+* disable options when out of range ([dad9b0c](https://github.com/iendeavor/vue-next-select/commit/dad9b0cb27cf6aa16ac51d05e5c343c818031311))
+* remove `opened` and `closed` events ([ef9b863](https://github.com/iendeavor/vue-next-select/commit/ef9b8638df27027e6f403227f0d05774f4c844ff))
+* rename clearOnSelected as clearOnChange ([180cd18](https://github.com/iendeavor/vue-next-select/commit/180cd183c85e728918813d5ecf4767f070418426))
+* rename closeOnSelected as closeOnChange ([cb6ee2a](https://github.com/iendeavor/vue-next-select/commit/cb6ee2ae93f86776f9a1ed0487cf06eaf25859a5))
+* use popperjs ([84800c2](https://github.com/iendeavor/vue-next-select/commit/84800c2b33491f1e19790c8ca2d638061a48bd5b))
+
+
+### Bug Fixes
+
+* backward capability ([fb4d0d1](https://github.com/iendeavor/vue-next-select/commit/fb4d0d14d97e01f4c998120ff436adf1ebe081f6))
+
 ### [2.10.1](https://github.com/iendeavor/vue-next-select/compare/v2.10.0...v2.10.1) (2021-08-31)
 
 
