@@ -184,10 +184,8 @@ const VueSelect = defineComponent({
       default: 'group',
       type: [String, Symbol, Function],
     },
-    // TODO: default to `undefined` in next major version
     visibleOptions: {
       type: Array,
-      default: null,
     },
 
     // multiple
