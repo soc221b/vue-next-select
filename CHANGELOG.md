@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.2](https://github.com/iendeavor/vue-next-select/compare/v2.10.1...v2.10.2) (2021-11-17)
+
+
+### Bug Fixes
+
+* if not specified, fallback to non-group options ([45d1afd](https://github.com/iendeavor/vue-next-select/commit/45d1afd9b4b9eec162ddffcb2220b641535a61f3)), closes [#347](https://github.com/iendeavor/vue-next-select/issues/347)
+
 ### [2.10.1](https://github.com/iendeavor/vue-next-select/compare/v2.10.0...v2.10.1) (2021-08-31)
 
 
