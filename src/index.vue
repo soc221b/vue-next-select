@@ -538,7 +538,7 @@ const VueSelect = defineComponent({
           label: normalized.labelBy(option),
           // selected: selectedValueSet.value.has(normalized.valueBy(option)),
           // disabled: normalized.disabledBy(option),
-          group: normalized.groupBy(option),
+          group: normalized.groupBy(option) ?? false,
           // visible: visibleValueSet.has(normalized.valueBy(option)),
           // hidden: props.hideSelected ? selectedValueSet.value.has(normalized.valueBy(option)) : false,
           originalIndex: index,
