@@ -79,6 +79,11 @@
       </div>
 
       <div>
+        <label for="maxlength">Maxlength:</label>
+        <input for="maxlength" v-model="maxlength" type="number" />
+      </div>
+
+      <div>
         <label for="clearOnClose">Clear on close:</label>
         <input :disabled="searchable === false" id="clearOnClose" v-model="clearOnClose" type="checkbox" />
       </div>
@@ -128,6 +133,7 @@
         :disabled-by="disabledBy"
         :searchable="searchable"
         :search-placeholder="searchPlaceholder"
+        :maxlength="maxlength"
         :clear-on-close="clearOnClose"
         :clear-on-select="clearOnSelect"
         @update:modelValue="payload => handleEvent('update:modelValue', payload)"
@@ -249,6 +255,11 @@ export default defineComponent({
       clearOnSelect.value = searchable.value ? clearOnSelect.value : false
     })
 
+    const maxlength = ref(null)
+    watchEffect(() => {
+      maxlength.value = maxlength.value ? parseInt(maxlength.value + '', 10) : null
+    })
+
     const min = ref<number>(0)
     watchEffect(() => {
       min.value = parseInt(min.value + '', 10)
@@ -323,6 +334,7 @@ export default defineComponent({
       searchPlaceholder,
       clearOnClose,
       clearOnSelect,
+      maxlength,
 
       events,
       autoClearEvents,

@@ -4,6 +4,7 @@
     <input
       ref="input"
       :autocomplete="autocomplete"
+      :maxlength="maxlength"
       :modelValue="modelValue"
       :placeholder="placeholder"
       :disabled="disabled"
@@ -32,6 +33,10 @@ export default {
     autocomplete: {
       required: false,
       type: String,
+    },
+    maxlength: {
+      required: false,
+      type: Number,
     },
     modelValue: {
       required: true,

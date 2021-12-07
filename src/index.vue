@@ -64,6 +64,7 @@
           :disabled="disabled"
           :autocomplete="autocomplete"
           :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
+          :maxlength="maxlength"
           @input="handleInputForInput"
           @change="handleChangeForInput"
           @focus="handleFocusForInput"
@@ -97,6 +98,7 @@
         v-model="searchingInputValue"
         :disabled="disabled"
         :autocomplete="autocomplete"
+        :maxlength="maxlength"
         :placeholder="isFocusing ? searchPlaceholder : innerPlaceholder"
         @input="handleInputForInput"
         @change="handleChangeForInput"
@@ -236,6 +238,10 @@ const VueSelect = defineComponent({
     autocomplete: {
       default: 'off',
       type: String,
+    },
+    maxlength: {
+      default: null,
+      type: Number,
     },
     disabled: {
       default: false,
