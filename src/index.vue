@@ -26,7 +26,7 @@
     :aria-busy="loading"
     :aria-disabled="disabled"
   >
-    <div ref="header" class="vue-select-header">
+    <div class="vue-select-header">
       <template
         v-if="(multiple && taggable && modelValue.length === 0) || (searchable === false && taggable === false)"
       >
