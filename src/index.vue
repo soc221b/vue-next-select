@@ -316,7 +316,7 @@ const VueSelect = defineComponent({
             }
             context.emit('search:focus')
           } else {
-            wrapper.value.focus()
+            wrapper.value?.focus()
           }
         } else {
           if (props.searchable) {
@@ -326,7 +326,7 @@ const VueSelect = defineComponent({
             if (props.clearOnClose) clearInput()
             context.emit('search:blur')
           } else {
-            wrapper.value.blur()
+            wrapper.value?.blur()
           }
           context.emit('closed')
           context.emit('blur')
@@ -339,9 +339,9 @@ const VueSelect = defineComponent({
       isFocusing.value = true
     }
     const blur = (e?) => {
-      if (wrapper.value.contains(e?.relatedTarget)) {
+      if (wrapper.value?.contains(e?.relatedTarget)) {
         setTimeout(() => {
-          wrapper.value.focus()
+          wrapper.value?.focus()
         })
         return
       }
