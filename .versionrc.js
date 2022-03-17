@@ -1,5 +1,5 @@
 module.exports = {
-  "scripts": {
-    "postbump": "yarn build",
-  }
+  scripts: {
+    postbump: 'yarn build',
+  },
 }
