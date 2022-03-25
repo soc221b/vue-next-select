@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.4](https://github.com/iendeavor/vue-next-select/compare/v2.10.3...v2.10.4) (2022-03-25)
+
 ### [2.10.3](https://github.com/iendeavor/vue-next-select/compare/v2.10.2...v2.10.3) (2022-03-17)
 
 
