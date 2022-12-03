@@ -45,3 +45,14 @@ jobs:
         uses: coverallsapp/github-action@v1.1.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: JS-DevTools/npm-publish@v1
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./package.json
+          tag: latest
+          access: public
+          dry-run: false
+          check-version: true
+          greater-version-only: true
