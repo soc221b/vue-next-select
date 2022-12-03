@@ -56,7 +56,7 @@
     "csso": "^4.0.3",
     "cypress": "^6.0.0",
     "cypress-plugin-tab": "^1.0.5",
-    "husky": "5",
+    "husky": "8",
     "jest": "^26",
     "pinst": "^2.1.4",
     "prettier": "^2.0.5",
