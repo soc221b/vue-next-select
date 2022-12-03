@@ -1,5 +1,6 @@
 import { reactive } from 'vue'
 import { mount } from '@vue/test-utils'
+// @ts-ignore
 import VueSelect from '../dist/vue-next-select.es'
 import { getDropdownElement, clickFirstDeleteIconElement } from './dom-utils'
 
