@@ -58,7 +58,7 @@
     "cypress-plugin-tab": "^1.0.5",
     "husky": "8",
     "jest": "^26",
-    "pinst": "^2.1.4",
+    "pinst": "^3.0.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "rollup": "^3.0.0",
