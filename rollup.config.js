@@ -1,15 +1,15 @@
-import rm from 'rimraf'
-import path from 'path'
-import ts from 'rollup-plugin-typescript2'
-import { terser } from 'rollup-plugin-terser'
-import resolve from '@rollup/plugin-node-resolve'
-import globals from 'rollup-plugin-node-globals'
-import vue from 'rollup-plugin-vue'
-import copy from 'rollup-plugin-copy-watch'
-import csso from 'csso'
-import svg from 'rollup-plugin-svg'
-import json from '@rollup/plugin-json'
-import babel from '@rollup/plugin-babel'
+const rm = require('rimraf')
+const path = require('path')
+const ts = require('rollup-plugin-typescript2')
+const { terser } = require('rollup-plugin-terser')
+const resolve = require('@rollup/plugin-node-resolve').default
+const globals = require('rollup-plugin-node-globals')
+const vue = require('rollup-plugin-vue')
+const copy = require('rollup-plugin-copy-watch')
+const csso = require('csso')
+const svg = require('rollup-plugin-svg')
+const json = require('@rollup/plugin-json')
+const babel = require('@rollup/plugin-babel')
 
 rm.sync(path.resolve('dist/**/*'))
 
@@ -85,4 +85,4 @@ configs[configs.length - 1].plugins.push(
   }),
 )
 
-export default configs
+module.exports = configs
