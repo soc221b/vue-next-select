@@ -9,6 +9,7 @@ module.exports = {
   errorOnDeprecated: true,
   verbose: true,
   preset: 'ts-jest',
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
   },
