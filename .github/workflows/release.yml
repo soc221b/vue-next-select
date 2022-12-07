@@ -20,30 +20,25 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Use pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-
       - name: Install
-        run: pnpm install
+        run: yarn
 
       - name: Lint
-        run: pnpm run lint
+        run: yarn run lint
+
+      - name: Build
+        run: yarn run build
 
       - name: Test
         run: |
-          pnpm run test:cypress
-          pnpm run test:jest
-
-      - name: Build
-        run: pnpm run build
+          yarn run test:cypress
+          yarn run test:jest
 
       - name: Release
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          pnpm run release
+          yarn run release
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
