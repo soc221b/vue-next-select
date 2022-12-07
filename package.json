@@ -35,7 +35,7 @@
     "test": "yarn test:jest && yarn test:cypress",
     "test:cypress": "yarn cypress run",
     "test:jest": "jest --clearCache && jest test/**/*",
-    "release": "standard-version",
+    "release": "standard-version --skip.tag",
     "lint": "prettier --check *",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
