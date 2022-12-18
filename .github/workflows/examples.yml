@@ -13,10 +13,10 @@ jobs:
         with:
           ref: main
 
-      - name: Use Node.js 12
+      - name: Use Node.js 14
         uses: actions/setup-node@v3
         with:
-          node-version: 12.x
+          node-version: 14.x
 
       - name: Setup user
         run: |
