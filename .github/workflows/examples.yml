@@ -2,7 +2,7 @@ name: Examples
 
 on:
   push:
-    branches: [develop]
+    branches: [main]
 
 jobs:
   bump:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: develop
+          ref: main
 
       - name: Use Node.js 12
         uses: actions/setup-node@v3
@@ -36,5 +36,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: 'develop'
+          branch: 'main'
           directory: '.'
