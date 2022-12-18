@@ -5,7 +5,8 @@ The selecting solution for Vue 3
 ![MIT License](https://img.shields.io/github/license/iendeavor/vue-next-select?color=%236f41b8)&nbsp;
 ![Release](https://img.shields.io/npm/v/vue-next-select?color=%23414db8&label=release)&nbsp;
 ![Workflow status](https://github.com/iendeavor/vue-next-select/workflows/CI/badge.svg)&nbsp;
-![Bundle size](https://img.shields.io/bundlephobia/minzip/vue-next-select)
+![Bundle size](https://img.shields.io/bundlephobia/minzip/vue-next-select)&nbsp;
+[![donate](https://img.shields.io/badge/sponsor-paypal-orange)](https://www.paypal.com/paypalme/iendeavor/1)
 
 ## Features
 
