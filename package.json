@@ -72,7 +72,7 @@
     "standard-version": "^9.1.0",
     "ts-jest": "^29.0.0",
     "tslib": "^2.0.0",
-    "typescript": "^4",
+    "typescript": "^5.0.0",
     "vue": "^3.2.0"
   },
   "peerDependencies": {
