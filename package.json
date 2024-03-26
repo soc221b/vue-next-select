@@ -52,8 +52,8 @@
     "@rollup/plugin-terser": "^0.1.0",
     "@types/jest": "^29.0.0",
     "@types/node": "^20.11.30",
-    "@vue/compiler-sfc": "^3.2.0",
-    "@vue/test-utils": "^2.0.0-rc",
+    "@vue/compiler-sfc": "^3.4.21",
+    "@vue/test-utils": "^2.4.5",
     "babel-jest": "^29.0.0",
     "csso": "^5.0.0",
     "cypress": "^11.0.0",
@@ -69,14 +69,14 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-typescript2": "^0.34.0",
-    "rollup-plugin-vue": "^6.0.0-beta.9",
+    "rollup-plugin-vue": "^6.0.0",
     "standard-version": "^9.1.0",
     "ts-jest": "^29.0.0",
     "tslib": "^2.0.0",
     "typescript": "^5.0.0",
-    "vue": "^3.2.0"
+    "vue": "^3.4.21"
   },
   "peerDependencies": {
-    "vue": "^3.2.0"
+    "vue": "^3.4.21"
   }
 }
