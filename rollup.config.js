@@ -5,7 +5,7 @@ const terser = require('@rollup/plugin-terser')
 const resolve = require('@rollup/plugin-node-resolve').default
 const globals = require('rollup-plugin-node-globals')
 const vue = require('rollup-plugin-vue')
-const copy = require('rollup-plugin-copy-watch')
+const copy = require('rollup-plugin-copy')
 const csso = require('csso')
 const svg = require('rollup-plugin-svg')
 const json = require('@rollup/plugin-json')
@@ -70,7 +70,6 @@ formats.forEach(format => {
 const isWatchMode = process.env.npm_lifecycle_script.includes('--watch')
 configs[configs.length - 1].plugins.push(
   copy({
-    watch: isWatchMode ? ['src/index.css'] : false,
     copyOnce: isWatchMode === false,
     verbose: true,
     targets: [
@@ -78,7 +77,7 @@ configs[configs.length - 1].plugins.push(
         src: 'src/index.css',
         dest: 'dist',
         rename: (name, extension) => `${name}.min.${extension}`,
-        transform: content => csso.minify(content).css,
+        transform: content => csso.minify(content.toString()).css,
       },
       { src: 'src/index.css', dest: 'dist' },
     ],
