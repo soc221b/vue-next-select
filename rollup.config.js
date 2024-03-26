@@ -1,7 +1,7 @@
 const rm = require('rimraf')
 const path = require('path')
 const ts = require('rollup-plugin-typescript2')
-const { terser } = require('rollup-plugin-terser')
+const terser = require('@rollup/plugin-terser')
 const resolve = require('@rollup/plugin-node-resolve').default
 const globals = require('rollup-plugin-node-globals')
 const vue = require('rollup-plugin-vue')
