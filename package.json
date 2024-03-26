@@ -20,7 +20,7 @@
     "url": "git+https://github.com/iendeavor/vue-next-select.git"
   },
   "license": "MIT",
-  "author": "Ernest <iattempt.net@gmail.com>",
+  "author": "Ernest <iendeavor.github.io@gmail.com>",
   "main": "dist/vue-next-select.cjs.prod.js",
   "umd:main": "dist/vue-next-select.iife.prod.js",
   "unpkg": "dist/vue-next-select.iife.prod.js",
