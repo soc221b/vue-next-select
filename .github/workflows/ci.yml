@@ -78,4 +78,5 @@ jobs:
         with:
           tag_name: ${{ steps.publish.outputs.version }}
           body:
-            'Changelog: https://github.com/iendeavor/vue-next-select/blob/${{ steps.publish.outputs.version }}/CHANGELOG.md'
+            'Changelog: https://github.com/iendeavor/vue-next-select/blob/${{ steps.publish.outputs.version
+            }}/CHANGELOG.md'
