@@ -7,12 +7,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.6.0
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.8.2
         with:
           node-version-file: .nvmrc
+
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 7
 
       - run: pnpm install
 
@@ -22,12 +27,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.6.0
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.8.2
         with:
           node-version-file: .nvmrc
+
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 7
 
       - run: pnpm install
 
@@ -44,7 +54,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: JS-DevTools/npm-publish@v2
+      - uses: JS-DevTools/npm-publish@v2.2.2
         id: publish
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
@@ -57,16 +67,15 @@ jobs:
 
       - name: Tag
         if: github.ref_name == 'main' && steps.publish.outputs.type
-        uses: anothrNick/github-tag-action@v1
+        uses: anothrNick/github-tag-action@1.67.0
         env:
           CUSTOM_TAG: ${{ steps.publish.outputs.version }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
         if: github.ref_name == 'main' && steps.publish.outputs.type
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2.0.4
         with:
           tag_name: ${{ steps.publish.outputs.version }}
           body:
-            'Changelog: https://github.com/iendeavor/vue-next-select/blob/${{ steps.publish.outputs.version
-            }}/CHANGELOG.md'
+            'Changelog: https://github.com/iendeavor/vue-next-select/blob/${{ steps.publish.outputs.version }}/CHANGELOG.md'
