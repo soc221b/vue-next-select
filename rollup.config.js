@@ -67,7 +67,7 @@ formats.forEach(format => {
   })
 })
 
-const isWatchMode = JSON.parse(process.env.npm_config_argv).original.includes('--watch')
+const isWatchMode = process.env.npm_lifecycle_script.includes('--watch')
 configs[configs.length - 1].plugins.push(
   copy({
     watch: isWatchMode ? ['src/index.css'] : false,
