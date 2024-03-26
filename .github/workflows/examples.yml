@@ -27,7 +27,7 @@ jobs:
         run: |
           git init
           cd examples
-          eval $(echo yarn add vue-next-select@$(cat ../package.json | head -3 | sed 1,2d | sed 's/^.*\: "//' | sed 's/",$//'))
+          eval $(echo pnpm add vue-next-select@$(cat ../package.json | head -3 | sed 1,2d | sed 's/^.*\: "//' | sed 's/",$//'))
           git add .
           git commit -m 'chore(bot): bump vue-next-select' || exit 0
           cd ..

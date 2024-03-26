@@ -1,5 +1,5 @@
 module.exports = {
   scripts: {
-    postbump: 'yarn build',
+    postbump: 'pnpm run build',
   },
 }

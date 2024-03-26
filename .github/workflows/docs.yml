@@ -24,8 +24,8 @@ jobs:
       - name: Build docs
         run: |
           cd docs
-          yarn install
-          yarn docs:build
+          pnpm install
+          pnpm run docs:build
           cd .vitepress/dist
           git init
           git add -A

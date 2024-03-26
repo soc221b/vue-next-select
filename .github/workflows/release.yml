@@ -17,24 +17,22 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Install
-        run: yarn
+        run: pnpm install
 
       - name: Lint
-        run: yarn run lint
+        run: pnpm run lint
 
       - name: Build
-        run: yarn run build
+        run: pnpm run build
 
       - name: Test
-        run: |
-          yarn run test:cypress
-          yarn run test:jest
+        run: pnpm run test
 
       - name: Release
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          yarn run release
+          pnpm run release
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5

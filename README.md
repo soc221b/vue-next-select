@@ -10,11 +10,11 @@ Please make sure to read the [contributing guide](./CONTRIBUTING.md) before maki
 
 ```bash
 # build package
-yarn build
+pnpm run build
 
 # run linter
-yarn lint
+pnpm run lint
 
 # run tests
-yarn test
+pnpm run test
 ```

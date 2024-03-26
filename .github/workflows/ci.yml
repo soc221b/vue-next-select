@@ -14,8 +14,9 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - run: yarn install
-      - run: yarn lint
+      - run: pnpm install
+
+      - run: pnpm run lint
 
   build:
     runs-on: ubuntu-latest
@@ -28,12 +29,13 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - run: yarn install
-      - run: yarn build
+      - run: pnpm install
 
-      - run: yarn test:cypress
+      - run: pnpm run build
 
-      - run: yarn test:jest --coverage
+      - run: pnpm run test:cypress
+
+      - run: pnpm run test:jest --coverage
         env:
           CI: true
 

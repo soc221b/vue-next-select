@@ -21,13 +21,8 @@ The selecting solution for Vue 3
 
 ## Installation
 
-### NPM / Yarn
-
 ```shell
-npm install vue-next-select
-
-# or, using yarn
-yarn add vue-next-select
+npm i vue-next-select
 ```
 
 ### CDN
