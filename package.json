@@ -53,7 +53,7 @@
     "@vue/compiler-sfc": "^3.2.0",
     "@vue/test-utils": "^2.0.0-rc",
     "babel-jest": "^29.0.0",
-    "csso": "^4.0.3",
+    "csso": "^5.0.0",
     "cypress": "^11.0.0",
     "cypress-plugin-tab": "^1.0.5",
     "husky": "8",
