@@ -66,7 +66,7 @@ devDependencies:
   rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.4.21
   standard-version: 9.5.0
   ts-jest: 29.1.2_52nbsk2wxdrknczupw2oboe7ty
-  tslib: 2.5.2
+  tslib: 2.6.2
   typescript: 5.0.4
   vue: 3.4.21_typescript@5.0.4
 
@@ -5777,7 +5777,7 @@ packages:
   /rxjs/7.6.0:
     resolution: {integrity: sha512-DDa7d8TFNUalGC9VqXvQ1euWNN7sc63TrUCuM9J998+ViviahMIjKSOU7rfcgFOF+FCD71BhDRv4hrFz+ImDLQ==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.6.2
     dev: true
 
   /safe-buffer/5.1.2:
@@ -6271,10 +6271,6 @@ packages:
       typescript: 5.4.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
-    dev: true
-
-  /tslib/2.5.2:
-    resolution: {integrity: sha512-5svOrSA2w3iGFDs1HibEVBGbDrAY82bFQ3HZ3ixB+88nsbsWQoKqDRb5UBYAUPEzbBn6dAp5gRNXglySbx1MlA==}
     dev: true
 
   /tslib/2.6.2:
