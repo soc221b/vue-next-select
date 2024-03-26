@@ -8,7 +8,7 @@ specifiers:
   '@rollup/plugin-babel': ^6.0.0
   '@rollup/plugin-json': ^6.0.0
   '@rollup/plugin-node-resolve': ^15.0.0
-  '@rollup/plugin-terser': ^0.1.0
+  '@rollup/plugin-terser': ^0.4.0
   '@types/jest': ^29.0.0
   '@types/node': ^20.11.30
   '@vue/compiler-sfc': ^3.4.21
@@ -43,7 +43,7 @@ devDependencies:
   '@rollup/plugin-babel': 6.0.4_h7ppuc3o75tvhmet7cvhzyt3ky
   '@rollup/plugin-json': 6.0.0_rollup@3.22.0
   '@rollup/plugin-node-resolve': 15.0.2_rollup@3.22.0
-  '@rollup/plugin-terser': 0.1.0_rollup@3.22.0
+  '@rollup/plugin-terser': 0.4.4_rollup@3.22.0
   '@types/jest': 29.5.12
   '@types/node': 20.11.30
   '@vue/compiler-sfc': 3.4.21
@@ -1882,16 +1882,18 @@ packages:
       rollup: 3.22.0
     dev: true
 
-  /@rollup/plugin-terser/0.1.0_rollup@3.22.0:
-    resolution: {integrity: sha512-N2KK+qUfHX2hBzVzM41UWGLrEmcjVC37spC8R3c9mt3oEDFKh3N2e12/lLp9aVSt86veR0TQiCNQXrm8C6aiUQ==}
+  /@rollup/plugin-terser/0.4.4_rollup@3.22.0:
+    resolution: {integrity: sha512-XHeJC5Bgvs8LfukDwWZp7yeqin6ns8RTl2B9avbejt6tZqsqvVoWI7ZTQrcNsfKEDWBTnTxM8nMDkO2IFFbd0A==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: ^2.x || ^3.x
+      rollup: ^2.0.0||^3.0.0||^4.0.0
     peerDependenciesMeta:
       rollup:
         optional: true
     dependencies:
       rollup: 3.22.0
+      serialize-javascript: 6.0.2
+      smob: 1.4.1
       terser: 5.29.2
     dev: true
 
@@ -5475,6 +5477,12 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /randombytes/2.1.0:
+    resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
+    dependencies:
+      safe-buffer: 5.2.1
+    dev: true
+
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: true
@@ -5822,6 +5830,12 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
+  /serialize-javascript/6.0.2:
+    resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
+    dependencies:
+      randombytes: 2.1.0
+    dev: true
+
   /shebang-command/2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
@@ -5868,6 +5882,10 @@ packages:
       ansi-styles: 4.3.0
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
+    dev: true
+
+  /smob/1.4.1:
+    resolution: {integrity: sha512-9LK+E7Hv5R9u4g4C3p+jjLstaLe11MDsL21UpYaCNmapvMkYhqCV4A/f/3gyH8QjMyh6l68q9xC85vihY9ahMQ==}
     dev: true
 
   /source-map-js/1.2.0:
