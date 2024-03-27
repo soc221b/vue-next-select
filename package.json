@@ -64,7 +64,7 @@
     "pinst": "^3.0.0",
     "prettier": "^3.0.0",
     "rimraf": "^5.0.0",
-    "rollup": "^3.0.0",
+    "rollup": "^4.0.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-svg": "^2.0.0",
