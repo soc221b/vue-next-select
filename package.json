@@ -58,7 +58,7 @@
     "csso": "^5.0.0",
     "cypress": "^13.0.0",
     "cypress-plugin-tab": "^1.0.5",
-    "husky": "8",
+    "husky": "9",
     "jest": "^29.0.0",
     "jest-environment-jsdom": "^29.3.1",
     "pinst": "^3.0.0",
