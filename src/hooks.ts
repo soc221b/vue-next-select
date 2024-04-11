@@ -32,9 +32,12 @@ export const usePointer = (options: Ref<Option[]>, highlightedOriginalIndex: Ref
   }
 
   const originalIndexToOption = computed(() => {
-    return options.value.reduce((acc, option) => {
-      return Object.assign(acc, { [option.originalIndex]: option })
-    }, {} as Record<number, Option>)
+    return options.value.reduce(
+      (acc, option) => {
+        return Object.assign(acc, { [option.originalIndex]: option })
+      },
+      {} as Record<number, Option>,
+    )
   })
   const pointerSet = (originalIndex: number) => {
     const option = originalIndexToOption.value[originalIndex]

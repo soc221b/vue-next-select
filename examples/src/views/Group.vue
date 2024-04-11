@@ -36,15 +36,18 @@ export default defineComponent({
           name: 'Promise',
           methods: [{ name: 'all' }, { name: 'any' }, { name: 'race' }, { name: 'allSettled' }],
         },
-      ].reduce((flat, constructor) => {
-        return flat
-          .concat({
-            label: constructor.name,
-            value: constructor.methods.map(method => method.name),
-            isConstructor: true,
-          })
-          .concat(constructor.methods.map(method => ({ label: method.name, value: method.name })))
-      }, [] as { label: string; value: string | string[]; isConstructor?: boolean }[]),
+      ].reduce(
+        (flat, constructor) => {
+          return flat
+            .concat({
+              label: constructor.name,
+              value: constructor.methods.map(method => method.name),
+              isConstructor: true,
+            })
+            .concat(constructor.methods.map(method => ({ label: method.name, value: method.name })))
+        },
+        [] as { label: string; value: string | string[]; isConstructor?: boolean }[],
+      ),
     )
 
     return {

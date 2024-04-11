@@ -5,8 +5,8 @@ const createComputedForGetterFunction = maybePathFunc =>
     return typeof maybePathFunc.value === 'function'
       ? maybePathFunc.value
       : typeof maybePathFunc.value === 'string'
-      ? option => maybePathFunc.value.split('.').reduce((value, key) => value[key], option)
-      : option => option
+        ? option => maybePathFunc.value.split('.').reduce((value, key) => value[key], option)
+        : option => option
   })
 
 export default props => {

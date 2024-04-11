@@ -415,8 +415,8 @@ const VueSelect = defineComponent({
       const modelValue: unknown[] = props.multiple
         ? (props.modelValue as unknown[])
         : props.modelValue === normalizedEmptyModelValue.value
-        ? []
-        : [props.modelValue]
+          ? []
+          : [props.modelValue]
       for (const value of modelValue) {
         const option = getOptionByValue(normalized.options, value, { valueBy: normalized.valueBy })
         // guarantee options has modelValue
