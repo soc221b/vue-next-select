@@ -12,7 +12,8 @@
     "@vuelidate/validators": "^2.0.4",
     "vue": "^3.4.21",
     "vue-next-select": "2.10.5",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
