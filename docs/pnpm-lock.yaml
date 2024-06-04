@@ -4,7 +4,7 @@ specifiers:
   vitepress: ^1.0.0
 
 devDependencies:
-  vitepress: 1.2.2
+  vitepress: 1.2.3
 
 packages:
 
@@ -999,8 +999,8 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress/1.2.2:
-    resolution: {integrity: sha512-uZ3nXR5NY4nYj3RJWCo5jev9qlNZAQo5SUXu1U0QSUx84cUm/o7hCTDVjZ4njVSVui+PsV1oAbdQOg8ygbaf4w==}
+  /vitepress/1.2.3:
+    resolution: {integrity: sha512-GvEsrEeNLiDE1+fuwDAYJCYLNZDAna+EtnXlPajhv/MYeTjbNK6Bvyg6NoTdO1sbwuQJ0vuJR99bOlH53bo6lg==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4
