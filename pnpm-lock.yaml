@@ -66,7 +66,7 @@ devDependencies:
   rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.4.27
   standard-version: 9.5.0
   ts-jest: 29.1.2_ojigd5k4douqrb5uptegj2jqn4
-  tslib: 2.6.2
+  tslib: 2.6.3
   typescript: 5.4.5
   vue: 3.4.21_typescript@5.4.5
 
@@ -6073,7 +6073,7 @@ packages:
       fs-extra: 10.1.0
       rollup: 4.18.0
       semver: 7.6.0
-      tslib: 2.6.2
+      tslib: 2.6.3
       typescript: 5.4.5
     dev: true
 
@@ -6138,7 +6138,7 @@ packages:
   /rxjs/7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /safe-buffer/5.1.2:
@@ -6628,8 +6628,8 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /tslib/2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+  /tslib/2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
     dev: true
 
   /tunnel-agent/0.6.0:
