@@ -50,7 +50,7 @@ devDependencies:
   '@vue/test-utils': 2.4.6
   babel-jest: 29.5.0_@babel+core@7.24.9
   csso: 5.0.5
-  cypress: 13.13.0
+  cypress: 13.13.1
   cypress-plugin-tab: 1.0.5
   husky: 9.0.11
   jest: 29.5.0_@types+node@20.14.10
@@ -3292,8 +3292,8 @@ packages:
       ally.js: 1.4.1
     dev: true
 
-  /cypress/13.13.0:
-    resolution: {integrity: sha512-ou/MQUDq4tcDJI2FsPaod2FZpex4kpIK43JJlcBgWrX8WX7R/05ZxGTuxedOuZBfxjZxja+fbijZGyxiLP6CFA==}
+  /cypress/13.13.1:
+    resolution: {integrity: sha512-8F9UjL5MDUdgC/S5hr8CGLHbS5gGht5UOV184qc2pFny43fnkoaKxlzH/U6//zmGu/xRTaKimNfjknLT8+UDFg==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     requiresBuild: true
