@@ -46,7 +46,7 @@ devDependencies:
   '@rollup/plugin-terser': 0.4.4_rollup@4.19.0
   '@types/jest': 29.5.12
   '@types/node': 20.14.12
-  '@vue/compiler-sfc': 3.4.33
+  '@vue/compiler-sfc': 3.4.34
   '@vue/test-utils': 2.4.6
   babel-jest: 29.5.0_@babel+core@7.24.9
   csso: 5.0.5
@@ -63,7 +63,7 @@ devDependencies:
   rollup-plugin-node-globals: 1.4.0
   rollup-plugin-svg: 2.0.0
   rollup-plugin-typescript2: 0.36.0_vz5rylevt5ju2ffrxeoxqownte
-  rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.4.33
+  rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.4.34
   standard-version: 9.5.0
   ts-jest: 29.1.2_44tw7q73p7hznkwbqbbqrym2wi
   tslib: 2.6.3
@@ -2250,11 +2250,11 @@ packages:
       source-map-js: 1.2.0
     dev: true
 
-  /@vue/compiler-core/3.4.33:
-    resolution: {integrity: sha512-MoIREbkdPQlnGfSKDMgzTqzqx5nmEjIc0ydLVYlTACGBsfvOJ4tHSbZXKVF536n6fB+0eZaGEOqsGThPpdvF5A==}
+  /@vue/compiler-core/3.4.34:
+    resolution: {integrity: sha512-Z0izUf32+wAnQewjHu+pQf1yw00EGOmevl1kE+ljjjMe7oEfpQ+BI3/JNK7yMB4IrUsqLDmPecUrpj3mCP+yJQ==}
     dependencies:
       '@babel/parser': 7.24.8
-      '@vue/shared': 3.4.33
+      '@vue/shared': 3.4.34
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.0
@@ -2267,11 +2267,11 @@ packages:
       '@vue/shared': 3.4.21
     dev: true
 
-  /@vue/compiler-dom/3.4.33:
-    resolution: {integrity: sha512-GzB8fxEHKw0gGet5BKlpfXEqoBnzSVWwMnT+dc25wE7pFEfrU/QsvjZMP9rD4iVXHBBoemTct8mN0GJEI6ZX5A==}
+  /@vue/compiler-dom/3.4.34:
+    resolution: {integrity: sha512-3PUOTS1h5cskdOJMExCu2TInXuM0j60DRPpSCJDqOCupCfUZCJoyQmKtRmA8EgDNZ5kcEE7vketamRZfrEuVDw==}
     dependencies:
-      '@vue/compiler-core': 3.4.33
-      '@vue/shared': 3.4.33
+      '@vue/compiler-core': 3.4.34
+      '@vue/shared': 3.4.34
     dev: true
 
   /@vue/compiler-sfc/3.4.21:
@@ -2288,14 +2288,14 @@ packages:
       source-map-js: 1.2.0
     dev: true
 
-  /@vue/compiler-sfc/3.4.33:
-    resolution: {integrity: sha512-7rk7Vbkn21xMwIUpHQR4hCVejwE6nvhBOiDgoBcR03qvGqRKA7dCBSsHZhwhYUsmjlbJ7OtD5UFIyhP6BY+c8A==}
+  /@vue/compiler-sfc/3.4.34:
+    resolution: {integrity: sha512-x6lm0UrM03jjDXTPZgD9Ad8bIVD1ifWNit2EaWQIZB5CULr46+FbLQ5RpK7AXtDHGjx9rmvC7QRCTjsiGkAwRw==}
     dependencies:
       '@babel/parser': 7.24.8
-      '@vue/compiler-core': 3.4.33
-      '@vue/compiler-dom': 3.4.33
-      '@vue/compiler-ssr': 3.4.33
-      '@vue/shared': 3.4.33
+      '@vue/compiler-core': 3.4.34
+      '@vue/compiler-dom': 3.4.34
+      '@vue/compiler-ssr': 3.4.34
+      '@vue/shared': 3.4.34
       estree-walker: 2.0.2
       magic-string: 0.30.10
       postcss: 8.4.39
@@ -2309,11 +2309,11 @@ packages:
       '@vue/shared': 3.4.21
     dev: true
 
-  /@vue/compiler-ssr/3.4.33:
-    resolution: {integrity: sha512-0WveC9Ai+eT/1b6LCV5IfsufBZ0HP7pSSTdDjcuW302tTEgoBw8rHVHKPbGUtzGReUFCRXbv6zQDDgucnV2WzQ==}
+  /@vue/compiler-ssr/3.4.34:
+    resolution: {integrity: sha512-8TDBcLaTrFm5rnF+Qm4BlliaopJgqJ28Nsrc80qazynm5aJO+Emu7y0RWw34L8dNnTRdcVBpWzJxhGYzsoVu4g==}
     dependencies:
-      '@vue/compiler-dom': 3.4.33
-      '@vue/shared': 3.4.33
+      '@vue/compiler-dom': 3.4.34
+      '@vue/shared': 3.4.34
     dev: true
 
   /@vue/reactivity/3.4.21:
@@ -2351,8 +2351,8 @@ packages:
     resolution: {integrity: sha512-PuJe7vDIi6VYSinuEbUIQgMIRZGgM8e4R+G+/dQTk0X1NEdvgvvgv7m+rfmDH1gZzyA1OjjoWskvHlfRNfQf3g==}
     dev: true
 
-  /@vue/shared/3.4.33:
-    resolution: {integrity: sha512-aoRY0jQk3A/cuvdkodTrM4NMfxco8n55eG4H7ML/CRy7OryHfiqvug4xrCBBMbbN+dvXAetDDwZW9DXWWjBntA==}
+  /@vue/shared/3.4.34:
+    resolution: {integrity: sha512-x5LmiRLpRsd9KTjAB8MPKf0CDPMcuItjP0gbNqFCIgL1I8iYp4zglhj9w9FPCdIbHG2M91RVeIbArFfFTz9I3A==}
     dev: true
 
   /@vue/test-utils/2.4.6:
@@ -6144,12 +6144,12 @@ packages:
       typescript: 5.5.4
     dev: true
 
-  /rollup-plugin-vue/6.0.0_@vue+compiler-sfc@3.4.33:
+  /rollup-plugin-vue/6.0.0_@vue+compiler-sfc@3.4.34:
     resolution: {integrity: sha512-oVvUd84d5u73M2HYM3XsMDLtZRIA/tw2U0dmHlXU2UWP5JARYHzh/U9vcxaN/x/9MrepY7VH3pHFeOhrWpxs/Q==}
     peerDependencies:
       '@vue/compiler-sfc': '*'
     dependencies:
-      '@vue/compiler-sfc': 3.4.33
+      '@vue/compiler-sfc': 3.4.34
       debug: 4.3.4
       hash-sum: 2.0.0
       rollup-pluginutils: 2.8.2
