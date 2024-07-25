@@ -52,7 +52,7 @@ devDependencies:
   csso: 5.0.5
   cypress: 13.13.1
   cypress-plugin-tab: 1.0.5
-  husky: 9.1.1
+  husky: 9.1.2
   jest: 29.5.0_@types+node@20.14.12
   jest-environment-jsdom: 29.7.0
   pinst: 3.0.0
@@ -4237,8 +4237,8 @@ packages:
     engines: {node: '>=16.17.0'}
     dev: true
 
-  /husky/9.1.1:
-    resolution: {integrity: sha512-fCqlqLXcBnXa/TJXmT93/A36tJsjdJkibQ1MuIiFyCCYUlpYpIaj2mv1w+3KR6Rzu1IC3slFTje5f6DUp2A2rg==}
+  /husky/9.1.2:
+    resolution: {integrity: sha512-1/aDMXZdhr1VdJJTLt6e7BipM0Jd9qkpubPiIplon1WmCeOy3nnzsCMeBqS9AsL5ioonl8F8y/F2CLOmk19/Pw==}
     engines: {node: '>=18'}
     hasBin: true
     dev: true
