@@ -50,7 +50,7 @@ devDependencies:
   '@vue/test-utils': 2.4.6
   babel-jest: 29.5.0_@babel+core@7.25.2
   csso: 5.0.5
-  cypress: 13.13.2
+  cypress: 13.13.3
   cypress-plugin-tab: 1.0.5
   husky: 9.1.4
   jest: 29.5.0_@types+node@20.14.15
@@ -1501,7 +1501,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       aws-sign2: 0.7.0
-      aws4: 1.13.0
+      aws4: 1.13.1
       caseless: 0.12.0
       combined-stream: 1.0.8
       extend: 3.0.2
@@ -2546,8 +2546,8 @@ packages:
     resolution: {integrity: sha512-08kcGqnYf/YmjoRhfxyu+CLxBjUtHLXLXX/vUfx9l2LYzG3c1m61nrpyFUZI6zeS+Li/wWMMidD9KgrqtGq3mA==}
     dev: true
 
-  /aws4/1.13.0:
-    resolution: {integrity: sha512-3AungXC4I8kKsS9PuS4JH2nc+0bVY/mjgrephHTIi8fpEeGsTHBUJeosp0Wc1myYMElmD0B3Oc4XL/HVJ4PV2g==}
+  /aws4/1.13.1:
+    resolution: {integrity: sha512-u5w79Rd7SU4JaIlA/zFqG+gOiuq25q5VLyZ8E+ijJeILuTxVzZgp2CaGw/UTw6pXYN9XMO9yiqj/nEHmhTG5CA==}
     dev: true
 
   /babel-jest/29.5.0_@babel+core@7.25.2:
@@ -3274,8 +3274,8 @@ packages:
       ally.js: 1.4.1
     dev: true
 
-  /cypress/13.13.2:
-    resolution: {integrity: sha512-PvJQU33933NvS1StfzEb8/mu2kMy4dABwCF+yd5Bi7Qly1HOVf+Bufrygee/tlmty/6j5lX+KIi8j9Q3JUMbhA==}
+  /cypress/13.13.3:
+    resolution: {integrity: sha512-hUxPrdbJXhUOTzuML+y9Av7CKoYznbD83pt8g3klgpioEha0emfx4WNIuVRx0C76r0xV2MIwAW9WYiXfVJYFQw==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     requiresBuild: true
@@ -4113,7 +4113,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.19.1
+      uglify-js: 3.19.2
     dev: true
 
   /hard-rejection/2.1.0:
@@ -6739,8 +6739,8 @@ packages:
     hasBin: true
     dev: true
 
-  /uglify-js/3.19.1:
-    resolution: {integrity: sha512-y/2wiW+ceTYR2TSSptAhfnEtpLaQ4Ups5zrjB2d3kuVxHj16j/QJwPl5PvuGy9uARb39J0+iKxcRPvtpsx4A4A==}
+  /uglify-js/3.19.2:
+    resolution: {integrity: sha512-S8KA6DDI47nQXJSi2ctQ629YzwOVs+bQML6DAtvy0wgNdpi+0ySpQK0g2pxBq2xfF2z3YCscu7NNA8nXT9PlIQ==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
