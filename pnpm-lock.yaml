@@ -50,7 +50,7 @@ devDependencies:
   '@vue/test-utils': 2.4.6
   babel-jest: 29.5.0_@babel+core@7.25.2
   csso: 5.0.5
-  cypress: 13.13.3
+  cypress: 13.14.0
   cypress-plugin-tab: 1.0.5
   husky: 9.1.5
   jest: 29.5.0_@types+node@20.16.1
@@ -2529,8 +2529,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /async/3.2.5:
-    resolution: {integrity: sha512-baNZyqaaLhyLVKm/DlvdW051MSgO6b8eVfIezl9E5PqWxFgzLm/wQntEW4zOytVburDEr0JlALEpdOFwvErLsg==}
+  /async/3.2.6:
+    resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==}
     dev: true
 
   /asynckit/0.4.0:
@@ -3274,8 +3274,8 @@ packages:
       ally.js: 1.4.1
     dev: true
 
-  /cypress/13.13.3:
-    resolution: {integrity: sha512-hUxPrdbJXhUOTzuML+y9Av7CKoYznbD83pt8g3klgpioEha0emfx4WNIuVRx0C76r0xV2MIwAW9WYiXfVJYFQw==}
+  /cypress/13.14.0:
+    resolution: {integrity: sha512-r0+nhd033x883YL6068futewUsl02Q7rWiinyAAIBDW/OOTn+UMILWgNuCiY3vtJjd53efOqq5R9dctQk/rKiw==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     requiresBuild: true
@@ -3295,7 +3295,7 @@ packages:
       cli-table3: 0.6.5
       commander: 6.2.1
       common-tags: 1.8.2
-      dayjs: 1.11.12
+      dayjs: 1.11.13
       debug: 4.3.6_supports-color@8.1.1
       enquirer: 2.4.1
       eventemitter2: 6.4.7
@@ -3354,8 +3354,8 @@ packages:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==}
     dev: true
 
-  /dayjs/1.11.12:
-    resolution: {integrity: sha512-Rt2g+nTbLlDWZTwwrIXjy9MeiZmSDI375FvZs72ngxx8PDC6YXOeR3q5LAuPzjZQxhiWdRKac7RKV+YyQYfYIg==}
+  /dayjs/1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
     dev: true
 
   /debug/3.2.7_supports-color@8.1.1:
@@ -3957,7 +3957,7 @@ packages:
   /getos/3.2.1:
     resolution: {integrity: sha512-U56CfOK17OKgTVqozZjUKNdkfEv6jk5WISBJ8SHoagjE6L69zOwl3Z+O8myjY9MEW3i2HPWQBt/LTbCgcC973Q==}
     dependencies:
-      async: 3.2.5
+      async: 3.2.6
     dev: true
 
   /getpass/0.1.7:
