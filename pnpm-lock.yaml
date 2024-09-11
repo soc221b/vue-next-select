@@ -39,7 +39,7 @@ devDependencies:
   '@babel/core': 7.25.2
   '@babel/preset-env': 7.21.5_@babel+core@7.25.2
   '@commitlint/cli': 19.2.1_7fevqhz6gkqgsvgva3uhczuvcq
-  '@commitlint/config-conventional': 19.4.1
+  '@commitlint/config-conventional': 19.5.0
   '@rollup/plugin-babel': 6.0.4_gikudvhsawgvfuuq3cfj3bxldi
   '@rollup/plugin-json': 6.0.0_rollup@4.21.2
   '@rollup/plugin-node-resolve': 15.0.2_rollup@4.21.2
@@ -1359,11 +1359,11 @@ packages:
       - typescript
     dev: true
 
-  /@commitlint/config-conventional/19.4.1:
-    resolution: {integrity: sha512-D5S5T7ilI5roybWGc8X35OBlRXLAwuTseH1ro0XgqkOWrhZU8yOwBOslrNmSDlTXhXLq8cnfhQyC42qaUCzlXA==}
+  /@commitlint/config-conventional/19.5.0:
+    resolution: {integrity: sha512-OBhdtJyHNPryZKg0fFpZNOBM1ZDbntMvqMuSmpfyP86XSfwzGw4CaoYRG4RutUPg0BTK07VMRIkNJT6wi2zthg==}
     engines: {node: '>=v18'}
     dependencies:
-      '@commitlint/types': 19.0.3
+      '@commitlint/types': 19.5.0
       conventional-changelog-conventionalcommits: 7.0.2
     dev: true
 
@@ -1499,6 +1499,14 @@ packages:
 
   /@commitlint/types/19.0.3:
     resolution: {integrity: sha512-tpyc+7i6bPG9mvaBbtKUeghfyZSDgWquIDfMgqYtTbmZ9Y9VzEm2je9EYcQ0aoz5o7NvGS+rcDec93yO08MHYA==}
+    engines: {node: '>=v18'}
+    dependencies:
+      '@types/conventional-commits-parser': 5.0.0
+      chalk: 5.3.0
+    dev: true
+
+  /@commitlint/types/19.5.0:
+    resolution: {integrity: sha512-DSHae2obMSMkAtTBSOulg5X7/z+rGLxcXQIkg3OmWvY6wifojge5uVMydfhUvs7yQj+V7jNmRZ2Xzl8GJyqRgg==}
     engines: {node: '>=v18'}
     dependencies:
       '@types/conventional-commits-parser': 5.0.0
