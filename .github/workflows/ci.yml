@@ -67,7 +67,7 @@ jobs:
 
       - name: Tag
         if: github.ref_name == 'main' && steps.publish.outputs.type
-        uses: anothrNick/github-tag-action@1.70.0
+        uses: anothrNick/github-tag-action@1.71.0
         env:
           CUSTOM_TAG: ${{ steps.publish.outputs.version }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
