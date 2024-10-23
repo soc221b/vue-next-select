@@ -44,7 +44,7 @@ devDependencies:
   '@rollup/plugin-json': 6.0.0_rollup@4.24.0
   '@rollup/plugin-node-resolve': 15.0.2_rollup@4.24.0
   '@rollup/plugin-terser': 0.4.4_rollup@4.24.0
-  '@types/jest': 29.5.13
+  '@types/jest': 29.5.14
   '@types/node': 20.16.15
   '@vue/compiler-sfc': 3.5.12
   '@vue/test-utils': 2.4.6
@@ -2166,8 +2166,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.3
     dev: true
 
-  /@types/jest/29.5.13:
-    resolution: {integrity: sha512-wd+MVEZCHt23V0/L642O5APvspWply/rGY5BcW4SUETo2UzPU3Z26qr8jC2qxpimI2jjx9h7+2cj2FwIr01bXg==}
+  /@types/jest/29.5.14:
+    resolution: {integrity: sha512-ZN+4sdnLUbo8EVvVc2ao0GFW6oVrQRPn4K2lglySj7APvSrgzxHiNNK99us4WDMi57xxA2yggblIAMNhXOotLQ==}
     dependencies:
       expect: 29.7.0
       pretty-format: 29.7.0
