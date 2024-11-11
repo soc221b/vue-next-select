@@ -74,7 +74,7 @@ jobs:
 
       - name: Release
         if: github.ref_name == 'main' && steps.publish.outputs.type
-        uses: softprops/action-gh-release@v2.0.9
+        uses: softprops/action-gh-release@v2.1.0
         with:
           tag_name: ${{ steps.publish.outputs.version }}
           body:
