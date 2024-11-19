@@ -39,7 +39,7 @@ devDependencies:
   '@babel/core': 7.26.0
   '@babel/preset-env': 7.21.5_@babel+core@7.26.0
   '@commitlint/cli': 19.2.1_s2cirkrwrmzabbmi5bj4qw5p3q
-  '@commitlint/config-conventional': 19.5.0
+  '@commitlint/config-conventional': 19.6.0
   '@rollup/plugin-babel': 6.0.4_kpesxjg6ur2ios2st7zb4t34tq
   '@rollup/plugin-json': 6.0.0_rollup@4.27.3
   '@rollup/plugin-node-resolve': 15.0.2_rollup@4.27.3
@@ -1340,8 +1340,8 @@ packages:
       - typescript
     dev: true
 
-  /@commitlint/config-conventional/19.5.0:
-    resolution: {integrity: sha512-OBhdtJyHNPryZKg0fFpZNOBM1ZDbntMvqMuSmpfyP86XSfwzGw4CaoYRG4RutUPg0BTK07VMRIkNJT6wi2zthg==}
+  /@commitlint/config-conventional/19.6.0:
+    resolution: {integrity: sha512-DJT40iMnTYtBtUfw9ApbsLZFke1zKh6llITVJ+x9mtpHD08gsNXaIRqHTmwTZL3dNX5+WoyK7pCN/5zswvkBCQ==}
     engines: {node: '>=v18'}
     dependencies:
       '@commitlint/types': 19.5.0
