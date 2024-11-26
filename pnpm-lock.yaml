@@ -56,7 +56,7 @@ devDependencies:
   jest: 29.5.0_@types+node@22.9.4
   jest-environment-jsdom: 29.7.0
   pinst: 3.0.0
-  prettier: 3.3.3
+  prettier: 3.4.0
   rimraf: 6.0.1
   rollup: 4.27.4
   rollup-plugin-copy: 3.5.0
@@ -5821,8 +5821,8 @@ packages:
       source-map-js: 1.2.1
     dev: true
 
-  /prettier/3.3.3:
-    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+  /prettier/3.4.0:
+    resolution: {integrity: sha512-/OXNZcLyWkfo13ofOW5M7SLh+k5pnIs07owXK2teFpnfaOEcycnSy7HQxldaVX1ZP/7Q8oO1eDuQJNwbomQq5Q==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
